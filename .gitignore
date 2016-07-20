@@ -1,0 +1,45 @@
+## Directory-based project format:
+out/
+build/
+.idea/
+.gradle/
+local.properties
+
+
+## File-based project format:
+*.ipr
+.iws
+
+*.iml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+
+## Android
+# Built application files
+*.apk
+*.ap_
+
+# Files for the Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+.navigation/
+
+# Graddle wrapper
+gradlew.bat
+gradlew
+
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
+*/logs/*.*
+
