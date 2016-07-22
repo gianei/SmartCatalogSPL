@@ -1,7 +1,7 @@
 package com.glsebastiany.smartcatalogspl.data;
 
-
-public interface ItemModel {
+public interface CategoryModel {
 
     String getId();
+
 }

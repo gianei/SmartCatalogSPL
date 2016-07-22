@@ -4,12 +4,17 @@ package com.glsebastiany.smartcatalogspl.di;
 import android.content.Context;
 
 import com.glsebastiany.smartcatalogspl.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.data.cars.CarItemsItemRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;
+import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoriesRepository;
+import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.FerrariItemUseCases;
+import com.glsebastiany.smartcatalogspl.domain.FoodCategoriesUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presenter.cars.CarDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presenter.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.presenter.foods.FoodDisplayFactory;
 
 import javax.inject.Singleton;
 
@@ -47,7 +52,19 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DisplayFactory provideDisplayFactory(CarDisplayFactory displayFactory){
+    CategoryRepository provideCategoryRepository(FoodCategoriesRepository categoryRepository){
+        return categoryRepository;
+    }
+
+    @Provides
+    @Singleton
+    CategoryUseCases provideCategoryUseCases(FoodCategoriesUseCases categoriyUseCases){
+        return categoriyUseCases;
+    }
+
+    @Provides
+    @Singleton
+    DisplayFactory provideDisplayFactory(FoodDisplayFactory displayFactory){
         return displayFactory;
     }
 

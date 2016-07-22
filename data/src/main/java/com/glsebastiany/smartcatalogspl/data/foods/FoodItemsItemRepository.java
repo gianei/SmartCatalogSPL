@@ -3,6 +3,7 @@ package com.glsebastiany.smartcatalogspl.data.foods;
 
 import android.os.Handler;
 
+import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;
 
@@ -50,10 +51,18 @@ public class FoodItemsItemRepository implements ItemRepository {
 
     private List<ItemModel> getFoods() {
         List<ItemModel> items = new LinkedList<>();
-        items.add(new FoodItemModel("Fetuccini"));
-        items.add(new FoodItemModel("Tagliateri"));
-        items.add(new FoodItemModel("Sauce"));
-        items.add(new FoodItemModel("Peanuts"));
+        items.add(new FoodItemModel("Pasta"));
+        items.add(new FoodItemModel("Toasts"));
+        items.add(new FoodItemModel("Eggs"));
+        items.add(new FoodItemModel("Beer"));
+        items.add(new FoodItemModel("Wine"));
+        items.add(new FoodItemModel("AppleJuice"));
+        items.add(new FoodItemModel("Brigadeiro"));
+        items.add(new FoodItemModel("Fudge"));
+        items.add(new FoodItemModel("JellyBean"));
+        items.add(new FoodItemModel("KitKat"));
+        items.add(new FoodItemModel("Marshmallow"));
+        items.add(new FoodItemModel("Nougat"));
         return items;
     }
 }

@@ -2,6 +2,7 @@ package com.glsebastiany.smartcatalogspl.presenter.cars;
 
 
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
 import com.glsebastiany.smartcatalogspl.presenter.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.presenter.ItemViewHolder;
@@ -18,6 +19,11 @@ public class CarDisplayFactory implements DisplayFactory {
     @Override
     public ItemViewHolder createItemViewHolder(ViewGroup parent) {
         return CarViewHolder.createInstance(parent);
+    }
+
+    @Override
+    public BaseAdapter drawerAdapter() {
+        throw new RuntimeException("Not implemented yet");
     }
 
 
