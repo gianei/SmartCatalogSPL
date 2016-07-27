@@ -12,9 +12,8 @@ import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.FerrariItemUseCases;
 import com.glsebastiany.smartcatalogspl.domain.FoodCategoriesUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.presenter.cars.CarDisplayFactory;
-import com.glsebastiany.smartcatalogspl.presenter.DisplayFactory;
-import com.glsebastiany.smartcatalogspl.presenter.foods.FoodDisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.foods.FoodDisplayFactory;
 
 import javax.inject.Singleton;
 

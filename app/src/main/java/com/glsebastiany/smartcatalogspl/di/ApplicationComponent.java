@@ -8,8 +8,9 @@ import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.ui.ActivityMain;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.presenter.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.ui.gallery.GalleryFragment;
+import com.glsebastiany.smartcatalogspl.ui.gallery.grid.GalleryGridFragment;
 
 import javax.inject.Singleton;
 
@@ -25,6 +26,7 @@ public interface ApplicationComponent {
     void inject(BaseActivity baseActivity);
     void inject(ActivityMain activityMain);
     void inject(GalleryFragment galleryFragment);
+    void inject(GalleryGridFragment galleryGridFragment);
 
     //Exposed to sub-graphs.
     Context context();

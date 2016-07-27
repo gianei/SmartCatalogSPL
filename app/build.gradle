@@ -15,16 +15,11 @@ apt {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "24.0.0"
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
 
-    defaultConfig {
-        applicationId "com.glsebastiany.smartcatalogspl"
-        minSdkVersion 19
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
+    defaultConfig appDefaultConfig
+
     buildTypes {
         release {
             minifyEnabled false
@@ -37,8 +32,8 @@ dependencies androidAnnotations
 dependencies rxAndroid
 dependencies dagger
 dependencies androidSupport
+dependencies jUnit
 dependencies {
-    compile project(':domain')
+    compile project(':presentation')
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
 }

@@ -14,7 +14,7 @@ import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.di.ComponentFragment;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.presenter.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;

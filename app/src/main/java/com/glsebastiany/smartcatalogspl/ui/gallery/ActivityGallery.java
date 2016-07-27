@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.BaseActivity;
 import com.glsebastiany.smartcatalogspl.R;
+import com.glsebastiany.smartcatalogspl.ui.gallery.grid.GalleryGridFragment_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -20,7 +21,7 @@ import java.util.List;
 @EActivity(R.layout.activity_gallery)
 public class ActivityGallery extends BaseActivity {
 
-    private GalleryFragment galleryFragment;
+    private Fragment galleryFragment;
 
     private long lastPress;
     private Toast toast;
@@ -60,7 +61,8 @@ public class ActivityGallery extends BaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        galleryFragment = GalleryFragment_.builder().build();
+        //galleryFragment = GalleryFragment_.builder().build();
+        galleryFragment = GalleryGridFragment_.builder().build();
         fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, GalleryFragment_.TAG);
         fragmentTransaction.commit();
 

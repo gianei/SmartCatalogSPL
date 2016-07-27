@@ -21,6 +21,24 @@ allprojects {
 }
 
 ext {
+
+    androidCompileSdkVersion = 23
+    androidBuildToolsVersion = '24.0.0'
+
+    appDefaultConfig = {
+        applicationId "com.glsebastiany.smartcatalogspl"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 22
+        versionName "2.3.2"
+    }
+
+    librariesDefaultConfig = {
+        minSdkVersion 19
+        targetSdkVersion 23
+    }
+
+
     rxAndroidVersion = '1.2.1'
     rxJavaVersion = '1.1.7'
 
@@ -54,6 +72,10 @@ ext {
         compile "com.android.support:cardview-v7:${androidSupportVersion}"
         compile "com.android.support:palette-v7:${androidSupportVersion}"
         compile "com.android.support:design:${androidSupportVersion}"
+    }
+
+    jUnit = {
+        testCompile 'junit:junit:4.12'
     }
 }
 

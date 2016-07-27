@@ -11,8 +11,8 @@ import com.glsebastiany.smartcatalogspl.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.presenter.DisplayFactory;
-import com.glsebastiany.smartcatalogspl.presenter.ItemViewHolder;
+import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
