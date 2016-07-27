@@ -20,7 +20,7 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EFragment(R.layout.fragment_gallery)
-public class GalleryFragment extends BaseFragment {
+public class FragmentGallery extends BaseFragment {
 
     public static final String TAG = "galleryFragment";
 

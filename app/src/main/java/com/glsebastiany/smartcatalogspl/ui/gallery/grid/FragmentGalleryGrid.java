@@ -14,7 +14,7 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EFragment(R.layout.fragment_gallery_visualization_grid)
-public class GalleryGridFragment extends BaseFragment {
+public class FragmentGalleryGrid extends BaseFragment {
 
     @ViewById(R.id.my_recycler_view)
     RecyclerView recyclerView;
