@@ -15,6 +15,7 @@ import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.LinkedList;
@@ -29,6 +30,9 @@ import rx.functions.Action1;
 
 @EActivity(R.layout.activity_main)
 public class ActivityMain extends BaseActivity {
+
+    @InstanceState
+    boolean fromSavedInstance = false;
 
     @Inject
     ItemUseCases itemUseCases;
@@ -63,6 +67,19 @@ public class ActivityMain extends BaseActivity {
             Log.d("MY OBSERVER", s);
         }
     };
+
+    @Override
+    protected void initializeInjector() {
+        {
+            getApplicationComponent().inject(this);
+
+            if (!fromSavedInstance){
+                getAndroidApplication().createGalleryComponent(itemUseCases.allItems());
+                fromSavedInstance = true;
+            }
+
+        }
+    }
 
 
     public class MyAdapter extends RecyclerView.Adapter<ItemViewHolder> {

@@ -1,6 +1,5 @@
 package com.glsebastiany.smartcatalogspl.ui.gallery;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -9,12 +8,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
-import com.glsebastiany.smartcatalogspl.di.components.FragmentComponent;
-import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 
 import org.androidannotations.annotations.AfterViews;
@@ -28,12 +23,6 @@ import javax.inject.Inject;
 public class GalleryFragment extends BaseFragment {
 
     public static final String TAG = "galleryFragment";
-
-    @Inject
-    CategoryRepository baseCategoryRepository;
-
-    @Inject
-    CategoryUseCases baseCategoryUseCases;
 
     @Inject
     DisplayFactory displayFactory;
@@ -64,6 +53,8 @@ public class GalleryFragment extends BaseFragment {
 
     @AfterViews
     public void afterViews() {
+        getApplicationComponent().inject(this);
+
         setHasOptionsMenu(true);
         setupSlidingTabsAndViewPager();
         setupDrawer();
@@ -112,10 +103,6 @@ public class GalleryFragment extends BaseFragment {
 
     };
 
-    @Override
-    public void inject(FragmentComponent fragmentComponent) {
-        getFragmentComponent().inject(this);
-    }
 
     //categoryItemsViewPagerAdapter.registerDataSetObserver(dataSetObserver);
 

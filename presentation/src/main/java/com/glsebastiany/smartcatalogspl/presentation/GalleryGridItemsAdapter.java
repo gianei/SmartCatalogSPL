@@ -21,6 +21,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+
 public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel>{
     private static final int REGULAR_ITEM_TYPE = 1;
     private static final int PROMOTED_ITEM_TYPE = 2;
@@ -37,7 +39,7 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
     private List<ItemModel> items = new LinkedList<>();
 
     @Inject
-    public GalleryGridItemsAdapter(ItemUseCases itemUseCases){
+    public GalleryGridItemsAdapter(Observable<ItemModel> itemsObservable){
         super();
         this.itemUseCases = itemUseCases;
         //this.zoomProvider = zoomProvider;
@@ -47,7 +49,7 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
         }*/
 
         //itemsHolderInterface.getItemHolder().addObserver(this);
-        itemUseCases.mainViewItems().subscribe(this);
+        itemsObservable.subscribe(this);
     }
 
 

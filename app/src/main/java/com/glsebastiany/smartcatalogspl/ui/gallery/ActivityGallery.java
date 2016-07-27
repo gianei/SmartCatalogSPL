@@ -8,23 +8,36 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
-import com.glsebastiany.smartcatalogspl.di.BaseActivity;
 import com.glsebastiany.smartcatalogspl.R;
+import com.glsebastiany.smartcatalogspl.di.BaseActivity;
+import com.glsebastiany.smartcatalogspl.di.components.GalleryComponent;
+import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.ui.gallery.grid.GalleryGridFragment_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 @EActivity(R.layout.activity_gallery)
 public class ActivityGallery extends BaseActivity {
+
+    @InstanceState
+    boolean fromSavedInstance = false;
+
+    private GalleryComponent galleryComponent;
 
     private Fragment galleryFragment;
 
     private long lastPress;
     private Toast toast;
+
+    @Inject
+    ItemUseCases itemUseCases;
 
     @ViewById(R.id.main_toolbar)
     Toolbar toolbar;
@@ -126,4 +139,16 @@ public class ActivityGallery extends BaseActivity {
             }
         }
     }
+
+    @Override
+    protected void initializeInjector() {
+        getApplicationComponent().inject(this);
+
+        if (!fromSavedInstance){
+            getAndroidApplication().createGalleryComponent(itemUseCases.allItems());
+            fromSavedInstance = true;
+        }
+
+    }
+
 }

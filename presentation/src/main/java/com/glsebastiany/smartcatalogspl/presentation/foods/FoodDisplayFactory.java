@@ -14,9 +14,6 @@ import javax.inject.Inject;
 public class FoodDisplayFactory implements DisplayFactory {
 
     @Inject
-    GalleryGridItemsAdapter galleryGridItemsAdapter;
-
-    @Inject
     FoodDrawerAdapter foodDrawerAdapter;
 
     @Inject
@@ -32,8 +29,4 @@ public class FoodDisplayFactory implements DisplayFactory {
         return foodDrawerAdapter;
     }
 
-    @Override
-    public RecyclerView.Adapter<RecyclerView.ViewHolder> gritItemsAdapter() {
-        return galleryGridItemsAdapter;
-    }
 }

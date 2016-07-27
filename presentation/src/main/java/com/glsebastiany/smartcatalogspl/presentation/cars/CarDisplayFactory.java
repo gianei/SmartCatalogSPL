@@ -15,8 +15,7 @@ import javax.inject.Singleton;
 @Singleton
 public class CarDisplayFactory implements DisplayFactory {
 
-    @Inject
-    GalleryGridItemsAdapter galleryGridItemsAdapter;
+
 
     @Inject
     public CarDisplayFactory(){}
@@ -29,11 +28,6 @@ public class CarDisplayFactory implements DisplayFactory {
     @Override
     public BaseAdapter drawerAdapter() {
         throw new RuntimeException("Not implemented yet");
-    }
-
-    @Override
-    public RecyclerView.Adapter<RecyclerView.ViewHolder> gritItemsAdapter() {
-        return galleryGridItemsAdapter;
     }
 
 

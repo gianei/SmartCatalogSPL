@@ -22,6 +22,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    public AndroidApplication getAndroidApplication(){
+        return (AndroidApplication)getApplication();
+    }
+
     public ApplicationComponent getApplicationComponent() {
         return ((AndroidApplication)getApplication()).getApplicationComponent();
     }
@@ -31,12 +35,5 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    private void initializeInjector() {
-        activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-
-        activityComponent.inject(this);
-    }
+    protected abstract void initializeInjector();
 }
