@@ -1,12 +1,15 @@
 package com.glsebastiany.smartcatalogspl.ui.gallery.grid;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.glsebastiany.smartcatalogspl.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.di.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.BaseFragment;
+import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.components.FragmentComponent;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.widget.SpacesItemDecoration;
 
@@ -17,7 +20,7 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EFragment(R.layout.fragment_gallery_visualization_grid)
-public class GalleryGridFragment extends Fragment {
+public class GalleryGridFragment extends BaseFragment {
 
 
     @ViewById(R.id.my_recycler_view)
@@ -28,10 +31,12 @@ public class GalleryGridFragment extends Fragment {
 
     @AfterViews
     public void afterViews() {
-        ApplicationComponent applicationComponent = ((AndroidApplication) getActivity().getApplication()).getApplicationComponent();
-
-        applicationComponent.inject(this);
         setupRecyclerView();
+    }
+
+    @Override
+    public void inject(FragmentComponent fragmentComponent) {
+        getFragmentComponent().inject(this);
     }
 
 

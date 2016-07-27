@@ -1,11 +1,12 @@
-package com.glsebastiany.smartcatalogspl;
+package com.glsebastiany.smartcatalogspl.di;
 
 
 import android.app.Application;
 
-import com.glsebastiany.smartcatalogspl.di.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.di.ApplicationModule;
-import com.glsebastiany.smartcatalogspl.di.DaggerApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
+
 
 public class AndroidApplication extends Application {
 
@@ -17,13 +18,13 @@ public class AndroidApplication extends Application {
     }
 
     private void initializeInjector() {
-        this.applicationComponent = DaggerApplicationComponent.builder()
+        applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }
 
     public ApplicationComponent getApplicationComponent() {
-        return this.applicationComponent;
+        return applicationComponent;
     }
 
 }

@@ -1,15 +1,14 @@
 package com.glsebastiany.smartcatalogspl.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.glsebastiany.smartcatalogspl.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.di.BaseActivity;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
@@ -29,7 +28,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 
 @EActivity(R.layout.activity_main)
-public class ActivityMain extends AppCompatActivity {
+public class ActivityMain extends BaseActivity {
 
     @Inject
     ItemUseCases itemUseCases;
@@ -42,11 +41,8 @@ public class ActivityMain extends AppCompatActivity {
 
     @AfterViews
     public void afterViews(){
-        ((AndroidApplication)getApplication()).getApplicationComponent().inject(this);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MyAdapter(itemUseCases.mainViewItems()));
-
     }
 
 

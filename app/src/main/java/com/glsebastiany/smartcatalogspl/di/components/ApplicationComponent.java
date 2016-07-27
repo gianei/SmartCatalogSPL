@@ -1,9 +1,10 @@
-package com.glsebastiany.smartcatalogspl.di;
+package com.glsebastiany.smartcatalogspl.di.components;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.BaseActivity;
+import com.glsebastiany.smartcatalogspl.di.BaseActivity;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
+import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.ui.ActivityMain;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;

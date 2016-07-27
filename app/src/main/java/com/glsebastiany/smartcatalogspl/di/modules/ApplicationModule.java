@@ -1,9 +1,9 @@
 
-package com.glsebastiany.smartcatalogspl.di;
+package com.glsebastiany.smartcatalogspl.di.modules;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.data.cars.CarItemsItemRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;

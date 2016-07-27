@@ -8,7 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
-import com.glsebastiany.smartcatalogspl.BaseActivity;
+import com.glsebastiany.smartcatalogspl.di.BaseActivity;
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.ui.gallery.grid.GalleryGridFragment_;
 

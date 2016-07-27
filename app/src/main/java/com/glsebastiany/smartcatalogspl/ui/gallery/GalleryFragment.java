@@ -9,10 +9,11 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.glsebastiany.smartcatalogspl.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
-import com.glsebastiany.smartcatalogspl.di.ComponentFragment;
+import com.glsebastiany.smartcatalogspl.di.BaseFragment;
+import com.glsebastiany.smartcatalogspl.di.components.FragmentComponent;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 
@@ -24,7 +25,7 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EFragment(R.layout.fragment_gallery)
-public class GalleryFragment extends ComponentFragment{
+public class GalleryFragment extends BaseFragment {
 
     public static final String TAG = "galleryFragment";
 
@@ -111,7 +112,12 @@ public class GalleryFragment extends ComponentFragment{
 
     };
 
-        //categoryItemsViewPagerAdapter.registerDataSetObserver(dataSetObserver);
+    @Override
+    public void inject(FragmentComponent fragmentComponent) {
+        getFragmentComponent().inject(this);
+    }
+
+    //categoryItemsViewPagerAdapter.registerDataSetObserver(dataSetObserver);
 
         //if (!drawerListView.hasOnClickListeners())
         //    drawerListView.setOnItemClickListener(new DrawerItemClickListener());
@@ -166,12 +172,5 @@ public class GalleryFragment extends ComponentFragment{
 
         }
     }*/
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ((AndroidApplication)getActivity().getApplication()).getApplicationComponent().inject(this);
-    }
 
 }
