@@ -3,6 +3,7 @@ package com.glsebastiany.smartcatalogspl.di;
 
 import android.app.Application;
 
+import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.di.components.DaggerApplicationComponent;
@@ -36,10 +37,10 @@ public class AndroidApplication extends Application {
      * See more at <a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes">CustomScopes</a>
      * @param itemsObservable
      */
-    public GalleryComponent createGalleryComponent(Observable<ItemModel> itemsObservable){
+    public GalleryComponent createGalleryComponent(Observable<ItemModel> itemsObservable, Observable<CategoryModel> categoriesObservable){
         galleryComponent = DaggerGalleryComponent.builder()
                 .applicationComponent(getApplicationComponent())
-                .galleryModule(new GalleryModule(itemsObservable))
+                .galleryModule(new GalleryModule(itemsObservable, categoriesObservable))
                 .build();
 
         return galleryComponent;

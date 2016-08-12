@@ -22,9 +22,13 @@ public class FragmentGalleryGrid extends BaseFragment {
     @Inject
     RecyclerView.Adapter<RecyclerView.ViewHolder> recyclerViewAdapter;
 
+    @Override
+    protected void initializeInjector() {
+        getAndroidApplication().getGalleryComponent().inject(this);
+    }
+
     @AfterViews
     public void afterViews() {
-        getAndroidApplication().getGalleryComponent().inject(this);
         setupRecyclerView();
     }
 
@@ -35,4 +39,5 @@ public class FragmentGalleryGrid extends BaseFragment {
         recyclerView.addItemDecoration(
                 new SpacesItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
     }
+
 }

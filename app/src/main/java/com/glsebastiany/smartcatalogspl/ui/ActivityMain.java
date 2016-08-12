@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.di.BaseActivity;
+import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
@@ -36,6 +37,9 @@ public class ActivityMain extends BaseActivity {
 
     @Inject
     ItemUseCases itemUseCases;
+
+    @Inject
+    CategoryUseCases categoryUseCases;
 
     @Inject
     DisplayFactory displayFactory;
@@ -71,10 +75,10 @@ public class ActivityMain extends BaseActivity {
     @Override
     protected void initializeInjector() {
         {
-            getApplicationComponent().inject(this);
+            getActivityComponent().inject(this);
 
             if (!fromSavedInstance){
-                getAndroidApplication().createGalleryComponent(itemUseCases.allItems());
+                getAndroidApplication().createGalleryComponent(itemUseCases.allItems(), categoryUseCases.mainViewCategories());
                 fromSavedInstance = true;
             }
 

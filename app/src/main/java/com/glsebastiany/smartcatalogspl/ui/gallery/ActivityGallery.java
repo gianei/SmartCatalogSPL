@@ -10,9 +10,8 @@ import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseActivity;
-import com.glsebastiany.smartcatalogspl.di.components.GalleryComponent;
+import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.ui.gallery.grid.GalleryGridFragment_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -29,8 +28,6 @@ public class ActivityGallery extends BaseActivity {
     @InstanceState
     boolean fromSavedInstance = false;
 
-    private GalleryComponent galleryComponent;
-
     private Fragment galleryFragment;
 
     private long lastPress;
@@ -38,6 +35,9 @@ public class ActivityGallery extends BaseActivity {
 
     @Inject
     ItemUseCases itemUseCases;
+
+    @Inject
+    CategoryUseCases categoryUseCases;
 
     @ViewById(R.id.main_toolbar)
     Toolbar toolbar;
@@ -74,9 +74,8 @@ public class ActivityGallery extends BaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        //galleryFragment = GalleryFragment_.builder().build();
-        galleryFragment = GalleryGridFragment_.builder().build();
-        fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, GalleryFragment_.TAG);
+        galleryFragment = FragmentGallery_.builder().build();
+        fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, FragmentGallery_.TAG);
         fragmentTransaction.commit();
 
     }
@@ -142,10 +141,10 @@ public class ActivityGallery extends BaseActivity {
 
     @Override
     protected void initializeInjector() {
-        getApplicationComponent().inject(this);
+        getActivityComponent().inject(this);
 
         if (!fromSavedInstance){
-            getAndroidApplication().createGalleryComponent(itemUseCases.allItems());
+            getAndroidApplication().createGalleryComponent(itemUseCases.allItems(), categoryUseCases.mainViewCategories());
             fromSavedInstance = true;
         }
 

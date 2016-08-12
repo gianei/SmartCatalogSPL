@@ -1,6 +1,8 @@
 package com.glsebastiany.smartcatalogspl.ui.gallery;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +12,15 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerFragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerGalleryComponent;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerGalleryFragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.components.FragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.components.GalleryFragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
+import com.glsebastiany.smartcatalogspl.di.modules.GalleryModule;
+import com.glsebastiany.smartcatalogspl.di.modules.PageAdapterModule;
+import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 
 import org.androidannotations.annotations.AfterViews;
@@ -26,6 +37,12 @@ public class FragmentGallery extends BaseFragment {
 
     @Inject
     DisplayFactory displayFactory;
+
+    @Inject
+    CategoryUseCases categoryUseCases;
+
+    @Inject
+    FragmentStatePagerAdapter fragmentStatePagerAdapter;
 
     @Click(R.id.drawerTriggerView)
     public void onDrawerTriggerClick(){
@@ -51,10 +68,23 @@ public class FragmentGallery extends BaseFragment {
     DrawerLayout drawerLayout;
 
 
+    @Override
+    protected void initializeInjector() {
+        //getApplicationComponent().inject(this);
+
+        /*getFragmentComponent().inject(this);*/
+
+        GalleryFragmentComponent galleryFragmentComponent = DaggerGalleryFragmentComponent.builder()
+                .galleryComponent(getAndroidApplication().getGalleryComponent())
+                .fragmentModule(new FragmentModule(this))
+                .pageAdapterModule(new PageAdapterModule())
+                .build();
+
+        galleryFragmentComponent.inject(this);
+    }
+
     @AfterViews
     public void afterViews() {
-        getApplicationComponent().inject(this);
-
         setHasOptionsMenu(true);
         setupSlidingTabsAndViewPager();
         setupDrawer();
@@ -71,7 +101,7 @@ public class FragmentGallery extends BaseFragment {
     private void setupViewPager() {
         setupViewPagerAdapter();
 
-        //viewPager.setAdapter(categoryItemsViewPagerAdapter);
+        viewPager.setAdapter(fragmentStatePagerAdapter);
 
         progressBar.setVisibility(View.GONE);
         viewPager.setVisibility(View.VISIBLE);
@@ -102,6 +132,7 @@ public class FragmentGallery extends BaseFragment {
 
 
     };
+
 
 
     //categoryItemsViewPagerAdapter.registerDataSetObserver(dataSetObserver);
