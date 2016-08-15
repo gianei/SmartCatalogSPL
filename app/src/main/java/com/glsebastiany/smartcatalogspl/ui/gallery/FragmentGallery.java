@@ -1,7 +1,6 @@
 package com.glsebastiany.smartcatalogspl.ui.gallery;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -12,13 +11,10 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
-import com.glsebastiany.smartcatalogspl.di.components.DaggerFragmentComponent;
-import com.glsebastiany.smartcatalogspl.di.components.DaggerGalleryComponent;
-import com.glsebastiany.smartcatalogspl.di.components.DaggerGalleryFragmentComponent;
-import com.glsebastiany.smartcatalogspl.di.components.FragmentComponent;
-import com.glsebastiany.smartcatalogspl.di.components.GalleryFragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerGalleryCategoriesComponent;
+import com.glsebastiany.smartcatalogspl.di.components.GalleryCategoriesComponent;
+import com.glsebastiany.smartcatalogspl.di.modules.CategoriesModule;
 import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
-import com.glsebastiany.smartcatalogspl.di.modules.GalleryModule;
 import com.glsebastiany.smartcatalogspl.di.modules.PageAdapterModule;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
@@ -72,15 +68,14 @@ public class FragmentGallery extends BaseFragment {
     protected void initializeInjector() {
         //getApplicationComponent().inject(this);
 
-        /*getFragmentComponent().inject(this);*/
 
-        GalleryFragmentComponent galleryFragmentComponent = DaggerGalleryFragmentComponent.builder()
-                .galleryComponent(getAndroidApplication().getGalleryComponent())
-                .fragmentModule(new FragmentModule(this))
+        GalleryCategoriesComponent galleryCategoriesComponent = DaggerGalleryCategoriesComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .fragmentModule(getFragmentModule())
                 .pageAdapterModule(new PageAdapterModule())
                 .build();
 
-        galleryFragmentComponent.inject(this);
+        galleryCategoriesComponent.inject(this);
     }
 
     @AfterViews

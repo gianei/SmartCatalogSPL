@@ -78,6 +78,7 @@ public class ActivityGallery extends BaseActivity {
         fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, FragmentGallery_.TAG);
         fragmentTransaction.commit();
 
+
     }
 
     @Override
@@ -143,10 +144,10 @@ public class ActivityGallery extends BaseActivity {
     protected void initializeInjector() {
         getActivityComponent().inject(this);
 
-        if (!fromSavedInstance){
-            getAndroidApplication().createGalleryComponent(itemUseCases.allItems(), categoryUseCases.mainViewCategories());
+        /*if (!fromSavedInstance){
+            getAndroidApplication().createItemsGalleryComponent(itemUseCases.allItems(), categoryUseCases.mainViewCategories());
             fromSavedInstance = true;
-        }
+        }*/
 
     }
 

@@ -78,7 +78,7 @@ public class ActivityMain extends BaseActivity {
             getActivityComponent().inject(this);
 
             if (!fromSavedInstance){
-                getAndroidApplication().createGalleryComponent(itemUseCases.allItems(), categoryUseCases.mainViewCategories());
+                //getAndroidApplication().createItemsGalleryComponent(itemUseCases.allItems(), categoryUseCases.mainViewCategories());
                 fromSavedInstance = true;
             }
 

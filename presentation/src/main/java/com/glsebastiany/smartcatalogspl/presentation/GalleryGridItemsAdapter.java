@@ -34,14 +34,14 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
     //private GalleryGridFragment.ZoomProvider zoomProvider;
     private Context context;
 
-    ItemUseCases itemUseCases;
+    //ItemUseCases itemUseCases;
 
     private List<ItemModel> items = new LinkedList<>();
 
     @Inject
-    public GalleryGridItemsAdapter(Observable<ItemModel> itemsObservable){
+    public GalleryGridItemsAdapter(ItemUseCases itemUseCases){
         super();
-        this.itemUseCases = itemUseCases;
+        //this.itemUseCases = itemUseCases;
         //this.zoomProvider = zoomProvider;
 
         /*if (mustGenerateSections()){
@@ -49,7 +49,7 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
         }*/
 
         //itemsHolderInterface.getItemHolder().addObserver(this);
-        itemsObservable.subscribe(this);
+        itemUseCases.allItems().subscribe(this);
     }
 
 

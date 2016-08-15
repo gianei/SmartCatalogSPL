@@ -10,15 +10,18 @@ import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
 
 public abstract class BaseFragment extends Fragment {
 
-    protected FragmentComponent fragmentComponent;
+    private FragmentComponent fragmentComponent;
+    private FragmentModule fragmentModule;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        fragmentModule = new FragmentModule(this);
+
         fragmentComponent = DaggerFragmentComponent.builder()
                 .applicationComponent(getApplicationComponent())
-                .fragmentModule(new FragmentModule(this))
+                .fragmentModule(fragmentModule)
                 .build();
 
         this.initializeInjector();
@@ -34,6 +37,10 @@ public abstract class BaseFragment extends Fragment {
 
     public FragmentComponent getFragmentComponent(){
         return fragmentComponent;
+    }
+
+    public FragmentModule getFragmentModule(){
+        return fragmentModule;
     }
 
 

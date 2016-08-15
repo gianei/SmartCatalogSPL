@@ -6,11 +6,12 @@ import android.app.Application;
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerItemsGalleryComponent;
+import com.glsebastiany.smartcatalogspl.di.components.ItemsGalleryComponent;
 import com.glsebastiany.smartcatalogspl.di.components.DaggerApplicationComponent;
-import com.glsebastiany.smartcatalogspl.di.components.DaggerGalleryComponent;
-import com.glsebastiany.smartcatalogspl.di.components.GalleryComponent;
 import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
-import com.glsebastiany.smartcatalogspl.di.modules.GalleryModule;
+import com.glsebastiany.smartcatalogspl.di.modules.CategoriesModule;
+import com.glsebastiany.smartcatalogspl.di.modules.ItemsModule;
 
 import rx.Observable;
 
@@ -19,7 +20,7 @@ public class AndroidApplication extends Application {
 
     private ApplicationComponent applicationComponent;
 
-    private GalleryComponent galleryComponent;
+    private ItemsGalleryComponent itemsGalleryComponent;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -35,23 +36,22 @@ public class AndroidApplication extends Application {
     /**
      * Used to mantain scope of Gallery that is bigger than the activity scope <br>
      * See more at <a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes">CustomScopes</a>
-     * @param itemsObservable
      */
-    public GalleryComponent createGalleryComponent(Observable<ItemModel> itemsObservable, Observable<CategoryModel> categoriesObservable){
-        galleryComponent = DaggerGalleryComponent.builder()
+    public ItemsGalleryComponent createItemsGalleryComponent(){
+        itemsGalleryComponent = DaggerItemsGalleryComponent.builder()
                 .applicationComponent(getApplicationComponent())
-                .galleryModule(new GalleryModule(itemsObservable, categoriesObservable))
+                .itemsModule(new ItemsModule())
                 .build();
 
-        return galleryComponent;
+        return itemsGalleryComponent;
     }
 
-    public GalleryComponent getGalleryComponent(){
-        return galleryComponent;
+    public ItemsGalleryComponent getItemsGalleryComponent(){
+        return itemsGalleryComponent;
     }
 
     public void releaseGalleryComponent(){
-        galleryComponent = null;
+        itemsGalleryComponent = null;
     }
 
     public ApplicationComponent getApplicationComponent() {

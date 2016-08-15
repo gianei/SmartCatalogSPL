@@ -1,6 +1,7 @@
 package com.glsebastiany.smartcatalogspl.di.components;
 
 import android.content.Context;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;
@@ -8,6 +9,7 @@ import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.ui.gallery.FragmentGallery;
 
 import javax.inject.Singleton;
 
@@ -28,5 +30,6 @@ public interface ApplicationComponent {
     CategoryUseCases categoryUseCases();
 
     DisplayFactory displayFactory();
+
 
 }

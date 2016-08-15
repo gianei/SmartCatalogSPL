@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
+import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.widget.SpacesItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
@@ -24,7 +25,9 @@ public class FragmentGalleryGrid extends BaseFragment {
 
     @Override
     protected void initializeInjector() {
-        getAndroidApplication().getGalleryComponent().inject(this);
+        getAndroidApplication().createItemsGalleryComponent();
+        getAndroidApplication().getItemsGalleryComponent().inject(this);
+
     }
 
     @AfterViews

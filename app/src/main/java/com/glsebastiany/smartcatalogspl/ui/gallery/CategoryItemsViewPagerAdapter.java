@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid_;
 
 import java.util.LinkedList;
@@ -21,10 +22,10 @@ public class CategoryItemsViewPagerAdapter extends FragmentStatePagerAdapter imp
     List<CategoryModel> categories = new LinkedList<>();
 
     @Inject
-    public CategoryItemsViewPagerAdapter(FragmentManager fm, Observable<CategoryModel> categoryObservable) {
+    public CategoryItemsViewPagerAdapter(FragmentManager fm, CategoryUseCases categoryUseCases) {
         super(fm);
 
-        categoryObservable.subscribe(this);
+        categoryUseCases.mainViewCategories().subscribe(this);
     }
 
     //This method return the fragment for the every position in the View Pager
