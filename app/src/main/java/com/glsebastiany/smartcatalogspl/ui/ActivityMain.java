@@ -134,7 +134,7 @@ public class ActivityMain extends BaseActivity {
         @Override
         public ItemViewHolder onCreateViewHolder(ViewGroup parent,
                                                  int viewType) {
-            return displayFactory.createItemViewHolder(parent);
+            return displayFactory.drawerViewHolder(parent);
         }
 
         // Replace the contents of a view (invoked by the layout manager)

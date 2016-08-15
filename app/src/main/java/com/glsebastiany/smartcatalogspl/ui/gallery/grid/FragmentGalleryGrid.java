@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
-import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.widget.SpacesItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
@@ -21,12 +21,11 @@ public class FragmentGalleryGrid extends BaseFragment {
     RecyclerView recyclerView;
 
     @Inject
-    RecyclerView.Adapter<RecyclerView.ViewHolder> recyclerViewAdapter;
+    DisplayFactory displayFactory;
 
     @Override
     protected void initializeInjector() {
-        getAndroidApplication().createItemsGalleryComponent();
-        getAndroidApplication().getItemsGalleryComponent().inject(this);
+        getAndroidApplication().getApplicationComponent().inject(this);
 
     }
 
@@ -37,7 +36,7 @@ public class FragmentGalleryGrid extends BaseFragment {
 
     private void setupRecyclerView(){
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setAdapter(displayFactory.galleryItemsAdapter());
 
         recyclerView.addItemDecoration(
                 new SpacesItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));

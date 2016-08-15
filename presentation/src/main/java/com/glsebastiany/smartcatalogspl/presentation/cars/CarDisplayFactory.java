@@ -20,8 +20,11 @@ public class CarDisplayFactory implements DisplayFactory {
     @Inject
     public CarDisplayFactory(){}
 
+    @Inject
+    GalleryGridItemsAdapter galleryGridItemsAdapter;
+
     @Override
-    public ItemViewHolder createItemViewHolder(ViewGroup parent) {
+    public ItemViewHolder drawerViewHolder(ViewGroup parent) {
         return CarViewHolder.createInstance(parent);
     }
 
@@ -30,5 +33,9 @@ public class CarDisplayFactory implements DisplayFactory {
         throw new RuntimeException("Not implemented yet");
     }
 
+    @Override
+    public RecyclerView.Adapter<RecyclerView.ViewHolder> galleryItemsAdapter() {
+        return galleryGridItemsAdapter;
+    }
 
 }

@@ -1,7 +1,6 @@
 package com.glsebastiany.smartcatalogspl.ui.gallery;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -11,13 +10,9 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
-import com.glsebastiany.smartcatalogspl.di.components.DaggerGalleryCategoriesComponent;
-import com.glsebastiany.smartcatalogspl.di.components.GalleryCategoriesComponent;
-import com.glsebastiany.smartcatalogspl.di.modules.CategoriesModule;
-import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
-import com.glsebastiany.smartcatalogspl.di.modules.PageAdapterModule;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.FragmentDisplayFactory;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -38,7 +33,7 @@ public class FragmentGallery extends BaseFragment {
     CategoryUseCases categoryUseCases;
 
     @Inject
-    FragmentStatePagerAdapter fragmentStatePagerAdapter;
+    FragmentDisplayFactory fragmentDisplayFactory;
 
     @Click(R.id.drawerTriggerView)
     public void onDrawerTriggerClick(){
@@ -66,16 +61,15 @@ public class FragmentGallery extends BaseFragment {
 
     @Override
     protected void initializeInjector() {
-        //getApplicationComponent().inject(this);
+        getFragmentComponent().inject(this);
 
-
-        GalleryCategoriesComponent galleryCategoriesComponent = DaggerGalleryCategoriesComponent.builder()
+        /*GalleryCategoriesComponent galleryCategoriesComponent = DaggerGalleryCategoriesComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .fragmentModule(getFragmentModule())
                 .pageAdapterModule(new PageAdapterModule())
                 .build();
 
-        galleryCategoriesComponent.inject(this);
+        galleryCategoriesComponent.inject(this);*/
     }
 
     @AfterViews
@@ -96,7 +90,7 @@ public class FragmentGallery extends BaseFragment {
     private void setupViewPager() {
         setupViewPagerAdapter();
 
-        viewPager.setAdapter(fragmentStatePagerAdapter);
+        viewPager.setAdapter(fragmentDisplayFactory.categoriesPagerAdapter());
 
         progressBar.setVisibility(View.GONE);
         viewPager.setVisibility(View.VISIBLE);

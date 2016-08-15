@@ -17,16 +17,24 @@ public class FoodDisplayFactory implements DisplayFactory {
     FoodDrawerAdapter foodDrawerAdapter;
 
     @Inject
+    GalleryGridItemsAdapter galleryGridItemsAdapter;
+
+    @Inject
     public FoodDisplayFactory(){};
 
     @Override
-    public ItemViewHolder createItemViewHolder(ViewGroup parent) {
+    public ItemViewHolder drawerViewHolder(ViewGroup parent) {
         return FoodViewHolder.createInstance(parent);
     }
 
     @Override
     public BaseAdapter drawerAdapter() {
         return foodDrawerAdapter;
+    }
+
+    @Override
+    public RecyclerView.Adapter<RecyclerView.ViewHolder> galleryItemsAdapter() {
+        return galleryGridItemsAdapter;
     }
 
 }
