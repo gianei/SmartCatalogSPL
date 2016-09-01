@@ -23,7 +23,7 @@ import android.support.v4.app.FragmentManager;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerFragment;
 import com.glsebastiany.smartcatalogspl.presentation.FragmentDisplayFactory;
-import com.glsebastiany.smartcatalogspl.ui.FoodFragmentDisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.FoodFragmentDisplayFactory;
 
 import dagger.Module;
 import dagger.Provides;

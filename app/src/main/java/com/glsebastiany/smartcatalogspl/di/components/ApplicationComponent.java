@@ -19,12 +19,15 @@
 package com.glsebastiany.smartcatalogspl.di.components;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;
+import com.glsebastiany.smartcatalogspl.di.helper.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid;
 
@@ -48,6 +51,7 @@ public interface ApplicationComponent {
     CategoryUseCases categoryUseCases();
 
     DisplayFactory displayFactory();
+    BaseAppDisplayFactory baseAppDisplayFactory();
 
 
 }

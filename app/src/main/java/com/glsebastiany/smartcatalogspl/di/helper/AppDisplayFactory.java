@@ -16,26 +16,17 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui;
+package com.glsebastiany.smartcatalogspl.di.helper;
 
+import android.support.v4.app.Fragment;
 
-import android.support.v4.app.FragmentStatePagerAdapter;
+import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid_;
 
-import com.glsebastiany.smartcatalogspl.presentation.FragmentDisplayFactory;
-
-import javax.inject.Inject;
-
-public class FoodFragmentDisplayFactory implements FragmentDisplayFactory {
-
-    @Inject
-    CategoryItemsViewPagerAdapter categoryItemsViewPagerAdapter;
-
-    @Inject
-    public FoodFragmentDisplayFactory(){};
-
+public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
-    public FragmentStatePagerAdapter categoriesPagerAdapter() {
-        return categoryItemsViewPagerAdapter;
+    public Fragment provideGalleryFragment(){
+        return FragmentGalleryGrid_.builder().build();
     }
 }

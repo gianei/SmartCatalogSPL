@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui;
+package com.glsebastiany.smartcatalogspl.presentation;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,7 +24,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid_;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,11 +35,13 @@ import rx.Observer;
 
 public class CategoryItemsViewPagerAdapter extends FragmentStatePagerAdapter implements Observer<CategoryModel> {
 
+    private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
-
+    
     @Inject
-    public CategoryItemsViewPagerAdapter(FragmentManager fm, CategoryUseCases categoryUseCases) {
+    public CategoryItemsViewPagerAdapter(FragmentManager fm, CategoryUseCases categoryUseCases, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
+        this.baseAppDisplayFactory = baseAppDisplayFactory;
 
         categoryUseCases.mainViewCategories().subscribe(this);
     }
@@ -48,7 +49,7 @@ public class CategoryItemsViewPagerAdapter extends FragmentStatePagerAdapter imp
     //This method return the fragment for the every position in the View Pager
     @Override
     public Fragment getItem(int position) {
-        return FragmentGalleryGrid_.builder().build();
+        return baseAppDisplayFactory.provideGalleryFragment();
     }
 
     // This method return the titles for the Tabs in the Tab Strip
