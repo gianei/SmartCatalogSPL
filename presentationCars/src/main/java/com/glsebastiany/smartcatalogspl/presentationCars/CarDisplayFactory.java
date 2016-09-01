@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation.foods;
+package com.glsebastiany.smartcatalogspl.presentationCars;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -25,29 +25,29 @@ import android.widget.BaseAdapter;
 
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
-import com.glsebastiany.smartcatalogspl.presentation.GalleryGridItemsAdapter;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class FoodDisplayFactory implements DisplayFactory {
+@Singleton
+public class CarDisplayFactory implements DisplayFactory {
 
-    @Inject
-    FoodDrawerAdapter foodDrawerAdapter;
 
-    @Inject
-    GalleryGridItemsAdapter galleryGridItemsAdapter;
 
     @Inject
-    public FoodDisplayFactory(){};
+    public CarDisplayFactory(){}
+
+    @Inject
+    CarGalleryGridItemsAdapter galleryGridItemsAdapter;
 
     @Override
     public ItemViewHolder drawerViewHolder(ViewGroup parent) {
-        return FoodViewHolder.createInstance(parent);
+        return CarViewHolder.createInstance(parent);
     }
 
     @Override
     public BaseAdapter drawerAdapter() {
-        return foodDrawerAdapter;
+        throw new RuntimeException("Not implemented yet");
     }
 
     @Override

@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation.foods;
+package com.glsebastiany.smartcatalogspl.presentationfood.foods;
 
 
 import android.content.Context;
@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.presentation.R;
+import com.glsebastiany.smartcatalogspl.presentationfood.R;
 
 import java.util.LinkedList;
 import java.util.List;

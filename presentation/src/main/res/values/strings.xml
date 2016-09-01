@@ -18,10 +18,4 @@
 
 <resources>
     <string name="app_name">Presentation</string>
-
-    <!-- content descriptions -->
-    <string name="content_description_image_details">Detalhes da imagem</string>
-    <string name="content_description_promoted">Em promoção</string>
-    <string name="content_description_new">Novidade</string>
-    <string name="content_description_sale">Liquidação</string>
 </resources>

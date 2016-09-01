@@ -16,44 +16,41 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation.cars;
-
+package com.glsebastiany.smartcatalogspl.presentationCars;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
-import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
-import com.glsebastiany.smartcatalogspl.presentation.GalleryGridItemsAdapter;
+import com.glsebastiany.smartcatalogspl.data.ItemModel;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-@Singleton
-public class CarDisplayFactory implements DisplayFactory {
-
-
-
-    @Inject
-    public CarDisplayFactory(){}
-
-    @Inject
-    GalleryGridItemsAdapter galleryGridItemsAdapter;
-
+public class CarGalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel> {
     @Override
-    public ItemViewHolder drawerViewHolder(ViewGroup parent) {
-        return CarViewHolder.createInstance(parent);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return null;
     }
 
     @Override
-    public BaseAdapter drawerAdapter() {
-        throw new RuntimeException("Not implemented yet");
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
     }
 
     @Override
-    public RecyclerView.Adapter<RecyclerView.ViewHolder> galleryItemsAdapter() {
-        return galleryGridItemsAdapter;
+    public int getItemCount() {
+        return 0;
     }
 
+    @Override
+    public void onCompleted() {
+
+    }
+
+    @Override
+    public void onError(Throwable e) {
+
+    }
+
+    @Override
+    public void onNext(ItemModel itemModel) {
+
+    }
 }

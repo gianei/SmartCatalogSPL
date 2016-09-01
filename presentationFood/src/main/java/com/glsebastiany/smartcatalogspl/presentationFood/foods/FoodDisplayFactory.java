@@ -16,41 +16,43 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation.cars;
+package com.glsebastiany.smartcatalogspl.presentationfood.foods;
 
 
-
-import android.view.LayoutInflater;
-import android.view.View;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.BaseAdapter;
 
-import com.glsebastiany.smartcatalogspl.data.cars.CarItemModel;
-import com.glsebastiany.smartcatalogspl.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
-import com.glsebastiany.smartcatalogspl.presentation.R;
+import com.glsebastiany.smartcatalogspl.presentationfood.GalleryGridItemsAdapter;
 
-public class CarViewHolder extends ItemViewHolder {
+import javax.inject.Inject;
 
-    public TextView mTextView;
+public class FoodDisplayFactory implements DisplayFactory {
 
-    public CarViewHolder(TextView v) {
-        super(v);
-        mTextView = v;
-    }
+    @Inject
+    FoodDrawerAdapter foodDrawerAdapter;
 
-    public static ItemViewHolder createInstance(ViewGroup parent){
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
+    @Inject
+    GalleryGridItemsAdapter galleryGridItemsAdapter;
 
-        return new CarViewHolder((TextView)v);
+    @Inject
+    public FoodDisplayFactory(){};
+
+    @Override
+    public ItemViewHolder drawerViewHolder(ViewGroup parent) {
+        return FoodViewHolder.createInstance(parent);
     }
 
     @Override
-    public void print(ItemModel itemModel){
-        CarItemModel carItemModel = (CarItemModel) itemModel;
-        mTextView.setText(carItemModel.getModel() + " " + carItemModel.getCompany() + " " + carItemModel.getYear());
+    public BaseAdapter drawerAdapter() {
+        return foodDrawerAdapter;
+    }
 
+    @Override
+    public RecyclerView.Adapter<RecyclerView.ViewHolder> galleryItemsAdapter() {
+        return galleryGridItemsAdapter;
     }
 
 }

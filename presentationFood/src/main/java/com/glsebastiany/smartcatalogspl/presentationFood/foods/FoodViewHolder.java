@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation.foods;
+package com.glsebastiany.smartcatalogspl.presentationfood.foods;
 
 
 import android.view.LayoutInflater;
@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
-import com.glsebastiany.smartcatalogspl.presentation.R;
+import com.glsebastiany.smartcatalogspl.presentationfood.R;
 
 public class FoodViewHolder extends ItemViewHolder {
 

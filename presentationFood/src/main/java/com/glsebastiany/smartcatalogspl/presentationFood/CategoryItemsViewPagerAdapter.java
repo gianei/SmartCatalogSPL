@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation;
+package com.glsebastiany.smartcatalogspl.presentationfood;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class CategoryItemsViewPagerAdapter extends FragmentStatePagerAdapter imp
 
     private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
-    
+
     @Inject
     public CategoryItemsViewPagerAdapter(FragmentManager fm, CategoryUseCases categoryUseCases, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~     SmartCatalogSPL, an Android catalog Software Product Line
   ~     Copyright (c) 2016 Gianei Leandro Sebastiany
@@ -16,14 +17,9 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.glsebastiany.smartcatalogspl.presentation">
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp">
 
-    <application android:allowBackup="true"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
->
-
-    </application>
-
-</manifest>
+</TextView>

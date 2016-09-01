@@ -22,8 +22,6 @@ package com.glsebastiany.smartcatalogspl.di.components;
 
 import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerFragment;
-import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.FragmentDisplayFactory;
 import com.glsebastiany.smartcatalogspl.ui.gallery.FragmentGallery;
 
 import dagger.Component;

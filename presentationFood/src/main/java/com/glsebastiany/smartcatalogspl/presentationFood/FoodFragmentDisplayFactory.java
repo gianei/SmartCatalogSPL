@@ -16,10 +16,12 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation;
+package com.glsebastiany.smartcatalogspl.presentationfood;
 
 
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.glsebastiany.smartcatalogspl.presentation.FragmentDisplayFactory;
 
 import javax.inject.Inject;
 

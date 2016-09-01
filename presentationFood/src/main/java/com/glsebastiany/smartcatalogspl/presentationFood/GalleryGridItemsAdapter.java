@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation;
+package com.glsebastiany.smartcatalogspl.presentationfood;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -38,8 +38,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import rx.Observable;
 
 public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel>{
     private static final int REGULAR_ITEM_TYPE = 1;

@@ -20,7 +20,6 @@
 package com.glsebastiany.smartcatalogspl.di.modules;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
@@ -34,8 +33,7 @@ import com.glsebastiany.smartcatalogspl.domain.FoodCategoriesUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.foods.FoodDisplayFactory;
-import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid_;
+import com.glsebastiany.smartcatalogspl.presentationfood.foods.FoodDisplayFactory;
 
 import javax.inject.Singleton;
 
