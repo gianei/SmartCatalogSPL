@@ -75,10 +75,10 @@ public class CarItemsItemRepository implements ItemRepository {
 
     private List<ItemModel> fetchFromMemory() {
         List<ItemModel> items = new LinkedList<>();
-        items.add(new CarItemModel("1", "F1", "Ferrari", 2016));
-        items.add(new CarItemModel("3", "Gol", "Volkswagen", 2005));
-        items.add(new CarItemModel("2", "F11", "Ferrari", 2015));
-        items.add(new CarItemModel("4", "Fusca", "Volkswagen", 1984));
+        items.add(new CarItemModel("1", "C1", "F1", "Ferrari", 2016));
+        items.add(new CarItemModel("3", "C2", "Gol", "Volkswagen", 2005));
+        items.add(new CarItemModel("2", "C1", "F11", "Ferrari", 2015));
+        items.add(new CarItemModel("4", "C3","Fusca", "Volkswagen", 1984));
         return items;
     }
 }

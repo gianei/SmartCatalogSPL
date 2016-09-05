@@ -26,6 +26,7 @@ import android.support.v4.app.Fragment;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.ui.gallery.ActivityGallery;
 import com.glsebastiany.smartcatalogspl.ui.gallery.ActivityGallery_;
+import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid;
 import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid_;
 
 import javax.inject.Inject;
@@ -39,8 +40,8 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     public AppDisplayFactory(){};
 
     @Override
-    public Fragment provideGalleryFragment(){
-        return FragmentGalleryGrid_.builder().build();
+    public Fragment provideGalleryFragment(String category){
+        return FragmentGalleryGrid.newInstance(category);
     }
 
     @Override

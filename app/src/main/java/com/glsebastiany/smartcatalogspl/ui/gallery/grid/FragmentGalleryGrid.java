@@ -18,12 +18,15 @@
 
 package com.glsebastiany.smartcatalogspl.ui.gallery.grid;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
 import com.glsebastiany.smartcatalogspl.presentation.widget.SpacesItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
@@ -35,11 +38,22 @@ import javax.inject.Inject;
 @EFragment(R.layout.fragment_gallery_visualization_grid)
 public class FragmentGalleryGrid extends BaseFragment {
 
+    private static final String CATEGORY = "category";
+
     @ViewById(R.id.my_recycler_view)
     RecyclerView recyclerView;
 
+    @ViewById(R.id.progressBar)
+    ProgressBar progressBar;
+
     @Inject
-    DisplayFactory displayFactory;
+    BaseGalleryGridController galleryGridController;
+
+    public static FragmentGalleryGrid newInstance(String category) {
+        return FragmentGalleryGrid_.builder().arg(CATEGORY, category).build();
+    }
+
+
 
     @Override
     protected void initializeInjector() {
@@ -53,11 +67,9 @@ public class FragmentGalleryGrid extends BaseFragment {
     }
 
     private void setupRecyclerView(){
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        recyclerView.setAdapter(displayFactory.galleryItemsAdapter());
+        String category = getArguments().getString(CATEGORY);
+        galleryGridController.setupRecyclerView(getActivity(), category, progressBar, recyclerView);
 
-        recyclerView.addItemDecoration(
-                new SpacesItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
     }
 
 }

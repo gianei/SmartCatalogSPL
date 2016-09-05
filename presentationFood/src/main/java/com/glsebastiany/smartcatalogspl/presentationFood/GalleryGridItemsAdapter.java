@@ -30,7 +30,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 
 import java.text.NumberFormat;
@@ -38,6 +40,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel>{
     private static final int REGULAR_ITEM_TYPE = 1;
@@ -55,7 +60,7 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
     private List<ItemModel> items = new LinkedList<>();
 
     @Inject
-    public GalleryGridItemsAdapter(ItemUseCases itemUseCases){
+    public GalleryGridItemsAdapter(Observable<ItemModel> itemsObservable){
         super();
         //this.itemUseCases = itemUseCases;
         //this.zoomProvider = zoomProvider;
@@ -64,8 +69,9 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
             generateSections();
         }*/
 
+        itemsObservable.subscribe(this);
         //itemsHolderInterface.getItemHolder().addObserver(this);
-        itemUseCases.allItems().subscribe(this);
+
     }
 
 

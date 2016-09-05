@@ -16,15 +16,14 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.domain;
+package com.glsebastiany.smartcatalogspl.presentation.controller;
 
-import com.glsebastiany.smartcatalogspl.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.data.ItemModel;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
 
-import rx.Observable;
+public abstract class BaseGalleryGridController {
 
-public interface ItemUseCases {
-    Observable<ItemModel> allItems();
-    Observable<ItemModel> mainViewItems();
-    Observable<ItemModel> allFromCategory(CategoryModel categoryModel);
+
+    public abstract void setupRecyclerView(Context context, String category, ProgressBar progressBar, RecyclerView recyclerView);
 }

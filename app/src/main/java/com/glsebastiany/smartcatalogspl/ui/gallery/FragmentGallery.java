@@ -133,7 +133,6 @@ public class FragmentGallery extends BaseFragment {
     }
 
     private void setupDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
 
         drawerListView.setAdapter(displayFactory.drawerAdapter());
 

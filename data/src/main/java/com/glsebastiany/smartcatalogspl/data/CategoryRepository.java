@@ -25,4 +25,5 @@ public interface CategoryRepository {
     Observable<CategoryModel> getDirectChildren(CategoryModel categoryModel);
     Observable<CategoryModel> getAllChildren(CategoryModel categoryModel);
     Observable<CategoryModel> getParent(CategoryModel categoryModel);
+    Observable<CategoryModel> findCategory(String categoryId);
 }

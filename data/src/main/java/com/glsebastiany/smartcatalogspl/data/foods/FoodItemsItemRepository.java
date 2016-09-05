@@ -69,18 +69,18 @@ public class FoodItemsItemRepository implements ItemRepository {
 
     private List<ItemModel> getFoods() {
         List<ItemModel> items = new LinkedList<>();
-        items.add(new FoodItemModel("Pasta"));
-        items.add(new FoodItemModel("Toasts"));
-        items.add(new FoodItemModel("Eggs"));
-        items.add(new FoodItemModel("Beer"));
-        items.add(new FoodItemModel("Wine"));
-        items.add(new FoodItemModel("AppleJuice"));
-        items.add(new FoodItemModel("Brigadeiro"));
-        items.add(new FoodItemModel("Fudge"));
-        items.add(new FoodItemModel("JellyBean"));
-        items.add(new FoodItemModel("KitKat"));
-        items.add(new FoodItemModel("Marshmallow"));
-        items.add(new FoodItemModel("Nougat"));
+        items.add(new FoodItemModel("Tagliateri", "Pasta"));
+        items.add(new FoodItemModel("Toasts", "Breakfest"));
+        items.add(new FoodItemModel("Eggs", "Breakfest"));
+        items.add(new FoodItemModel("Beer", "Alcoholic"));
+        items.add(new FoodItemModel("Wine", "Alcoholic"));
+        items.add(new FoodItemModel("AppleJuice", "Juice"));
+        items.add(new FoodItemModel("Brigadeiro", "Sweet"));
+        items.add(new FoodItemModel("Fudge", "Sweet"));
+        items.add(new FoodItemModel("JellyBean", "Android"));
+        items.add(new FoodItemModel("KitKat", "Android"));
+        items.add(new FoodItemModel("Marshmallow", "Android"));
+        items.add(new FoodItemModel("Nougat", "Android"));
         return items;
     }
 }

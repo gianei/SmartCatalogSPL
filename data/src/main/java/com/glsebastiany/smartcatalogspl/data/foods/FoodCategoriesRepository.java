@@ -22,6 +22,7 @@ import android.os.Handler;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
+import com.glsebastiany.smartcatalogspl.data.ItemModel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,6 +32,7 @@ import javax.inject.Singleton;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.exceptions.OnErrorNotImplementedException;
 
 @Singleton
 public class FoodCategoriesRepository implements CategoryRepository{
@@ -133,4 +135,33 @@ public class FoodCategoriesRepository implements CategoryRepository{
     public Observable<CategoryModel> getParent(CategoryModel categoryModel) {
         return null;
     }
+
+    @Override
+    public Observable<CategoryModel> findCategory(final String categoryId) {
+        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
+            @Override
+            public void call(final Subscriber<? super CategoryModel> subscriber) {
+                try {
+                    boolean found = false;
+                    for (int i = 0; i<items.size();i++) {
+                        if (categoryId.compareTo(items.get(i).getId()) == 0) {
+                            subscriber.onNext(items.get(i));
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
+                        subscriber.onError(new Throwable("Category not found!"));
+
+                    subscriber.onCompleted();
+
+                } catch (Exception e){
+                    subscriber.onError(e);
+                }
+            }
+        });
+
+    }
+
+
 }

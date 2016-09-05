@@ -22,7 +22,7 @@ import android.support.v4.app.Fragment;
 
 
 public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment();
+    Fragment provideGalleryFragment(String category);
 
     void startGalleryActivity();
 }

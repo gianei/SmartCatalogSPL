@@ -19,6 +19,7 @@
 package com.glsebastiany.smartcatalogspl.domain;
 
 
+import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.data.cars.CarItemModel;
 import com.glsebastiany.smartcatalogspl.data.cars.CarItemsItemRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
@@ -56,5 +57,10 @@ public class FerrariItemUseCases implements ItemUseCases {
             }
         });
         //here we can filter or map or whatever
+    }
+
+    @Override
+    public Observable<ItemModel> allFromCategory(CategoryModel categoryModel) {
+        return allItems();
     }
 }

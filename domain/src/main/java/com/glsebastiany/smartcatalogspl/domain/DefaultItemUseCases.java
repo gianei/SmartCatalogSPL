@@ -19,13 +19,17 @@
 package com.glsebastiany.smartcatalogspl.domain;
 
 
+import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;
+import com.glsebastiany.smartcatalogspl.data.cars.CarItemModel;
+import com.glsebastiany.smartcatalogspl.data.foods.FoodItemModel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
+import rx.functions.Func1;
 
 @Singleton
 public class DefaultItemUseCases implements ItemUseCases {
@@ -46,5 +50,16 @@ public class DefaultItemUseCases implements ItemUseCases {
     @Override
     public Observable<ItemModel> mainViewItems() {
         return allItems();
+    }
+
+    @Override
+    public Observable<ItemModel> allFromCategory(final CategoryModel categoryModel) {
+        return itemRepository.getAll().filter(new Func1<ItemModel, Boolean>() {
+            @Override
+            public Boolean call(ItemModel s) {
+                FoodItemModel item =  (FoodItemModel) s;
+                return item.getCategoryId().equals(categoryModel.getId());
+            }
+        });
     }
 }

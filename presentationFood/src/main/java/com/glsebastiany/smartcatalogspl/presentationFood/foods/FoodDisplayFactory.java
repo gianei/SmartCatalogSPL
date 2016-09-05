@@ -35,9 +35,6 @@ public class FoodDisplayFactory implements DisplayFactory {
     FoodDrawerAdapter foodDrawerAdapter;
 
     @Inject
-    GalleryGridItemsAdapter galleryGridItemsAdapter;
-
-    @Inject
     public FoodDisplayFactory(){};
 
     @Override
@@ -50,9 +47,5 @@ public class FoodDisplayFactory implements DisplayFactory {
         return foodDrawerAdapter;
     }
 
-    @Override
-    public RecyclerView.Adapter<RecyclerView.ViewHolder> galleryItemsAdapter() {
-        return galleryGridItemsAdapter;
-    }
 
 }

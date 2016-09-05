@@ -50,7 +50,7 @@ public class CategoryItemsViewPagerAdapter extends FragmentStatePagerAdapter imp
     //This method return the fragment for the every position in the View Pager
     @Override
     public Fragment getItem(int position) {
-        return baseAppDisplayFactory.provideGalleryFragment();
+        return baseAppDisplayFactory.provideGalleryFragment(categories.get(position).getId());
     }
 
     // This method return the titles for the Tabs in the Tab Strip

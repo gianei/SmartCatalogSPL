@@ -24,12 +24,14 @@ import com.glsebastiany.smartcatalogspl.data.ItemModel;
 public class CarItemModel implements ItemModel {
 
     private String id;
+    private String categoryId;
     private String model;
     private String company;
     private int year;
 
-    public CarItemModel(String id, String model, String company, int year) {
+    public CarItemModel(String id, String categoryId, String model, String company, int year) {
         this.id = id;
+        this.categoryId = categoryId;
         this.model = model;
         this.company = company;
         this.year = year;
@@ -39,6 +41,11 @@ public class CarItemModel implements ItemModel {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String getCategoryId() {
+        return categoryId;
     }
 
     public String getModel() {

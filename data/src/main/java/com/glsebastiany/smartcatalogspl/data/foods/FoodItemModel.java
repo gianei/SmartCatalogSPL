@@ -24,13 +24,20 @@ import com.glsebastiany.smartcatalogspl.data.ItemModel;
 public class FoodItemModel implements ItemModel {
 
     private String id;
+    private String categoryId;
 
-    public FoodItemModel(String id) {
+    public FoodItemModel(String id, String categoryId) {
         this.id = id;
+        this.categoryId = categoryId;
     }
 
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String getCategoryId() {
+        return categoryId;
     }
 }
