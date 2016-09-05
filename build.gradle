@@ -56,6 +56,9 @@ ext {
         targetSdkVersion 23
     }
 
+    glide = {
+        compile 'com.github.bumptech.glide:glide:3.7.0'
+    }
 
     rxAndroidVersion = '1.2.1'
     rxJavaVersion = '1.1.7'

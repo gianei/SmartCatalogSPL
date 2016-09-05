@@ -32,7 +32,9 @@ import com.glsebastiany.smartcatalogspl.domain.FerrariItemUseCases;
 import com.glsebastiany.smartcatalogspl.domain.FoodCategoriesUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentationfood.controller.MainController;
 import com.glsebastiany.smartcatalogspl.presentationfood.foods.FoodDisplayFactory;
 
 import javax.inject.Singleton;
@@ -88,8 +90,15 @@ public class ApplicationModule {
     }
 
     @Provides
-    BaseAppDisplayFactory provideAppDisplayFactory(){
-        return new AppDisplayFactory();
+    @Singleton
+    BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
+        return appDisplayFactory;
     }
 
+
+    @Provides
+    @Singleton
+    BaseMainController provideBaseMainController(MainController mainController){
+        return mainController;
+    }
 }

@@ -16,25 +16,14 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-apply plugin: 'com.android.library'
+package com.glsebastiany.smartcatalogspl.presentation.controller;
 
-android {
-    compileSdkVersion androidCompileSdkVersion
-    buildToolsVersion androidBuildToolsVersion
-    defaultConfig librariesDefaultConfig
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+public abstract class BaseMainController {
 
-dependencies androidSupport
-dependencies jUnit
-dependencies glide
-dependencies {
-    compile project(':presentation')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    public abstract void setupRecyclerView(Context context, ProgressBar progressBar, RecyclerView recyclerView);
 }

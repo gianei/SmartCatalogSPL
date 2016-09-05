@@ -23,4 +23,6 @@ import android.support.v4.app.Fragment;
 
 public interface BaseAppDisplayFactory {
     Fragment provideGalleryFragment();
+
+    void startGalleryActivity();
 }

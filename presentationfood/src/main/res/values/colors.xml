@@ -17,29 +17,8 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.glsebastiany.smartcatalogspl">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-        android:name=".di.AndroidApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.ActivityMain_">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".ui.gallery.ActivityGallery_">
-
-        </activity>
-    </application>
-
-</manifest>
+<resources>
+    <color name="colorPrimary">#b53f41</color>
+    <color name="colorPrimaryDark">#9f3032</color>
+    <color name="colorAccent">#FF4081</color>
+</resources>

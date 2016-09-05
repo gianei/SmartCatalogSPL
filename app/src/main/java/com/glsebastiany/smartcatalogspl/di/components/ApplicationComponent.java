@@ -26,6 +26,7 @@ import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid;
 
@@ -47,6 +48,7 @@ public interface ApplicationComponent {
     ItemUseCases useCases();
     CategoryRepository categoryRepository();
     CategoryUseCases categoryUseCases();
+    BaseMainController baseMainController();
 
     DisplayFactory displayFactory();
     BaseAppDisplayFactory baseAppDisplayFactory();
