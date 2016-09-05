@@ -28,33 +28,23 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentationfood.R;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.inject.Inject;
-
+import rx.Observable;
 import rx.Observer;
 
 public class FoodDrawerAdapter extends BaseAdapter{
 
     private Context context;
-    CategoryUseCases categoryUseCases;
     private List<CategoryModel> items = new LinkedList<>();
 
-    @Inject
-    public FoodDrawerAdapter(Context context, CategoryUseCases categoryUseCases) {
+    public FoodDrawerAdapter(Context context, Observable<CategoryModel> observable) {
         this.context = context;
-        this.categoryUseCases = categoryUseCases;
 
-        updateItems();
-    }
-
-
-    private void updateItems(){
-        categoryUseCases.drawerCategories().subscribe(new Observer<CategoryModel>() {
+        observable.subscribe(new Observer<CategoryModel>() {
             @Override
             public void onCompleted() {
 
@@ -72,6 +62,7 @@ public class FoodDrawerAdapter extends BaseAdapter{
             }
         });
     }
+
 
     @Override
     public int getCount() {

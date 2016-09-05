@@ -22,6 +22,7 @@ package com.glsebastiany.smartcatalogspl.di.components;
 
 import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerFragment;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryController;
 import com.glsebastiany.smartcatalogspl.ui.gallery.FragmentGallery;
 
 import dagger.Component;
@@ -31,4 +32,6 @@ import dagger.Component;
 public interface FragmentComponent {
     //void inject(BaseFragment baseFragment); // DO NOT INJECT ON BASE CLASSES
     void inject(FragmentGallery fragmentGallery);
+
+    BaseGalleryController baseGalleryController();
 }

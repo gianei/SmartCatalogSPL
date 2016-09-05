@@ -28,7 +28,6 @@ import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid;
 
 import javax.inject.Singleton;
@@ -53,7 +52,6 @@ public interface ApplicationComponent {
     BaseMainController baseMainController();
     BaseGalleryGridController baseGalleryGridController();
 
-    DisplayFactory displayFactory();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 

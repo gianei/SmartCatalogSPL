@@ -16,26 +16,19 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentationfood;
+package com.glsebastiany.smartcatalogspl.presentation.controller;
 
+import android.content.Context;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.RecyclerView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 
-import android.support.v4.app.FragmentStatePagerAdapter;
+public abstract class BaseGalleryController {
 
-import com.glsebastiany.smartcatalogspl.presentation.FragmentDisplayFactory;
-
-import javax.inject.Inject;
-
-public class FoodFragmentDisplayFactory implements FragmentDisplayFactory {
-
-    @Inject
-    CategoryItemsViewPagerAdapter categoryItemsViewPagerAdapter;
-
-    @Inject
-    public FoodFragmentDisplayFactory(){};
-
-
-    @Override
-    public FragmentStatePagerAdapter categoriesPagerAdapter() {
-        return categoryItemsViewPagerAdapter;
-    }
+    public abstract void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager);
+    public abstract void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager);
+    public abstract void setupDrawerAdapter(Context context, ListView drawerLayout);
 }

@@ -31,6 +31,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Observer;
 
 
@@ -39,12 +40,11 @@ public class CategoryItemsViewPagerAdapter extends FragmentStatePagerAdapter imp
     private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
 
-    @Inject
-    public CategoryItemsViewPagerAdapter(FragmentManager fm, CategoryUseCases categoryUseCases, BaseAppDisplayFactory baseAppDisplayFactory) {
+    public CategoryItemsViewPagerAdapter(FragmentManager fm, Observable<CategoryModel> categoriesObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
         this.baseAppDisplayFactory = baseAppDisplayFactory;
 
-        categoryUseCases.mainViewCategories().subscribe(this);
+        categoriesObservable.subscribe(this);
     }
 
     //This method return the fragment for the every position in the View Pager

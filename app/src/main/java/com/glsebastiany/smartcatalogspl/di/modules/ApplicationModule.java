@@ -21,25 +21,21 @@ package com.glsebastiany.smartcatalogspl.di.modules;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.data.foods.FoodItemsItemRepository;
-import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
-import com.glsebastiany.smartcatalogspl.data.cars.CarItemsItemRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;
 import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoriesRepository;
+import com.glsebastiany.smartcatalogspl.data.foods.FoodItemsItemRepository;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.di.helper.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.DefaultItemUseCases;
-import com.glsebastiany.smartcatalogspl.domain.FerrariItemUseCases;
 import com.glsebastiany.smartcatalogspl.domain.FoodCategoriesUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.presentation.DisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentationfood.controller.GalleryGridController;
 import com.glsebastiany.smartcatalogspl.presentationfood.controller.MainController;
-import com.glsebastiany.smartcatalogspl.presentationfood.foods.FoodDisplayFactory;
 
 import javax.inject.Singleton;
 
@@ -85,12 +81,6 @@ public class ApplicationModule {
     @Singleton
     CategoryUseCases provideCategoryUseCases(FoodCategoriesUseCases categoriyUseCases){
         return categoriyUseCases;
-    }
-
-    @Provides
-    @Singleton
-    DisplayFactory provideDisplayFactory(FoodDisplayFactory displayFactory){
-        return displayFactory;
     }
 
     @Provides
