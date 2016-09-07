@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.tabedgallery.ActivityGallery_">
+        <activity android:name=".ui.tabbedgallery.ActivityGallery_">
 
         </activity>
     </application>

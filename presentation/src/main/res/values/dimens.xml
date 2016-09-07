@@ -21,5 +21,4 @@
     <!--is used in pixels per second-->
     <dimen name="max_gallery_flinging">1200dp</dimen>
 
-    <dimen name="grid_cards_spacing">3dp</dimen>
 </resources>

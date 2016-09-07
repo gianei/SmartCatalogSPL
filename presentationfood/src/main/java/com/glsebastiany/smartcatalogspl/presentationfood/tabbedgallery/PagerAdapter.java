@@ -16,31 +16,28 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentationfood;
+package com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import rx.Observable;
 import rx.Observer;
 
 
-public class CategoryItemsViewPagerAdapter extends FragmentStatePagerAdapter implements Observer<CategoryModel> {
+public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<CategoryModel> {
 
     private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
 
-    public CategoryItemsViewPagerAdapter(FragmentManager fm, Observable<CategoryModel> categoriesObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
+    public PagerAdapter(FragmentManager fm, Observable<CategoryModel> categoriesObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
         this.baseAppDisplayFactory = baseAppDisplayFactory;
 

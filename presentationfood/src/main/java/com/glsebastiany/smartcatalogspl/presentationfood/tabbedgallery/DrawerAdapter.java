@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentationfood.foods;
+package com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery;
 
 
 import android.content.Context;
@@ -36,12 +36,12 @@ import java.util.List;
 import rx.Observable;
 import rx.Observer;
 
-public class FoodDrawerAdapter extends BaseAdapter{
+public class DrawerAdapter extends BaseAdapter{
 
     private Context context;
     private List<CategoryModel> items = new LinkedList<>();
 
-    public FoodDrawerAdapter(Context context, Observable<CategoryModel> observable) {
+    public DrawerAdapter(Context context, Observable<CategoryModel> observable) {
         this.context = context;
 
         observable.subscribe(new Observer<CategoryModel>() {

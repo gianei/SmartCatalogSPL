@@ -21,9 +21,9 @@ package com.glsebastiany.smartcatalogspl.di.components;
 
 import com.glsebastiany.smartcatalogspl.di.modules.ItemsGroupModule;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerItemsGroup;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.detail.FragmentItemDetail;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.detail.FragmentItemPager;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.grid.FragmentGalleryGrid;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemDetail;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid;
 
 import dagger.Component;
 

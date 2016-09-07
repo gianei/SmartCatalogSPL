@@ -22,8 +22,8 @@ import android.support.v4.app.FragmentManager;
 
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerFragment;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryController;
-import com.glsebastiany.smartcatalogspl.presentationfood.controller.GalleryController;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseTabbedGalleryController;
+import com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery.TabbedGalleryController;
 
 import dagger.Module;
 import dagger.Provides;
@@ -48,7 +48,7 @@ public class FragmentModule {
 
     @Provides
     @PerFragment
-    BaseGalleryController provideBaseGalleryController(GalleryController galleryController){
-        return galleryController;
+    BaseTabbedGalleryController provideBaseGalleryController(TabbedGalleryController tabbedGalleryController){
+        return tabbedGalleryController;
     }
 }

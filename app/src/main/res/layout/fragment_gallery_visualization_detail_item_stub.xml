@@ -16,28 +16,16 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:activity="com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.GalleryGridFragment">
+    tools:activity="com.glsebastiany.catalogueditlanta.ui.gallery.visualization.grid.detail.FragmentItemDetail">
 
-    <com.glsebastiany.smartcatalogspl.presentation.widget.GalleryGridRecyclerView
-        android:id="@+id/my_recycler_view"
-        android:scrollbars="vertical"
+    <ViewStub android:id="@+id/item_detail_stub"
+        android:inflatedId="@+id/item_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:elevation="4dp"/>
+    />
 
-    <ProgressBar
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:layout_gravity="center" />
-
-
-</FrameLayout>
+</RelativeLayout>

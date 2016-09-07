@@ -23,7 +23,7 @@ package com.glsebastiany.smartcatalogspl.di.components;
 import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerActivity;
 import com.glsebastiany.smartcatalogspl.ui.ActivityMain;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.ActivityGallery;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
 
 import dagger.Component;
 

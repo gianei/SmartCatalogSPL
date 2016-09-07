@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.detail;
+package com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

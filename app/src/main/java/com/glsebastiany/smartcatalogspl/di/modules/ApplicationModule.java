@@ -32,10 +32,10 @@ import com.glsebastiany.smartcatalogspl.domain.DefaultItemUseCases;
 import com.glsebastiany.smartcatalogspl.domain.FoodCategoriesUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.presentationfood.controller.GalleryGridController;
-import com.glsebastiany.smartcatalogspl.presentationfood.controller.MainController;
+import com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery.swipeable.SwipeableController;
+import com.glsebastiany.smartcatalogspl.presentationfood.main.MainController;
 
 import javax.inject.Singleton;
 
@@ -98,7 +98,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    BaseGalleryGridController provideBaseGalleryGridController(GalleryGridController galleryGridController){
-        return galleryGridController;
+    BaseSwipeableController provideBaseGalleryGridController(SwipeableController swipeableController){
+        return swipeableController;
     }
 }

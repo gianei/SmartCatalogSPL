@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.grid;
+package com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid;
 
 import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
@@ -26,7 +26,7 @@ import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -46,7 +46,7 @@ public class FragmentGalleryGrid extends BaseFragment implements HasComponent<It
     ProgressBar progressBar;
 
     @Inject
-    BaseGalleryGridController galleryGridController;
+    BaseSwipeableController galleryGridController;
 
     @Inject
     Observable<ItemModel> itemModelObservable;

@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui.tabedgallery;
+package com.glsebastiany.smartcatalogspl.ui.tabbedgallery;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -26,7 +26,7 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
-import com.glsebastiany.smartcatalogspl.presentationfood.controller.GalleryController;
+import com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery.TabbedGalleryController;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -41,7 +41,7 @@ public class FragmentGallery extends BaseFragment {
     public static final String TAG = "galleryFragment";
 
     @Inject
-    GalleryController galleryController;
+    TabbedGalleryController tabbedGalleryController;
 
     @Click(R.id.drawerTriggerView)
     public void onDrawerTriggerClick(){
@@ -84,15 +84,15 @@ public class FragmentGallery extends BaseFragment {
 
     private void setupSlidingTabsAndViewPager() {
 
-        galleryController.setupPager(getActivity(), progressBar, viewPager);
+        tabbedGalleryController.setupPager(getActivity(), progressBar, viewPager);
 
-        galleryController.setupSlidingTabs(tabLayout, viewPager);
+        tabbedGalleryController.setupSlidingTabs(tabLayout, viewPager);
     }
 
 
     private void setupDrawer() {
 
-        galleryController.setupDrawerAdapter(getActivity(), drawerListView);
+        tabbedGalleryController.setupDrawerAdapter(getActivity(), drawerListView);
 
     };
 

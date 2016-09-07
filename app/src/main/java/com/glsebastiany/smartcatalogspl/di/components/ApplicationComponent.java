@@ -26,7 +26,7 @@ import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
 
 import javax.inject.Singleton;
@@ -46,7 +46,7 @@ public interface ApplicationComponent {
     CategoryRepository categoryRepository();
     CategoryUseCases categoryUseCases();
     BaseMainController baseMainController();
-    BaseGalleryGridController baseGalleryGridController();
+    BaseSwipeableController baseGalleryGridController();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 

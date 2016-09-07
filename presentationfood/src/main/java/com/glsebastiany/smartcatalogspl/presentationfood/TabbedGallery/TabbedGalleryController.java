@@ -16,48 +16,53 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentationfood.controller;
+package com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.presentationfood.GalleryGridItemsAdapter;
-import com.glsebastiany.smartcatalogspl.presentationfood.R;
-import com.glsebastiany.smartcatalogspl.presentationfood.SuitCaseRecyclerAdapter;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseTabbedGalleryController;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Observer;
 
-public class MainController extends BaseMainController {
+public class TabbedGalleryController extends BaseTabbedGalleryController {
 
     @Inject
     CategoryUseCases categoryUseCases;
 
     @Inject
+    FragmentManager fragmentManager;
+
+    @Inject
     BaseAppDisplayFactory baseAppDisplayFactory;
 
     @Inject
-    public MainController(){}
+    public TabbedGalleryController(){}
 
-    public void setupRecyclerView(Context context, final ProgressBar progressBar, final RecyclerView recyclerView){
+
+    public void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager){
+
         Observable<CategoryModel> observable = categoryUseCases.mainViewCategories();
+
+        viewPager.setAdapter(new PagerAdapter(fragmentManager, observable, baseAppDisplayFactory));
+
 
         observable.subscribe(new Observer<CategoryModel>() {
             @Override
             public void onCompleted() {
                 progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                viewPager.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -68,19 +73,21 @@ public class MainController extends BaseMainController {
             @Override
             public void onNext(CategoryModel categoryModel) {
                 progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                viewPager.setVisibility(View.VISIBLE);
             }
         });
 
-        recyclerView.setLayoutManager(
-                new GridLayoutManager(
-                        context,
-                        context.getResources().getInteger(R.integer.grid_span_start),
-                        LinearLayoutManager.VERTICAL, false
-                )
-        );
+    }
 
-        recyclerView.setAdapter(new SuitCaseRecyclerAdapter(context, observable, baseAppDisplayFactory));
+    public void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager) {
+        tabLayout.setupWithViewPager(viewPager);
 
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+    }
+
+    @Override
+    public void setupDrawerAdapter(Context context, ListView listView) {
+        listView.setAdapter(new DrawerAdapter(context, categoryUseCases.drawerCategories()));
     }
 }

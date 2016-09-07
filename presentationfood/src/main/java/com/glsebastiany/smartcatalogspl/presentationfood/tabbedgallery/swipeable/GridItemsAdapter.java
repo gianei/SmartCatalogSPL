@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentationfood;
+package com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery.swipeable;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
@@ -36,6 +36,7 @@ import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.presentationfood.R;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -46,7 +47,7 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.functions.Action1;
 
-public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel>{
+public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel>{
     private static final int REGULAR_ITEM_TYPE = 1;
     private static final int PROMOTED_ITEM_TYPE = 2;
     private static final int NEW_ITEM_TYPE = 3;
@@ -63,7 +64,7 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private List<ItemModel> items = new LinkedList<>();
 
-    public GalleryGridItemsAdapter(Observable<ItemModel> itemsObservable, FragmentManager fragmentManager, BaseAppDisplayFactory baseAppDisplayFactory){
+    public GridItemsAdapter(Observable<ItemModel> itemsObservable, FragmentManager fragmentManager, BaseAppDisplayFactory baseAppDisplayFactory){
         super();
         this.fragmentManager = fragmentManager;
         this.baseAppDisplayFactory = baseAppDisplayFactory;

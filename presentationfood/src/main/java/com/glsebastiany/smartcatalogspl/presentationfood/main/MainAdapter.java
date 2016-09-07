@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentationfood;
+package com.glsebastiany.smartcatalogspl.presentationfood.main;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,7 +27,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -36,25 +35,23 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoryModel;
-import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.system.Utils;
+import com.glsebastiany.smartcatalogspl.presentationfood.R;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import rx.Observable;
 import rx.Observer;
 
-public class SuitCaseRecyclerAdapter extends RecyclerView.Adapter<SuitCaseRecyclerAdapter.ViewHolderSuitCase> implements Observer<CategoryModel>{
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuitCase> implements Observer<CategoryModel>{
     private final Context context;
     private final BaseAppDisplayFactory baseAppDisplayFactory;
 
     private List<CategoryModel> suitCases = new LinkedList<>();
 
-    public SuitCaseRecyclerAdapter(Context context, Observable<CategoryModel> categoryObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
+    public MainAdapter(Context context, Observable<CategoryModel> categoryObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
         this.context = context;
         this.baseAppDisplayFactory = baseAppDisplayFactory;
         categoryObservable.subscribe(this);
@@ -117,7 +114,7 @@ public class SuitCaseRecyclerAdapter extends RecyclerView.Adapter<SuitCaseRecycl
         public ImageView image;
         public TextView title;
 
-        public ViewHolderSuitCase(View v, final SuitCaseRecyclerAdapter adapter){
+        public ViewHolderSuitCase(View v, final MainAdapter adapter){
             super(v);
             image = (ImageView) v.findViewById(R.id.image);
             title = (TextView) v.findViewById(R.id.title);

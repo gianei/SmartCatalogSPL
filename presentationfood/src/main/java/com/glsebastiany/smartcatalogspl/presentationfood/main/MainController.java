@@ -16,22 +16,19 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentationfood.controller;
+package com.glsebastiany.smartcatalogspl.presentationfood.main;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
-import com.glsebastiany.smartcatalogspl.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
-import com.glsebastiany.smartcatalogspl.presentation.widget.SpacesItemDecoration;
-import com.glsebastiany.smartcatalogspl.presentationfood.GalleryGridItemsAdapter;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.presentationfood.R;
 
 import javax.inject.Inject;
@@ -39,27 +36,21 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Observer;
 
-public class GalleryGridController extends BaseGalleryGridController {
+public class MainController extends BaseMainController {
 
     @Inject
-    CategoryRepository categoryRepository;
-
-    @Inject
-    ItemUseCases itemUseCases;
+    CategoryUseCases categoryUseCases;
 
     @Inject
     BaseAppDisplayFactory baseAppDisplayFactory;
 
     @Inject
-    public GalleryGridController(){}
+    public MainController(){}
 
-    public Observable<ItemModel> getItemsObservable(String categoryId){
-        return itemUseCases.allFromCategory(categoryId);
-    }
+    public void setupRecyclerView(Context context, final ProgressBar progressBar, final RecyclerView recyclerView){
+        Observable<CategoryModel> observable = categoryUseCases.mainViewCategories();
 
-
-    public void setupRecyclerView(Context context, Observable<ItemModel> observable, final ProgressBar progressBar, final RecyclerView recyclerView, FragmentManager fragmentManager){
-        observable.subscribe(new Observer<ItemModel>() {
+        observable.subscribe(new Observer<CategoryModel>() {
             @Override
             public void onCompleted() {
                 progressBar.setVisibility(View.GONE);
@@ -72,16 +63,21 @@ public class GalleryGridController extends BaseGalleryGridController {
             }
 
             @Override
-            public void onNext(ItemModel itemModel) {
+            public void onNext(CategoryModel categoryModel) {
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
         });
 
-        recyclerView.setAdapter(new GalleryGridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory));
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
-        recyclerView.addItemDecoration(
-                new SpacesItemDecoration(context.getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
+        recyclerView.setLayoutManager(
+                new GridLayoutManager(
+                        context,
+                        context.getResources().getInteger(R.integer.grid_span_start),
+                        LinearLayoutManager.VERTICAL, false
+                )
+        );
+
+        recyclerView.setAdapter(new MainAdapter(context, observable, baseAppDisplayFactory));
 
     }
 }

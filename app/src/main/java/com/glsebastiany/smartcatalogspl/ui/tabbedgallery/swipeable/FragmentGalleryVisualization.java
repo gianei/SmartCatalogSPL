@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization;
+package com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,9 +29,9 @@ import com.glsebastiany.smartcatalogspl.di.components.DaggerItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
 import com.glsebastiany.smartcatalogspl.di.modules.ItemsGroupModule;
-import com.glsebastiany.smartcatalogspl.presentationfood.controller.GalleryGridController;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.grid.FragmentGalleryGrid;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.grid.FragmentGalleryGrid_;
+import com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery.swipeable.SwipeableController;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -47,7 +47,7 @@ public class FragmentGalleryVisualization extends BaseFragment
     String categoryId;
 
     @Inject
-    GalleryGridController galleryGridController;
+    SwipeableController swipeableController;
 
     private ItemsGroupComponent itemsGroupComponent;
 
@@ -69,7 +69,7 @@ public class FragmentGalleryVisualization extends BaseFragment
         itemsGroupComponent = DaggerItemsGroupComponent.builder()
                 .fragmentComponent(getFragmentComponent())
                 .itemsGroupModule(
-                        new ItemsGroupModule(galleryGridController.getItemsObservable(categoryId)))
+                        new ItemsGroupModule(swipeableController.getItemsObservable(categoryId)))
                 .build();
 
 

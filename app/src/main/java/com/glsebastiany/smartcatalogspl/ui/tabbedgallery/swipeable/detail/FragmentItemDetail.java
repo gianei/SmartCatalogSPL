@@ -16,15 +16,16 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.detail;
+package com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail;
 
-import android.widget.TextView;
+import android.view.ViewStub;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
+import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -39,17 +40,20 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Observer;
 
-@EFragment(R.layout.fragment_gallery_visualization_detail_item)
+@EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
 public class FragmentItemDetail extends BaseFragment {
 
     @Inject
     Observable<ItemModel> itemModelObservable;
 
+    @Inject
+    BaseSwipeableController galleryGridController;
+
     @FragmentArg
     int position;
 
-    @ViewById(R.id.textViewDetailDescription)
-    TextView descriptionText;
+    @ViewById(R.id.item_detail_stub)
+    ViewStub itemDetailStub;
 
     public static FragmentItemDetail newInstance(int position){
         return FragmentItemDetail_.builder().position(position).build();
@@ -65,7 +69,7 @@ public class FragmentItemDetail extends BaseFragment {
 
             @Override
             public void onCompleted() {
-                descriptionText.setText(items.get(position).getId());
+                galleryGridController.inflateItemDetailStub(itemDetailStub, items.get(position));
             }
 
             @Override

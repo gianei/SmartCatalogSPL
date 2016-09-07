@@ -26,9 +26,9 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.ActivityGallery_;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.FragmentGalleryVisualization;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.detail.FragmentItemPager;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery_;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
 
 import javax.inject.Inject;
 

@@ -16,36 +16,20 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentationfood.foods;
+package com.glsebastiany.smartcatalogspl.presentation.controller;
 
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.ViewStub;
+import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.presentation.ItemViewHolder;
-import com.glsebastiany.smartcatalogspl.presentationfood.R;
 
-public class FoodViewHolder extends ItemViewHolder {
+import rx.Observable;
 
-    public TextView mTextView;
-
-    public FoodViewHolder(TextView v) {
-        super(v);
-        mTextView = v;
-    }
-
-    public static ItemViewHolder createInstance(ViewGroup parent){
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
-
-        return new FoodViewHolder((TextView)v);
-    }
-
-    @Override
-    public void print(ItemModel itemModel) {
-        mTextView.setText(itemModel.getId());
-    }
+public abstract class BaseSwipeableController {
+    public abstract Observable<ItemModel> getItemsObservable(String categoryId);
+    public abstract void setupRecyclerView(Context context, Observable<ItemModel> itemModelObservable, ProgressBar progressBar, RecyclerView recyclerView, FragmentManager fragmentManager);
+    public abstract void inflateItemDetailStub(ViewStub viewStub, ItemModel itemModel);
 }

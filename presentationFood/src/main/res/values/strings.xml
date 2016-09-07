@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <string name="app_name">Presentation</string>
+    <string name="app_name">Presentation Food</string>
 
     <!-- content descriptions -->
     <string name="content_description_image_details">Detalhes da imagem</string>

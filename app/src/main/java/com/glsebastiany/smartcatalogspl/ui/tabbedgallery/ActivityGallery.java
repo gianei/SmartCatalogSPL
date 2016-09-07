@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui.tabedgallery;
+package com.glsebastiany.smartcatalogspl.ui.tabbedgallery;
 
 
 import android.support.v4.app.Fragment;
