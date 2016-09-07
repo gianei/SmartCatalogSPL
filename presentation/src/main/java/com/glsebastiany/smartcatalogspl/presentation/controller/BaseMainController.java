@@ -23,7 +23,5 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
 public abstract class BaseMainController {
-
-
     public abstract void setupRecyclerView(Context context, ProgressBar progressBar, RecyclerView recyclerView);
 }

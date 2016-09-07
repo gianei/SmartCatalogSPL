@@ -60,7 +60,7 @@ public class FerrariItemUseCases implements ItemUseCases {
     }
 
     @Override
-    public Observable<ItemModel> allFromCategory(CategoryModel categoryModel) {
+    public Observable<ItemModel> allFromCategory(String categoryId) {
         return allItems();
     }
 }

@@ -21,7 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:activity="com.glsebastiany.smartcatalogspl.ui.gallery.visualization.grid.GalleryGridFragment">
+    tools:activity="com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.grid.GalleryGridFragment">
 
     <com.glsebastiany.smartcatalogspl.presentation.widget.GalleryGridRecyclerView
         android:id="@+id/my_recycler_view"

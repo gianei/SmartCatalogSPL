@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui.gallery;
+package com.glsebastiany.smartcatalogspl.ui.tabedgallery;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;

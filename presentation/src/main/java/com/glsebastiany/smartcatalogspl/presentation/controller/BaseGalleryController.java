@@ -27,7 +27,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 public abstract class BaseGalleryController {
-
     public abstract void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager);
     public abstract void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager);
     public abstract void setupDrawerAdapter(Context context, ListView drawerLayout);

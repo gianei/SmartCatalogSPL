@@ -19,6 +19,7 @@
 package com.glsebastiany.smartcatalogspl.presentationfood;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -54,14 +56,17 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     //private GalleryGridFragment.ZoomProvider zoomProvider;
     private Context context;
+    private final FragmentManager fragmentManager;
+    private final BaseAppDisplayFactory baseAppDisplayFactory;
 
     //ItemUseCases itemUseCases;
 
     private List<ItemModel> items = new LinkedList<>();
 
-    @Inject
-    public GalleryGridItemsAdapter(Observable<ItemModel> itemsObservable){
+    public GalleryGridItemsAdapter(Observable<ItemModel> itemsObservable, FragmentManager fragmentManager, BaseAppDisplayFactory baseAppDisplayFactory){
         super();
+        this.fragmentManager = fragmentManager;
+        this.baseAppDisplayFactory = baseAppDisplayFactory;
         //this.itemUseCases = itemUseCases;
         //this.zoomProvider = zoomProvider;
 
@@ -222,7 +227,8 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
         public void onClick(View v) {
 
             //itemsHolderInterface.switchToItemView(position);
-            Toast.makeText(context, "Clicked "+ position, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Clicked "+ position, Toast.LENGTH_SHORT).show();
+            baseAppDisplayFactory.switchToItemView(fragmentManager, position);
         }
 
         @Override

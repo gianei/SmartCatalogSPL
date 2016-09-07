@@ -53,12 +53,12 @@ public class DefaultItemUseCases implements ItemUseCases {
     }
 
     @Override
-    public Observable<ItemModel> allFromCategory(final CategoryModel categoryModel) {
+    public Observable<ItemModel> allFromCategory(final String categoryId) {
         return itemRepository.getAll().filter(new Func1<ItemModel, Boolean>() {
             @Override
             public Boolean call(ItemModel s) {
                 FoodItemModel item =  (FoodItemModel) s;
-                return item.getCategoryId().equals(categoryModel.getId());
+                return item.getCategoryId().equals(categoryId);
             }
         });
     }

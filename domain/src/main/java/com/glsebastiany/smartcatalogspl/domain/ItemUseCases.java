@@ -26,5 +26,5 @@ import rx.Observable;
 public interface ItemUseCases {
     Observable<ItemModel> allItems();
     Observable<ItemModel> mainViewItems();
-    Observable<ItemModel> allFromCategory(CategoryModel categoryModel);
+    Observable<ItemModel> allFromCategory(String categoryId);
 }

@@ -16,13 +16,16 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui.gallery.grid;
+package com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.grid;
 
 import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
+import com.glsebastiany.smartcatalogspl.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
+import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
+import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
 
 import org.androidannotations.annotations.AfterViews;
@@ -31,10 +34,10 @@ import org.androidannotations.annotations.ViewById;
 
 import javax.inject.Inject;
 
-@EFragment(R.layout.fragment_gallery_visualization_grid)
-public class FragmentGalleryGrid extends BaseFragment {
+import rx.Observable;
 
-    private static final String CATEGORY = "category";
+@EFragment(R.layout.fragment_gallery_visualization_grid)
+public class FragmentGalleryGrid extends BaseFragment implements HasComponent<ItemsGroupComponent>{
 
     @ViewById(R.id.my_recycler_view)
     RecyclerView recyclerView;
@@ -45,16 +48,12 @@ public class FragmentGalleryGrid extends BaseFragment {
     @Inject
     BaseGalleryGridController galleryGridController;
 
-    public static FragmentGalleryGrid newInstance(String category) {
-        return FragmentGalleryGrid_.builder().arg(CATEGORY, category).build();
-    }
-
-
+    @Inject
+    Observable<ItemModel> itemModelObservable;
 
     @Override
     protected void initializeInjector() {
-        getAndroidApplication().getApplicationComponent().inject(this);
-
+        getComponent().inject(this);
     }
 
     @AfterViews
@@ -63,9 +62,12 @@ public class FragmentGalleryGrid extends BaseFragment {
     }
 
     private void setupRecyclerView(){
-        String category = getArguments().getString(CATEGORY);
-        galleryGridController.setupRecyclerView(getActivity(), category, progressBar, recyclerView);
+        galleryGridController.setupRecyclerView(getActivity(), itemModelObservable, progressBar, recyclerView, getFragmentManager());
 
     }
 
+    @Override
+    public ItemsGroupComponent getComponent() {
+        return ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent();
+    }
 }

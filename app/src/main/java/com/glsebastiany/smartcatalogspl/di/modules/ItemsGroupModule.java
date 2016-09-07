@@ -16,21 +16,26 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.components;
+package com.glsebastiany.smartcatalogspl.di.modules;
 
+import com.glsebastiany.smartcatalogspl.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.di.scopes.PerItemsGroup;
 
+import dagger.Module;
+import dagger.Provides;
+import rx.Observable;
 
-import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
-import com.glsebastiany.smartcatalogspl.di.scopes.PerActivity;
-import com.glsebastiany.smartcatalogspl.ui.ActivityMain;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.ActivityGallery;
+@Module
+public class ItemsGroupModule {
+    private final Observable<ItemModel> itemsObservable;
 
-import dagger.Component;
+    public ItemsGroupModule(Observable<ItemModel> itemsObservable) {
+        this.itemsObservable = itemsObservable;
+    }
 
-@PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    //void inject(BaseActivity baseActivity); // DO NOT INJECT ON BASE CLASSES
-    void inject(ActivityGallery activityGallery);
-    void inject(ActivityMain activityMain);
+    @Provides
+    @PerItemsGroup
+    Observable<ItemModel> provideItemsObservable() {
+        return this.itemsObservable;
+    }
 }

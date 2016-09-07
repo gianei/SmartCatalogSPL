@@ -28,7 +28,6 @@ import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseGalleryGridController;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid;
 
 import javax.inject.Singleton;
 
@@ -40,18 +39,14 @@ import dagger.Component;
 @Singleton // Constraints this component to one-per-application or unscoped bindings.
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-    void inject(FragmentGalleryGrid fragmentGalleryGrid);
-
     //Exposed to sub-graphs.
     Context context();
     ItemRepository itemRepository();
     ItemUseCases useCases();
     CategoryRepository categoryRepository();
     CategoryUseCases categoryUseCases();
-
     BaseMainController baseMainController();
     BaseGalleryGridController baseGalleryGridController();
-
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 

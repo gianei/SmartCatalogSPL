@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_floating_material_light"
+    tools:activity="com.glsebastiany.catalogueditlanta.ui.gallery.visualization.grid.detail.FragmentItemDetail">
+
+    <com.glsebastiany.smartcatalogspl.presentation.widget.TouchImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageViewDetalheItem"
+        android:adjustViewBounds="true"
+        android:layout_gravity="fill"
+        android:scaleType="fitCenter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textViewDetailItemPrice"
+        android:layout_gravity="right|bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        tools:text="R$88,88"
+        android:layout_above="@+id/textViewDetailDescription"
+        android:layout_alignParentEnd="true" />
+
+    <include layout="@layout/view_gallery_item_detail_build"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_above="@+id/textViewDetailItemId"
+        android:layout_alignStart="@+id/textViewDetailItemId" />
+
+    <TextView
+        android:id="@+id/textViewDetailItemPricePrevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_gravity="right|bottom"
+        tools:text="De R$99.99 por "
+        android:layout_alignBaseline="@+id/textViewDetailItemPrice"
+        android:layout_alignBottom="@+id/textViewDetailItemPrice"
+        android:layout_toStartOf="@+id/textViewDetailItemPrice" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:id="@+id/textViewDetailItemId"
+        android:layout_gravity="left|bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        tools:text="8888"
+        android:layout_above="@+id/textViewDetailDescription"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textViewDetailDescription"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        tools:text="Description"
+        android:layout_alignParentBottom="true"
+        />
+
+    <ViewStub android:id="@+id/label_stub"
+        android:inflatedId="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+    />
+
+</RelativeLayout>

@@ -1,0 +1,104 @@
+/*
+ *     SmartCatalogSPL, an Android catalog Software Product Line
+ *     Copyright (c) 2016 Gianei Leandro Sebastiany
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization;
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.LinearLayout;
+
+import com.glsebastiany.smartcatalogspl.R;
+import com.glsebastiany.smartcatalogspl.di.BaseFragment;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerItemsGroupComponent;
+import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
+import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
+import com.glsebastiany.smartcatalogspl.di.modules.ItemsGroupModule;
+import com.glsebastiany.smartcatalogspl.presentationfood.controller.GalleryGridController;
+import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.grid.FragmentGalleryGrid;
+import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.grid.FragmentGalleryGrid_;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
+
+import javax.inject.Inject;
+
+@EFragment(R.layout.fragment_gallery_visualization)
+public class FragmentGalleryVisualization extends BaseFragment
+    implements HasComponent<ItemsGroupComponent> {
+
+    @FragmentArg
+    String categoryId;
+
+    @Inject
+    GalleryGridController galleryGridController;
+
+    private ItemsGroupComponent itemsGroupComponent;
+
+
+    public static FragmentGalleryVisualization newInstance(String categoryId) {
+        return FragmentGalleryVisualization_.builder().categoryId(categoryId).build();
+    }
+
+
+    @Override
+    protected void initializeInjector() {
+        getFragmentComponent().inject(this);
+    }
+
+
+    @AfterViews
+    public void afterViews(){
+
+        itemsGroupComponent = DaggerItemsGroupComponent.builder()
+                .fragmentComponent(getFragmentComponent())
+                .itemsGroupModule(
+                        new ItemsGroupModule(galleryGridController.getItemsObservable(categoryId)))
+                .build();
+
+
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        FragmentGalleryGrid galleryGridFragment = FragmentGalleryGrid_.builder().build();
+        fragmentTransaction.add(R.id.gallery_visualization, galleryGridFragment);
+        fragmentTransaction.commit();
+
+
+
+
+        getChildFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                LinearLayout galleryTabs = (LinearLayout) getActivity().findViewById(R.id.gallery_tabs);
+                if (galleryTabs != null) {
+                    if (galleryTabs.getVisibility() == View.VISIBLE)
+                        galleryTabs.setVisibility(View.GONE);
+                    else
+                        galleryTabs.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    public ItemsGroupComponent getComponent() {
+        return itemsGroupComponent;
+    }
+
+}

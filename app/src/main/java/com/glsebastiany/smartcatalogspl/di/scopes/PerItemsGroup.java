@@ -16,21 +16,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.components;
+package com.glsebastiany.smartcatalogspl.di.scopes;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
+import javax.inject.Scope;
 
-import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
-import com.glsebastiany.smartcatalogspl.di.scopes.PerActivity;
-import com.glsebastiany.smartcatalogspl.ui.ActivityMain;
-import com.glsebastiany.smartcatalogspl.ui.tabedgallery.ActivityGallery;
-
-import dagger.Component;
-
-@PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    //void inject(BaseActivity baseActivity); // DO NOT INJECT ON BASE CLASSES
-    void inject(ActivityGallery activityGallery);
-    void inject(ActivityMain activityMain);
-}
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PerItemsGroup {}

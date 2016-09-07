@@ -28,6 +28,5 @@ public abstract class ItemViewHolder extends RecyclerView.ViewHolder {
     public ItemViewHolder(View itemView) {
         super(itemView);
     }
-
     public abstract void print(ItemModel itemModel);
 }

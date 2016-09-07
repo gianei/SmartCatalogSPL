@@ -19,10 +19,11 @@
 package com.glsebastiany.smartcatalogspl.presentation;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 
 public interface BaseAppDisplayFactory {
     Fragment provideGalleryFragment(String category);
-
     void startGalleryActivity();
+    void switchToItemView(FragmentManager fragmentManager, int position);
 }

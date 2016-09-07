@@ -18,16 +18,17 @@
 
 package com.glsebastiany.smartcatalogspl.di.helper;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
+import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.ui.gallery.ActivityGallery;
-import com.glsebastiany.smartcatalogspl.ui.gallery.ActivityGallery_;
-import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid;
-import com.glsebastiany.smartcatalogspl.ui.gallery.grid.FragmentGalleryGrid_;
+import com.glsebastiany.smartcatalogspl.ui.tabedgallery.ActivityGallery_;
+import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.FragmentGalleryVisualization;
+import com.glsebastiany.smartcatalogspl.ui.tabedgallery.swipablevisualization.detail.FragmentItemPager;
 
 import javax.inject.Inject;
 
@@ -41,12 +42,22 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public Fragment provideGalleryFragment(String category){
-        return FragmentGalleryGrid.newInstance(category);
+        return FragmentGalleryVisualization.newInstance(category);
     }
 
     @Override
     public void startGalleryActivity() {
         ActivityGallery_.intent(context).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+    }
+
+    @Override
+    public void switchToItemView(FragmentManager fragmentManager, int position) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        FragmentItemPager fragmentItemPager = FragmentItemPager.newInstance(position);
+        fragmentTransaction.add(R.id.gallery_visualization, fragmentItemPager);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 
