@@ -18,6 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.di;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -34,6 +35,14 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         fragmentModule = new FragmentModule(this);
 

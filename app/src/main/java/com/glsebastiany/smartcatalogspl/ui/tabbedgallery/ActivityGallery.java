@@ -59,7 +59,7 @@ public class ActivityGallery extends BaseActivity {
     }
 
     @InstanceState
-    boolean fromSavedInstance = false;
+    boolean isFromSavedInstance = false;
 
     private Fragment galleryFragment;
 
@@ -104,13 +104,17 @@ public class ActivityGallery extends BaseActivity {
 
 
     private void setupGalleryFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        galleryFragment = FragmentGallery.newInstance(categoriesIds);
-        fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, FragmentGallery_.TAG);
-        fragmentTransaction.commit();
+        if (!isFromSavedInstance) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+            galleryFragment = FragmentGallery.newInstance(categoriesIds);
+            fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, FragmentGallery_.TAG);
+            fragmentTransaction.commit();
+
+            isFromSavedInstance = true;
+        }
 
     }
 
@@ -175,12 +179,8 @@ public class ActivityGallery extends BaseActivity {
 
     @Override
     protected void initializeInjector() {
-        getActivityComponent().inject(this);
 
-        /*if (!fromSavedInstance){
-            getAndroidApplication().createItemsGalleryComponent(itemUseCases.allItems(), categoryUseCases.mainViewCategories());
-            fromSavedInstance = true;
-        }*/
+        getActivityComponent().inject(this);
 
     }
 
