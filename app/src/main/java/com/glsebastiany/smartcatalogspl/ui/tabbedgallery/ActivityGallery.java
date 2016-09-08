@@ -30,8 +30,8 @@ import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseActivity;
-import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;

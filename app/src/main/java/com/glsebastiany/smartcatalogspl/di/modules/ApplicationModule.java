@@ -21,24 +21,19 @@ package com.glsebastiany.smartcatalogspl.di.modules;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
-import com.glsebastiany.smartcatalogspl.data.ItemRepository;
-import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoriesRepository;
-import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.data.foods.FoodItemsItemRepository;
 import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.di.helper.AppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.domain.CategoryGroupUseCases;
-import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.domain.DefaultItemUseCases;
-import com.glsebastiany.smartcatalogspl.domain.FoodCategoriesUseCases;
-import com.glsebastiany.smartcatalogspl.domain.FoodCategoryGroupUseCase;
-import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery.swipeable.SwipeableController;
-import com.glsebastiany.smartcatalogspl.presentationfood.main.MainController;
+import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodItemUseCases;
+import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodCategoriesUseCases;
+import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodCategoryGroupUseCase;
+import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.main.MainController;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.tabbedgallery.swipeable.SwipeableController;
 
 import javax.inject.Singleton;
 
@@ -64,20 +59,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ItemRepository provideItemRepository(FoodItemsItemRepository itemRepository){
-        return itemRepository;
-    }
-
-    @Provides
-    @Singleton
-    ItemUseCases provideUseCases(DefaultItemUseCases itemUseCases){
+    ItemUseCases provideItemUseCases(FoodItemUseCases itemUseCases){
         return itemUseCases;
-    }
-
-    @Provides
-    @Singleton
-    CategoryRepository provideCategoryRepository(FoodCategoriesRepository categoryRepository){
-        return categoryRepository;
     }
 
     @Provides

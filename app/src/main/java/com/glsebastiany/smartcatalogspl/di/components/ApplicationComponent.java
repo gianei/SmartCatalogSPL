@@ -20,14 +20,12 @@ package com.glsebastiany.smartcatalogspl.di.components;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
-import com.glsebastiany.smartcatalogspl.data.ItemRepository;
 import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
-import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
+import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 
 import javax.inject.Singleton;
 
@@ -41,9 +39,7 @@ import dagger.Component;
 public interface ApplicationComponent {
     //Exposed to sub-graphs.
     Context context();
-    ItemRepository itemRepository();
     ItemUseCases useCases();
-    CategoryRepository categoryRepository();
     CategoryUseCases categoryUseCases();
     BaseMainController baseMainController();
     BaseSwipeableController baseGalleryGridController();

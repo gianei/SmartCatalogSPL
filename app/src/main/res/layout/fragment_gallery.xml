@@ -60,7 +60,7 @@
 
         </LinearLayout>
 
-        <com.glsebastiany.smartcatalogspl.presentation.widget.MyDrawerLayout
+        <com.glsebastiany.smartcatalogspl.core.presentation.widget.MyDrawerLayout
             android:id="@+id/drawer_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -102,6 +102,6 @@
                 android:paddingBottom="?attr/actionBarSize"/> <!--workaround because of variant height with QuickReturn-->
 
 
-        </com.glsebastiany.smartcatalogspl.presentation.widget.MyDrawerLayout>
+        </com.glsebastiany.smartcatalogspl.core.presentation.widget.MyDrawerLayout>
 </LinearLayout>
 

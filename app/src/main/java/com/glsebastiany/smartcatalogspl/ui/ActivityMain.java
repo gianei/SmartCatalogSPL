@@ -24,7 +24,7 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.di.BaseActivity;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;

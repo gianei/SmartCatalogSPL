@@ -22,7 +22,7 @@ package com.glsebastiany.smartcatalogspl.di.components;
 
 import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerFragment;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.FragmentGallery;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
 

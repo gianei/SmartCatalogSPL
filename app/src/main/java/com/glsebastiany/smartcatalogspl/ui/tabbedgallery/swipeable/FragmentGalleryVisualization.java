@@ -29,7 +29,7 @@ import com.glsebastiany.smartcatalogspl.di.components.DaggerItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
 import com.glsebastiany.smartcatalogspl.di.modules.ItemsGroupModule;
-import com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery.swipeable.SwipeableController;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.tabbedgallery.swipeable.SwipeableController;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid_;
 

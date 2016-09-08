@@ -19,15 +19,13 @@
 package com.glsebastiany.smartcatalogspl.di.helper;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
-import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery_;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
 

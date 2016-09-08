@@ -22,11 +22,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
-import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;

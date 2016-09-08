@@ -16,4 +16,4 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':app', ':data', ':domain', ':presentationfood', ':presentationcars', ':presentation'
+include ':app', ':instancefood', ':instancecars', ':core'
