@@ -16,16 +16,14 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.presentation;
+package com.glsebastiany.smartcatalogspl.domain;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import com.glsebastiany.smartcatalogspl.data.CategoryGroupModel;
 
-import java.util.List;
+import rx.Observable;
 
+public interface CategoryGroupUseCases {
 
-public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment(String category);
-    void startGalleryActivity(List<String> categoriesId);
-    void switchToItemView(FragmentManager fragmentManager, int position);
+    Observable<CategoryGroupModel> mainViewCategoriesGroups();
+
 }

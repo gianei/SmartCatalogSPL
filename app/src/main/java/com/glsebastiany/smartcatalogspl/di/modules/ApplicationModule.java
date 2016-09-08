@@ -24,12 +24,15 @@ import android.content.Context;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.data.ItemRepository;
 import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoriesRepository;
+import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.data.foods.FoodItemsItemRepository;
 import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.di.helper.AppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.domain.DefaultItemUseCases;
 import com.glsebastiany.smartcatalogspl.domain.FoodCategoriesUseCases;
+import com.glsebastiany.smartcatalogspl.domain.FoodCategoryGroupUseCase;
 import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseSwipeableController;
@@ -81,6 +84,12 @@ public class ApplicationModule {
     @Singleton
     CategoryUseCases provideCategoryUseCases(FoodCategoriesUseCases categoriyUseCases){
         return categoriyUseCases;
+    }
+
+    @Provides
+    @Singleton
+    CategoryGroupUseCases provideCategoryGroupUseCases(FoodCategoryGroupUseCase categoryGroupUseCase){
+        return categoryGroupUseCase;
     }
 
     @Provides

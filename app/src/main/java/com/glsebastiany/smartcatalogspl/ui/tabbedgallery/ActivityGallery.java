@@ -19,6 +19,8 @@
 package com.glsebastiany.smartcatalogspl.ui.tabbedgallery;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +35,7 @@ import com.glsebastiany.smartcatalogspl.domain.ItemUseCases;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
@@ -42,6 +45,18 @@ import javax.inject.Inject;
 
 @EActivity(R.layout.activity_gallery)
 public class ActivityGallery extends BaseActivity {
+
+    @Extra
+    String[] categoriesIds;
+
+
+    public static void start(Context context, List<String> categoriesIds ){
+        ActivityGallery_
+                .intent(context)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
+                .start();
+    }
 
     @InstanceState
     boolean fromSavedInstance = false;
@@ -92,7 +107,7 @@ public class ActivityGallery extends BaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        galleryFragment = FragmentGallery_.builder().build();
+        galleryFragment = FragmentGallery.newInstance(categoriesIds);
         fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, FragmentGallery_.TAG);
         fragmentTransaction.commit();
 

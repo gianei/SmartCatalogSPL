@@ -26,12 +26,19 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery_;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+/**
+ * This class makes actions between screens. It cane be replaced for other needs for different apps,
+ * but all must be placed here.
+ */
 public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Inject
@@ -46,8 +53,8 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     }
 
     @Override
-    public void startGalleryActivity() {
-        ActivityGallery_.intent(context).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+    public void startGalleryActivity(List<String> categoriesId) {
+        ActivityGallery.start(context, categoriesId);
     }
 
     @Override

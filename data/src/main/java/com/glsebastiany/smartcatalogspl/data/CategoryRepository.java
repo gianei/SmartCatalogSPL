@@ -18,6 +18,8 @@
 
 package com.glsebastiany.smartcatalogspl.data;
 
+import java.util.List;
+
 import rx.Observable;
 
 public interface CategoryRepository {
@@ -26,4 +28,5 @@ public interface CategoryRepository {
     Observable<CategoryModel> getAllChildren(CategoryModel categoryModel);
     Observable<CategoryModel> getParent(CategoryModel categoryModel);
     Observable<CategoryModel> findCategory(String categoryId);
+    Observable<CategoryModel> findCategory(List<String> categoriesId);
 }

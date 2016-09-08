@@ -25,8 +25,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.glsebastiany.smartcatalogspl.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.presentationfood.R;
@@ -39,7 +40,7 @@ import rx.Observer;
 public class MainController extends BaseMainController {
 
     @Inject
-    CategoryUseCases categoryUseCases;
+    CategoryGroupUseCases categoryGroupUseCases;
 
     @Inject
     BaseAppDisplayFactory baseAppDisplayFactory;
@@ -48,9 +49,9 @@ public class MainController extends BaseMainController {
     public MainController(){}
 
     public void setupRecyclerView(Context context, final ProgressBar progressBar, final RecyclerView recyclerView){
-        Observable<CategoryModel> observable = categoryUseCases.mainViewCategories();
+        Observable<CategoryGroupModel> observable = categoryGroupUseCases.mainViewCategoriesGroups();
 
-        observable.subscribe(new Observer<CategoryModel>() {
+        observable.subscribe(new Observer<CategoryGroupModel>() {
             @Override
             public void onCompleted() {
                 progressBar.setVisibility(View.GONE);
@@ -63,7 +64,7 @@ public class MainController extends BaseMainController {
             }
 
             @Override
-            public void onNext(CategoryModel categoryModel) {
+            public void onNext(CategoryGroupModel categoryGroupModel) {
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }

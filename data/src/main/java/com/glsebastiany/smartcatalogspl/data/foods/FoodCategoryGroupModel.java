@@ -16,16 +16,41 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.domain;
+package com.glsebastiany.smartcatalogspl.data.foods;
 
-import com.glsebastiany.smartcatalogspl.data.CategoryModel;
+
+import com.glsebastiany.smartcatalogspl.data.CategoryGroupModel;
 
 import java.util.List;
 
-import rx.Observable;
+public class FoodCategoryGroupModel implements CategoryGroupModel {
 
-public interface CategoryUseCases {
+    private final String id;
+    private final String name;
+    private final String imageUrl;
+    private final List<String> categoriesIds;
 
-    Observable<CategoryModel> mainViewCategories();
-    Observable<CategoryModel> drawerCategories();
+    public FoodCategoryGroupModel(String id, String name, String imageUrl, List<String> categoriesIds){
+        this.id = id;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.categoriesIds = categoriesIds;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    public List<String> getCategoriesIds() {
+        return categoriesIds;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

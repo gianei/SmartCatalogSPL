@@ -26,8 +26,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import java.util.List;
+
 public abstract class BaseTabbedGalleryController {
-    public abstract void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager);
+    public abstract void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager, List<String> categoriesIds);
     public abstract void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager);
     public abstract void setupDrawerAdapter(Context context, ListView drawerLayout);
 }

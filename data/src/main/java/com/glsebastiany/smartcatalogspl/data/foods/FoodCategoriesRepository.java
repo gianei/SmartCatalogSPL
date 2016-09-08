@@ -163,5 +163,34 @@ public class FoodCategoriesRepository implements CategoryRepository{
 
     }
 
+    @Override
+    public Observable<CategoryModel> findCategory(final List<String> categoriesId) {
+        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
+            @Override
+            public void call(final Subscriber<? super CategoryModel> subscriber) {
+                try {
+                    boolean found = false;
+                    for (int i = 0; i <items.size(); i++) {
+                        for (int j = 0; j< categoriesId.size(); j++) {
+                            if (categoriesId.get(j).compareTo(items.get(i).getId()) == 0){
+                                subscriber.onNext(items.get(i));
+                                found = true;
+                            }
+                        }
+                    }
+
+                    if (!found)
+                        subscriber.onError(new Throwable("Category not found!"));
+
+                    subscriber.onCompleted();
+
+                } catch (Exception e){
+                    subscriber.onError(e);
+                }
+            }
+        });
+
+    }
+
 
 }

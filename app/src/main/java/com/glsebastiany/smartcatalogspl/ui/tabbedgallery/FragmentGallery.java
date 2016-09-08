@@ -31,7 +31,11 @@ import com.glsebastiany.smartcatalogspl.presentationfood.tabbedgallery.TabbedGal
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,6 +43,16 @@ import javax.inject.Inject;
 public class FragmentGallery extends BaseFragment {
 
     public static final String TAG = "galleryFragment";
+
+    public static FragmentGallery newInstance(String[] categoriesId){
+        return FragmentGallery_.builder().categoriesIdExtra(categoriesId).build();
+    }
+
+    List<String> categoriesId;
+    @FragmentArg
+    void categoriesIdExtra(String[] categoriesIds){
+        this.categoriesId = Arrays.asList(categoriesIds);
+    }
 
     @Inject
     TabbedGalleryController tabbedGalleryController;
@@ -84,7 +98,7 @@ public class FragmentGallery extends BaseFragment {
 
     private void setupSlidingTabsAndViewPager() {
 
-        tabbedGalleryController.setupPager(getActivity(), progressBar, viewPager);
+        tabbedGalleryController.setupPager(getActivity(), progressBar, viewPager, categoriesId);
 
         tabbedGalleryController.setupSlidingTabs(tabLayout, viewPager);
     }

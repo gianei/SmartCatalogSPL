@@ -27,9 +27,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.controller.BaseTabbedGalleryController;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,6 +45,9 @@ public class TabbedGalleryController extends BaseTabbedGalleryController {
     CategoryUseCases categoryUseCases;
 
     @Inject
+    CategoryRepository categoryRepository;
+
+    @Inject
     FragmentManager fragmentManager;
 
     @Inject
@@ -51,9 +57,9 @@ public class TabbedGalleryController extends BaseTabbedGalleryController {
     public TabbedGalleryController(){}
 
 
-    public void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager){
+    public void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager, List<String> categoriesIds){
 
-        Observable<CategoryModel> observable = categoryUseCases.mainViewCategories();
+        Observable<CategoryModel> observable = categoryRepository.findCategory(categoriesIds);
 
         viewPager.setAdapter(new PagerAdapter(fragmentManager, observable, baseAppDisplayFactory));
 

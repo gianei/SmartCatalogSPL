@@ -33,8 +33,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
-import com.glsebastiany.smartcatalogspl.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoryModel;
+import com.glsebastiany.smartcatalogspl.data.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.presentation.system.Utils;
 import com.glsebastiany.smartcatalogspl.presentationfood.R;
@@ -45,35 +45,40 @@ import java.util.List;
 import rx.Observable;
 import rx.Observer;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuitCase> implements Observer<CategoryModel>{
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuitCase> implements Observer<CategoryGroupModel>{
     private final Context context;
     private final BaseAppDisplayFactory baseAppDisplayFactory;
 
-    private List<CategoryModel> suitCases = new LinkedList<>();
+    private List<FoodCategoryGroupModel> categoriesGroup = new LinkedList<>();
 
-    public MainAdapter(Context context, Observable<CategoryModel> categoryObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
+    public MainAdapter(Context context, Observable<CategoryGroupModel> categoryGroupObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
         this.context = context;
         this.baseAppDisplayFactory = baseAppDisplayFactory;
-        categoryObservable.subscribe(this);
+        categoryGroupObservable.subscribe(this);
     }
 
     @Override
     public ViewHolderSuitCase onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.view_card_suit_case, parent, false);
 
-        return new ViewHolderSuitCase(v, this);
-    }
-
-    public CategoryModel getFromPosition(int adapterPosition){
-        return suitCases.get(adapterPosition);
+        return new ViewHolderSuitCase(v);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolderSuitCase viewHolderSuitCase, int position) {
-        FoodCategoryModel model = (FoodCategoryModel)suitCases.get(position);
+    public void onBindViewHolder(final ViewHolderSuitCase viewHolderSuitCase, int position) {
+        FoodCategoryGroupModel model = categoriesGroup.get(position);
 
-        viewHolderSuitCase.title.setText(model.getId());
-        Glide.with(context).load("http://placekitten.com/g/200/200")
+        viewHolderSuitCase.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                baseAppDisplayFactory.startGalleryActivity(
+                        categoriesGroup.get(viewHolderSuitCase.getAdapterPosition()).getCategoriesIds()
+                );
+            }
+        });
+
+        viewHolderSuitCase.title.setText(model.getName());
+        Glide.with(context).load(model.getImageUrl())
                 .asBitmap()
                 .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
                 .signature(new StringSignature(Integer.toString(position)))
@@ -83,10 +88,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
 
     @Override
     public int getItemCount() {
-        return suitCases.size();
+        return categoriesGroup.size();
     }
-
-
 
     class SuitCaseViewTarget extends BitmapImageViewTarget {
 
@@ -114,21 +117,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
         public ImageView image;
         public TextView title;
 
-        public ViewHolderSuitCase(View v, final MainAdapter adapter){
+        public ViewHolderSuitCase(View v){
             super(v);
             image = (ImageView) v.findViewById(R.id.image);
             title = (TextView) v.findViewById(R.id.title);
-
-
-           v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    adapter.baseAppDisplayFactory.startGalleryActivity();
-                }
-            });
         }
     }
-
 
     @Override
     public void onCompleted() {
@@ -141,8 +135,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
     }
 
     @Override
-    public void onNext(CategoryModel categoryModel) {
-        suitCases.add(categoryModel);
-        notifyItemInserted(suitCases.size() -1);
+    public void onNext(CategoryGroupModel categoryGroupModel) {
+        categoriesGroup.add((FoodCategoryGroupModel)categoryGroupModel);
+        notifyItemInserted(categoriesGroup.size() -1);
     }
 }

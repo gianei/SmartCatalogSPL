@@ -22,6 +22,8 @@ import com.glsebastiany.smartcatalogspl.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.data.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.data.foods.FoodCategoryModel;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
