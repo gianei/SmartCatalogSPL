@@ -50,7 +50,8 @@ public class MainController extends BaseMainController {
     public void setupRecyclerView(Context context, final ProgressBar progressBar, final RecyclerView recyclerView){
         Observable<CategoryGroupModel> observable = categoryGroupUseCases.mainViewCategoriesGroups();
 
-        observable.subscribe(new Observer<CategoryGroupModel>() {
+        endSubscriptions();
+        addSubscription(observable.subscribe(new Observer<CategoryGroupModel>() {
             @Override
             public void onCompleted() {
                 progressBar.setVisibility(View.GONE);
@@ -67,7 +68,7 @@ public class MainController extends BaseMainController {
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
-        });
+        }));
 
         recyclerView.setLayoutManager(
                 new GridLayoutManager(

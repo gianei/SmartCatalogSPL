@@ -61,6 +61,12 @@ public class FragmentGalleryGrid extends BaseFragment implements HasComponent<It
         setupRecyclerView();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //galleryGridController.endSubscriptions();
+    }
+
     private void setupRecyclerView(){
         galleryGridController.setupRecyclerView(getActivity(), itemModelObservable, progressBar, recyclerView, getFragmentManager());
 

@@ -19,10 +19,9 @@
 package com.glsebastiany.smartcatalogspl.instancefood.domain;
 
 
-import android.os.Handler;
-
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.instancefood.data.FoodItemModel;
 
 import java.util.LinkedList;
@@ -58,22 +57,18 @@ public class FoodItemUseCases implements ItemUseCases {
 
     @Override
     public Observable<ItemModel> getAll(){
-        return Observable.create(new Observable.OnSubscribe<ItemModel>(){
+        return ObservableHelper.createThreaded(new Observable.OnSubscribe<ItemModel>(){
             @Override
             public void call(final Subscriber<? super ItemModel> subscriber) {
                 try {
                     for (ItemModel item :
                             items) {
+                        Thread.sleep(100);
                         subscriber.onNext(item);
                     }
 
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            subscriber.onCompleted();
-                        }
-                    }, 2000);
+                    subscriber.onCompleted();
+
                 } catch (Exception e){
                     subscriber.onError(e);
                 }

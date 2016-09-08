@@ -22,6 +22,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
-public abstract class BaseMainController {
+public abstract class BaseMainController extends BaseSubscriptionedController{
     public abstract void setupRecyclerView(Context context, ProgressBar progressBar, RecyclerView recyclerView);
 }

@@ -16,18 +16,22 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.controller;
+package com.glsebastiany.smartcatalogspl.core.domain;
 
-import android.content.Context;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.widget.ListView;
-import android.widget.ProgressBar;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
-import java.util.List;
+public class ObservableHelper {
+    public static <T> Observable<T> setupThreads(Observable<T> observable){
+        return observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
-public abstract class BaseTabbedGalleryController extends BaseSubscriptionedController{
-    public abstract void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager, List<String> categoriesIds);
-    public abstract void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager);
-    public abstract void setupDrawerAdapter(Context context, ListView drawerLayout);
+    public static <T> Observable<T> createThreaded(Observable.OnSubscribe<T> observable){
+        return Observable.create(observable)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

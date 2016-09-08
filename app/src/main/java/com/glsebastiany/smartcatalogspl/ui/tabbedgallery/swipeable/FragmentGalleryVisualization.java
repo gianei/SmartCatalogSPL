@@ -118,6 +118,12 @@ public class FragmentGalleryVisualization extends BaseFragment
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        swipeableController.endSubscriptions();
+    }
+
     public ItemsGroupComponent getComponent() {
         return itemsGroupComponent;
     }

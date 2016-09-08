@@ -59,8 +59,9 @@ public class TabbedGalleryController extends BaseTabbedGalleryController {
 
         viewPager.setAdapter(new PagerAdapter(fragmentManager, observable, baseAppDisplayFactory));
 
+        endSubscriptions();
 
-        observable.subscribe(new Observer<CategoryModel>() {
+        addSubscription(observable.subscribe(new Observer<CategoryModel>() {
             @Override
             public void onCompleted() {
                 progressBar.setVisibility(View.GONE);
@@ -77,7 +78,7 @@ public class TabbedGalleryController extends BaseTabbedGalleryController {
                 progressBar.setVisibility(View.GONE);
                 viewPager.setVisibility(View.VISIBLE);
             }
-        });
+        }));
 
     }
 

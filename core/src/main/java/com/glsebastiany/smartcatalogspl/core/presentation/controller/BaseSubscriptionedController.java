@@ -18,16 +18,26 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.controller;
 
-import android.content.Context;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-
+import java.util.LinkedList;
 import java.util.List;
 
-public abstract class BaseTabbedGalleryController extends BaseSubscriptionedController{
-    public abstract void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager, List<String> categoriesIds);
-    public abstract void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager);
-    public abstract void setupDrawerAdapter(Context context, ListView drawerLayout);
+import rx.Subscription;
+
+public abstract class BaseSubscriptionedController {
+
+    protected List<Subscription> subscriptions = new LinkedList<>();
+
+    protected void addSubscription(Subscription subscription){
+        subscriptions.add(subscription);
+    }
+
+    public void endSubscriptions(){
+        for (Subscription subscription :
+                subscriptions) {
+            if (!subscription.isUnsubscribed()) {
+                subscription.unsubscribe();
+            }
+        }
+    }
+
 }

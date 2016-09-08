@@ -42,6 +42,7 @@ import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscription;
 
 @EFragment(R.layout.fragment_gallery_visualization_detail_pager)
 public class FragmentItemPager extends BaseFragment implements HasComponent<ItemsGroupComponent> {
@@ -55,7 +56,7 @@ public class FragmentItemPager extends BaseFragment implements HasComponent<Item
     @Inject
     Observable<ItemModel> itemModelObservable;
 
-    private PagerAdapter mPagerAdapter;
+    private Subscription subscription;
 
     public static FragmentItemPager newInstance(int position) {
         return FragmentItemPager_.builder().itemPosition(position).build();
@@ -64,7 +65,7 @@ public class FragmentItemPager extends BaseFragment implements HasComponent<Item
     @AfterViews
     public void afterViews() {
 
-        mPagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
+        PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
         mPager.setCurrentItem(itemPosition);
@@ -89,7 +90,7 @@ public class FragmentItemPager extends BaseFragment implements HasComponent<Item
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
 
-            itemModelObservable.subscribe(new Observer<ItemModel>() {
+            subscription = itemModelObservable.subscribe(new Observer<ItemModel>() {
                 @Override
                 public void onCompleted() {
 
@@ -116,6 +117,14 @@ public class FragmentItemPager extends BaseFragment implements HasComponent<Item
         @Override
         public int getCount() {
             return items.size();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
         }
     }
 

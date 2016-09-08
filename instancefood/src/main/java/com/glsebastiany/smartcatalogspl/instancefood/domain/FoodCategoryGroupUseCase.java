@@ -20,6 +20,7 @@ package com.glsebastiany.smartcatalogspl.instancefood.domain;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.instancefood.data.FoodCategoryGroupModel;
 
 import java.util.ArrayList;
@@ -60,17 +61,30 @@ public class FoodCategoryGroupUseCase implements CategoryGroupUseCases {
 
     @Override
     public Observable<CategoryGroupModel> mainViewCategoriesGroups() {
-        return Observable.create(new Observable.OnSubscribe<CategoryGroupModel>() {
+        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryGroupModel>() {
             @Override
             public void call(Subscriber<? super CategoryGroupModel> subscriber) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // error
+                }
+
                 for (CategoryGroupModel categoryGroup : categoryGroups) {
                     subscriber.onNext(categoryGroup);
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        // error
+                    }
                 }
 
                 subscriber.onCompleted();
 
             }
         });
+
     }
 
 }

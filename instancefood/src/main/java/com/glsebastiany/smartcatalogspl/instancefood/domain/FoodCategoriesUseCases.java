@@ -18,10 +18,9 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.domain;
 
-import android.os.Handler;
-
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.instancefood.data.FoodCategoryModel;
 
 import java.util.LinkedList;
@@ -53,7 +52,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> getAll() {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
+        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
@@ -62,13 +61,10 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
                         subscriber.onNext(item);
                     }
 
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            subscriber.onCompleted();
-                        }
-                    }, 2000);
+                    Thread.sleep(1000);
+
+                    subscriber.onCompleted();
+
                 } catch (Exception e){
                     subscriber.onError(e);
                 }
@@ -78,7 +74,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> getAllChildren(final CategoryModel categoryModel) {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
+        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
@@ -104,7 +100,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> getDirectChildren(final CategoryModel categoryModel) {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
+        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
@@ -137,7 +133,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> findCategory(final String categoryId) {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
+        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
@@ -164,7 +160,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> findCategory(final List<String> categoriesId) {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
+        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {

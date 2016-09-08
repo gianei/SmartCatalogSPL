@@ -28,7 +28,7 @@ import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 
 import rx.Observable;
 
-public abstract class BaseSwipeableController {
+public abstract class BaseSwipeableController extends BaseSubscriptionedController {
     public abstract Observable<ItemModel> getItemsObservable(String categoryId);
     public abstract void setupRecyclerView(Context context, Observable<ItemModel> itemModelObservable, ProgressBar progressBar, RecyclerView recyclerView, FragmentManager fragmentManager);
     public abstract void inflateItemDetailStub(ViewStub viewStub, ItemModel itemModel);

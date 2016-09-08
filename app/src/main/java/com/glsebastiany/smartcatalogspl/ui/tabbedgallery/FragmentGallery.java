@@ -95,6 +95,11 @@ public class FragmentGallery extends BaseFragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        tabbedGalleryController.endSubscriptions();
+    }
 
     private void setupSlidingTabsAndViewPager() {
 

@@ -39,6 +39,7 @@ import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscription;
 
 @EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
 public class FragmentItemDetail extends BaseFragment {
@@ -55,6 +56,8 @@ public class FragmentItemDetail extends BaseFragment {
     @ViewById(R.id.item_detail_stub)
     ViewStub itemDetailStub;
 
+    private Subscription subscription;
+
     public static FragmentItemDetail newInstance(int position){
         return FragmentItemDetail_.builder().position(position).build();
     }
@@ -63,7 +66,7 @@ public class FragmentItemDetail extends BaseFragment {
     public void afterViews() {
 
 
-        itemModelObservable.subscribe(new Observer<ItemModel>() {
+        subscription = itemModelObservable.subscribe(new Observer<ItemModel>() {
 
             private List<ItemModel> items = new LinkedList<>();
 
@@ -82,6 +85,14 @@ public class FragmentItemDetail extends BaseFragment {
                 items.add(itemModel);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 
 

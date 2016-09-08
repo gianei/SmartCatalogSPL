@@ -55,7 +55,10 @@ public class SwipeableController extends BaseSwipeableController {
     }
 
     public void setupRecyclerView(Context context, Observable<ItemModel> observable, final ProgressBar progressBar, final RecyclerView recyclerView, FragmentManager fragmentManager){
-        observable.subscribe(new Observer<ItemModel>() {
+
+        //TODO check for leaking
+        //endSubscriptions();
+        addSubscription(observable.subscribe(new Observer<ItemModel>() {
             @Override
             public void onCompleted() {
                 progressBar.setVisibility(View.GONE);
@@ -72,7 +75,7 @@ public class SwipeableController extends BaseSwipeableController {
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
-        });
+        }));
 
         recyclerView.setAdapter(new GridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory));
         recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
