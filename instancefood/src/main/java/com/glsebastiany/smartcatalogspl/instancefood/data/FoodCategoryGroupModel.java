@@ -38,7 +38,7 @@ public class FoodCategoryGroupModel implements CategoryGroupModel {
     }
 
     @Override
-    public String getId() {
+    public String getStringId() {
         return id;
     }
 

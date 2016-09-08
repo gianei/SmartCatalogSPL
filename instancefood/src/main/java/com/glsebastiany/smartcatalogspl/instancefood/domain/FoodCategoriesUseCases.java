@@ -78,7 +78,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
-                    switch (categoryModel.getId()){
+                    switch (categoryModel.getStringId()){
                         case "Drinks":
                             subscriber.onNext(items.get(4));
                             subscriber.onNext(items.get(5));
@@ -104,7 +104,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
-                    switch (categoryModel.getId()){
+                    switch (categoryModel.getStringId()){
                         case "Drinks":
                             subscriber.onNext(items.get(4));
                             subscriber.onNext(items.get(5));
@@ -139,7 +139,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
                 try {
                     boolean found = false;
                     for (int i = 0; i<items.size();i++) {
-                        if (categoryId.compareTo(items.get(i).getId()) == 0) {
+                        if (categoryId.compareTo(items.get(i).getStringId()) == 0) {
                             subscriber.onNext(items.get(i));
                             found = true;
                         }
@@ -167,7 +167,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
                     boolean found = false;
                     for (int i = 0; i <items.size(); i++) {
                         for (int j = 0; j< categoriesId.size(); j++) {
-                            if (categoriesId.get(j).compareTo(items.get(i).getId()) == 0){
+                            if (categoriesId.get(j).compareTo(items.get(i).getStringId()) == 0){
                                 subscriber.onNext(items.get(i));
                                 found = true;
                             }

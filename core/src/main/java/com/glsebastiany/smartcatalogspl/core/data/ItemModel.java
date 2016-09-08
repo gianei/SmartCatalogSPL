@@ -21,6 +21,6 @@ package com.glsebastiany.smartcatalogspl.core.data;
 
 public interface ItemModel {
 
-    String getId();
+    String getStringId();
 
 }

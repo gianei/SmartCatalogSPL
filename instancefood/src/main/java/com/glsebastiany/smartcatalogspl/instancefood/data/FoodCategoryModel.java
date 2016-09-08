@@ -31,7 +31,7 @@ public class FoodCategoryModel implements CategoryModel{
     }
 
     @Override
-    public String getId() {
+    public String getStringId() {
         return id;
     }
 

@@ -52,6 +52,6 @@ dependencies dagger
 dependencies androidSupport
 dependencies jUnit
 dependencies {
-    compile project(':instancefood')
+    compile project(':instanceditlanta')
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

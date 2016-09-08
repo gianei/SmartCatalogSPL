@@ -89,6 +89,6 @@ public class SwipeableController extends BaseSwipeableController {
         viewStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
         View newView = viewStub.inflate();
         TextView textView = (TextView) newView.findViewById(R.id.textViewDetailDescription);
-        textView.setText(itemModel.getId());
+        textView.setText(itemModel.getStringId());
     }
 }

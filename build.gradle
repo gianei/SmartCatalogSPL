@@ -95,6 +95,14 @@ ext {
         compile "com.android.support:design:${androidSupportVersion}"
     }
 
+    greenDaoVersion = '2.2.0'
+    orm = {
+        compile "org.greenrobot:greendao:${greenDaoVersion}"
+    }
+    ormGenerator = {
+        compile "org.greenrobot:greendao-generator:${greenDaoVersion}"
+    }
+
     jUnit = {
         testCompile 'junit:junit:4.12'
     }

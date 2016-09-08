@@ -109,7 +109,7 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ItemModel item = items.get(baseItemPosition);
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
-        baseItemViewHolder.id.setText(item.getId());
+        baseItemViewHolder.id.setText(item.getStringId());
         //baseItemViewHolder.description.setText(item.getName());
         //baseItemViewHolder.price.setText(mCurrencyInstance.format(item.getPrice()));
 
@@ -143,7 +143,7 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public long getItemId(int baseItemPosition) {
-        return items.get(baseItemPosition).getId().hashCode();
+        return items.get(baseItemPosition).getStringId().hashCode();
     }
 
     @Override
@@ -159,7 +159,7 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int findCategoryPositionInItems(CategoryModel categoryModel){
 
         /*for (int i = 0; i < itemsHolderInterface.getItemHolder().getSize(); i++){
-            if (itemsHolderInterface.getItemHolder().getItemIn(i).getCategoryId().equals(baseCategory.getId())) {
+            if (itemsHolderInterface.getItemHolder().getItemIn(i).getCategoryId().equals(baseCategory.getStringId())) {
                 return i + 1;
             }
         }*/

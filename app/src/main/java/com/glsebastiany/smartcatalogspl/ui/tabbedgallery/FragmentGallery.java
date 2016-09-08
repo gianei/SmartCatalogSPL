@@ -25,8 +25,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.tabbedgallery.TabbedGalleryController;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -55,7 +55,7 @@ public class FragmentGallery extends BaseFragment {
     }
 
     @Inject
-    TabbedGalleryController tabbedGalleryController;
+    BaseTabbedGalleryController tabbedGalleryController;
 
     @Click(R.id.drawerTriggerView)
     public void onDrawerTriggerClick(){

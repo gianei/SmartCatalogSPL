@@ -71,12 +71,12 @@ public class DrawerAdapter extends BaseAdapter{
 
     @Override
     public Object getItem(int position) {
-        return items.get(position).getId();
+        return items.get(position).getStringId();
     }
 
     @Override
     public long getItemId(int position) {
-        return items.get(position).getId().hashCode();
+        return items.get(position).getStringId().hashCode();
     }
 
     @Override
@@ -86,8 +86,8 @@ public class DrawerAdapter extends BaseAdapter{
         view = ((LayoutInflater)context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.view_gallery_drawer_list_item, parent, false);
 
-        ((TextView) view).setText(items.get(position).getId());
-        //if(items.get(position).getParentId() != parentCategory.getId())
+        ((TextView) view).setText(items.get(position).getStringId());
+        //if(items.get(position).getParentId() != parentCategory.getStringId())
         //    view.setPadding((int) (TEXT_VIEW_LEFT_PADDING_DP * context.getResources().getDisplayMetrics().density),0 ,0 ,0 );
 
         return view;
