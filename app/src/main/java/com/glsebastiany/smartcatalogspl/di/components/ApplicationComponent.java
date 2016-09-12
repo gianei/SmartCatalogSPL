@@ -20,12 +20,15 @@ package com.glsebastiany.smartcatalogspl.di.components;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
+import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.dimodules.FirebaseModule;
 
 import javax.inject.Singleton;
 
@@ -35,15 +38,17 @@ import dagger.Component;
  * A component whose lifetime is the life of the application.
  */
 @Singleton // Constraints this component to one-per-application or unscoped bindings.
-@Component(modules = ApplicationModule.class)
+@Component(modules = {ApplicationModule.class, FirebaseModule.class})
 public interface ApplicationComponent {
     //Exposed to sub-graphs.
     Context context();
     ItemUseCases useCases();
+    CategoryGroupUseCases categoryGroupUseCases();
     CategoryUseCases categoryUseCases();
     BaseMainController baseMainController();
     BaseSwipeableController baseGalleryGridController();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 
+    void inject(AndroidApplication androidApplication);
 }

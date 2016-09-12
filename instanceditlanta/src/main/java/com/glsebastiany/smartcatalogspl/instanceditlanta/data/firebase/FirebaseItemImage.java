@@ -16,26 +16,24 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.modules;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.data.firebase;
 
-import android.support.v7.app.AppCompatActivity;
+import java.io.Serializable;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerActivity;
+public class FirebaseItemImage implements Serializable {
 
-import dagger.Module;
-import dagger.Provides;
+    public static final String LOCATION = "itemsImage";
 
-@Module
-public class ActivityModule {
-    private final AppCompatActivity activity;
+    long updatedDate;
 
-    public ActivityModule(AppCompatActivity activity) {
-        this.activity = activity;
+    /**
+     * Required empty constructor
+     */
+    public FirebaseItemImage(){
+
     }
 
-    @Provides
-    @PerActivity
-    AppCompatActivity activity() {
-        return this.activity;
+    public long getUpdatedDate() {
+        return updatedDate;
     }
 }

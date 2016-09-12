@@ -16,21 +16,30 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.components;
+package com.glsebastiany.smartcatalogspl.di.components.activity;
 
 
 
+import android.support.v7.app.AppCompatActivity;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.di.BaseActivity;
+import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
-import com.glsebastiany.smartcatalogspl.di.scopes.PerActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerActivity;
 import com.glsebastiany.smartcatalogspl.ui.ActivityMain;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
 
 import dagger.Component;
 
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
+@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class})
 public interface ActivityComponent {
-    //void inject(BaseActivity baseActivity); // DO NOT INJECT ON BASE CLASSES
+    AppCompatActivity appCompactActivity();
+    BaseAppDisplayFactory baseAppDisplayFactory();
+
+    void inject(BaseActivity baseActivity); // BASE CLASS INJECT ONLY INJECT FIELDS FROM BASE CLASS
     void inject(ActivityGallery activityGallery);
     void inject(ActivityMain activityMain);
+
 }

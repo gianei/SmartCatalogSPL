@@ -16,12 +16,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.components;
+package com.glsebastiany.smartcatalogspl.di.components.fragment;
 
 
 
+import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
-import com.glsebastiany.smartcatalogspl.di.scopes.PerFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.FragmentGallery;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;

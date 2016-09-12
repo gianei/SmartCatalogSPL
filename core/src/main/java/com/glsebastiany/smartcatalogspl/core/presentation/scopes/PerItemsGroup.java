@@ -16,26 +16,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.modules;
+package com.glsebastiany.smartcatalogspl.core.presentation.scopes;
 
-import android.support.v7.app.AppCompatActivity;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerActivity;
+import javax.inject.Scope;
 
-import dagger.Module;
-import dagger.Provides;
-
-@Module
-public class ActivityModule {
-    private final AppCompatActivity activity;
-
-    public ActivityModule(AppCompatActivity activity) {
-        this.activity = activity;
-    }
-
-    @Provides
-    @PerActivity
-    AppCompatActivity activity() {
-        return this.activity;
-    }
-}
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PerItemsGroup {}

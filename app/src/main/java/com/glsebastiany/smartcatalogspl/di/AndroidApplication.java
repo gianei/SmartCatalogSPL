@@ -24,6 +24,10 @@ import android.app.Application;
 import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.di.components.DaggerApplicationComponent;
 import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.dimodules.FirebaseModule;
+import com.google.firebase.auth.FirebaseAuth;
+
+import javax.inject.Inject;
 
 
 public class AndroidApplication extends Application {
@@ -32,15 +36,27 @@ public class AndroidApplication extends Application {
 
     //private ItemsGalleryComponent itemsGalleryComponent;
 
+    @Inject
+    FirebaseAuth.AuthStateListener authStateListener;
+
     @Override public void onCreate() {
         super.onCreate();
         this.initializeInjector();
+
+        applicationComponent.inject(this);
+
+        FirebaseAuth auth =  FirebaseAuth.getInstance();
+
+        auth.addAuthStateListener(authStateListener);
     }
 
     private void initializeInjector() {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
+                .firebaseModule(new FirebaseModule())
+                //.updateModule(new UpdateModule())
                 .build();
+
     }
 
     /**

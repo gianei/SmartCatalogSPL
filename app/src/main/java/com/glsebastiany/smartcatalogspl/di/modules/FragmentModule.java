@@ -21,7 +21,7 @@ package com.glsebastiany.smartcatalogspl.di.modules;
 import android.support.v4.app.FragmentManager;
 
 import com.glsebastiany.smartcatalogspl.di.BaseFragment;
-import com.glsebastiany.smartcatalogspl.di.scopes.PerFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.tabbedgallery.TabbedGalleryController;
 

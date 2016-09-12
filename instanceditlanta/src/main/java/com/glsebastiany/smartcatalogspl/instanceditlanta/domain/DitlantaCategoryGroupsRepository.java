@@ -74,8 +74,8 @@ public class DitlantaCategoryGroupsRepository implements CategoryGroupUseCases {
         GreenDaoOpenHelper.daoSession(context).getSuitCaseDao().insertInTx(mySuitCases);
     }
 
-    public void remove(long id) {
-        GreenDaoOpenHelper.daoSession(context).getSuitCaseDao().deleteByKey(id);
+    public void remove(String id) {
+        GreenDaoOpenHelper.daoSession(context).getSuitCaseDao().deleteByKey(Long.parseLong(id));
     }
 
     public void insert(Object suitCase) {

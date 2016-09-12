@@ -16,26 +16,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.modules;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences;
 
-import android.support.v7.app.AppCompatActivity;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerActivity;
+import org.androidannotations.annotations.sharedpreferences.DefaultLong;
+import org.androidannotations.annotations.sharedpreferences.DefaultString;
+import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
-import dagger.Module;
-import dagger.Provides;
+@SharedPref(SharedPref.Scope.UNIQUE)
+public interface SharedPreferencesUpdate {
 
-@Module
-public class ActivityModule {
-    private final AppCompatActivity activity;
+    @DefaultString(value = "192.168.1.254")
+    String pref_server_address_default();
 
-    public ActivityModule(AppCompatActivity activity) {
-        this.activity = activity;
-    }
+    @DefaultLong(value = 0)
+    long pref_item_latest_update_key();
 
-    @Provides
-    @PerActivity
-    AppCompatActivity activity() {
-        return this.activity;
-    }
+    @DefaultLong(value = 0)
+    long pref_category_latest_update_key();
+
+    @DefaultLong(value = 0)
+    long pref_suit_case_latest_update_key();
 }

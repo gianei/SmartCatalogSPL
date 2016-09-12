@@ -48,6 +48,10 @@
         <activity android:name=".ui.tabbedgallery.ActivityGallery_">
 
         </activity>
+
+        <activity android:name=".ui.login.LoginActivity_" >
+
+        </activity>
     </application>
 
 </manifest>

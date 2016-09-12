@@ -16,18 +16,16 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-
-import java.util.List;
+package com.glsebastiany.smartcatalogspl.core.presentation.controller;
 
 
-public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment(String category);
-    void startMainActivity();
-    void startLoginActivity();
-    void startGalleryActivity(List<String> categoriesId);
-    void switchToItemView(FragmentManager fragmentManager, int position);
+import android.content.Intent;
+
+
+public abstract class LoginController {
+
+    public abstract void onSignInClick();
+
+    public abstract void onActivityResult(Intent data);
+
 }

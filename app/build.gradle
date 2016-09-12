@@ -51,7 +51,11 @@ dependencies rxAndroid
 dependencies dagger
 dependencies androidSupport
 dependencies jUnit
+dependencies firebase
 dependencies {
     compile project(':instanceditlanta')
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+//this must be at the end
+apply plugin: 'com.google.gms.google-services'

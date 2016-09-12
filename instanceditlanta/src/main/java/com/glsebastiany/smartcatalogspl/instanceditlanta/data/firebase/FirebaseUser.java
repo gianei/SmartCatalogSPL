@@ -16,13 +16,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.scopes;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.data.firebase;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
-import javax.inject.Scope;
+public class FirebaseUser {
 
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface PerActivity {}
+    public static final String LOCATION = "users";
+    String name;
+
+    /**
+     * Required empty constructor
+     */
+    public FirebaseUser(){}
+
+    public FirebaseUser(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+}

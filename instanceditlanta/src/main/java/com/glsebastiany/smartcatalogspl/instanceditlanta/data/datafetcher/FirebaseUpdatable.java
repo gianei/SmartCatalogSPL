@@ -16,13 +16,46 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.scopes;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.data.datafetcher;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import android.support.annotation.NonNull;
 
-import javax.inject.Scope;
+import com.google.firebase.database.DataSnapshot;
 
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface PerFragment {}
+import java.util.Set;
+
+public interface FirebaseUpdatable {
+
+    @NonNull
+    String getHashLocation();
+
+    @NonNull
+    String getLocation();
+
+    @NonNull
+    String updatedDateChildLocation();
+
+    long getLatestUpdate();
+
+    void saveUpdatedDate(long date);
+
+    String getFirebaseId(DataSnapshot dataSnapshot);
+
+    @NonNull
+    Set<String> getLocalIds(int expectedSize);
+
+    void clean();
+
+    long insertAll(DataSnapshot dataSnapshots);
+
+    long insert(DataSnapshot snapshot);
+
+    long change(DataSnapshot snapshot);
+
+    long remove(DataSnapshot snapshot);
+
+    void remove(String id);
+
+    long move(DataSnapshot snapshot);
+
+}

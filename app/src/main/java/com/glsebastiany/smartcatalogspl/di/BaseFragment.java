@@ -23,8 +23,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.di.components.DaggerFragmentComponent;
-import com.glsebastiany.smartcatalogspl.di.components.FragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.components.fragment.DaggerFragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.components.fragment.FragmentComponent;
 import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
 
 public abstract class BaseFragment extends Fragment {
@@ -35,9 +35,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
 
     @Override

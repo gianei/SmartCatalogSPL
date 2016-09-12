@@ -16,26 +16,20 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.modules;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.data.firebase;
 
-import android.support.v7.app.AppCompatActivity;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerActivity;
+import java.io.Serializable;
 
-import dagger.Module;
-import dagger.Provides;
+public class FirebaseSuitCaseCategory implements Serializable {
+    private String key;
 
-@Module
-public class ActivityModule {
-    private final AppCompatActivity activity;
-
-    public ActivityModule(AppCompatActivity activity) {
-        this.activity = activity;
+    public FirebaseSuitCaseCategory(String key) {
+        this.key = key;
     }
 
-    @Provides
-    @PerActivity
-    AppCompatActivity activity() {
-        return this.activity;
+    public String getKey() {
+        return key;
     }
+
 }

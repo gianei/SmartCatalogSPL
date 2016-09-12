@@ -16,26 +16,35 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.modules;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.dimodules;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.ProgressDialog;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.LoginController;
+import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerController;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.login.DitlantaLoginController;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ActivityModule {
-    private final AppCompatActivity activity;
+public class LoginModule {
+    protected ProgressDialog mProgressDialog;
 
-    public ActivityModule(AppCompatActivity activity) {
-        this.activity = activity;
+    public LoginModule(ProgressDialog progressDialog){
+        this.mProgressDialog = progressDialog;
+    }
+
+
+    @Provides
+    @PerController
+    ProgressDialog progressDialog() {
+        return this.mProgressDialog;
     }
 
     @Provides
-    @PerActivity
-    AppCompatActivity activity() {
-        return this.activity;
+    @PerController
+    LoginController loginController(DitlantaLoginController loginController){
+        return loginController;
     }
 }

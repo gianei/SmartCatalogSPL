@@ -16,11 +16,11 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.components;
+package com.glsebastiany.smartcatalogspl.di.components.fragment;
 
 
 import com.glsebastiany.smartcatalogspl.di.modules.ItemsGroupModule;
-import com.glsebastiany.smartcatalogspl.di.scopes.PerItemsGroup;
+import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerItemsGroup;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemDetail;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid;

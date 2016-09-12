@@ -19,7 +19,7 @@
 package com.glsebastiany.smartcatalogspl.di.modules;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.di.scopes.PerItemsGroup;
+import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerItemsGroup;
 
 import dagger.Module;
 import dagger.Provides;

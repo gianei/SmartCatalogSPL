@@ -16,26 +16,18 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.modules;
+package com.glsebastiany.smartcatalogspl.di.components.activity;
 
-import android.support.v7.app.AppCompatActivity;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerActivity;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.dimodules.LoginModule;
+import com.glsebastiany.smartcatalogspl.core.presentation.scopes.PerController;
+import com.glsebastiany.smartcatalogspl.ui.login.LoginActivity;
 
-import dagger.Module;
-import dagger.Provides;
+import dagger.Component;
 
-@Module
-public class ActivityModule {
-    private final AppCompatActivity activity;
+@PerController
+@Component(dependencies = ActivityComponent.class, modules = LoginModule.class)
+public interface LoginComponent {
 
-    public ActivityModule(AppCompatActivity activity) {
-        this.activity = activity;
-    }
-
-    @Provides
-    @PerActivity
-    AppCompatActivity activity() {
-        return this.activity;
-    }
+    void inject(LoginActivity loginActivity);
 }

@@ -19,12 +19,15 @@
 package com.glsebastiany.smartcatalogspl.di.helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.ui.ActivityMain_;
+import com.glsebastiany.smartcatalogspl.ui.login.LoginActivity_;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
@@ -48,6 +51,25 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     @Override
     public Fragment provideGalleryFragment(String category){
         return FragmentGalleryVisualization.newInstance(category);
+    }
+
+    @Override
+    public void startMainActivity() {
+        ActivityMain_
+                .intent(context)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                .start();
+    }
+
+    @Override
+    public void startLoginActivity() {
+        LoginActivity_
+                .intent(context)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        | Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                .start();
     }
 
     @Override

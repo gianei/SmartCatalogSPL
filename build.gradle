@@ -29,6 +29,7 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
@@ -105,6 +106,15 @@ ext {
 
     jUnit = {
         testCompile 'junit:junit:4.12'
+    }
+
+    firebaseVersion = '9.4.0'
+    firebaseUiVersion = '0.4.4'
+    firebase = {
+        compile "com.google.android.gms:play-services-auth:${firebaseVersion}"
+        compile "com.google.firebase:firebase-database:${firebaseVersion}"
+        compile "com.google.firebase:firebase-auth:${firebaseVersion}"
+        compile "com.firebaseui:firebase-ui:${firebaseUiVersion}"
     }
 }
 

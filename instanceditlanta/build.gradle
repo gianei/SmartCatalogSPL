@@ -17,6 +17,20 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.neenbedankt.android-apt'
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
+        // if you have multiple outputs (when using splits), you may want to have other index than 0
+
+        // you should set your package name here if you are using different application IDs
+        // resourcePackageName "your.package.name"
+
+        // You can set optional annotation processing options here, like these commented options:
+        // logLevel 'INFO'
+        // logFile '/var/log/aa.log'
+    }
+}
 
 android {
     compileSdkVersion androidCompileSdkVersion
@@ -27,18 +41,24 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'FIREBASE_URL', '"https://smartcatalog.firebaseio.com"'
+        }
+        debug {
+            buildConfigField 'String', 'FIREBASE_URL', '"https://smartcatalog.firebaseio.com"'
         }
     }
 }
 
+dependencies androidAnnotations
 dependencies androidSupport
 dependencies jUnit
 dependencies glide
 dependencies orm
 dependencies ormGenerator
+dependencies firebase
+dependencies dagger
 dependencies {
     compile project(':core')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
 }
