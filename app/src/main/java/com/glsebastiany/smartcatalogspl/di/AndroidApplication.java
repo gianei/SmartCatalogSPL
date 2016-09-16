@@ -19,50 +19,33 @@
 package com.glsebastiany.smartcatalogspl.di;
 
 
-import android.app.Application;
-
+import com.glsebastiany.smartcatalogspl.core.presentation.system.ApplicationBase;
 import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.di.components.DaggerApplicationComponent;
 import com.glsebastiany.smartcatalogspl.di.modules.ApplicationModule;
 
 
-public class AndroidApplication extends Application {
+public class AndroidApplication extends ApplicationBase {
+
+    public static AndroidApplication singleton;
 
     private ApplicationComponent applicationComponent;
 
-    //private ItemsGalleryComponent itemsGalleryComponent;
-
-    @Override public void onCreate() {
-        super.onCreate();
-        this.initializeInjector();
+    public AndroidApplication(){
+        singleton = this;
     }
 
-    private void initializeInjector() {
+    @Override
+    protected void setupComponent() {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }
 
-    /**
-     * Used to mantain scope of Gallery that is bigger than the activity scope <br>
-     * See more at <a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes">CustomScopes</a>
-     */
-    /*public ItemsGalleryComponent createItemsGalleryComponent(){
-        itemsGalleryComponent = DaggerItemsGalleryComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .itemsModule(new ItemsModule())
-                .build();
-
-        return itemsGalleryComponent;
-    }*/
-
-    /*public ItemsGalleryComponent getItemsGalleryComponent(){
-        return itemsGalleryComponent;
-    }*/
-
-    /*public void releaseGalleryComponent(){
-        itemsGalleryComponent = null;
-    }*/
+    @Override
+    protected void injectComponent() {
+        //nothing needs to be injected for now
+    }
 
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;

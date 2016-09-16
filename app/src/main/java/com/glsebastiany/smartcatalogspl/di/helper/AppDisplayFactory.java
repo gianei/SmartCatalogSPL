@@ -25,6 +25,8 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import com.glsebastiany.smartcatalogspl.ui.ActivityMain_;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
@@ -48,6 +50,12 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     @Override
     public Fragment provideGalleryFragment(String category){
         return FragmentGalleryVisualization.newInstance(category);
+    }
+
+    @Override
+    public void startMainActivity(ActivityBase activityBase) {
+        ActivityMain_.intent(activityBase).start();
+        activityBase.finish();
     }
 
     @Override

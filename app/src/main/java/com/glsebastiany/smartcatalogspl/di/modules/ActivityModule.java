@@ -18,7 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.di.modules;
 
-import com.glsebastiany.smartcatalogspl.di.BaseActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerActivity;
 
 import dagger.Module;
@@ -26,15 +26,15 @@ import dagger.Provides;
 
 @Module
 public class ActivityModule {
-    private final BaseActivity activity;
+    private final ActivityBase activity;
 
-    public ActivityModule(BaseActivity activity) {
+    public ActivityModule(ActivityBase activity) {
         this.activity = activity;
     }
 
     @Provides
     @PerActivity
-    BaseActivity activity() {
+    ActivityBase activity() {
         return this.activity;
     }
 }

@@ -18,18 +18,38 @@
 
 package com.glsebastiany.smartcatalogspl.ui;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.di.components.ActivityComponent;
+import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerActivityComponent;
+import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
 
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends SplashScreenBase {
 
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
+    ActivityComponent activityComponent;
 
-        ActivityMain_.intent(this).start();
-        this.finish();
+    @Override
+    protected void setupComponent() {
+        activityComponent = DaggerActivityComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(new ActivityModule(this))
+                .build();
+    }
 
+    @Override
+    protected void injectComponent() {
+        injectMe(this);
+    }
+
+    @Override
+    protected void injectMe(SplashScreenBase splashScreen) {
+        activityComponent.inject(splashScreen);
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return ((AndroidApplication)getApplication()).getApplicationComponent();
     }
 
 }

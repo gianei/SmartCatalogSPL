@@ -20,7 +20,7 @@ package com.glsebastiany.smartcatalogspl.di.modules;
 
 import android.support.v4.app.FragmentManager;
 
-import com.glsebastiany.smartcatalogspl.di.BaseFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.tabbedgallery.TabbedGalleryController;
@@ -30,15 +30,15 @@ import dagger.Provides;
 
 @Module
 public class FragmentModule {
-    private final BaseFragment fragment;
+    private final FragmentBase fragment;
 
-    public FragmentModule(BaseFragment fragment) {
+    public FragmentModule(FragmentBase fragment) {
         this.fragment = fragment;
     }
 
     @Provides
     @PerFragment
-    BaseFragment fragment() {
+    FragmentBase fragment() {
         return this.fragment;
     }
 

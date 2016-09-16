@@ -23,7 +23,6 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.di.BaseFragment;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
@@ -52,7 +51,7 @@ public class FragmentGalleryGrid extends BaseFragment implements HasComponent<It
     Observable<ItemModel> itemModelObservable;
 
     @Override
-    protected void initializeInjector() {
+    protected void injectComponent() {
         getComponent().inject(this);
     }
 

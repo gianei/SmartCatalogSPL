@@ -20,17 +20,18 @@ package com.glsebastiany.smartcatalogspl.di.components;
 
 
 
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.ActivityMainBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
 import com.glsebastiany.smartcatalogspl.di.scopes.PerActivity;
-import com.glsebastiany.smartcatalogspl.ui.ActivityMain;
-import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.ActivityGalleryBase;
 
 import dagger.Component;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-    //void inject(BaseActivity baseActivity); // DO NOT INJECT ON BASE CLASSES
-    void inject(ActivityGallery activityGallery);
-    void inject(ActivityMain activityMain);
+    void inject(ActivityGalleryBase activityGalleryBase);
+    void inject(ActivityMainBase activityMain);
+    void inject(SplashScreenBase splashScreen);
 }

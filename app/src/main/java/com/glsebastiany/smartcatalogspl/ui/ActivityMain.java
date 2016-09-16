@@ -18,56 +18,35 @@
 
 package com.glsebastiany.smartcatalogspl.ui;
 
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.widget.ProgressBar;
-
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.di.BaseActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.ActivityMainBase;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.di.components.ActivityComponent;
+import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerActivityComponent;
+import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import javax.inject.Inject;
 
 @EActivity(R.layout.activity_main)
-public class ActivityMain extends BaseActivity {
-
-    @Inject
-    BaseMainController baseMainController;
-
-    @ViewById(R.id.progressBar)
-    ProgressBar progressBar;
-
-    @ViewById(R.id.recycler_view)
-    RecyclerView recyclerView;
-
-    @ViewById(R.id.toolbar)
-    Toolbar toolbar;
-
-    @AfterViews
-    public void afterViews(){
-        setupToolbar();
-        baseMainController.setupRecyclerView(this, progressBar, recyclerView);
-    }
-
-    private void setupToolbar() {
-        //toolbar.setLogo(ContextCompat.getDrawable(this, R.drawable.image_logo));
-        //toolbar.setLogoDescription(getString(R.string.menu_logo_description));
-        //toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-    }
-
-
+public class ActivityMain extends ActivityMainBase {
+    ActivityComponent activityComponent;
 
     @Override
-    protected void initializeInjector() {
-
-        getActivityComponent().inject(this);
-
+    protected void injectMe(ActivityMainBase activityMain) {
+        activityComponent.inject(activityMain);
     }
 
+    @Override
+    protected void setupComponent() {
+        activityComponent = DaggerActivityComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(new ActivityModule(this))
+                .build();
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return ((AndroidApplication)getApplication()).getApplicationComponent();
+    }
 
 }

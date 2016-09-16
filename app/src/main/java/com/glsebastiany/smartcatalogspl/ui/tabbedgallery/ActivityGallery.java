@@ -21,34 +21,40 @@ package com.glsebastiany.smartcatalogspl.ui.tabbedgallery;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.di.BaseActivity;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.ActivityGalleryBase;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.di.components.ActivityComponent;
+import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerActivityComponent;
+import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.InstanceState;
-import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 @EActivity(R.layout.activity_gallery)
-public class ActivityGallery extends BaseActivity {
+public class ActivityGallery extends ActivityGalleryBase {
 
-    @Extra
-    String[] categoriesIds;
+    ActivityComponent activityComponent;
 
+    @Override
+    protected void setupComponent() {
+        activityComponent = DaggerActivityComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(new ActivityModule(this))
+                .build();
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return ((AndroidApplication)getApplication()).getApplicationComponent();
+    }
+
+    @Override
+    protected void injectMe(ActivityGalleryBase activityGalleryBase) {
+        activityComponent.inject(activityGalleryBase);
+    }
 
     public static void start(Context context, List<String> categoriesIds ){
         ActivityGallery_
@@ -56,132 +62,6 @@ public class ActivityGallery extends BaseActivity {
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
                 .start();
-    }
-
-    @InstanceState
-    boolean isFromSavedInstance = false;
-
-    private Fragment galleryFragment;
-
-    private long lastPress;
-    private Toast toast;
-
-    @Inject
-    ItemUseCases itemUseCases;
-
-    @Inject
-    CategoryUseCases categoryUseCases;
-
-    @ViewById(R.id.main_toolbar)
-    Toolbar toolbar;
-
-    @AfterViews
-    protected void afterViews() {
-
-        setupToolbar();
-        setupGalleryFragment();
-
-    }
-
-
-    private void setupToolbar() {
-        setupToolbarLogo(toolbar);
-        setSupportActionBar(toolbar);
-        //setupToolbarNavigation();
-    }
-
-    private void setupToolbarLogo(Toolbar toolbar) {
-        //toolbar.setLogo(R.drawable.image_logo);
-        toolbar.setLogoDescription(getString(R.string.app_name));
-        toolbar.setTitle(getString(R.string.app_name));
-    }
-
-    private void setupToolbarNavigation() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-
-    private void setupGalleryFragment() {
-
-        if (!isFromSavedInstance) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            galleryFragment = FragmentGallery.newInstance(categoriesIds);
-            fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, FragmentGallery_.TAG);
-            fragmentTransaction.commit();
-
-            isFromSavedInstance = true;
-        }
-
-    }
-
-    @Override
-    public void setTitle(CharSequence title) {
-        getActionBar().setTitle(title);
-    }
-
-
-    /**
-     * Workaround for child fragments backstack
-        based on http://stackoverflow.com/a/24176614
-     * @param fragmentManager
-     * @return true when backStack is popped
-     */
-    private boolean depthFirstOnBackPressed(FragmentManager fragmentManager) {
-        List<Fragment> fragmentList = fragmentManager.getFragments();
-        if (fragmentList != null && fragmentList.size() > 0) {
-            for (Fragment fragment : fragmentList) {
-                if (fragment == null) {
-                    continue;
-                }
-                if (fragment.isVisible()) {
-                    if (fragment.getChildFragmentManager() != null) {
-                        if (depthFirstOnBackPressed(fragment.getChildFragmentManager())) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack();
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public void onBackPressed() {
-        FragmentManager fm = getSupportFragmentManager();
-        if (depthFirstOnBackPressed(fm)) {
-            return;
-        }
-
-        long currentTime = System.currentTimeMillis();
-
-        //Toast.LENGTH_SHORT is 2000
-        if(currentTime - lastPress > 2000){
-            toast = Toast.makeText(getBaseContext(), "Back sure?", Toast.LENGTH_SHORT);
-            toast.show();
-            lastPress = currentTime;
-        }else{
-            if (toast != null){
-                toast.cancel();
-                super.onBackPressed();
-            }
-        }
-    }
-
-    @Override
-    protected void initializeInjector() {
-
-        getActivityComponent().inject(this);
-
     }
 
 }

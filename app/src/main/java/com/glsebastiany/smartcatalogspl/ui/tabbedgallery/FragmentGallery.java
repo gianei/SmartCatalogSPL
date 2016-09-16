@@ -18,102 +18,37 @@
 
 package com.glsebastiany.smartcatalogspl.ui.tabbedgallery;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.di.BaseFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.tabbedgallery.TabbedGalleryController;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.FragmentGalleryBase;
+import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.di.components.DaggerFragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.components.FragmentComponent;
+import com.glsebastiany.smartcatalogspl.di.modules.FragmentModule;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FragmentArg;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
 
 @EFragment(R.layout.fragment_gallery)
-public class FragmentGallery extends BaseFragment {
+public class FragmentGallery extends FragmentGalleryBase {
 
-    public static final String TAG = "galleryFragment";
+    FragmentComponent fragmentComponent;
 
     public static FragmentGallery newInstance(String[] categoriesId){
         return FragmentGallery_.builder().categoriesIdExtra(categoriesId).build();
     }
 
-    List<String> categoriesId;
-    @FragmentArg
-    void categoriesIdExtra(String[] categoriesIds){
-        this.categoriesId = Arrays.asList(categoriesIds);
-    }
-
-    @Inject
-    TabbedGalleryController tabbedGalleryController;
-
-    @Click(R.id.drawerTriggerView)
-    public void onDrawerTriggerClick(){
-        if (drawerLayout.isDrawerOpen(drawerListView))
-            drawerLayout.closeDrawer(drawerListView);
-        else
-            drawerLayout.openDrawer(drawerListView);
-    }
-
-    @ViewById(R.id.pager)
-    ViewPager viewPager;
-
-    @ViewById(R.id.progressBar)
-    ProgressBar progressBar;
-
-    @ViewById(R.id.slidingTabLayout)
-    TabLayout tabLayout;
-
-    @ViewById(R.id.left_drawer)
-    ListView drawerListView;
-
-    @ViewById(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
-
-
     @Override
-    protected void initializeInjector() {
-        getFragmentComponent().inject(this);
-    }
+    protected void setupComponent() {
 
-    @AfterViews
-    public void afterViews() {
-        setHasOptionsMenu(true);
-
-        setupSlidingTabsAndViewPager();
-        setupDrawer();
-
+        fragmentComponent = DaggerFragmentComponent.builder()
+                .applicationComponent(AndroidApplication.singleton.getApplicationComponent())
+                .fragmentModule(new FragmentModule(this))
+                .build();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        tabbedGalleryController.endSubscriptions();
+    protected void injectMe(FragmentGalleryBase fragmentGalleryBase) {
+        fragmentComponent.inject(fragmentGalleryBase);
     }
-
-    private void setupSlidingTabsAndViewPager() {
-
-        tabbedGalleryController.setupPager(getActivity(), progressBar, viewPager, categoriesId);
-
-        tabbedGalleryController.setupSlidingTabs(tabLayout, viewPager);
-    }
-
-
-    private void setupDrawer() {
-
-        tabbedGalleryController.setupDrawerAdapter(getActivity(), drawerListView);
-
-    };
 
 
 }

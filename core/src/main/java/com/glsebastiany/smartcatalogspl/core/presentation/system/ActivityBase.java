@@ -16,19 +16,21 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation;
+package com.glsebastiany.smartcatalogspl.core.presentation.system;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+public abstract class ActivityBase extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-import java.util.List;
+        setupComponent();
+        injectComponent();
+    }
 
+    protected abstract void setupComponent();
 
-public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment(String category);
-    void startMainActivity(ActivityBase activityBase);
-    void startGalleryActivity(List<String> categoriesId);
-    void switchToItemView(FragmentManager fragmentManager, int position);
+    protected abstract void injectComponent();
 }
