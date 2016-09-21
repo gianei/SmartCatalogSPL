@@ -16,26 +16,19 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui;
 
-import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.ActivityMainBase;
-import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.di.components.ActivityComponent;
-import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerActivityComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
-import org.androidannotations.annotations.EActivity;
 
-@EActivity(R.layout.activity_main)
-public class ActivityMain extends ActivityMainBase {
+public class SplashScreen extends SplashScreenBase {
+
     ActivityComponent activityComponent;
-
-    @Override
-    protected void injectMe(ActivityMainBase activityMain) {
-        activityComponent.inject(activityMain);
-    }
 
     @Override
     protected void setupComponent() {
@@ -43,6 +36,16 @@ public class ActivityMain extends ActivityMainBase {
                 .applicationComponent(getApplicationComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
+    }
+
+    @Override
+    protected void injectComponent() {
+        injectMe(this);
+    }
+
+    @Override
+    protected void injectMe(SplashScreenBase splashScreen) {
+        activityComponent.inject(splashScreen);
     }
 
     public ApplicationComponent getApplicationComponent() {

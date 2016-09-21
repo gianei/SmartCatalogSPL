@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.presentation.tabbedgallery.swipeable;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;

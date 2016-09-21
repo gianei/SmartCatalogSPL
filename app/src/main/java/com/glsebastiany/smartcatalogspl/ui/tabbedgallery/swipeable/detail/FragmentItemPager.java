@@ -20,7 +20,7 @@ package com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail;
 
 import android.support.v4.app.Fragment;
 
-import com.glsebastiany.smartcatalogspl.R;
+import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPagerBase;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;

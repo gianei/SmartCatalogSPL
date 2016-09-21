@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.presentation.tabbedgallery;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery;
 
 
 import android.content.Context;

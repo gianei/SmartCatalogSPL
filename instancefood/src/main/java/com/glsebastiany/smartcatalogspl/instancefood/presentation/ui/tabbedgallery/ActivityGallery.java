@@ -16,26 +16,28 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.ui;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery;
+
+
+import android.content.Context;
+import android.content.Intent;
 
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.ActivityMainBase;
-import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.di.components.ActivityComponent;
-import com.glsebastiany.smartcatalogspl.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.di.modules.ActivityModule;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.ActivityGalleryBase;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerActivityComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
 import org.androidannotations.annotations.EActivity;
 
-@EActivity(R.layout.activity_main)
-public class ActivityMain extends ActivityMainBase {
-    ActivityComponent activityComponent;
+import java.util.List;
 
-    @Override
-    protected void injectMe(ActivityMainBase activityMain) {
-        activityComponent.inject(activityMain);
-    }
+@EActivity(R.layout.activity_gallery)
+public class ActivityGallery extends ActivityGalleryBase {
+
+    ActivityComponent activityComponent;
 
     @Override
     protected void setupComponent() {
@@ -47,6 +49,19 @@ public class ActivityMain extends ActivityMainBase {
 
     public ApplicationComponent getApplicationComponent() {
         return ((AndroidApplication)getApplication()).getApplicationComponent();
+    }
+
+    @Override
+    protected void injectMe(ActivityGalleryBase activityGalleryBase) {
+        activityComponent.inject(activityGalleryBase);
+    }
+
+    public static void start(Context context, List<String> categoriesIds ){
+        ActivityGallery_
+                .intent(context)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
+                .start();
     }
 
 }

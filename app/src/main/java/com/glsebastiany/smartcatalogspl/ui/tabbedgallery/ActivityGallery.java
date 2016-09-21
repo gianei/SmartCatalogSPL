@@ -22,7 +22,7 @@ package com.glsebastiany.smartcatalogspl.ui.tabbedgallery;
 import android.content.Context;
 import android.content.Intent;
 
-import com.glsebastiany.smartcatalogspl.R;
+import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.ActivityGalleryBase;
 import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.di.components.ActivityComponent;

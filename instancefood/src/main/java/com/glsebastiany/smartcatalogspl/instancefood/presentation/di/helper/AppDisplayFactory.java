@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.di.helper;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.helper;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -27,12 +27,12 @@ import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPagerBase;
-import com.glsebastiany.smartcatalogspl.ui.ActivityMain_;
-import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
-import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.FragmentGallery;
-import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
-import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
-import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid_;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.ActivityMain_;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.ActivityGallery;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.FragmentGallery;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid_;
 
 import java.util.List;
 

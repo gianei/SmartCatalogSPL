@@ -47,8 +47,16 @@ ext {
         applicationId "com.glsebastiany.smartcatalogspl"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 22
-        versionName "2.3.2"
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    appInstanceFoodConfig = {
+        applicationId "com.glsebastiany.smartcatalogspl.instancefood"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0.0"
     }
 
     librariesDefaultConfig = {

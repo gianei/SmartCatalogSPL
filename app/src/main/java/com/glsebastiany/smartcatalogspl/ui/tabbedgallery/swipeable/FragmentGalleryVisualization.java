@@ -18,7 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable;
 
-import com.glsebastiany.smartcatalogspl.R;
+import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualizationBase;
 import com.glsebastiany.smartcatalogspl.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.di.components.DaggerFragmentComponent;
