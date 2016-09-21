@@ -20,6 +20,7 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -41,11 +43,6 @@ import javax.inject.Inject;
 
 @EActivity(resName="activity_gallery")
 public abstract class ActivityGalleryBase extends ActivityBase {
-    @Extra
-    String[] categoriesIds;
-
-    @InstanceState
-    boolean isFromSavedInstance = false;
 
     @Inject
     ItemUseCases itemUseCases;
@@ -53,14 +50,20 @@ public abstract class ActivityGalleryBase extends ActivityBase {
     @Inject
     CategoryUseCases categoryUseCases;
 
-    @ViewById(resName="main_toolbar")
+    @Inject
+    BaseAppDisplayFactory appDisplayFactory;
 
-    Toolbar toolbar;
-    private Fragment galleryFragment;
+    @Extra
+    public String[] categoriesIds;
+
+    @InstanceState
+    public boolean isFromSavedInstance = false;
+
+    @ViewById(resName="main_toolbar")
+    public Toolbar toolbar;
+
     private long lastPress;
     private Toast toast;
-
-
 
     @AfterViews
     protected void afterViews() {
@@ -91,14 +94,14 @@ public abstract class ActivityGalleryBase extends ActivityBase {
     private void setupGalleryFragment() {
 
         if (!isFromSavedInstance) {
-            /*FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            galleryFragment = FragmentGallery.newInstance(categoriesIds);
-            fragmentTransaction.add(R.id.main_fragment_container, galleryFragment, FragmentGallery_.TAG);
+            Fragment galleryFragment = appDisplayFactory.provideGalleryFragment(categoriesIds);
+            fragmentTransaction.add(R.id.main_fragment_container, galleryFragment);
             fragmentTransaction.commit();
 
-            isFromSavedInstance = true;*/
+            isFromSavedInstance = true;
         }
 
     }

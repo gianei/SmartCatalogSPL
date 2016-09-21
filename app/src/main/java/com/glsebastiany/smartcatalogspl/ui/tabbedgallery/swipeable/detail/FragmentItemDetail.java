@@ -18,85 +18,29 @@
 
 package com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail;
 
-import android.view.ViewStub;
-
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemDetailBase;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FragmentArg;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
 
 @EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
-public class FragmentItemDetail extends BaseFragment {
+public class FragmentItemDetail extends FragmentItemDetailBase {
 
-    @Inject
-    Observable<ItemModel> itemModelObservable;
-
-    @Inject
-    BaseSwipeableController galleryGridController;
-
-    @FragmentArg
-    int position;
-
-    @ViewById(R.id.item_detail_stub)
-    ViewStub itemDetailStub;
-
-    private Subscription subscription;
-
-    public static FragmentItemDetail newInstance(int position){
+    public static FragmentItemDetailBase newInstance(int position){
         return FragmentItemDetail_.builder().position(position).build();
     }
 
-    @AfterViews
-    public void afterViews() {
+    @Override
+    protected void setupComponent() {
 
-
-        subscription = itemModelObservable.subscribe(new Observer<ItemModel>() {
-
-            private List<ItemModel> items = new LinkedList<>();
-
-            @Override
-            public void onCompleted() {
-                galleryGridController.inflateItemDetailStub(itemDetailStub, items.get(position));
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(ItemModel itemModel) {
-                items.add(itemModel);
-            }
-        });
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-        }
+    protected void injectMe(FragmentItemDetailBase fragmentItemDetailBase) {
+        ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent().inject(fragmentItemDetailBase);
+
     }
 
-
-    @Override
-    protected void injectComponent() {
-        ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent().inject(this);
-    }
 }

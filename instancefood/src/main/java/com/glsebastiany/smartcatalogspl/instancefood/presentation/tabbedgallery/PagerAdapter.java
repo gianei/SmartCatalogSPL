@@ -47,7 +47,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
     //This method return the fragment for the every position in the View Pager
     @Override
     public Fragment getItem(int position) {
-        return baseAppDisplayFactory.provideGalleryFragment(categories.get(position).getId());
+        return baseAppDisplayFactory.provideGalleryVisualizationFragment(categories.get(position).getId());
     }
 
     // This method return the titles for the Tabs in the Tab Strip

@@ -27,7 +27,9 @@ import java.util.List;
 
 
 public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment(String category);
+    Fragment provideGalleryFragment(String[] categoriesIds);
+    Fragment provideGalleryVisualizationFragment(String category);
+    Fragment provideGalleryGridFragment();
     void startMainActivity(ActivityBase activityBase);
     void startGalleryActivity(List<String> categoriesId);
     void switchToItemView(FragmentManager fragmentManager, int position);

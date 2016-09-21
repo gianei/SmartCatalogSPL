@@ -45,25 +45,23 @@ public abstract class FragmentGalleryBase extends FragmentBase {
     BaseTabbedGalleryController tabbedGalleryController;
 
     @ViewById(resName="pager")
-    ViewPager viewPager;
+    public ViewPager viewPager;
 
     @ViewById(resName="progressBar")
-    ProgressBar progressBar;
+    public ProgressBar progressBar;
 
     @ViewById(resName="slidingTabLayout")
-    TabLayout tabLayout;
+    public TabLayout tabLayout;
 
     @ViewById(resName="left_drawer")
-    ListView drawerListView;
+    public ListView drawerListView;
 
     @ViewById(resName="drawer_layout")
-    DrawerLayout drawerLayout;
-
-
+    public DrawerLayout drawerLayout;
 
     List<String> categoriesId;
     @FragmentArg
-    void categoriesIdExtra(String[] categoriesIds){
+    public void categoriesIdExtra(String[] categoriesIds){
         this.categoriesId = Arrays.asList(categoriesIds);
     }
 

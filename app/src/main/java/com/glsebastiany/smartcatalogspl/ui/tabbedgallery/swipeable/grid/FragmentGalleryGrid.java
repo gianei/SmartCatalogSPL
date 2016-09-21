@@ -18,61 +18,28 @@
 
 package com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid;
 
-import android.support.v7.widget.RecyclerView;
-import android.widget.ProgressBar;
-
 import com.glsebastiany.smartcatalogspl.R;
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGridBase;
 import com.glsebastiany.smartcatalogspl.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.di.helper.HasComponent;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-
-import javax.inject.Inject;
-
-import rx.Observable;
 
 @EFragment(R.layout.fragment_gallery_visualization_grid)
-public class FragmentGalleryGrid extends BaseFragment implements HasComponent<ItemsGroupComponent>{
-
-    @ViewById(R.id.my_recycler_view)
-    RecyclerView recyclerView;
-
-    @ViewById(R.id.progressBar)
-    ProgressBar progressBar;
-
-    @Inject
-    BaseSwipeableController galleryGridController;
-
-    @Inject
-    Observable<ItemModel> itemModelObservable;
-
-    @Override
-    protected void injectComponent() {
-        getComponent().inject(this);
-    }
-
-    @AfterViews
-    public void afterViews() {
-        setupRecyclerView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //galleryGridController.endSubscriptions();
-    }
-
-    private void setupRecyclerView(){
-        galleryGridController.setupRecyclerView(getActivity(), itemModelObservable, progressBar, recyclerView, getFragmentManager());
-
-    }
+public class FragmentGalleryGrid extends FragmentGalleryGridBase implements HasComponent<ItemsGroupComponent> {
 
     @Override
     public ItemsGroupComponent getComponent() {
         return ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent();
+    }
+
+    @Override
+    protected void injectMe(FragmentGalleryGridBase activityGalleryBase) {
+        getComponent().inject(activityGalleryBase);
+    }
+
+    @Override
+    protected void setupComponent() {
+
     }
 }

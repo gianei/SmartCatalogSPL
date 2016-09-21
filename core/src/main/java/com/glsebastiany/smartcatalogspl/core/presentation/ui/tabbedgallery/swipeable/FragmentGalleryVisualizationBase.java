@@ -18,17 +18,21 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.InstanceState;
 
@@ -38,21 +42,23 @@ import javax.inject.Inject;
 
 import rx.Observable;
 
-
+@EFragment(resName="fragment_gallery_visualization")
 public abstract class FragmentGalleryVisualizationBase extends FragmentBase  {
 
+    @Inject
+    BaseSwipeableController swipeableController;
+
+    @Inject
+    BaseAppDisplayFactory appDisplayFactory;
+
     @InstanceState
-    boolean isFromSavedInstance = false;
+    public boolean isFromSavedInstance = false;
 
     @InstanceState
     public ItemObservableSerializable itemObservableSerializable;
 
     @FragmentArg
-    String categoryId;
-
-    @Inject
-    BaseSwipeableController swipeableController;
-
+    public String categoryId;
 
 
     @Override
@@ -78,14 +84,14 @@ public abstract class FragmentGalleryVisualizationBase extends FragmentBase  {
     public void afterViews(){
 
         if (!isFromSavedInstance) {
-            /*FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentManager fragmentManager = getChildFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            FragmentGalleryGrid galleryGridFragment = FragmentGalleryGrid_.builder().build();
-            fragmentTransaction.add(R.id.gallery_visualization, galleryGridFragment);
+            Fragment fragment = appDisplayFactory.provideGalleryGridFragment();
+            fragmentTransaction.add(R.id.gallery_visualization, fragment);
             fragmentTransaction.commit();
 
-            isFromSavedInstance = true;*/
+            isFromSavedInstance = true;
         }
 
         getChildFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
@@ -110,7 +116,7 @@ public abstract class FragmentGalleryVisualizationBase extends FragmentBase  {
 
 
 
-    protected static class ItemObservableSerializable implements Serializable {
+    public static class ItemObservableSerializable implements Serializable {
 
         private Observable<ItemModel> itemsObservable;
 

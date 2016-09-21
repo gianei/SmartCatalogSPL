@@ -26,10 +26,13 @@ import android.support.v4.app.FragmentTransaction;
 import com.glsebastiany.smartcatalogspl.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPagerBase;
 import com.glsebastiany.smartcatalogspl.ui.ActivityMain_;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.ActivityGallery;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.FragmentGallery;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
 import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
+import com.glsebastiany.smartcatalogspl.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid_;
 
 import java.util.List;
 
@@ -48,8 +51,18 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     public AppDisplayFactory(){};
 
     @Override
-    public Fragment provideGalleryFragment(String category){
+    public Fragment provideGalleryFragment(String[] categoriesIds) {
+        return FragmentGallery.newInstance(categoriesIds);
+    }
+
+    @Override
+    public Fragment provideGalleryVisualizationFragment(String category){
         return FragmentGalleryVisualization.newInstance(category);
+    }
+
+    @Override
+    public Fragment provideGalleryGridFragment() {
+        return FragmentGalleryGrid_.builder().build();
     }
 
     @Override
@@ -67,7 +80,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     public void switchToItemView(FragmentManager fragmentManager, int position) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        FragmentItemPager fragmentItemPager = FragmentItemPager.newInstance(position);
+        FragmentItemPagerBase fragmentItemPager = FragmentItemPager.newInstance(position);
         fragmentTransaction.add(R.id.gallery_visualization, fragmentItemPager);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
