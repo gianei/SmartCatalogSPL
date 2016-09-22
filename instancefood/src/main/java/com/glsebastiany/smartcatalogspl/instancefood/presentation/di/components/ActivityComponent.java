@@ -16,10 +16,21 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.data;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components;
 
-public interface CategoryGroupModel {
 
-    String getStringId();
+import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.ActivityMainBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.ActivityGalleryBase;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
+import dagger.Component;
+
+@PerActivity
+@Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
+public interface ActivityComponent {
+    void inject(ActivityGalleryBase activityGalleryBase);
+    void inject(ActivityMainBase activityMain);
+    void inject(SplashScreenBase splashScreen);
 }

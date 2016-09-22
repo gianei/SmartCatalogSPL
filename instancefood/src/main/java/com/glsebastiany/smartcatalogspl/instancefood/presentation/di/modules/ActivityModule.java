@@ -16,4 +16,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':instancefood', ':instancecars', ':core'
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+
+import dagger.Module;
+import dagger.Provides;
+
+@Module
+public class ActivityModule {
+    private final ActivityBase activity;
+
+    public ActivityModule(ActivityBase activity) {
+        this.activity = activity;
+    }
+
+    @Provides
+    @PerActivity
+    ActivityBase activity() {
+        return this.activity;
+    }
+}

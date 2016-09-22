@@ -16,4 +16,28 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':instancefood', ':instancecars', ':core'
+package com.glsebastiany.smartcatalogspl.core.presentation.ui;
+
+import android.os.Bundle;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+
+import javax.inject.Inject;
+
+
+public abstract class SplashScreenBase extends ActivityBase {
+
+    @Inject
+    BaseAppDisplayFactory baseAppDisplayFactory;
+
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        baseAppDisplayFactory.startMainActivity(this);
+
+
+    }
+
+    protected abstract void injectMe(SplashScreenBase splashScreen);
+}

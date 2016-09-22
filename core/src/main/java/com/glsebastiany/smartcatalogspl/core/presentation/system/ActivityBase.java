@@ -16,4 +16,21 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':instancefood', ':instancecars', ':core'
+package com.glsebastiany.smartcatalogspl.core.presentation.system;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+public abstract class ActivityBase extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setupComponent();
+        injectComponent();
+    }
+
+    protected abstract void setupComponent();
+
+    protected abstract void injectComponent();
+}

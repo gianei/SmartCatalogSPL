@@ -20,6 +20,6 @@ package com.glsebastiany.smartcatalogspl.core.data;
 
 public interface CategoryModel {
 
-    String getId();
+    String getStringId();
 
 }

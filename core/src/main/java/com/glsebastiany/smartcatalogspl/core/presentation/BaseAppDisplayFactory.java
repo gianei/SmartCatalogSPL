@@ -20,12 +20,19 @@ package com.glsebastiany.smartcatalogspl.core.presentation;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
 
 import java.util.List;
 
 
 public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment(String category);
+    Fragment provideGalleryFragment(String[] categoriesIds);
+    Fragment provideGalleryVisualizationFragment(String category);
+    Fragment provideGalleryGridFragment();
+    void startMainActivity(AppCompatActivity activityBase);
+    void startLoginActivity();
     void startGalleryActivity(List<String> categoriesId);
     void switchToItemView(FragmentManager fragmentManager, int position);
 }

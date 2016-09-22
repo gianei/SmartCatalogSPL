@@ -16,4 +16,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':instancefood', ':instancecars', ':core'
+package com.glsebastiany.smartcatalogspl.core.presentation.di.scopes;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import javax.inject.Scope;
+
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PerFragment {}

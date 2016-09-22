@@ -16,4 +16,10 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':instancefood', ':instancecars', ':core'
+package com.glsebastiany.smartcatalogspl.core.presentation.system;
+
+public class ActivityResultCodes {
+
+    /* Request code used to invoke sign in user interactions for Google+ */
+    public static final int RC_GOOGLE_LOGIN = 1;
+}

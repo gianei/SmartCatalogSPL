@@ -32,7 +32,7 @@ public class FoodItemModel implements ItemModel {
     }
 
     @Override
-    public String getId() {
+    public String getStringId() {
         return id;
     }
 

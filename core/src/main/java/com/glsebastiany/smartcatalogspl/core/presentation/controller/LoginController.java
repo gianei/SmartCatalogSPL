@@ -16,4 +16,16 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':instancefood', ':instancecars', ':core'
+package com.glsebastiany.smartcatalogspl.core.presentation.controller;
+
+
+import android.content.Intent;
+
+
+public abstract class LoginController {
+
+    public abstract void onSignInClick();
+
+    public abstract void onActivityResult(Intent data);
+
+}

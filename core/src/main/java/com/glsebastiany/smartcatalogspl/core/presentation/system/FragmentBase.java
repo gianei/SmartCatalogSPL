@@ -16,4 +16,21 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':instancefood', ':instancecars', ':core'
+package com.glsebastiany.smartcatalogspl.core.presentation.system;
+
+import android.content.Context;
+import android.support.v4.app.Fragment;
+
+public abstract class FragmentBase extends Fragment {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        setupComponent();
+        injectComponent();
+    }
+
+    protected abstract void setupComponent();
+
+    protected abstract void injectComponent();
+}

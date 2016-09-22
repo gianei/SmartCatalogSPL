@@ -17,6 +17,8 @@
   -->
 
 <resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="grid_cards_spacing">3dp</dimen>
 </resources>
