@@ -16,23 +16,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation;
+package com.glsebastiany.smartcatalogspl.core.presentation.di.scopes;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import javax.inject.Scope;
 
-import java.util.List;
-
-
-public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment(String[] categoriesIds);
-    Fragment provideGalleryVisualizationFragment(String category);
-    Fragment provideGalleryGridFragment();
-    void startMainActivity(AppCompatActivity activityBase);
-    void startLoginActivity();
-    void startGalleryActivity(List<String> categoriesId);
-    void switchToItemView(FragmentManager fragmentManager, int position);
-}
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PerItemsGroup {}

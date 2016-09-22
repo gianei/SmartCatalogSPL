@@ -16,23 +16,26 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerItemsGroup;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import dagger.Module;
+import dagger.Provides;
+import rx.Observable;
 
-import java.util.List;
+@Module
+public class ItemsGroupModule {
+    private final Observable<ItemModel> itemsObservable;
 
+    public ItemsGroupModule(Observable<ItemModel> itemsObservable) {
+        this.itemsObservable = itemsObservable;
+    }
 
-public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment(String[] categoriesIds);
-    Fragment provideGalleryVisualizationFragment(String category);
-    Fragment provideGalleryGridFragment();
-    void startMainActivity(AppCompatActivity activityBase);
-    void startLoginActivity();
-    void startGalleryActivity(List<String> categoriesId);
-    void switchToItemView(FragmentManager fragmentManager, int position);
+    @Provides
+    @PerItemsGroup
+    Observable<ItemModel> provideItemsObservable() {
+        return this.itemsObservable;
+    }
 }

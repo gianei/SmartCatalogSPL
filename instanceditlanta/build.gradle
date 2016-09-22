@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apt {
     arguments {
@@ -35,7 +35,8 @@ apt {
 android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
-    defaultConfig librariesDefaultConfig
+
+    defaultConfig appInstanceDitlantaConfig
 
     buildTypes {
         release {
@@ -62,3 +63,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 }
+
+//this must be at the end
+apply plugin: 'com.google.gms.google-services'

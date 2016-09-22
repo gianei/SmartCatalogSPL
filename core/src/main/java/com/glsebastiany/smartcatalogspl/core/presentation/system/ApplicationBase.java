@@ -16,23 +16,22 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation;
+package com.glsebastiany.smartcatalogspl.core.presentation.system;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
-
-import java.util.List;
+import android.app.Application;
 
 
-public interface BaseAppDisplayFactory {
-    Fragment provideGalleryFragment(String[] categoriesIds);
-    Fragment provideGalleryVisualizationFragment(String category);
-    Fragment provideGalleryGridFragment();
-    void startMainActivity(AppCompatActivity activityBase);
-    void startLoginActivity();
-    void startGalleryActivity(List<String> categoriesId);
-    void switchToItemView(FragmentManager fragmentManager, int position);
+public abstract class ApplicationBase extends Application {
+
+    @Override public void onCreate() {
+        super.onCreate();
+
+        setupComponent();
+        injectComponent();
+
+    }
+
+    protected abstract void setupComponent();
+
+    protected abstract void injectComponent();
 }
