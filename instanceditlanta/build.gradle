@@ -55,7 +55,7 @@ dependencies androidSupport
 dependencies jUnit
 dependencies glide
 dependencies orm
-dependencies ormGenerator
+//dependencies ormGenerator
 dependencies firebase
 dependencies dagger
 dependencies {

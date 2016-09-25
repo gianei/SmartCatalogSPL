@@ -18,11 +18,12 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.data;
 
-import de.greenrobot.daogenerator.*;
+//dao generator usees freemarker that causes build errors
+//import de.greenrobot.daogenerator.*;
 
 public class DbGenerator {
     public static void main(String[] args) throws Exception{
-        Schema schema = new Schema(18, "com.glsebastiany.smartcatalogspl.instanceditlanta.data.db");
+        /*Schema schema = new Schema(18, "com.glsebastiany.smartcatalogspl.instanceditlanta.data.db");
         schema.enableKeepSectionsByDefault();
 
         Entity category = setupCategory(schema);
@@ -32,10 +33,10 @@ public class DbGenerator {
         setupSuitCase(schema, category);
 
 
-        generateAll(schema);
+        generateAll(schema);*/
     }
 
-    private static Entity setupCategory(Schema schema) {
+    /*private static Entity setupCategory(Schema schema) {
         // Makes categories as a tree
         Entity category = schema.addEntity("Category");
         category.implementsInterface("CategoryModel");
@@ -67,7 +68,7 @@ public class DbGenerator {
     }
 
     private static void setupSuitCase(Schema schema, Entity category) {
-        Entity suitCase = schema.addEntity("SuitCase");
+        /*Entity suitCase = schema.addEntity("SuitCase");
         suitCase.implementsInterface("CategoryGroupModel");
 
         suitCase.addIdProperty(); //current greendDao requires a long ID
@@ -79,6 +80,6 @@ public class DbGenerator {
 
     private static void generateAll(Schema schema) throws Exception {
         new DaoGenerator().generateAll(schema, "instanceditlanta/src/main/java/");
-    }
+    }*/
 
 }
