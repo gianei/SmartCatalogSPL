@@ -70,7 +70,7 @@ ext {
     }
 
     rxAndroidVersion = '1.2.1'
-    rxJavaVersion = '1.1.7'
+    rxJavaVersion = '1.2.0'
 
     rxAndroid = {
         compile "io.reactivex:rxandroid:${rxAndroidVersion}"
@@ -82,20 +82,20 @@ ext {
         compile "javax.inject:javax.inject:${javaxInjectVersion}"
     }
 
-    daggerVersion = '2.1'
+    daggerVersion = '2.7'
     dagger = {
         apt "com.google.dagger:dagger-compiler:${daggerVersion}"
         compile "com.google.dagger:dagger:${daggerVersion}"
         provided "org.glassfish:javax.annotation:10.0-b28"
     }
 
-    androidAnnotationsVersion = '4.0.0'
+    androidAnnotationsVersion = '4.1.0'
     androidAnnotations = {
         apt "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
         compile "org.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
     }
 
-    androidSupportVersion = '24.1.0'
+    androidSupportVersion = '24.2.1'
     androidSupport = {
         compile "com.android.support:recyclerview-v7:${androidSupportVersion}"
         compile "com.android.support:appcompat-v7:${androidSupportVersion}"
@@ -116,8 +116,8 @@ ext {
         testCompile 'junit:junit:4.12'
     }
 
-    firebaseVersion = '9.4.0'
-    firebaseUiVersion = '0.4.4'
+    firebaseVersion = '9.6.0'
+    firebaseUiVersion = '0.6.0'
     firebase = {
         compile "com.google.android.gms:play-services-auth:${firebaseVersion}"
         compile "com.google.firebase:firebase-database:${firebaseVersion}"
