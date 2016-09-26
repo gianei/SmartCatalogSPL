@@ -72,12 +72,12 @@ public class SuitCaseUpdater implements FirebaseUpdatable {
 
     @Override
     public long getLatestUpdate() {
-        return sharedPreferencesUpdate.pref_suit_case_latest_update_key().get();
+        return sharedPreferencesUpdate.suitCaseLatestUpdate().get();
     }
 
     @Override
     public void saveUpdatedDate(long date) {
-        sharedPreferencesUpdate.pref_suit_case_latest_update_key().put(date);
+        sharedPreferencesUpdate.suitCaseLatestUpdate().put(date);
 
     }
 

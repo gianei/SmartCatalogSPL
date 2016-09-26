@@ -75,12 +75,12 @@ public class CategoryUpdater implements FirebaseUpdatable {
     @Override
     public long getLatestUpdate() {
 
-        return sharedPreferencesUpdate.pref_category_latest_update_key().get();
+        return sharedPreferencesUpdate.categoryLatestUpdate().get();
     }
 
     @Override
     public void saveUpdatedDate(long date) {
-        sharedPreferencesUpdate.pref_category_latest_update_key().put(date);
+        sharedPreferencesUpdate.categoryLatestUpdate().put(date);
 
     }
 

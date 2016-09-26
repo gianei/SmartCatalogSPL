@@ -24,7 +24,7 @@ public class FileServices {
     private static final String LOG_TAG = FileServices.class.getName();
 
 
-    protected static void checkDestinationFolder(Context context) throws ImagesFolderException {
+    public static void checkDestinationFolder(Context context) throws ImagesFolderException {
         if (!getFotosFolder(context).isDirectory()){
             Log.w(LOG_TAG, "Fotos folder will be created");
             if (!createFotosFolderDirectory(context)){
@@ -92,14 +92,14 @@ public class FileServices {
         return new File(new SharedPreferencesFolder_(context).photosFolder().get());
     }
 
-    protected static String getFullImageUrlFromFileName(Context context, String imageUrl) {
+    public static String getFullImageUrlFromFileName(Context context, String imageUrl) {
         return getFotosFolder(context).getPath()
                 + File.separator + imageUrl;
     }
 
 
 
-    protected static void tryWriteToLocalFile(byte[] contents, String imageCompleteUrl) {
+    public static void tryWriteToLocalFile(byte[] contents, String imageCompleteUrl) {
         try {
             writeToLocalFile(imageCompleteUrl, contents);
             Log.d(LOG_TAG, "File " + imageCompleteUrl + " saved successfully!");
@@ -122,12 +122,12 @@ public class FileServices {
 
 
 
-    protected static String getImageCompleteUrl() {
+    public static String getImageCompleteUrl() {
         return "http://res.cloudinary.com/smartcatalog/image/upload/v" + (new Date().getTime() / 1000) + "/ditlanta/items/";
     }
 
 
-    protected static class ImagesFolderException extends Exception {
+    public static class ImagesFolderException extends Exception {
         public ImagesFolderException(){
             super("Photos folder could not be created");
         }

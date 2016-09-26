@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:activity=".ui.gallery.ActivityGallery">
+
+    <item
+        android:id="@+id/menu_zoom_in"
+        android:icon="@drawable/ic_zoom_in_black_48dp"
+        android:title="@string/menu_zoom_in"
+        android:orderInCategory="50"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_zoom_out"
+        android:title="@string/menu_zoom_out"
+        android:icon="@drawable/ic_zoom_out_black_48dp"
+        android:orderInCategory="51"
+        app:showAsAction="ifRoom" />
+</menu>

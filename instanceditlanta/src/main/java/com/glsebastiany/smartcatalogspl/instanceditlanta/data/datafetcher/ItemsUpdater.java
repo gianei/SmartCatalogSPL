@@ -69,12 +69,12 @@ public class ItemsUpdater implements FirebaseUpdatable {
 
     @Override
     public long getLatestUpdate() {
-        return sharedPreferencesUpdate.pref_item_latest_update_key().get();
+        return sharedPreferencesUpdate.itemLatestUpdate().get();
     }
 
     @Override
     public void saveUpdatedDate(long date){
-        sharedPreferencesUpdate.pref_item_latest_update_key().put(date);
+        sharedPreferencesUpdate.itemLatestUpdate().put(date);
     }
 
 
