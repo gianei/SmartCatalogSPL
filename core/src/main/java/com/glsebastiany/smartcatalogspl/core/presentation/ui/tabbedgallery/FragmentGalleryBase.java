@@ -84,8 +84,16 @@ public abstract class FragmentGalleryBase extends FragmentBase {
     public void afterViews() {
         setHasOptionsMenu(true);
 
-        setupSlidingTabsAndViewPager();
-        setupDrawer();
+        tabbedGalleryController.bindAndSetup(
+                getActivity(),
+                progressBar,
+                viewPager,
+                tabLayout,
+                drawerLayout,
+                drawerListView,
+                categoriesId
+        );
+
 
     }
 
@@ -95,16 +103,4 @@ public abstract class FragmentGalleryBase extends FragmentBase {
         tabbedGalleryController.endSubscriptions();
     }
 
-    private void setupSlidingTabsAndViewPager() {
-
-        tabbedGalleryController.setupPager(getActivity(), progressBar, viewPager, categoriesId);
-
-        tabbedGalleryController.setupSlidingTabs(tabLayout, viewPager);
-    }
-
-    private void setupDrawer() {
-
-        tabbedGalleryController.setupDrawerAdapter(getActivity(), drawerListView);
-
-    }
 }

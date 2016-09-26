@@ -21,10 +21,14 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbed
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,10 +37,11 @@ import rx.Observable;
 import rx.Observer;
 
 
-public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<CategoryModel> {
+public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<CategoryModel>, BaseTabbedGalleryController.DrawerClickSupport {
 
     private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
+    SparseArray<FragmentGalleryVisualization> registeredFragments = new SparseArray<>();
 
     public PagerAdapter(FragmentManager fm, Observable<CategoryModel> categoriesObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
@@ -56,6 +61,19 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
     public CharSequence getPageTitle(int position) {
         Category cat = ((Category)categories.get(position));
         return cat.getName();
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        FragmentGalleryVisualization fragment = (FragmentGalleryVisualization) super.instantiateItem(container, position);
+        registeredFragments.put(position, fragment);
+        return fragment;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        registeredFragments.remove(position);
+        super.destroyItem(container, position, object);
     }
 
     /*public int getCategoryPosition(long baseCategoryId){
@@ -87,5 +105,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
     public void onNext(CategoryModel categoryModel) {
         categories.add(categoryModel);
         notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void performDrawerClick(CategoryModel categoryModel, int currentTabPosition) {
+        registeredFragments.get(currentTabPosition).moveToSubCategorySection(categoryModel);
     }
 }

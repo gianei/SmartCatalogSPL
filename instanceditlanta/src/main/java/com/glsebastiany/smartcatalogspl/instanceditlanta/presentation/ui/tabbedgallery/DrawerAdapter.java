@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,11 +39,15 @@ import rx.Observer;
 
 public class DrawerAdapter extends BaseAdapter{
 
-    private Context context;
-    private List<CategoryModel> items = new LinkedList<>();
+    private static final int TEXT_VIEW_LEFT_PADDING_DP = 32;
 
-    public DrawerAdapter(Context context, Observable<CategoryModel> observable) {
+    private Context context;
+    private List<Category> categories = new LinkedList<>();
+    private Category parentCategory;
+
+    public DrawerAdapter(Context context, Observable<CategoryModel> observable, Category parentCategory) {
         this.context = context;
+        this.parentCategory = parentCategory;
 
         observable.subscribe(new Observer<CategoryModel>() {
             @Override
@@ -57,7 +62,7 @@ public class DrawerAdapter extends BaseAdapter{
 
             @Override
             public void onNext(CategoryModel categoryModel) {
-                items.add(categoryModel);
+                categories.add((Category)categoryModel);
                 notifyDataSetChanged();
             }
         });
@@ -66,17 +71,17 @@ public class DrawerAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return items.size();
+        return categories.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return items.get(position).getStringId();
+        return categories.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return items.get(position).getStringId().hashCode();
+        return categories.get(position).getStringId().hashCode();
     }
 
     @Override
@@ -86,9 +91,9 @@ public class DrawerAdapter extends BaseAdapter{
         view = ((LayoutInflater)context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.view_gallery_drawer_list_item, parent, false);
 
-        ((TextView) view).setText(items.get(position).getStringId());
-        //if(items.get(position).getParentId() != parentCategory.getStringId())
-        //    view.setPadding((int) (TEXT_VIEW_LEFT_PADDING_DP * context.getResources().getDisplayMetrics().density),0 ,0 ,0 );
+        ((TextView) view).setText(categories.get(position).getName());
+        if(categories.get(position).getParentId() != parentCategory.getId())
+            view.setPadding((int) (TEXT_VIEW_LEFT_PADDING_DP * context.getResources().getDisplayMetrics().density),0 ,0 ,0 );
 
         return view;
     }

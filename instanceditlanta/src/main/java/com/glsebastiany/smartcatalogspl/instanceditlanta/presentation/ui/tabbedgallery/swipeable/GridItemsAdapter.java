@@ -57,7 +57,7 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     //ItemUseCases itemUseCases;
 
-    private List<ItemModel> items = new LinkedList<>();
+    private List<Item> items = new LinkedList<>();
 
     public GridItemsAdapter(Observable<ItemModel> itemsObservable, FragmentManager fragmentManager, BaseAppDisplayFactory baseAppDisplayFactory){
         super();
@@ -160,11 +160,12 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public int findCategoryPositionInItems(CategoryModel categoryModel){
 
-        /*for (int i = 0; i < itemsHolderInterface.getItemHolder().getSize(); i++){
-            if (itemsHolderInterface.getItemHolder().getItemIn(i).getCategoryId().equals(baseCategory.getStringId())) {
+        for (int i = 0; i < items.size(); i++){
+            String itemId = ((Long)items.get(i).getCategoryId()).toString();
+            if (categoryModel.getStringId().equals(itemId)) {
                 return i + 1;
             }
-        }*/
+        }
 
         //if nothing found, return top position
         return 0;
@@ -183,7 +184,7 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onNext(ItemModel itemModel) {
-        items.add(itemModel);
+        items.add((Item)itemModel);
         notifyItemInserted(items.size() -1);
 
     }

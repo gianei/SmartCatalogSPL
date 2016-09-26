@@ -18,27 +18,25 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery;
 
-import android.content.Context;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.widget.BaseAdapter;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Observer;
 
 public class TabbedGalleryController extends BaseTabbedGalleryController {
+
+    private PagerAdapter pagerAdapter = null;
 
     @Inject
     CategoryUseCases categoryUseCases;
@@ -52,45 +50,31 @@ public class TabbedGalleryController extends BaseTabbedGalleryController {
     @Inject
     public TabbedGalleryController(){}
 
+    @Override
+    public FragmentStatePagerAdapter getFragmentStatePagerAdapter(Observable<CategoryModel> observable){
 
-    public void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager, List<String> categoriesIds){
+        if (pagerAdapter == null)
+            pagerAdapter = new PagerAdapter(fragmentManager, observable, baseAppDisplayFactory);
 
-        Observable<CategoryModel> observable = categoryUseCases.findCategory(categoriesIds);
-
-        viewPager.setAdapter(new PagerAdapter(fragmentManager, observable, baseAppDisplayFactory));
-
-        endSubscriptions();
-
-        addSubscription(observable.subscribe(new Observer<CategoryModel>() {
-            @Override
-            public void onCompleted() {
-                progressBar.setVisibility(View.GONE);
-                viewPager.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(CategoryModel categoryModel) {
-                progressBar.setVisibility(View.GONE);
-                viewPager.setVisibility(View.VISIBLE);
-            }
-        }));
+        return pagerAdapter;
 
     }
 
-    public void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager) {
-        tabLayout.setupWithViewPager(viewPager);
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+    protected Observable<CategoryModel> getCategoryObservable(List<String> categoriesIds) {
+        return categoryUseCases.findCategory(categoriesIds);
     }
 
     @Override
-    public void setupDrawerAdapter(Context context, ListView listView) {
-        listView.setAdapter(new DrawerAdapter(context, categoryUseCases.drawerCategories()));
+    protected DrawerClickSupport getDrawerClickSupport() {
+        return pagerAdapter;
     }
+
+    @Override
+    public BaseAdapter getDrawerAdapter(String categoryId) {
+        CategoryModel category = categoryUseCases.findCategory(categoryId).toBlocking().single();
+        return new DrawerAdapter(context, categoryUseCases.getAllChildren(category), (Category) category);
+    }
+
+
+
 }

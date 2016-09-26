@@ -18,6 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable;
 
+import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualizationBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
@@ -28,6 +29,7 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.compone
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FragmentModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ItemsGroupModule;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -70,4 +72,9 @@ public class FragmentGalleryVisualization extends FragmentGalleryVisualizationBa
     }
 
 
+    public void moveToSubCategorySection(CategoryModel categoryModel) {
+        FragmentGalleryGrid galleryGridFragment =
+                ((FragmentGalleryGrid) getChildFragmentManager().findFragmentById(R.id.gallery_visualization));
+        galleryGridFragment.moveToSubCategorySection(categoryModel);
+    }
 }

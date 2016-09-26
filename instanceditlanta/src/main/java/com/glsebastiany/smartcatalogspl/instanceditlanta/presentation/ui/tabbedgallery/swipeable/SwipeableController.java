@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
@@ -47,6 +48,8 @@ import rx.Observer;
 
 public class SwipeableController extends BaseSwipeableController {
 
+    RecyclerView recyclerView;
+
     @Inject
     Context context;
 
@@ -64,7 +67,7 @@ public class SwipeableController extends BaseSwipeableController {
     }
 
     public void setupRecyclerView(Context context, Observable<ItemModel> observable, final ProgressBar progressBar, final RecyclerView recyclerView, FragmentManager fragmentManager){
-
+        this.recyclerView = recyclerView;
         //TODO check for leaking
         //endSubscriptions();
         addSubscription(observable.subscribe(new Observer<ItemModel>() {
@@ -145,4 +148,6 @@ public class SwipeableController extends BaseSwipeableController {
             labelViewStub.inflate();
         }
     }
+
+
 }

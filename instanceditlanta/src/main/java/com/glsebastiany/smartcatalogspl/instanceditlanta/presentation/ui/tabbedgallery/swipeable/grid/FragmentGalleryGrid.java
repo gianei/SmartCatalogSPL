@@ -18,15 +18,21 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid;
 
+import android.support.v7.widget.LinearLayoutManager;
+
+import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGridBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ItemsGroupComponent;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.GridItemsAdapter;
 
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_gallery_visualization_grid)
 public class FragmentGalleryGrid extends FragmentGalleryGridBase implements HasComponent<ItemsGroupComponent> {
+
+    public static final int MAX_ITEMS_TO_SHOW_SCROLL = 100;
 
     @Override
     public ItemsGroupComponent getComponent() {
@@ -41,5 +47,16 @@ public class FragmentGalleryGrid extends FragmentGalleryGridBase implements HasC
     @Override
     protected void setupComponent() {
 
+    }
+
+    public void moveToSubCategorySection(CategoryModel categoryModel) {
+        int newPosition = ((GridItemsAdapter)recyclerView.getAdapter()).findCategoryPositionInItems(categoryModel);
+        int visiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        int difference = visiblePosition - newPosition;
+        if (Math.abs(difference) > MAX_ITEMS_TO_SHOW_SCROLL){
+            recyclerView.scrollToPosition(newPosition + (MAX_ITEMS_TO_SHOW_SCROLL * (int) Math.signum(difference)));
+            recyclerView.smoothScrollToPosition(newPosition);
+        } else
+            recyclerView.smoothScrollToPosition(newPosition);
     }
 }
