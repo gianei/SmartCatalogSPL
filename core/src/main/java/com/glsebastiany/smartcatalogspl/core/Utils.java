@@ -16,12 +16,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.system;
+package com.glsebastiany.smartcatalogspl.core;
 
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 
@@ -89,6 +90,21 @@ public class Utils {
                 activity.startLockTask();
             }
         }
+    }
+
+    public static long parseLong(String string) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            return Long.parseLong(string);
+        else
+            return Long.parseLong(string.replace("+", ""));
+    }
+
+    public static Drawable getDrawable(Context context, int resourceId){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            return context.getDrawable(resourceId);
+        else
+            //noinspection deprecation
+            return context.getResources().getDrawable(resourceId);
     }
 
 }

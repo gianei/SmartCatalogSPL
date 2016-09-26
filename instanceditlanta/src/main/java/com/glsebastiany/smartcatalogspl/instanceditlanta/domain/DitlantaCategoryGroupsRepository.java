@@ -46,7 +46,8 @@ public class DitlantaCategoryGroupsRepository implements CategoryGroupUseCases {
 
     @Override
     public Observable<CategoryGroupModel> mainViewCategoriesGroups() {
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryGroupModel>() {
+        // cant use ObservableHelper.createThreaded because some use it in blocking form
+        return Observable.create(new Observable.OnSubscribe<CategoryGroupModel>() {
             @Override
             public void call(Subscriber<? super CategoryGroupModel> subscriber) {
                 SuitCaseDao suitCaseDao = GreenDaoOpenHelper.daoSession(context).getSuitCaseDao();

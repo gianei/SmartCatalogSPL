@@ -22,11 +22,17 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.glsebastiany.smartcatalogspl.core.Utils;
+import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.firebase.FirebaseItem;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.SharedPreferencesUpdate_;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.domain.DitlantaItemUseCases;
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -34,14 +40,14 @@ import javax.inject.Inject;
 public class ItemsUpdater implements FirebaseUpdatable {
     private static final String LOG_TAG = ItemsUpdater.class.getSimpleName();
 
-    //final protected SharedPreferencesUpdate_ sharedPreferencesUpdate;
-    private ItemUseCases itemUseCases;
+    private final SharedPreferencesUpdate_ sharedPreferencesUpdate;
+    private final DitlantaItemUseCases itemUseCases;
 
 
     @Inject
     public ItemsUpdater(Context context, ItemUseCases itemUseCases) {
-        //this.sharedPreferencesUpdate = new SharedPreferencesUpdate_(context);
-        this.itemUseCases = itemUseCases;
+        this.sharedPreferencesUpdate = new SharedPreferencesUpdate_(context);
+        this.itemUseCases = (DitlantaItemUseCases) itemUseCases;
     }
 
     @Override
@@ -63,41 +69,40 @@ public class ItemsUpdater implements FirebaseUpdatable {
 
     @Override
     public long getLatestUpdate() {
-
-        return 0; //sharedPreferencesUpdate.itemLatestUpdate().get();
+        return sharedPreferencesUpdate.pref_item_latest_update_key().get();
     }
 
     @Override
     public void saveUpdatedDate(long date){
-        //sharedPreferencesUpdate.itemLatestUpdate().put(date);
+        sharedPreferencesUpdate.pref_item_latest_update_key().put(date);
     }
 
 
     @Override
     public String getFirebaseId(DataSnapshot dataSnapshot) {
-        return "0"; //CompatHelper.parseLong(dataSnapshot.getKey());
+        return dataSnapshot.getKey();
     }
 
     @Override
     @NonNull
     public Set<String> getLocalIds(int expectedSize) {
         Set<String> localItemsIds = new LinkedHashSet<>(expectedSize);
-        /*List<BaseItem> allItems = applicationComponent.provideBaseItemRepository().getAll();
-        for (BaseItem item :
+        List<ItemModel> allItems = itemUseCases.getAll().toList().toBlocking().single();
+        for (ItemModel item :
                 allItems) {
-            localItemsIds.add(item.getId());
-        }*/
+            localItemsIds.add(item.getStringId());
+        }
         return localItemsIds;
     }
 
     @Override
     public void clean() {
-        //applicationComponent.provideBaseItemRepository().removeAll();
+        itemUseCases.removeAll();
     }
 
     public long insertAll(DataSnapshot dataSnapshots) {
         long latestDate = 0;
-        /*List<BaseItem> items = new ArrayList<>(5000);
+        List<ItemModel> items = new ArrayList<>(5000);
         for (DataSnapshot dataSnapshot :
                 dataSnapshots.getChildren()) {
             FirebaseItem firebaseItem = dataSnapshot.getValue(FirebaseItem.class);
@@ -107,7 +112,7 @@ public class ItemsUpdater implements FirebaseUpdatable {
                 latestDate = firebaseItem.getUpdatedDate();
         }
 
-        applicationComponent.provideBaseItemRepository().insert(items);*/
+        itemUseCases.insert(items);
         return latestDate;
     }
 
@@ -116,8 +121,8 @@ public class ItemsUpdater implements FirebaseUpdatable {
         FirebaseItem firebaseItem = snapshot.getValue(FirebaseItem.class);
         Log.d(LOG_TAG, "Inserting item: " + firebaseItem.getId());
 
-        //applicationComponent.provideBaseItemRepository().remove(firebaseItem.getId());
-        //applicationComponent.provideBaseItemRepository().insert(firebaseItem.toBaseItem());
+        itemUseCases.remove(firebaseItem.getId());
+        itemUseCases.insert(firebaseItem.toBaseItem());
 
         return firebaseItem.getUpdatedDate();
     }
@@ -127,8 +132,8 @@ public class ItemsUpdater implements FirebaseUpdatable {
         FirebaseItem firebaseItem = snapshot.getValue(FirebaseItem.class);
         Log.d(LOG_TAG, "Changing item: " + firebaseItem.getId());
 
-        //applicationComponent.provideBaseItemRepository().remove(firebaseItem.getId());
-        //applicationComponent.provideBaseItemRepository().insert(firebaseItem.toBaseItem());
+        itemUseCases.remove(firebaseItem.getId());
+        itemUseCases.insert(firebaseItem.toBaseItem());
 
         return firebaseItem.getUpdatedDate();
     }
@@ -144,7 +149,7 @@ public class ItemsUpdater implements FirebaseUpdatable {
 
     public void remove(String id) {
         Log.d(LOG_TAG, "Removing item: " + id);
-        //applicationComponent.provideBaseItemRepository().remove(id);
+        itemUseCases.remove(Utils.parseLong(id));
     }
 
 

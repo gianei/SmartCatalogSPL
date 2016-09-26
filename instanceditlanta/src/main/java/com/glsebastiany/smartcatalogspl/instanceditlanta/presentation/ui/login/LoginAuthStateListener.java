@@ -21,7 +21,9 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login;
 
 import android.support.annotation.NonNull;
 
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.datafetcher.CategoryUpdater;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.datafetcher.FirebaseUpdater;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.datafetcher.ItemsUpdater;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.datafetcher.SuitCaseUpdater;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.firebase.FirebaseUidMapping;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +40,12 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
     SuitCaseUpdater suitCaseUpdater;
 
     @Inject
+    CategoryUpdater categoryUpdater;
+
+    @Inject
+    ItemsUpdater itemsUpdater;
+
+    @Inject
     public LoginAuthStateListener(){
     }
 
@@ -47,8 +55,8 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
         if (userIsLoggedIn(user) && !updadersStarted) {
             updadersStarted = true;
 
-            //new FirebaseUpdater(applicationComponent, new ItemsUpdater(mActivity, applicationComponent));
-            //new FirebaseUpdater(applicationComponent, new CategoryUpdater(mActivity, applicationComponent));
+            new FirebaseUpdater(itemsUpdater);
+            new FirebaseUpdater(categoryUpdater);
             new FirebaseUpdater(suitCaseUpdater);
             saveLoginUser(user);
         }

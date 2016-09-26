@@ -7,6 +7,8 @@ import de.greenrobot.dao.DaoException;
 
 // KEEP INCLUDES - put your custom includes here
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.DaoSession;
+
+import java.util.Date;
 // KEEP INCLUDES END
 /**
  * Entity mapped to table "ITEM".
@@ -40,6 +42,7 @@ public class Item implements ItemModel {
 
 
     // KEEP FIELDS - put your custom fields here
+    private static final long DAYS_SPAN_TO_BE_NEW_ITEM = 30;
     // KEEP FIELDS END
 
     public Item() {
@@ -220,6 +223,21 @@ public class Item implements ItemModel {
     // KEEP METHODS - put your custom methods here
     public String getStringId(){
         return id.toString();
+    }
+
+    public boolean getIsNew(){
+        Date newItemFromDate = new Date();
+        newItemFromDate.setTime(new Date().getTime() - getNewItemMilisecondsRange());
+        return getCreationDate() != null && getCreationDate().after(newItemFromDate);
+    }
+
+    public boolean mustShowPreviousPrice(){
+        return (isPromoted || isSale)
+                && getPrice() < getPreviousPrice();
+    }
+
+    private static long getNewItemMilisecondsRange() {
+        return 1000L * 60L * 60L * 24l * DAYS_SPAN_TO_BE_NEW_ITEM;
     }
     // KEEP METHODS END
 

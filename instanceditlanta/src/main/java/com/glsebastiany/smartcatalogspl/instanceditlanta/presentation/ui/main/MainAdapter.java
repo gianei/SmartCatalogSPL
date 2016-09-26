@@ -35,7 +35,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.Utils;
+import com.glsebastiany.smartcatalogspl.core.Utils;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCase;
 

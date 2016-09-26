@@ -24,6 +24,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,7 +33,12 @@ import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
+import com.glsebastiany.smartcatalogspl.core.presentation.widget.TouchImageView;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.ImagesHelper;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Item;
+
+import java.text.NumberFormat;
 
 import javax.inject.Inject;
 
@@ -40,6 +46,9 @@ import rx.Observable;
 import rx.Observer;
 
 public class SwipeableController extends BaseSwipeableController {
+
+    @Inject
+    Context context;
 
     @Inject
     ItemUseCases itemUseCases;
@@ -88,7 +97,52 @@ public class SwipeableController extends BaseSwipeableController {
     public void inflateItemDetailStub(ViewStub viewStub, ItemModel itemModel){
         viewStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
         View newView = viewStub.inflate();
-        TextView textView = (TextView) newView.findViewById(R.id.textViewDetailDescription);
-        textView.setText(itemModel.getStringId());
+
+        Item item = (Item) itemModel;
+
+        ViewStub labelViewStub =  (ViewStub) newView.findViewById(R.id.label_stub);
+        inflateLabelViewStub(labelViewStub, item);
+
+        TextView priceText = (TextView) newView.findViewById(R.id.textViewDetailItemPrice);
+        NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
+        priceText.setText(currencyInstance.format(item.getPrice()));
+
+        TextView fromText = (TextView) newView.findViewById(R.id.textViewDetailItemPricePrevious);
+        if (item.mustShowPreviousPrice()) {
+            fromText.setText(context.getString(
+                    R.string.item_view_promoted_price,
+                    currencyInstance.format(item.getPreviousPrice())
+            ));
+        } else {
+            fromText.setText("");
+        }
+
+        TextView idText = (TextView) newView.findViewById(R.id.textViewDetailItemId);
+        idText.setText(item.getId().toString());
+
+        TextView descriptionText = (TextView) newView.findViewById(R.id.textViewDetailDescription);
+        descriptionText.setText(item.getName());
+
+        ImageView buildIcon = (ImageView) newView.findViewById(R.id.item_view_detail_build);
+        buildIcon.setVisibility(item.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
+
+        final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
+        ImagesHelper.loadDetailImageWithGlide(context, item, image);
+
+    }
+
+    private void inflateLabelViewStub(ViewStub labelViewStub, Item baseItem) {
+        if (baseItem.getIsNew()){
+            labelViewStub.setLayoutResource(R.layout.image_label_new);
+            labelViewStub.inflate();
+        } else
+        if (baseItem.getIsSale()){
+            labelViewStub.setLayoutResource(R.layout.image_label_sale);
+            labelViewStub.inflate();
+        } else
+        if (baseItem.getIsPromoted()){
+            labelViewStub.setLayoutResource(R.layout.image_label_promoted);
+            labelViewStub.inflate();
+        }
     }
 }

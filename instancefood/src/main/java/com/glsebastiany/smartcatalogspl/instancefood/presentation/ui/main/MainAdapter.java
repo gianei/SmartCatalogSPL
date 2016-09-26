@@ -37,7 +37,7 @@ import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.instancefood.data.FoodCategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.Utils;
+import com.glsebastiany.smartcatalogspl.core.Utils;
 
 import java.util.LinkedList;
 import java.util.List;

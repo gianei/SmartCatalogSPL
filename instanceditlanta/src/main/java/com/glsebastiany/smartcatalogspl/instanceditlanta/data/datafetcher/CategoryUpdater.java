@@ -23,23 +23,35 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.glsebastiany.smartcatalogspl.core.Utils;
+import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.firebase.FirebaseCategory;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.SharedPreferencesUpdate_;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.domain.DitlantaCategoryUseCases;
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 
 public class CategoryUpdater implements FirebaseUpdatable {
 
     private static final String LOG_TAG = CategoryUpdater.class.getSimpleName();
 
-    //final protected SharedPreferencesUpdate_ sharedPreferencesUpdate;
+    private final SharedPreferencesUpdate_ sharedPreferencesUpdate;
+    private final DitlantaCategoryUseCases categoryUseCases;
 
 
-
-    public CategoryUpdater(Context context) {
-        //this.sharedPreferencesUpdate = new SharedPreferencesUpdate_(context);
+    @Inject
+    public CategoryUpdater(Context context, CategoryUseCases categoryUseCases) {
+        this.sharedPreferencesUpdate = new SharedPreferencesUpdate_(context);
+        this.categoryUseCases = (DitlantaCategoryUseCases) categoryUseCases;
     }
 
     @NonNull
@@ -63,44 +75,43 @@ public class CategoryUpdater implements FirebaseUpdatable {
     @Override
     public long getLatestUpdate() {
 
-        //return sharedPreferencesUpdate.categoryLatestUpdate().get();
-        return 0;
+        return sharedPreferencesUpdate.pref_category_latest_update_key().get();
     }
 
     @Override
     public void saveUpdatedDate(long date) {
-        //sharedPreferencesUpdate.categoryLatestUpdate().put(date);
+        sharedPreferencesUpdate.pref_category_latest_update_key().put(date);
 
     }
 
     @Override
     public String getFirebaseId(DataSnapshot dataSnapshot) {
-        return "0"; //CompatHelper.parseLong(dataSnapshot.getKey());
+        return dataSnapshot.getKey();
     }
 
     @NonNull
     @Override
     public Set<String> getLocalIds( int expectedSize) {
         Set<String> localCategoriesIds = new LinkedHashSet<>(expectedSize);
-        /*List<BaseCategory> allCategories = applicationComponent.provideBaseCategoryRepository().getAll();
-        for (BaseCategory baseCategory :
+        List<CategoryModel> allCategories = categoryUseCases.getAll().toList().toBlocking().single();
+        for (CategoryModel baseCategory :
                 allCategories) {
-            localCategoriesIds.add(baseCategory.getId());
-        }*/
+            localCategoriesIds.add(baseCategory.getStringId());
+        }
         return localCategoriesIds;
     }
 
     @Override
     public void clean() {
-        //applicationComponent.provideBaseCategoryRepository().removeAll();
-        //applicationComponent.provideBaseCategoryRepository().insert(new Category(BaseCategory.ROOT_ID, null, "Root Category"));
+        categoryUseCases.removeAll();
+        categoryUseCases.insert(new Category(Category.ROOT_ID, null, "Root Category"));
     }
 
     @Override
     public long insertAll(DataSnapshot dataSnapshots) {
         long latestDate = 0;
-        /*
-        List<BaseCategory> categories = new ArrayList<>(2000);
+
+        List<CategoryModel> categories = new ArrayList<>(2000);
         for (DataSnapshot dataSnapshot :
                 dataSnapshots.getChildren()) {
             FirebaseCategory firebaseCategory = dataSnapshot.getValue(FirebaseCategory.class);
@@ -110,8 +121,8 @@ public class CategoryUpdater implements FirebaseUpdatable {
                 latestDate = firebaseCategory.getUpdatedDate();
         }
 
-        applicationComponent.provideBaseCategoryRepository().insert(categories);
-        */
+        categoryUseCases.insert(categories);
+
         return latestDate;
     }
 
@@ -120,8 +131,8 @@ public class CategoryUpdater implements FirebaseUpdatable {
         FirebaseCategory firebaseCategory = snapshot.getValue(FirebaseCategory.class);
         Log.d(LOG_TAG, "Inserting category: " + firebaseCategory.getId());
 
-        //applicationComponent.provideBaseCategoryRepository().remove(firebaseCategory.getId());
-        //applicationComponent.provideBaseCategoryRepository().insert(firebaseCategory.toBaseCategory());
+        categoryUseCases.remove(firebaseCategory.getId());
+        categoryUseCases.insert(firebaseCategory.toBaseCategory());
 
         return firebaseCategory.getUpdatedDate();
     }
@@ -131,8 +142,8 @@ public class CategoryUpdater implements FirebaseUpdatable {
         FirebaseCategory firebaseCategory = snapshot.getValue(FirebaseCategory.class);
         Log.d(LOG_TAG, "Changing category: " + firebaseCategory.getId());
 
-        //applicationComponent.provideBaseCategoryRepository().remove(firebaseCategory.getId());
-        //applicationComponent.provideBaseCategoryRepository().insert(firebaseCategory.toBaseCategory());
+        categoryUseCases.remove(firebaseCategory.getId());
+        categoryUseCases.insert(firebaseCategory.toBaseCategory());
 
         return firebaseCategory.getUpdatedDate();
     }
@@ -153,7 +164,7 @@ public class CategoryUpdater implements FirebaseUpdatable {
         }
 
         Log.d(LOG_TAG, "Removing category: " + id);
-        //applicationComponent.provideBaseCategoryRepository().remove(id);
+        categoryUseCases.remove(Utils.parseLong(id));
     }
 
     @Override

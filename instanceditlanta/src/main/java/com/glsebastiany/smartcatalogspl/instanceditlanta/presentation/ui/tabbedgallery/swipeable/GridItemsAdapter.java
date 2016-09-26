@@ -33,6 +33,8 @@ import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.ImagesHelper;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Item;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -106,28 +108,28 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int baseItemPosition) {
         BaseItemViewHolder baseItemViewHolder = (BaseItemViewHolder) viewHolder;
 
-        ItemModel item = items.get(baseItemPosition);
+        Item item = (Item) items.get(baseItemPosition);
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
         baseItemViewHolder.id.setText(item.getStringId());
-        //baseItemViewHolder.description.setText(item.getName());
-        //baseItemViewHolder.price.setText(mCurrencyInstance.format(item.getPrice()));
+        baseItemViewHolder.description.setText(item.getName());
+        baseItemViewHolder.price.setText(mCurrencyInstance.format(item.getPrice()));
 
-        //ImagesHelper.loadCardImageWithGlide(context, item, baseItemViewHolder.image);
+        ImagesHelper.loadCardImageWithGlide(context, item, baseItemViewHolder.image);
 
-        /*if (item.mustShowPreviousPrice()) {
+        if (item.mustShowPreviousPrice()) {
             baseItemViewHolder.fromPrice.setText(context.getString(
                     R.string.item_view_promoted_price,
                     mCurrencyInstance.format(item.getPreviousPrice())
             ));
         } else {
             baseItemViewHolder.fromPrice.setText("");
-        }*/
+        }
     }
 
     @Override
     public int getItemViewType(int baseItemPosition) {
-        /*Item item = (Item) itemsHolderInterface.getItemHolder().getItemIn(baseItemPosition);
+        Item item = (Item) items.get(baseItemPosition);
 
         if (item.getIsPromoted())
             return PROMOTED_ITEM_TYPE;
@@ -136,7 +138,7 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return SALE_ITEM_TYPE;
 
         if (item.getIsNew())
-            return NEW_ITEM_TYPE;*/
+            return NEW_ITEM_TYPE;
 
         return REGULAR_ITEM_TYPE;
     }
@@ -220,8 +222,6 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Override
         public void onClick(View v) {
 
-            //itemsHolderInterface.switchToItemView(position);
-            //Toast.makeText(context, "Clicked "+ position, Toast.LENGTH_SHORT).show();
             baseAppDisplayFactory.switchToItemView(fragmentManager, position);
         }
 

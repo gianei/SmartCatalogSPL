@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -53,7 +54,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
     // This method return the titles for the Tabs in the Tab Strip
     @Override
     public CharSequence getPageTitle(int position) {
-        return categories.get(position).getStringId();
+        Category cat = ((Category)categories.get(position));
+        return cat.getName();
     }
 
     /*public int getCategoryPosition(long baseCategoryId){
@@ -63,8 +65,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
         }
         return -1;
     }*/
-
-    // This method return the Number of slidingTabLayout for the slidingTabLayout Strip
 
     @Override
     public int getCount() {

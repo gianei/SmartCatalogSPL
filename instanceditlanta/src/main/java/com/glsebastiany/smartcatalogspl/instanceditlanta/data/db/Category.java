@@ -32,6 +32,8 @@ public class Category implements CategoryModel {
     private List<Category> children;
 
     // KEEP FIELDS - put your custom fields here
+    public final static Long ROOT_ID = (long) 0;
+
     // KEEP FIELDS END
 
     public Category() {
