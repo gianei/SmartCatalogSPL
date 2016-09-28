@@ -22,7 +22,6 @@ import android.content.Context;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.GreenDaoOpenHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCaseDao;
