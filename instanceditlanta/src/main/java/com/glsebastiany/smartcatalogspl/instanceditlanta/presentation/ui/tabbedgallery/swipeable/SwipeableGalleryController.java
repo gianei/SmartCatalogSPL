@@ -53,7 +53,7 @@ public class SwipeableGalleryController extends BaseSwipeableGalleryController {
     @Inject
     public SwipeableGalleryController(){}
 
-    public Observable<ItemModel> getItemsObservable(String categoryId){
+    public Observable<ItemModel> getItemsObservableInternal(String categoryId){
         return itemUseCases.allFromCategory(categoryId);
     }
 

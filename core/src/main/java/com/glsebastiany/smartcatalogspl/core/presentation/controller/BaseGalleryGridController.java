@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
 
 import rx.Observable;

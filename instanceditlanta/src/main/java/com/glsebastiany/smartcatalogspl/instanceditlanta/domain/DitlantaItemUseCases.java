@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +61,6 @@ public class DitlantaItemUseCases implements ItemUseCases {
 
     @Override
     public Observable<ItemModel> getAll() {
-        //return ObservableHelper.createThreaded(new Observable.OnSubscribe<ItemModel>() {
         return Observable.create(new Observable.OnSubscribe<ItemModel>() {
             @Override
             public void call(Subscriber<? super ItemModel> subscriber) {
@@ -97,6 +97,21 @@ public class DitlantaItemUseCases implements ItemUseCases {
                     }
                 }
 
+                switch (categoryId){
+                    case DitlantaCategoryUseCases.ID_PROMOTION:
+                        items = getAllPromoted();
+                        break;
+                    case DitlantaCategoryUseCases.ID_SALE:
+                        items = getAllSale();
+                        break;
+                    case DitlantaCategoryUseCases.ID_NEW:
+                        items = getAllNew();
+                        break;
+                    case DitlantaCategoryUseCases.ID_PROMOTION_AND_SALE:
+                        items = getAllPromotedOrSale();
+                        break;
+                }
+
                 orderByCategoryBasePrice(items);
 
                 for (Item item:
@@ -107,6 +122,62 @@ public class DitlantaItemUseCases implements ItemUseCases {
                 subscriber.onCompleted();
             }
         });
+    }
+
+    public List<Item> getAllPromoted(){
+        List<Item> items = GreenDaoOpenHelper.daoSession(context).getItemDao().loadAll();
+
+        Iterator<Item> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            Item item = (Item)iterator.next(); // must be called before you can call i.remove()
+
+            if (!item.getIsPromoted())
+                iterator.remove();
+        }
+
+        return items;
+    }
+
+    public List<Item> getAllPromotedOrSale(){
+        List<Item> items = GreenDaoOpenHelper.daoSession(context).getItemDao().loadAll();
+
+        Iterator<Item> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            Item item = (Item)iterator.next(); // must be called before you can call i.remove()
+
+            if (!item.getIsPromoted() &&!item.getIsSale())
+                iterator.remove();
+        }
+
+        return items;
+    }
+
+    public List<Item> getAllNew(){
+        List<Item> items = GreenDaoOpenHelper.daoSession(context).getItemDao().loadAll();
+
+        Iterator<Item> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            Item item = (Item)iterator.next(); // must be called before you can call i.remove()
+
+            if (!item.getIsNew())
+                iterator.remove();
+        }
+
+        return items;
+    }
+
+    public List<Item> getAllSale(){
+        List<Item> items = GreenDaoOpenHelper.daoSession(context).getItemDao().loadAll();
+
+        Iterator<Item> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            Item item = (Item)iterator.next(); // must be called before you can call i.remove()
+
+            if (!item.getIsSale())
+                iterator.remove();
+        }
+
+        return items;
     }
 
     @NonNull
@@ -122,11 +193,11 @@ public class DitlantaItemUseCases implements ItemUseCases {
         return categoryModelsIds;
     }
 
-    private void orderByCategoryBasePrice(List<? extends Item> baseItems){
-        if (baseItems == null)
+    private void orderByCategoryBasePrice(List<? extends Item> Items){
+        if (Items == null)
             return;
         Map<Long, Integer> orderedIds = getOrderedIds();
-        Collections.sort(baseItems, new CategoryBasePriceComparator<>(orderedIds));
+        Collections.sort(Items, new CategoryBasePriceComparator<>(orderedIds));
     }
 
     private Map<Long, Integer> getOrderedIds() {
@@ -166,7 +237,7 @@ public class DitlantaItemUseCases implements ItemUseCases {
 
     }
 
-    /*public List<? extends BaseItem> getQuery(String query){
+    /*public List<? extends Item> getQuery(String query){
         query = query.trim();
         query = query.replaceAll("\\s+", " "); //only allow one whitespace between words
         query = query.replaceAll(" ", "%"); //insert wild card between words

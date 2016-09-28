@@ -28,6 +28,7 @@ public abstract class ItemPagerFragmentBase extends FragmentBase {
 
     @Inject
     Observable<ItemModel> itemModelObservable;
+
     private Subscription subscription;
 
     @FragmentArg

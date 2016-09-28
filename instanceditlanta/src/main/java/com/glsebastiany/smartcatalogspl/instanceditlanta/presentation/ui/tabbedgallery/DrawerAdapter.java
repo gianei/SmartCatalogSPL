@@ -57,6 +57,7 @@ public class DrawerAdapter extends BaseAdapter{
 
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
                 throw new RuntimeException(e);
             }
 

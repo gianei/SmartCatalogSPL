@@ -61,7 +61,7 @@ public class FoodCategoryGroupUseCase implements CategoryGroupUseCases {
 
     @Override
     public Observable<CategoryGroupModel> mainViewCategoriesGroups() {
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryGroupModel>() {
+        return Observable.create(new Observable.OnSubscribe<CategoryGroupModel>() {
             @Override
             public void call(Subscriber<? super CategoryGroupModel> subscriber) {
                 try {

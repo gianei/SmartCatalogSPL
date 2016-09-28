@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
@@ -111,6 +112,7 @@ public abstract class SwipeableGalleryFragmentBase extends FragmentBase  {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        swipeableController.endSubscriptions();
     }
 
 

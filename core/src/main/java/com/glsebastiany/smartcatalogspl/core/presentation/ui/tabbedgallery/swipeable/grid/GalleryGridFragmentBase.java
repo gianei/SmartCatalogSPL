@@ -42,4 +42,10 @@ public abstract class GalleryGridFragmentBase extends FragmentBase {
         galleryGridController.bindAndSetup(getActivity(), progressBar, recyclerView, getFragmentManager(), itemModelObservable);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        galleryGridController.endSubscriptions();
+    }
+
 }

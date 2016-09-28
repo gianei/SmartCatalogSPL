@@ -57,7 +57,7 @@ public class FoodItemUseCases implements ItemUseCases {
 
     @Override
     public Observable<ItemModel> getAll(){
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<ItemModel>(){
+        return Observable.create(new Observable.OnSubscribe<ItemModel>(){
             @Override
             public void call(final Subscriber<? super ItemModel> subscriber) {
                 try {

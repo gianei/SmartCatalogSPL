@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 
 import java.util.List;
 
@@ -69,7 +70,7 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
         this.drawerListView = drawerListView;
         this.categoriesIds = categoriesIds;
 
-        observable = getCategoryObservable(categoriesIds);
+        observable = ObservableHelper.setupThreads(getCategoryObservable(categoriesIds).cache());
 
         setupPager();
         setupSlidingTabs();
@@ -81,8 +82,6 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
     private void setupPager(){
 
         viewPager.setAdapter(getFragmentStatePagerAdapter(observable));
-
-        endSubscriptions();
 
         addSubscription(observable.subscribe(new Observer<CategoryModel>() {
             @Override
@@ -98,8 +97,7 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
 
             @Override
             public void onNext(CategoryModel categoryModel) {
-                progressBar.setVisibility(View.GONE);
-                viewPager.setVisibility(View.VISIBLE);
+
             }
         }));
 

@@ -34,12 +34,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import de.greenrobot.dao.DaoException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
 
 public class DitlantaCategoryUseCases implements CategoryUseCases {
 
+    public static final String ID_PROMOTION = "-1";
+    public static final String ID_SALE = "-2";
+    public static final String ID_NEW = "-3";
+    public static final String ID_PROMOTION_AND_SALE = "-4";
+    public static final String ID_OTHER = "-99";
     private final Context context;
 
     @Inject
@@ -49,10 +55,16 @@ public class DitlantaCategoryUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel>  getAll() {
-        //return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>() {
         return Observable.create(new Observable.OnSubscribe<CategoryModel>() {
             @Override
             public void call(Subscriber<? super CategoryModel> subscriber) {
+
+                subscriber.onNext(new Category(Utils.parseLong(ID_PROMOTION), Category.ROOT_ID, "Promoções"));
+                subscriber.onNext(new Category(Utils.parseLong(ID_SALE), Category.ROOT_ID, "Liquidação"));
+                subscriber.onNext(new Category(Utils.parseLong(ID_NEW), Category.ROOT_ID, "Novidades"));
+                subscriber.onNext(new Category(Utils.parseLong(ID_PROMOTION_AND_SALE), Category.ROOT_ID, "Promoções e Liquidação"));
+                subscriber.onNext(new Category(Utils.parseLong(ID_OTHER), Category.ROOT_ID, "Outro"));
+
                 CategoryDao categoryDao = GreenDaoOpenHelper.daoSession(context).getCategoryDao();
                 for (CategoryModel categoryModel :
                         categoryDao.loadAll()) {
@@ -87,12 +99,18 @@ public class DitlantaCategoryUseCases implements CategoryUseCases {
     }
 
     private void fillSubCategoriesId(List<CategoryModel> totalList, Category category){
-        List<? extends CategoryModel> subCategories = category.getChildren();
-        if (subCategories.size() > 0){
-            for (CategoryModel subCategory : subCategories) {
-                totalList.add(subCategory);
-                fillSubCategoriesId(totalList, (Category) subCategory);
+        try {
+            List<? extends CategoryModel> subCategories = category.getChildren();
+            if (subCategories.size() > 0) {
+                for (CategoryModel subCategory : subCategories) {
+                    totalList.add(subCategory);
+                    fillSubCategoriesId(totalList, (Category) subCategory);
+                }
             }
+        } catch (DaoException e){
+            if (e.getMessage() == "Entity is detached from DAO context")
+                return;
+            else throw e;
         }
     }
 
@@ -107,10 +125,35 @@ public class DitlantaCategoryUseCases implements CategoryUseCases {
             @Override
             public void call(Subscriber<? super CategoryModel> subscriber) {
                 Category category = GreenDaoOpenHelper.daoSession(context).getCategoryDao().load(Utils.parseLong(categoryId));
+                if (category == null){
+                    category = getSpecialCategory(categoryId);
+                }
                 subscriber.onNext(category);
                 subscriber.onCompleted();
             }
         });
+    }
+
+    private Category getSpecialCategory(String categoryId) {
+        Category category;
+        switch (categoryId){
+            case ID_PROMOTION:
+                category = new Category(Utils.parseLong(ID_PROMOTION), Category.ROOT_ID, "Promoções");
+                break;
+            case ID_SALE:
+                category = new Category(Utils.parseLong(ID_SALE), Category.ROOT_ID, "Liquidação");
+                break;
+            case ID_NEW:
+                category = new Category(Utils.parseLong(ID_NEW), Category.ROOT_ID, "Novidades");
+                break;
+            case ID_PROMOTION_AND_SALE:
+                category = new Category(Utils.parseLong(ID_PROMOTION_AND_SALE), Category.ROOT_ID, "Promoções e Liquidação");
+                break;
+            default:
+                category = new Category(Utils.parseLong(ID_OTHER), Category.ROOT_ID, "Outro");
+        }
+
+        return category;
     }
 
     @Override

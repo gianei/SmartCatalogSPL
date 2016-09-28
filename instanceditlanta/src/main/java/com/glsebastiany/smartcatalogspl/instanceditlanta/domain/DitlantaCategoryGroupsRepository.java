@@ -46,7 +46,6 @@ public class DitlantaCategoryGroupsRepository implements CategoryGroupUseCases {
 
     @Override
     public Observable<CategoryGroupModel> mainViewCategoriesGroups() {
-        // cant use ObservableHelper.createThreaded because some use it in blocking form
         return Observable.create(new Observable.OnSubscribe<CategoryGroupModel>() {
             @Override
             public void call(Subscriber<? super CategoryGroupModel> subscriber) {
