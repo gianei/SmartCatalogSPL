@@ -75,13 +75,25 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
         setupPager();
         setupSlidingTabs();
         setupDrawerClick();
-        setupDrawerAdapter();
+        setupDrawerAdapter(0);
 
     }
 
     private void setupPager(){
 
         viewPager.setAdapter(getFragmentStatePagerAdapter(observable));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                setupDrawerAdapter(position);
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
         addSubscription(observable.subscribe(new Observer<CategoryModel>() {
             @Override
@@ -109,27 +121,11 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
         tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                setupDrawerAdapter();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
-    private void setupDrawerAdapter() {
+    private void setupDrawerAdapter(int position) {
 
-        drawerListView.setAdapter(getDrawerAdapter(categoriesIds.get(viewPager.getCurrentItem())));
+        drawerListView.setAdapter(getDrawerAdapter(categoriesIds.get(position)));
 
     }
 

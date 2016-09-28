@@ -158,20 +158,20 @@ public class DitlantaCategoryUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> findCategory(final List<String> categoriesId) {
-        //must parse to long to remove "+" that are on firebase
-        final List<Long> myCategoriesId = new ArrayList<>();
-        for (String categoryId :
-                categoriesId) {
-            myCategoriesId.add(Utils.parseLong(categoryId));
+
+        if(categoriesId.size() > 0) {
+            Observable<CategoryModel> categories = findCategory(categoriesId.get(0));
+
+            for (int i = 1; i < categoriesId.size(); i++) {
+                categories = categories.concatWith(findCategory(categoriesId.get(i)));
+            }
+
+            return categories;
+
+        } else {
+            return Observable.empty();
         }
 
-
-        return getAll().filter(new Func1<CategoryModel, Boolean>() {
-            @Override
-            public Boolean call(CategoryModel categoryModel) {
-                return myCategoriesId.contains(Utils.parseLong(categoryModel.getStringId()));
-            }
-        });
     }
 
     @Override
