@@ -25,7 +25,6 @@ import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGridBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ItemsGroupComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.GridItemsAdapter;
 
 import org.androidannotations.annotations.EFragment;
 

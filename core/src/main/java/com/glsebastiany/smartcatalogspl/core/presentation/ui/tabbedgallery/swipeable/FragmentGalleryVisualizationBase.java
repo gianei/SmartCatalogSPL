@@ -111,7 +111,6 @@ public abstract class FragmentGalleryVisualizationBase extends FragmentBase  {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        swipeableController.endSubscriptions();
     }
 
 

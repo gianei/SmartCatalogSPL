@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
 
@@ -19,7 +20,7 @@ import rx.Observable;
 public abstract class FragmentGalleryGridBase extends FragmentBase {
 
     @Inject
-    BaseSwipeableController galleryGridController;
+    BaseGalleryGridController galleryGridController;
 
     @Inject
     Observable<ItemModel> itemModelObservable;
@@ -43,7 +44,7 @@ public abstract class FragmentGalleryGridBase extends FragmentBase {
     }
 
     private void setupRecyclerView(){
-        galleryGridController.setupRecyclerView(getActivity(), itemModelObservable, progressBar, recyclerView, getFragmentManager());
+        galleryGridController.bindAndSetup(getActivity(), progressBar, recyclerView, getFragmentManager(), itemModelObservable);
 
     }
 

@@ -19,6 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,8 +49,6 @@ import rx.Observer;
 
 public class SwipeableController extends BaseSwipeableController {
 
-    RecyclerView recyclerView;
-
     @Inject
     Context context;
 
@@ -64,36 +63,6 @@ public class SwipeableController extends BaseSwipeableController {
 
     public Observable<ItemModel> getItemsObservable(String categoryId){
         return itemUseCases.allFromCategory(categoryId);
-    }
-
-    public void setupRecyclerView(Context context, Observable<ItemModel> observable, final ProgressBar progressBar, final RecyclerView recyclerView, FragmentManager fragmentManager){
-        this.recyclerView = recyclerView;
-        //TODO check for leaking
-        //endSubscriptions();
-        addSubscription(observable.subscribe(new Observer<ItemModel>() {
-            @Override
-            public void onCompleted() {
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(ItemModel itemModel) {
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-        }));
-
-        recyclerView.setAdapter(new GridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory));
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
-        recyclerView.addItemDecoration(
-                new SpacesItemDecoration(context.getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
-
     }
 
     @Override
@@ -148,6 +117,5 @@ public class SwipeableController extends BaseSwipeableController {
             labelViewStub.inflate();
         }
     }
-
 
 }

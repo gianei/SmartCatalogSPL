@@ -80,17 +80,4 @@ public class ApplicationModule {
     BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
         return appDisplayFactory;
     }
-
-
-    @Provides
-    @Singleton
-    BaseMainController provideBaseMainController(MainController mainController){
-        return mainController;
-    }
-
-    @Provides
-    @Singleton
-    BaseSwipeableController provideBaseGalleryGridController(SwipeableController swipeableController){
-        return swipeableController;
-    }
 }

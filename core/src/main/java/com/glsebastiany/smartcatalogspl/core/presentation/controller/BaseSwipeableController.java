@@ -18,11 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.controller;
 
-import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewStub;
-import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 
@@ -30,6 +26,5 @@ import rx.Observable;
 
 public abstract class BaseSwipeableController extends BaseSubscriptionedController {
     public abstract Observable<ItemModel> getItemsObservable(String categoryId);
-    public abstract void setupRecyclerView(Context context, Observable<ItemModel> itemModelObservable, ProgressBar progressBar, RecyclerView recyclerView, FragmentManager fragmentManager);
     public abstract void inflateItemDetailStub(ViewStub viewStub, ItemModel itemModel);
 }

@@ -20,6 +20,7 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.compon
 
 import android.content.Context;
 
+import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
@@ -44,8 +45,8 @@ public interface ApplicationComponent {
     Context context();
     ItemUseCases useCases();
     CategoryUseCases categoryUseCases();
-    BaseMainController baseMainController();
-    BaseSwipeableController baseGalleryGridController();
+    CategoryGroupUseCases categoryGroupUseCases();
+    //BaseSwipeableController baseGalleryGridController();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 

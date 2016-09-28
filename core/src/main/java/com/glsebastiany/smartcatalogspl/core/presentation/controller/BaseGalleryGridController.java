@@ -20,36 +20,49 @@ package com.glsebastiany.smartcatalogspl.core.presentation.controller;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
 
 import rx.Observable;
 import rx.Observer;
 
-public abstract class BaseMainController extends BaseSubscriptionedController{
-
+public abstract class BaseGalleryGridController extends BaseSubscriptionedController {
     protected Context context;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
+    private FragmentManager fragmentManager;
+    private Observable<ItemModel> observable;
 
-    public void bindAndSetup(Context context, ProgressBar progressBar, RecyclerView recyclerView){
+    @NonNull
+    protected abstract RecyclerView.Adapter<RecyclerView.ViewHolder>
+        getRecyclerViewAdapter(Observable<ItemModel> observable, FragmentManager fragmentManager);
+
+    public void bindAndSetup(
+            Context context,
+            final ProgressBar progressBar,
+            final RecyclerView recyclerView,
+            FragmentManager fragmentManager,
+            Observable<ItemModel> observable){
+
         this.context = context;
         this.progressBar = progressBar;
         this.recyclerView = recyclerView;
+        this.fragmentManager = fragmentManager;
+        this.observable = observable;
 
         setupRecyclerView();
     }
 
     private void setupRecyclerView(){
-        Observable<CategoryGroupModel> observable = getCategoryGroupObservable();
-
-        addSubscription(observable.subscribe(new Observer<CategoryGroupModel>() {
+        addSubscription(observable.subscribe(new Observer<ItemModel>() {
             @Override
             public void onCompleted() {
                 progressBar.setVisibility(View.GONE);
@@ -62,26 +75,15 @@ public abstract class BaseMainController extends BaseSubscriptionedController{
             }
 
             @Override
-            public void onNext(CategoryGroupModel categoryGroupModel) {
+            public void onNext(ItemModel itemModel) {
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
         }));
 
-        recyclerView.setLayoutManager(
-                new GridLayoutManager(
-                        context,
-                        context.getResources().getInteger(R.integer.grid_span_start),
-                        LinearLayoutManager.VERTICAL, false
-                )
-        );
-
-        recyclerView.setAdapter(getRecyclerViewAdapter(observable));
-
+        recyclerView.setAdapter(getRecyclerViewAdapter(observable, fragmentManager));
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
+        recyclerView.addItemDecoration(
+                new SpacesItemDecoration(context.getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
     }
-
-    @NonNull
-    protected abstract RecyclerView.Adapter<? extends RecyclerView.ViewHolder> getRecyclerViewAdapter(Observable<CategoryGroupModel> observable);
-
-    protected abstract Observable<CategoryGroupModel> getCategoryGroupObservable();
 }

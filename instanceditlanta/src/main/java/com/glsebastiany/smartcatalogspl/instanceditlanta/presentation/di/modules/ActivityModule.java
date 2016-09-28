@@ -20,8 +20,12 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.module
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainController;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -38,5 +42,11 @@ public class ActivityModule {
     @PerActivity
     AppCompatActivity activity() {
         return this.activity;
+    }
+
+    @Provides
+    @PerActivity
+    BaseMainController provideBaseMainController(MainController mainController){
+        return mainController;
     }
 }

@@ -52,12 +52,14 @@ public abstract class ActivityMainBase extends ActivityBase {
 
     @AfterViews
     public void afterViews(){
-        setupToolbar();
-        baseMainController.setupRecyclerView(this, progressBar, recyclerView);
+        setSupportActionBar(toolbar);
+        baseMainController.bindAndSetup(this, progressBar, recyclerView);
     }
 
-    private void setupToolbar() {
-        setSupportActionBar(toolbar);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        baseMainController.endSubscriptions();
     }
 
     @Override

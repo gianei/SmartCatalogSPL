@@ -16,39 +16,34 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 
-public class MainController extends BaseMainController {
-
-    @Inject
-    CategoryGroupUseCases categoryGroupUseCases;
+public class GalleryGridController extends BaseGalleryGridController {
 
     @Inject
     BaseAppDisplayFactory baseAppDisplayFactory;
 
     @Inject
-    public MainController(){}
+    public GalleryGridController(){}
 
     @Override
     @NonNull
-    protected RecyclerView.Adapter<? extends RecyclerView.ViewHolder> getRecyclerViewAdapter(Observable<CategoryGroupModel> observable) {
-        return new MainAdapter(context, observable, baseAppDisplayFactory);
+    protected RecyclerView.Adapter<RecyclerView.ViewHolder> getRecyclerViewAdapter(Observable<ItemModel> observable, FragmentManager fragmentManager) {
+        return new GridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory);
     }
 
-    @Override
-    protected Observable<CategoryGroupModel> getCategoryGroupObservable() {
-        return categoryGroupUseCases.mainViewCategoriesGroups();
-    }
+
+
 }

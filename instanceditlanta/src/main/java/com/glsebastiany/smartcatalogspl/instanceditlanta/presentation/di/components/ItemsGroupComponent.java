@@ -20,6 +20,7 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.compon
 
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerItemsGroup;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualizationBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemDetailBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPagerBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGridBase;
