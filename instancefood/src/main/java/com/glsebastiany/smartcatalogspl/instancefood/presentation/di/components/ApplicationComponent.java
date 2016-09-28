@@ -20,11 +20,12 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components
 
 import android.content.Context;
 
+import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ApplicationModule;
 
 import javax.inject.Singleton;
@@ -41,8 +42,7 @@ public interface ApplicationComponent {
     Context context();
     ItemUseCases useCases();
     CategoryUseCases categoryUseCases();
-    BaseMainController baseMainController();
-    BaseSwipeableController baseGalleryGridController();
+    CategoryGroupUseCases categoryGroupUseCases();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 

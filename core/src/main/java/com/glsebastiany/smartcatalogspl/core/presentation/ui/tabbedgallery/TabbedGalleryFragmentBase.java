@@ -1,0 +1,106 @@
+/*
+ *     SmartCatalogSPL, an Android catalog Software Product Line
+ *     Copyright (c) 2016 Gianei Leandro Sebastiany
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
+
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
+@EFragment
+public abstract class TabbedGalleryFragmentBase extends FragmentBase {
+
+    @Inject
+    BaseTabbedGalleryController tabbedGalleryController;
+
+    @ViewById(resName="pager")
+    public ViewPager viewPager;
+
+    @ViewById(resName="progressBar")
+    public ProgressBar progressBar;
+
+    @ViewById(resName="slidingTabLayout")
+    public TabLayout tabLayout;
+
+    @ViewById(resName="left_drawer")
+    public ListView drawerListView;
+
+    @ViewById(resName="drawer_layout")
+    public DrawerLayout drawerLayout;
+
+    List<String> categoriesId;
+    @FragmentArg
+    public void categoriesIdExtra(String[] categoriesIds){
+        this.categoriesId = Arrays.asList(categoriesIds);
+    }
+
+    @Click(resName="drawerTriggerView")
+    public void onDrawerTriggerClick(){
+        if (drawerLayout.isDrawerOpen(drawerListView))
+            drawerLayout.closeDrawer(drawerListView);
+        else
+            drawerLayout.openDrawer(drawerListView);
+    }
+
+    @Override
+    protected void injectComponent() {
+        injectMe(this);
+    }
+
+    protected abstract void injectMe(TabbedGalleryFragmentBase tabbedGalleryFragmentBase);
+
+    @AfterViews
+    public void afterViews() {
+        setHasOptionsMenu(true);
+
+        tabbedGalleryController.bindAndSetup(
+                getActivity(),
+                progressBar,
+                viewPager,
+                tabLayout,
+                drawerLayout,
+                drawerListView,
+                categoriesId
+        );
+
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        tabbedGalleryController.endSubscriptions();
+    }
+
+}

@@ -19,10 +19,13 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components;
 
 
+import android.support.v7.app.AppCompatActivity;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.ActivityMainBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.SplashScreenBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.ActivityGalleryBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryBaseActivity;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
 import dagger.Component;
@@ -30,7 +33,10 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-    void inject(ActivityGalleryBase activityGalleryBase);
-    void inject(ActivityMainBase activityMain);
+    AppCompatActivity appCompatActivity();
+    BaseAppDisplayFactory baseAppDisplayFactory();
+
+    void inject(TabbedGalleryBaseActivity tabbedGalleryBaseActivity);
+    void inject(MainActivityBase activityMain);
     void inject(SplashScreenBase splashScreen);
 }

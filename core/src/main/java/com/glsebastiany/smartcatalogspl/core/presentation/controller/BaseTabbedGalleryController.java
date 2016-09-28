@@ -20,14 +20,142 @@ package com.glsebastiany.smartcatalogspl.core.presentation.controller;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+
 import java.util.List;
 
+import rx.Observable;
+import rx.Observer;
+
 public abstract class BaseTabbedGalleryController extends BaseSubscriptionedController{
-    public abstract void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager, List<String> categoriesIds);
-    public abstract void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager);
-    public abstract void setupDrawerAdapter(Context context, ListView drawerLayout);
+    protected Context context;
+    private ProgressBar progressBar;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+    private DrawerLayout drawerLayout;
+    private ListView drawerListView;
+    private List<String> categoriesIds;
+
+    private Observable<CategoryModel> observable;
+
+    protected abstract FragmentStatePagerAdapter getFragmentStatePagerAdapter(Observable<CategoryModel> observable);
+    protected abstract BaseAdapter getDrawerAdapter(String categoryId);
+    protected abstract Observable<CategoryModel> getCategoryObservable(List<String> categoriesIds);
+    protected abstract DrawerClickSupport getDrawerClickSupport();
+
+    public void bindAndSetup(
+            Context context,
+            ProgressBar progressBar,
+            ViewPager viewPager,
+            TabLayout tabLayout,
+            DrawerLayout drawerLayout,
+            ListView drawerListView,
+            List<String> categoriesIds
+    ){
+        this.context = context;
+        this.progressBar = progressBar;
+        this.viewPager = viewPager;
+        this.tabLayout = tabLayout;
+        this.drawerLayout = drawerLayout;
+        this.drawerListView = drawerListView;
+        this.categoriesIds = categoriesIds;
+
+        observable = getCategoryObservable(categoriesIds);
+
+        setupPager();
+        setupSlidingTabs();
+        setupDrawerClick();
+        setupDrawerAdapter();
+
+    }
+
+    private void setupPager(){
+
+        viewPager.setAdapter(getFragmentStatePagerAdapter(observable));
+
+        endSubscriptions();
+
+        addSubscription(observable.subscribe(new Observer<CategoryModel>() {
+            @Override
+            public void onCompleted() {
+                progressBar.setVisibility(View.GONE);
+                viewPager.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(CategoryModel categoryModel) {
+                progressBar.setVisibility(View.GONE);
+                viewPager.setVisibility(View.VISIBLE);
+            }
+        }));
+
+    }
+
+    private void setupSlidingTabs(){
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                setupDrawerAdapter();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private void setupDrawerAdapter() {
+
+        drawerListView.setAdapter(getDrawerAdapter(categoriesIds.get(viewPager.getCurrentItem())));
+
+    }
+
+    private void setupDrawerClick() {
+        drawerListView.setOnItemClickListener(new DrawerItemClickListener());
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            if (drawerLayout.isDrawerOpen(drawerListView))
+                drawerLayout.closeDrawer(drawerListView);
+
+            if (getDrawerClickSupport() != null){
+                getDrawerClickSupport().performDrawerClick(
+                        ((CategoryModel) drawerListView.getAdapter().getItem(position)),
+                        tabLayout.getSelectedTabPosition()
+                );
+            }
+
+        }
+    }
+
+    public interface DrawerClickSupport{
+        void performDrawerClick(CategoryModel categoryModel, int currentTabPosition);
+    }
 }

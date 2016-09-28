@@ -26,14 +26,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPagerBase;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.ActivityMain_;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.ActivityGallery;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.FragmentGallery;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPager;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid_;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragmentBase;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainActivity_;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryActivity;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryFragment;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragment;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragment;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragment_;
 
 import java.util.List;
 
@@ -53,22 +52,22 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public Fragment provideGalleryFragment(String[] categoriesIds) {
-        return FragmentGallery.newInstance(categoriesIds);
+        return TabbedGalleryFragment.newInstance(categoriesIds);
     }
 
     @Override
     public Fragment provideGalleryVisualizationFragment(String category){
-        return FragmentGalleryVisualization.newInstance(category);
+        return SwipeableGalleryFragment.newInstance(category);
     }
 
     @Override
     public Fragment provideGalleryGridFragment() {
-        return FragmentGalleryGrid_.builder().build();
+        return GalleryGridFragment_.builder().build();
     }
 
     @Override
     public void startMainActivity(AppCompatActivity activityBase) {
-        ActivityMain_.intent(activityBase).start();
+        MainActivity_.intent(activityBase).start();
         activityBase.finish();
     }
 
@@ -79,14 +78,14 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public void startGalleryActivity(List<String> categoriesId) {
-        ActivityGallery.start(context, categoriesId);
+        TabbedGalleryActivity.start(context, categoriesId);
     }
 
     @Override
     public void switchToItemView(FragmentManager fragmentManager, int position) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        FragmentItemPagerBase fragmentItemPager = FragmentItemPager.newInstance(position);
+        ItemPagerFragmentBase fragmentItemPager = ItemPagerFragment.newInstance(position);
         fragmentTransaction.add(R.id.gallery_visualization, fragmentItemPager);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

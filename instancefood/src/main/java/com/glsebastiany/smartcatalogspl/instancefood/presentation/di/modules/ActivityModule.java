@@ -18,23 +18,33 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules;
 
+import android.support.v7.app.AppCompatActivity;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainController;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class ActivityModule {
-    private final ActivityBase activity;
+    private final AppCompatActivity activity;
 
-    public ActivityModule(ActivityBase activity) {
+    public ActivityModule(AppCompatActivity activity) {
         this.activity = activity;
     }
 
     @Provides
     @PerActivity
-    ActivityBase activity() {
+    AppCompatActivity activity() {
         return this.activity;
+    }
+
+    @Provides
+    @PerActivity
+    BaseMainController provideBaseMainController(MainController mainController){
+        return mainController;
     }
 }
