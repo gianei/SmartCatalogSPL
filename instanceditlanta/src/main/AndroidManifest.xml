@@ -46,11 +46,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.ui.main.ActivityMain_">
+        <activity android:name=".presentation.ui.main.MainActivity_">
 
         </activity>
 
-        <activity android:name=".presentation.ui.tabbedgallery.ActivityGallery_">
+        <activity android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_">
 
         </activity>
 
@@ -61,7 +61,7 @@
         <activity
             android:name=".data.preferences.ActivityPreferences_"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".presentation.ui.main.ActivityMain_" />
+            android:parentActivityName=".presentation.ui.main.MainActivity_" />
     </application>
 
 </manifest>

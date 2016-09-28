@@ -42,7 +42,7 @@ import java.util.List;
 
 import rx.Observable;
 
-public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel>{
+public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel>{
     private static final int REGULAR_ITEM_TYPE = 1;
     private static final int PROMOTED_ITEM_TYPE = 2;
     private static final int NEW_ITEM_TYPE = 3;
@@ -59,7 +59,7 @@ public class GridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private List<Item> items = new LinkedList<>();
 
-    public GridItemsAdapter(Observable<ItemModel> itemsObservable, FragmentManager fragmentManager, BaseAppDisplayFactory baseAppDisplayFactory){
+    public GalleryGridItemsAdapter(Observable<ItemModel> itemsObservable, FragmentManager fragmentManager, BaseAppDisplayFactory baseAppDisplayFactory){
         super();
         this.fragmentManager = fragmentManager;
         this.baseAppDisplayFactory = baseAppDisplayFactory;

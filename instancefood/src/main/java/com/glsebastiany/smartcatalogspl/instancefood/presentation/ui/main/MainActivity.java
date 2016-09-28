@@ -19,7 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main;
 
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.ActivityMainBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
@@ -29,11 +29,11 @@ import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.Act
 import org.androidannotations.annotations.EActivity;
 
 @EActivity(R.layout.activity_main)
-public class ActivityMain extends ActivityMainBase {
+public class MainActivity extends MainActivityBase {
     ActivityComponent activityComponent;
 
     @Override
-    protected void injectMe(ActivityMainBase activityMain) {
+    protected void injectMe(MainActivityBase activityMain) {
         activityComponent.inject(activityMain);
     }
 

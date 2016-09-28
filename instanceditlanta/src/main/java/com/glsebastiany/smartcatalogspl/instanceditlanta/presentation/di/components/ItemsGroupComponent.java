@@ -20,10 +20,9 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.compon
 
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerItemsGroup;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualizationBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemDetailBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPagerBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGridBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ItemsGroupModule;
 
 import dagger.Component;
@@ -31,7 +30,7 @@ import dagger.Component;
 @PerItemsGroup
 @Component(dependencies = FragmentComponent.class, modules = ItemsGroupModule.class)
 public interface ItemsGroupComponent {
-    void inject(FragmentGalleryGridBase activityGalleryBase);
-    void inject(FragmentItemPagerBase fragmentItemPager);
-    void inject(FragmentItemDetailBase fragmentItemDetail);
+    void inject(GalleryGridFragmentBase activityGalleryBase);
+    void inject(ItemPagerFragmentBase fragmentItemPager);
+    void inject(ItemDetailFragmentBase fragmentItemDetail);
 }

@@ -18,8 +18,8 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable;
 
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualizationBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerFragmentComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerItemsGroupComponent;
@@ -32,13 +32,13 @@ import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.Ite
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_gallery_visualization)
-public class FragmentGalleryVisualization extends FragmentGalleryVisualizationBase implements HasComponent<ItemsGroupComponent> {
+public class SwipeableGalleryFragment extends SwipeableGalleryFragmentBase implements HasComponent<ItemsGroupComponent> {
 
     private ItemsGroupComponent itemsGroupComponent;
 
     FragmentComponent fragmentComponent;
 
-    public static FragmentGalleryVisualization newInstance(String categoryId) {
+    public static SwipeableGalleryFragment newInstance(String categoryId) {
         return FragmentGalleryVisualization_.builder().categoryId(categoryId).build();
     }
 
@@ -61,8 +61,8 @@ public class FragmentGalleryVisualization extends FragmentGalleryVisualizationBa
     }
 
     @Override
-    protected void injectMe(FragmentGalleryVisualizationBase fragmentGalleryVisualizationBase) {
-        fragmentComponent.inject(fragmentGalleryVisualizationBase);
+    protected void injectMe(SwipeableGalleryFragmentBase swipeableGalleryFragmentBase) {
+        fragmentComponent.inject(swipeableGalleryFragmentBase);
     }
 
     public ItemsGroupComponent getComponent() {

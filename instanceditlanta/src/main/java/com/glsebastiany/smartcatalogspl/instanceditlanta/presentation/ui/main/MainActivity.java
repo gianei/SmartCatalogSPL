@@ -33,7 +33,7 @@ import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 
 import com.glsebastiany.smartcatalogspl.core.Utils;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.ActivityMainBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.ImageFetcherIntentService;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.ActivityPreferences_;
@@ -52,11 +52,11 @@ import org.androidannotations.annotations.OptionsMenuItem;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu({R.menu.menu_search, R.menu.menu_updates })
-public class ActivityMain extends ActivityMainBase {
+public class MainActivity extends MainActivityBase {
     ActivityComponent activityComponent;
 
     @Override
-    protected void injectMe(ActivityMainBase activityMain) {
+    protected void injectMe(MainActivityBase activityMain) {
         activityComponent.inject(activityMain);
     }
 

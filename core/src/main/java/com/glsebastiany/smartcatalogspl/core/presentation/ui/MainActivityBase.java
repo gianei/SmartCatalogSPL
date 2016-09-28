@@ -33,7 +33,7 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EActivity(resName="activity_main")
-public abstract class ActivityMainBase extends ActivityBase {
+public abstract class MainActivityBase extends ActivityBase {
 
     @Inject
     BaseMainController baseMainController;
@@ -67,6 +67,6 @@ public abstract class ActivityMainBase extends ActivityBase {
         injectMe(this);
     }
 
-    protected abstract void injectMe(ActivityMainBase activityMain);
+    protected abstract void injectMe(MainActivityBase activityMain);
 
 }

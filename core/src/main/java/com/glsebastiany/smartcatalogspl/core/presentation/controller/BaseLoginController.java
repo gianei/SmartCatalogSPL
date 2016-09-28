@@ -29,14 +29,14 @@ import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityResultCodes;
 
 
-public abstract class LoginController {
+public abstract class BaseLoginController {
 
     protected final AppCompatActivity mActivity;
     private final View loginButton;
     private final ProgressDialog mProgressDialog;
     private final BaseAppDisplayFactory baseAppDisplayFactory;
 
-    public LoginController(
+    public BaseLoginController(
             AppCompatActivity mActivity,
             View loginButton,
             ProgressDialog mProgressDialog,

@@ -41,7 +41,7 @@ public class GalleryGridController extends BaseGalleryGridController {
     @Override
     @NonNull
     protected RecyclerView.Adapter<RecyclerView.ViewHolder> getRecyclerViewAdapter(Observable<ItemModel> observable, FragmentManager fragmentManager) {
-        return new GridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory);
+        return new GalleryGridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory);
     }
 
 

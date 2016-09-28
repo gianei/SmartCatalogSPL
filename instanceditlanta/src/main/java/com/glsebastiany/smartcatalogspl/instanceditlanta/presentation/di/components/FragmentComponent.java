@@ -21,10 +21,10 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.compon
 
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerFragment;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.FragmentGalleryBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualizationBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragmentBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FragmentModule;
 
 import dagger.Component;
@@ -33,12 +33,12 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {FragmentModule.class})
 public interface FragmentComponent {
     //void inject(BaseFragment baseFragment); // DO NOT INJECT ON BASE CLASSES
-    void inject(FragmentGalleryBase fragmentGalleryBase);
-    void inject(FragmentGalleryVisualizationBase fragmentGalleryVisualizationBase);
+    void inject(TabbedGalleryFragmentBase tabbedGalleryFragmentBase);
+    void inject(SwipeableGalleryFragmentBase swipeableGalleryFragmentBase);
 
     //must expose to sub-graphs some classes provided in application
     BaseGalleryGridController baseGalleryGridController();
     BaseAppDisplayFactory baseAppDisplayFactory();
-    BaseSwipeableController baseSwipeableGridController();
+    BaseSwipeableGalleryController baseSwipeableGridController();
 
 }

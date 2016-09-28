@@ -42,7 +42,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 @EActivity(resName="activity_gallery")
-public abstract class ActivityGalleryBase extends ActivityBase {
+public abstract class TabbedGalleryBaseActivity extends ActivityBase {
 
     @Inject
     protected ItemUseCases itemUseCases;
@@ -171,5 +171,5 @@ public abstract class ActivityGalleryBase extends ActivityBase {
         injectMe(this);
     }
 
-    protected abstract void injectMe(ActivityGalleryBase activityGalleryBase);
+    protected abstract void injectMe(TabbedGalleryBaseActivity tabbedGalleryBaseActivity);
 }

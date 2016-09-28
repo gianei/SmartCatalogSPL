@@ -16,28 +16,26 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery;
 
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.ActivityGalleryBase;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ActivityComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ActivityModule;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.FirebaseAuthentication;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryBaseActivity;
+import com.glsebastiany.smartcatalogspl.instancefood.R;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerActivityComponent;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
 import org.androidannotations.annotations.EActivity;
 
 import java.util.List;
 
 @EActivity(R.layout.activity_gallery)
-public class ActivityGallery extends ActivityGalleryBase {
+public class TabbedGalleryActivity extends TabbedGalleryBaseActivity {
 
     ActivityComponent activityComponent;
 
@@ -54,8 +52,8 @@ public class ActivityGallery extends ActivityGalleryBase {
     }
 
     @Override
-    protected void injectMe(ActivityGalleryBase activityGalleryBase) {
-        activityComponent.inject(activityGalleryBase);
+    protected void injectMe(TabbedGalleryBaseActivity tabbedGalleryBaseActivity) {
+        activityComponent.inject(tabbedGalleryBaseActivity);
     }
 
     public static void start(Context context, List<String> categoriesIds ){
@@ -64,26 +62,6 @@ public class ActivityGallery extends ActivityGalleryBase {
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
                 .start();
-    }
-
-    private FirebaseAuthentication firebaseAuthentication;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        firebaseAuthentication = new FirebaseAuthentication(this, appDisplayFactory);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        firebaseAuthentication.setOnPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        firebaseAuthentication.setOnResume();
     }
 
 }

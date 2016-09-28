@@ -5,7 +5,6 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -17,7 +16,7 @@ import javax.inject.Inject;
 import rx.Observable;
 
 @EFragment(resName="fragment_gallery_visualization_grid")
-public abstract class FragmentGalleryGridBase extends FragmentBase {
+public abstract class GalleryGridFragmentBase extends FragmentBase {
 
     @Inject
     BaseGalleryGridController galleryGridController;
@@ -36,17 +35,11 @@ public abstract class FragmentGalleryGridBase extends FragmentBase {
         injectMe(this);
     }
 
-    protected abstract void injectMe(FragmentGalleryGridBase activityGalleryBase);
+    protected abstract void injectMe(GalleryGridFragmentBase activityGalleryBase);
 
     @AfterViews
     public void afterViews() {
-        setupRecyclerView();
-    }
-
-    private void setupRecyclerView(){
         galleryGridController.bindAndSetup(getActivity(), progressBar, recyclerView, getFragmentManager(), itemModelObservable);
-
     }
-
 
 }

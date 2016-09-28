@@ -19,14 +19,14 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid;
 
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGridBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_gallery_visualization_grid)
-public class FragmentGalleryGrid extends FragmentGalleryGridBase implements HasComponent<ItemsGroupComponent> {
+public class GalleryGridFragment extends GalleryGridFragmentBase implements HasComponent<ItemsGroupComponent> {
 
     @Override
     public ItemsGroupComponent getComponent() {
@@ -34,7 +34,7 @@ public class FragmentGalleryGrid extends FragmentGalleryGridBase implements HasC
     }
 
     @Override
-    protected void injectMe(FragmentGalleryGridBase activityGalleryBase) {
+    protected void injectMe(GalleryGridFragmentBase activityGalleryBase) {
         getComponent().inject(activityGalleryBase);
     }
 

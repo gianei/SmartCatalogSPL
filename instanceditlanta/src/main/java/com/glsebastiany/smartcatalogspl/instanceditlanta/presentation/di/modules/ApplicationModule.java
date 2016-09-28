@@ -25,15 +25,11 @@ import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.domain.DitlantaCategoryGroupsRepository;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.domain.DitlantaCategoryUseCases;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.domain.DitlantaItemUseCases;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.helper.AppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainController;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.SwipeableController;
 
 import javax.inject.Singleton;
 

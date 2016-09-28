@@ -18,34 +18,18 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.detail;
 
-import android.support.v4.app.Fragment;
-
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemPagerBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ItemsGroupComponent;
 
 import org.androidannotations.annotations.EFragment;
 
-@EFragment(R.layout.fragment_gallery_visualization_detail_pager)
-public class FragmentItemPager extends FragmentItemPagerBase implements HasComponent<ItemsGroupComponent> {
+@EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
+public class ItemDetailFragment extends ItemDetailFragmentBase {
 
-    public static FragmentItemPagerBase newInstance(int position) {
-        return FragmentItemPager_.builder().itemPosition(position).build();
-    }
-
-    public ItemsGroupComponent getComponent() {
-        return ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent();
-    }
-
-    @Override
-    protected void injectMe(FragmentItemPagerBase fragmentItemPagerBase) {
-        getComponent().inject(fragmentItemPagerBase);
-    }
-
-    @Override
-    protected Fragment getItem(int position) {
-        return FragmentItemDetail.newInstance(position);
+    public static ItemDetailFragmentBase newInstance(int position){
+        return ItemDetailFragment_.builder().position(position).build();
     }
 
     @Override
@@ -53,5 +37,10 @@ public class FragmentItemPager extends FragmentItemPagerBase implements HasCompo
 
     }
 
+    @Override
+    protected void injectMe(ItemDetailFragmentBase itemDetailFragmentBase) {
+        ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent().inject(itemDetailFragmentBase);
+
+    }
 
 }

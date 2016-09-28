@@ -24,7 +24,7 @@ import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 
 import rx.Observable;
 
-public abstract class BaseSwipeableController extends BaseSubscriptionedController {
+public abstract class BaseSwipeableGalleryController extends BaseSubscriptionedController {
     public abstract Observable<ItemModel> getItemsObservable(String categoryId);
     public abstract void inflateItemDetailStub(ViewStub viewStub, ItemModel itemModel);
 }

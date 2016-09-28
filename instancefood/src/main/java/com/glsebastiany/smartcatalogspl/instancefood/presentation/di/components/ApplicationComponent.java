@@ -24,7 +24,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ApplicationModule;
 
 import javax.inject.Singleton;
@@ -42,7 +42,7 @@ public interface ApplicationComponent {
     ItemUseCases useCases();
     CategoryUseCases categoryUseCases();
     BaseMainController baseMainController();
-    BaseSwipeableController baseGalleryGridController();
+    BaseSwipeableGalleryController baseGalleryGridController();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 

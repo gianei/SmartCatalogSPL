@@ -39,7 +39,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 @EFragment
-public abstract class FragmentGalleryBase extends FragmentBase {
+public abstract class TabbedGalleryFragmentBase extends FragmentBase {
 
     @Inject
     BaseTabbedGalleryController tabbedGalleryController;
@@ -78,7 +78,7 @@ public abstract class FragmentGalleryBase extends FragmentBase {
         injectMe(this);
     }
 
-    protected abstract void injectMe(FragmentGalleryBase fragmentGalleryBase);
+    protected abstract void injectMe(TabbedGalleryFragmentBase tabbedGalleryFragmentBase);
 
     @AfterViews
     public void afterViews() {

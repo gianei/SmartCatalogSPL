@@ -25,11 +25,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.LoginController;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityResultCodes;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseLoginController;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -47,17 +45,17 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import javax.inject.Inject;
 
-public class DitlantaLoginController
-        extends LoginController
+public class LoginController
+        extends BaseLoginController
         implements GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String LOG_TAG = DitlantaLoginController.class.getSimpleName();
+    private static final String LOG_TAG = LoginController.class.getSimpleName();
 
     private GoogleApiClient mGoogleApiClient;
 
 
     @Inject
-    public DitlantaLoginController(
+    public LoginController(
             AppCompatActivity mActivity,
             View loginButton,
             ProgressDialog mProgressDialog,

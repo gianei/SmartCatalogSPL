@@ -30,7 +30,7 @@ import android.widget.TextView;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 
@@ -39,7 +39,7 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Observer;
 
-public class SwipeableController extends BaseSwipeableController {
+public class SwipeableGalleryController extends BaseSwipeableGalleryController {
 
     @Inject
     ItemUseCases itemUseCases;
@@ -48,7 +48,7 @@ public class SwipeableController extends BaseSwipeableController {
     BaseAppDisplayFactory baseAppDisplayFactory;
 
     @Inject
-    public SwipeableController(){}
+    public SwipeableGalleryController(){}
 
     public Observable<ItemModel> getItemsObservable(String categoryId){
         return itemUseCases.allFromCategory(categoryId);

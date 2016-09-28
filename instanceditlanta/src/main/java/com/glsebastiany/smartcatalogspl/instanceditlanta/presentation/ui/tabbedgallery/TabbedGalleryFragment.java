@@ -16,24 +16,24 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery;
 
-import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.FragmentGalleryBase;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerFragmentComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.FragmentComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.FragmentModule;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerFragmentComponent;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.FragmentComponent;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FragmentModule;
 
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_gallery)
-public class FragmentGallery extends FragmentGalleryBase {
+public class TabbedGalleryFragment extends TabbedGalleryFragmentBase {
 
     FragmentComponent fragmentComponent;
 
-    public static FragmentGallery newInstance(String[] categoriesId){
-        return FragmentGallery_.builder().categoriesIdExtra(categoriesId).build();
+    public static TabbedGalleryFragment newInstance(String[] categoriesId){
+        return TabbedGalleryFragment_.builder().categoriesIdExtra(categoriesId).build();
     }
 
     @Override
@@ -46,8 +46,8 @@ public class FragmentGallery extends FragmentGalleryBase {
     }
 
     @Override
-    protected void injectMe(FragmentGalleryBase fragmentGalleryBase) {
-        fragmentComponent.inject(fragmentGalleryBase);
+    protected void injectMe(TabbedGalleryFragmentBase tabbedGalleryFragmentBase) {
+        fragmentComponent.inject(tabbedGalleryFragmentBase);
     }
 
 

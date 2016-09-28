@@ -20,7 +20,7 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbed
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualizationBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragmentBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerFragmentComponent;
@@ -29,19 +29,19 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.compone
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FragmentModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ItemsGroupModule;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragment;
 
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_gallery_visualization)
-public class FragmentGalleryVisualization extends FragmentGalleryVisualizationBase implements HasComponent<ItemsGroupComponent> {
+public class SwipeableGalleryFragment extends SwipeableGalleryFragmentBase implements HasComponent<ItemsGroupComponent> {
 
     private ItemsGroupComponent itemsGroupComponent;
 
     FragmentComponent fragmentComponent;
 
-    public static FragmentGalleryVisualization newInstance(String categoryId) {
-        return FragmentGalleryVisualization_.builder().categoryId(categoryId).build();
+    public static SwipeableGalleryFragment newInstance(String categoryId) {
+        return SwipeableGalleryFragment_.builder().categoryId(categoryId).build();
     }
 
     protected void innerAfterInject(){
@@ -63,8 +63,8 @@ public class FragmentGalleryVisualization extends FragmentGalleryVisualizationBa
     }
 
     @Override
-    protected void injectMe(FragmentGalleryVisualizationBase fragmentGalleryVisualizationBase) {
-        fragmentComponent.inject(fragmentGalleryVisualizationBase);
+    protected void injectMe(SwipeableGalleryFragmentBase swipeableGalleryFragmentBase) {
+        fragmentComponent.inject(swipeableGalleryFragmentBase);
     }
 
     public ItemsGroupComponent getComponent() {
@@ -73,8 +73,8 @@ public class FragmentGalleryVisualization extends FragmentGalleryVisualizationBa
 
 
     public void moveToSubCategorySection(CategoryModel categoryModel) {
-        FragmentGalleryGrid galleryGridFragment =
-                ((FragmentGalleryGrid) getChildFragmentManager().findFragmentById(R.id.gallery_visualization));
+        GalleryGridFragment galleryGridFragment =
+                ((GalleryGridFragment) getChildFragmentManager().findFragmentById(R.id.gallery_visualization));
         galleryGridFragment.moveToSubCategorySection(categoryModel);
     }
 }

@@ -24,8 +24,6 @@ import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.ImageFetcherIntentService;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
@@ -46,7 +44,7 @@ public interface ApplicationComponent {
     ItemUseCases useCases();
     CategoryUseCases categoryUseCases();
     CategoryGroupUseCases categoryGroupUseCases();
-    //BaseSwipeableController baseGalleryGridController();
+    //BaseSwipeableGalleryController baseGalleryGridController();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 

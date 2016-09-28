@@ -28,7 +28,7 @@ import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.FragmentGalleryVisualization;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragment;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
 
     private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
-    SparseArray<FragmentGalleryVisualization> registeredFragments = new SparseArray<>();
+    SparseArray<SwipeableGalleryFragment> registeredFragments = new SparseArray<>();
 
     public PagerAdapter(FragmentManager fm, Observable<CategoryModel> categoriesObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
@@ -65,7 +65,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        FragmentGalleryVisualization fragment = (FragmentGalleryVisualization) super.instantiateItem(container, position);
+        SwipeableGalleryFragment fragment = (SwipeableGalleryFragment) super.instantiateItem(container, position);
         registeredFragments.put(position, fragment);
         return fragment;
     }

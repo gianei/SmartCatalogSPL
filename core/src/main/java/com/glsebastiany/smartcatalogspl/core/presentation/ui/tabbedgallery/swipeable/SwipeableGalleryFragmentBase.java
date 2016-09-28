@@ -27,7 +27,7 @@ import android.widget.LinearLayout;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
 
 import org.androidannotations.annotations.AfterInject;
@@ -43,10 +43,10 @@ import javax.inject.Inject;
 import rx.Observable;
 
 @EFragment(resName="fragment_gallery_visualization")
-public abstract class FragmentGalleryVisualizationBase extends FragmentBase  {
+public abstract class SwipeableGalleryFragmentBase extends FragmentBase  {
 
     @Inject
-    BaseSwipeableController swipeableController;
+    BaseSwipeableGalleryController swipeableController;
 
     @Inject
     BaseAppDisplayFactory appDisplayFactory;
@@ -66,7 +66,7 @@ public abstract class FragmentGalleryVisualizationBase extends FragmentBase  {
         injectMe(this);
     }
 
-    protected abstract void injectMe(FragmentGalleryVisualizationBase fragmentGalleryBase);
+    protected abstract void injectMe(SwipeableGalleryFragmentBase fragmentGalleryBase);
 
 
     @AfterInject

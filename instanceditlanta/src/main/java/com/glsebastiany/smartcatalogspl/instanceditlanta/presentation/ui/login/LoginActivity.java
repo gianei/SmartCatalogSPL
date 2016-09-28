@@ -20,14 +20,11 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.LoginController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseLoginController;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityResultCodes;
 
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
@@ -60,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
     LoginComponent loginComponent;
 
     @Inject
-    LoginController loginController;
+    BaseLoginController baseLoginController;
 
     @AfterViews
     public void afterViews() {
@@ -82,13 +79,13 @@ public class LoginActivity extends AppCompatActivity {
 
     @Click(R.id.login_with_google)
     public void onGoogleSignInClick() {
-        loginController.getSignInIntent();
+        baseLoginController.getSignInIntent();
         mAuthProgressDialog.show();
     }
 
     @OnActivityResult(ActivityResultCodes.RC_GOOGLE_LOGIN)
     public void onGoogleSignInActivityResult(Intent data) {
-        loginController.onActivityResult(data);
+        baseLoginController.onActivityResult(data);
     }
 
     public AndroidApplication getAndroidApplication(){

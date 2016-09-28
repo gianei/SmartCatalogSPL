@@ -3,7 +3,7 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swip
 import android.view.ViewStub;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -21,13 +21,13 @@ import rx.Observer;
 import rx.Subscription;
 
 @EFragment(resName="fragment_gallery_visualization_detail_item_stub")
-public abstract class FragmentItemDetailBase extends FragmentBase {
+public abstract class ItemDetailFragmentBase extends FragmentBase {
 
     @Inject
     Observable<ItemModel> itemModelObservable;
 
     @Inject
-    BaseSwipeableController galleryGridController;
+    BaseSwipeableGalleryController galleryGridController;
 
     @FragmentArg
     public int position;
@@ -73,5 +73,5 @@ public abstract class FragmentItemDetailBase extends FragmentBase {
         injectMe(this);
     }
 
-    protected abstract void injectMe(FragmentItemDetailBase fragmentItemDetailBase);
+    protected abstract void injectMe(ItemDetailFragmentBase itemDetailFragmentBase);
 }

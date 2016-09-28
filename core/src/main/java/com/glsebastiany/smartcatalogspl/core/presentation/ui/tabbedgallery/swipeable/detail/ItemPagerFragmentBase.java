@@ -24,7 +24,7 @@ import rx.Observer;
 import rx.Subscription;
 
 @EFragment(resName="fragment_gallery_visualization_detail_pager")
-public abstract class FragmentItemPagerBase extends FragmentBase {
+public abstract class ItemPagerFragmentBase extends FragmentBase {
 
     @Inject
     Observable<ItemModel> itemModelObservable;
@@ -52,7 +52,7 @@ public abstract class FragmentItemPagerBase extends FragmentBase {
         injectMe(this);
     }
 
-    protected abstract void injectMe(FragmentItemPagerBase activityGalleryBase);
+    protected abstract void injectMe(ItemPagerFragmentBase activityGalleryBase);
 
 
     public void onDestroy() {
@@ -89,7 +89,7 @@ public abstract class FragmentItemPagerBase extends FragmentBase {
 
         @Override
         public Fragment getItem(int position) {
-            return FragmentItemPagerBase.this.getItem(position);
+            return ItemPagerFragmentBase.this.getItem(position);
         }
 
         @Override

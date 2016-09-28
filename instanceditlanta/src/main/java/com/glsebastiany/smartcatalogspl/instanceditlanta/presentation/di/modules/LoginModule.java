@@ -21,9 +21,9 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.module
 import android.app.ProgressDialog;
 import android.view.View;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.LoginController;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseLoginController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerController;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.DitlantaLoginController;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.LoginController;
 
 import dagger.Module;
 import dagger.Provides;
@@ -53,7 +53,7 @@ public class LoginModule {
 
     @Provides
     @PerController
-    LoginController loginController(DitlantaLoginController loginController){
+    BaseLoginController loginController(LoginController loginController){
         return loginController;
     }
 }

@@ -18,18 +18,34 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.detail;
 
+import android.support.v4.app.Fragment;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.FragmentItemDetailBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 
 import org.androidannotations.annotations.EFragment;
 
-@EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
-public class FragmentItemDetail extends FragmentItemDetailBase {
+@EFragment(R.layout.fragment_gallery_visualization_detail_pager)
+public class ItemPagerFragment extends ItemPagerFragmentBase implements HasComponent<ItemsGroupComponent> {
 
-    public static FragmentItemDetailBase newInstance(int position){
-        return FragmentItemDetail_.builder().position(position).build();
+    public static ItemPagerFragmentBase newInstance(int position) {
+        return FragmentItemPager_.builder().itemPosition(position).build();
+    }
+
+    public ItemsGroupComponent getComponent() {
+        return ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent();
+    }
+
+    @Override
+    protected void injectMe(ItemPagerFragmentBase itemPagerFragmentBase) {
+        getComponent().inject(itemPagerFragmentBase);
+    }
+
+    @Override
+    protected Fragment getItem(int position) {
+        return ItemDetailFragment.newInstance(position);
     }
 
     @Override
@@ -37,10 +53,5 @@ public class FragmentItemDetail extends FragmentItemDetailBase {
 
     }
 
-    @Override
-    protected void injectMe(FragmentItemDetailBase fragmentItemDetailBase) {
-        ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent().inject(fragmentItemDetailBase);
-
-    }
 
 }

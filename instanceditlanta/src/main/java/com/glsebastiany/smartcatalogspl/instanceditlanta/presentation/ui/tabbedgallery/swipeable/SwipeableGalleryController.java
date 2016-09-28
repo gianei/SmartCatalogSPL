@@ -19,22 +19,15 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableController;
-import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.widget.TouchImageView;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.ImagesHelper;
@@ -45,9 +38,8 @@ import java.text.NumberFormat;
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Observer;
 
-public class SwipeableController extends BaseSwipeableController {
+public class SwipeableGalleryController extends BaseSwipeableGalleryController {
 
     @Inject
     Context context;
@@ -59,7 +51,7 @@ public class SwipeableController extends BaseSwipeableController {
     BaseAppDisplayFactory baseAppDisplayFactory;
 
     @Inject
-    public SwipeableController(){}
+    public SwipeableGalleryController(){}
 
     public Observable<ItemModel> getItemsObservable(String categoryId){
         return itemUseCases.allFromCategory(categoryId);
