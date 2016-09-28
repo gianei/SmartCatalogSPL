@@ -23,6 +23,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Toast;
 
 
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.LoginController;
@@ -41,6 +43,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
+import org.androidannotations.annotations.ViewById;
 
 import javax.inject.Inject;
 
@@ -50,14 +53,17 @@ public class LoginActivity extends AppCompatActivity {
     /* A dialog that is presented until the DatabaseReference authentication finished. */
     private ProgressDialog mAuthProgressDialog;
 
+    @ViewById(R.id.login_with_google)
+    View loginButton;
+
+
     LoginComponent loginComponent;
 
     @Inject
     LoginController loginController;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @AfterViews
+    public void afterViews() {
 
         ActivityComponent activityComponent = DaggerActivityComponent.builder()
                 .applicationComponent(getAndroidApplication().getApplicationComponent())
@@ -67,39 +73,28 @@ public class LoginActivity extends AppCompatActivity {
         mAuthProgressDialog = new ProgressDialog(this);
         loginComponent = DaggerLoginComponent.builder()
                 .activityComponent(activityComponent)
-                .loginModule(new LoginModule(mAuthProgressDialog))
+                .loginModule(new LoginModule(mAuthProgressDialog, loginButton))
                 .build();
 
         loginComponent.inject(this);
-    }
 
-    @AfterViews
-    public void afterViews() {
-
-        /* Setup the progress dialog that is displayed later when authenticating with DatabaseReference */
-
-        mAuthProgressDialog.setTitle("Login");
-        mAuthProgressDialog.setMessage("Conectando");
-        mAuthProgressDialog.setCancelable(false);
     }
 
     @Click(R.id.login_with_google)
     public void onGoogleSignInClick() {
-        loginController.onSignInClick();
+        loginController.getSignInIntent();
         mAuthProgressDialog.show();
     }
 
     @OnActivityResult(ActivityResultCodes.RC_GOOGLE_LOGIN)
     public void onGoogleSignInActivityResult(Intent data) {
-        loginController.onActivityResult( data);
-    }
-    
-    public void dismissProgress() {
-        mAuthProgressDialog.dismiss();
+        loginController.onActivityResult(data);
     }
 
     public AndroidApplication getAndroidApplication(){
         return (AndroidApplication)getApplication();
     }
+
+
 
 }

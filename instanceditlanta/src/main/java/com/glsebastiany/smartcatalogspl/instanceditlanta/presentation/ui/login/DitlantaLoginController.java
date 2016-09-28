@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
@@ -50,22 +51,18 @@ public class DitlantaLoginController
         extends LoginController
         implements GoogleApiClient.OnConnectionFailedListener {
 
-    protected AppCompatActivity mActivity;
-
-    protected ProgressDialog mProgressDialog;
-
-    private BaseAppDisplayFactory baseAppDisplayFactory;
-
     private static final String LOG_TAG = DitlantaLoginController.class.getSimpleName();
 
     private GoogleApiClient mGoogleApiClient;
 
 
     @Inject
-    public DitlantaLoginController(AppCompatActivity mActivity, ProgressDialog mProgressDialog, BaseAppDisplayFactory baseAppDisplayFactory){
-        this.mActivity = mActivity;
-        this.mProgressDialog = mProgressDialog;
-        this.baseAppDisplayFactory = baseAppDisplayFactory;
+    public DitlantaLoginController(
+            AppCompatActivity mActivity,
+            View loginButton,
+            ProgressDialog mProgressDialog,
+            BaseAppDisplayFactory baseAppDisplayFactory){
+        super(mActivity, loginButton, mProgressDialog, baseAppDisplayFactory);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -83,29 +80,25 @@ public class DitlantaLoginController
     }
 
     @Override
-    public void onSignInClick() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        mActivity.startActivityForResult(signInIntent, ActivityResultCodes.RC_GOOGLE_LOGIN);
+    public Intent getSignInIntent() {
+        return Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
     }
 
     @Override
-    public void onActivityResult(Intent data) {
+    public void handleLoginWithActivityResult(Intent data) {
         GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
         handleGoogleSignInResult(result);
     }
 
     private void handleGoogleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
-
             loginWithGoogleInFirebase(result.getSignInAccount());
-
         } else {
-            mProgressDialog.dismiss();
 
             if (result.getStatus().getStatusCode() == GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
-                showErrorToast(mActivity.getString(R.string.google_sign_in_error));
+                loginErrorCallback(mActivity.getString(R.string.google_sign_in_error));
             } else {
-                showErrorToast(mActivity.getString(R.string.google_unknown_sign_in_error) + result.getStatus().getStatusMessage());
+                loginErrorCallback(mActivity.getString(R.string.google_unknown_sign_in_error) + result.getStatus().getStatusMessage());
             }
 
             Log.d(LOG_TAG, "google login error: " + result.getStatus().getStatusMessage());
@@ -118,16 +111,12 @@ public class DitlantaLoginController
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        mProgressDialog.dismiss();;
 
                         if (task.isSuccessful()) {
-                            /* Go to main activity */
-                            baseAppDisplayFactory.startMainActivity(mActivity);
-                            mActivity.finish();
+                            loginOkCallback();
                         } else {
                             Log.w(LOG_TAG, "firebase sign-in error: ", task.getException());
-                            Toast.makeText(mActivity, R.string.firebase_auth_error,
-                                    Toast.LENGTH_SHORT).show();
+                            loginErrorCallback(mActivity.getString(R.string.firebase_auth_error));
                         }
                     }
                 });
@@ -135,16 +124,7 @@ public class DitlantaLoginController
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        mProgressDialog.dismiss();
-
-        showErrorToast(connectionResult.toString());
-
+        loginErrorCallback(connectionResult.toString());
     }
 
-    /**
-     * Show error toast to users
-     */
-    private void showErrorToast(String message) {
-        Toast.makeText(mActivity, message, Toast.LENGTH_LONG).show();
-    }
 }

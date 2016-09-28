@@ -19,6 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules;
 
 import android.app.ProgressDialog;
+import android.view.View;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.LoginController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerController;
@@ -29,17 +30,25 @@ import dagger.Provides;
 
 @Module
 public class LoginModule {
-    protected ProgressDialog mProgressDialog;
+    private ProgressDialog progressDialog;
+    private View loginButton;
 
-    public LoginModule(ProgressDialog progressDialog){
-        this.mProgressDialog = progressDialog;
+    public LoginModule(ProgressDialog progressDialog, View loginButton){
+        this.progressDialog = progressDialog;
+        this.loginButton = loginButton;
     }
 
 
     @Provides
     @PerController
     ProgressDialog progressDialog() {
-        return this.mProgressDialog;
+        return this.progressDialog;
+    }
+
+    @Provides
+    @PerController
+    View loginButton() {
+        return this.loginButton;
     }
 
     @Provides
