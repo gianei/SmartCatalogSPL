@@ -31,7 +31,7 @@ import org.androidannotations.annotations.EFragment;
 public class ItemPagerFragment extends ItemPagerFragmentBase implements HasComponent<ItemsGroupComponent> {
 
     public static ItemPagerFragmentBase newInstance(int position) {
-        return FragmentItemPager_.builder().itemPosition(position).build();
+        return ItemPagerFragment_.builder().itemPosition(position).build();
     }
 
     public ItemsGroupComponent getComponent() {

@@ -33,6 +33,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridItemsAdapter;
 
 import javax.inject.Inject;
 
@@ -77,7 +78,7 @@ public class SwipeableGalleryController extends BaseSwipeableGalleryController {
             }
         }));
 
-        recyclerView.setAdapter(new GridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory));
+        recyclerView.setAdapter(new GalleryGridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory));
         recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
         recyclerView.addItemDecoration(
                 new SpacesItemDecoration(context.getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));

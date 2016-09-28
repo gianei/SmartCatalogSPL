@@ -39,7 +39,7 @@ public class SwipeableGalleryFragment extends SwipeableGalleryFragmentBase imple
     FragmentComponent fragmentComponent;
 
     public static SwipeableGalleryFragment newInstance(String categoryId) {
-        return FragmentGalleryVisualization_.builder().categoryId(categoryId).build();
+        return SwipeableGalleryFragment_.builder().categoryId(categoryId).build();
     }
 
     protected void innerAfterInject(){

@@ -44,7 +44,6 @@ public interface ApplicationComponent {
     ItemUseCases useCases();
     CategoryUseCases categoryUseCases();
     CategoryGroupUseCases categoryGroupUseCases();
-    //BaseSwipeableGalleryController baseGalleryGridController();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 

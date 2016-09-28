@@ -29,7 +29,7 @@ import org.androidannotations.annotations.EFragment;
 public class ItemDetailFragment extends ItemDetailFragmentBase {
 
     public static ItemDetailFragmentBase newInstance(int position){
-        return FragmentItemDetail_.builder().position(position).build();
+        return ItemDetailFragment_.builder().position(position).build();
     }
 
     @Override

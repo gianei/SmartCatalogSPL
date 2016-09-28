@@ -24,6 +24,7 @@ import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidAppl
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerFragmentComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.FragmentComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.FragmentModule;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragment_;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -33,7 +34,7 @@ public class TabbedGalleryFragment extends TabbedGalleryFragmentBase {
     FragmentComponent fragmentComponent;
 
     public static TabbedGalleryFragment newInstance(String[] categoriesId){
-        return FragmentGallery_.builder().categoriesIdExtra(categoriesId).build();
+        return TabbedGalleryFragment_.builder().categoriesIdExtra(categoriesId).build();
     }
 
     @Override

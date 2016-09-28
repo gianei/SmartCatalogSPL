@@ -40,11 +40,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.ui.main.ActivityMain_">
+        <activity android:name=".presentation.ui.main.MainActivity_">
 
         </activity>
 
-        <activity android:name=".presentation.ui.tabbedgallery.ActivityGallery_">
+        <activity android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_">
 
         </activity>
     </application>

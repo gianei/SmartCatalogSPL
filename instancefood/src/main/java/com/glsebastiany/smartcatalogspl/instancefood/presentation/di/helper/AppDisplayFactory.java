@@ -27,12 +27,12 @@ import android.support.v7.app.AppCompatActivity;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragmentBase;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.ActivityMain_;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainActivity_;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryActivity;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryFragment;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragment;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.FragmentGalleryGrid_;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragment_;
 
 import java.util.List;
 
@@ -62,12 +62,12 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public Fragment provideGalleryGridFragment() {
-        return FragmentGalleryGrid_.builder().build();
+        return GalleryGridFragment_.builder().build();
     }
 
     @Override
     public void startMainActivity(AppCompatActivity activityBase) {
-        ActivityMain_.intent(activityBase).start();
+        MainActivity_.intent(activityBase).start();
         activityBase.finish();
     }
 

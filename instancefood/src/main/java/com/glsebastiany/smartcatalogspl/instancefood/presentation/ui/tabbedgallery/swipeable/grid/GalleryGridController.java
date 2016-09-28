@@ -16,41 +16,34 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancecars.presentation;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid;
 
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
 
-public class CarGalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel> {
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
-    }
+import javax.inject.Inject;
 
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+import rx.Observable;
 
-    }
+public class GalleryGridController extends BaseGalleryGridController {
 
-    @Override
-    public int getItemCount() {
-        return 0;
-    }
+    @Inject
+    BaseAppDisplayFactory baseAppDisplayFactory;
+
+    @Inject
+    public GalleryGridController(){}
 
     @Override
-    public void onCompleted() {
-
+    @NonNull
+    protected RecyclerView.Adapter<RecyclerView.ViewHolder> getRecyclerViewAdapter(Observable<ItemModel> observable, FragmentManager fragmentManager) {
+        return new GalleryGridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory);
     }
 
-    @Override
-    public void onError(Throwable e) {
 
-    }
 
-    @Override
-    public void onNext(ItemModel itemModel) {
-
-    }
 }

@@ -21,8 +21,10 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgall
 import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -53,44 +55,23 @@ public class TabbedGalleryController extends BaseTabbedGalleryController {
     public TabbedGalleryController(){}
 
 
-    public void setupPager(Context context, final ProgressBar progressBar, final ViewPager viewPager, List<String> categoriesIds){
-
-        Observable<CategoryModel> observable = categoryUseCases.findCategory(categoriesIds);
-
-        viewPager.setAdapter(new PagerAdapter(fragmentManager, observable, baseAppDisplayFactory));
-
-        endSubscriptions();
-
-        addSubscription(observable.subscribe(new Observer<CategoryModel>() {
-            @Override
-            public void onCompleted() {
-                progressBar.setVisibility(View.GONE);
-                viewPager.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(CategoryModel categoryModel) {
-                progressBar.setVisibility(View.GONE);
-                viewPager.setVisibility(View.VISIBLE);
-            }
-        }));
-
-    }
-
-    public void setupSlidingTabs(TabLayout tabLayout, ViewPager viewPager) {
-        tabLayout.setupWithViewPager(viewPager);
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+    @Override
+    protected FragmentStatePagerAdapter getFragmentStatePagerAdapter(Observable<CategoryModel> observable) {
+        return new PagerAdapter(fragmentManager, observable, baseAppDisplayFactory);
     }
 
     @Override
-    public void setupDrawerAdapter(Context context, ListView listView) {
-        listView.setAdapter(new DrawerAdapter(context, categoryUseCases.drawerCategories()));
+    protected BaseAdapter getDrawerAdapter(String categoryId) {
+        return new DrawerAdapter(context, categoryUseCases.drawerCategories());
+    }
+
+    @Override
+    protected Observable<CategoryModel> getCategoryObservable(List<String> categoriesIds) {
+        return categoryUseCases.findCategory(categoriesIds);
+    }
+
+    @Override
+    protected DrawerClickSupport getDrawerClickSupport() {
+        return null;
     }
 }

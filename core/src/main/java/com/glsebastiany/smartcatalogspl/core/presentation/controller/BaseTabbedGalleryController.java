@@ -131,7 +131,7 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
 
     private void setupDrawerAdapter() {
 
-        drawerListView.setAdapter(getDrawerAdapter(categoriesIds.get(tabLayout.getSelectedTabPosition())));
+        drawerListView.setAdapter(getDrawerAdapter(categoriesIds.get(viewPager.getCurrentItem())));
 
     }
 
@@ -145,10 +145,12 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
             if (drawerLayout.isDrawerOpen(drawerListView))
                 drawerLayout.closeDrawer(drawerListView);
 
-            getDrawerClickSupport().performDrawerClick(
-                    ((CategoryModel) drawerListView.getAdapter().getItem(position)),
-                    tabLayout.getSelectedTabPosition()
-            );
+            if (getDrawerClickSupport() != null){
+                getDrawerClickSupport().performDrawerClick(
+                        ((CategoryModel) drawerListView.getAdapter().getItem(position)),
+                        tabLayout.getSelectedTabPosition()
+                );
+            }
 
         }
     }

@@ -19,6 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,38 +48,14 @@ public class MainController extends BaseMainController {
     @Inject
     public MainController(){}
 
-    public void setupRecyclerView(Context context, final ProgressBar progressBar, final RecyclerView recyclerView){
-        Observable<CategoryGroupModel> observable = categoryGroupUseCases.mainViewCategoriesGroups();
+    @NonNull
+    @Override
+    protected RecyclerView.Adapter<? extends RecyclerView.ViewHolder> getRecyclerViewAdapter(Observable<CategoryGroupModel> observable) {
+        return new MainAdapter(context, observable, baseAppDisplayFactory);
+    }
 
-        endSubscriptions();
-        addSubscription(observable.subscribe(new Observer<CategoryGroupModel>() {
-            @Override
-            public void onCompleted() {
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(CategoryGroupModel categoryGroupModel) {
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-        }));
-
-        recyclerView.setLayoutManager(
-                new GridLayoutManager(
-                        context,
-                        context.getResources().getInteger(R.integer.grid_span_start),
-                        LinearLayoutManager.VERTICAL, false
-                )
-        );
-
-        recyclerView.setAdapter(new MainAdapter(context, observable, baseAppDisplayFactory));
-
+    @Override
+    protected Observable<CategoryGroupModel> getCategoryGroupObservable() {
+        return categoryGroupUseCases.mainViewCategoriesGroups();
     }
 }

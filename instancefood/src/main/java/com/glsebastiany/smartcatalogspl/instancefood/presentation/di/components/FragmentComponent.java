@@ -19,6 +19,8 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components;
 
 
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
@@ -35,6 +37,8 @@ public interface FragmentComponent {
     void inject(SwipeableGalleryFragmentBase swipeableGalleryFragmentBase);
 
     //must expose to sub-graphs some classes provided in application
-    BaseSwipeableGalleryController baseGalleryGridController();
+    BaseGalleryGridController baseGalleryGridController();
+    BaseAppDisplayFactory baseAppDisplayFactory();
+    BaseSwipeableGalleryController baseSwipeableGridController();
 
 }
