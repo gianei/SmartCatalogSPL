@@ -25,12 +25,16 @@ import android.support.v7.widget.RecyclerView;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.SharedPreferencesZoom_;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 
 public class GalleryGridController extends BaseGalleryGridController {
+
+    private SharedPreferencesZoom_ sharedPreferencesZoom = null;
 
     @Inject
     BaseAppDisplayFactory baseAppDisplayFactory;
@@ -43,7 +47,6 @@ public class GalleryGridController extends BaseGalleryGridController {
     protected RecyclerView.Adapter<RecyclerView.ViewHolder> getRecyclerViewAdapter(Observable<ItemModel> observable, FragmentManager fragmentManager) {
         return new GalleryGridItemsAdapter(observable, fragmentManager, baseAppDisplayFactory);
     }
-
 
 
 }

@@ -19,6 +19,7 @@ import rx.Observable;
 public abstract class GalleryGridFragmentBase extends FragmentBase {
 
     @Inject
+    protected
     BaseGalleryGridController galleryGridController;
 
     @Inject
@@ -37,9 +38,17 @@ public abstract class GalleryGridFragmentBase extends FragmentBase {
 
     protected abstract void injectMe(GalleryGridFragmentBase activityGalleryBase);
 
+    protected abstract int getStartingSpanSize();
+
     @AfterViews
     public void afterViews() {
-        galleryGridController.bindAndSetup(getActivity(), progressBar, recyclerView, getFragmentManager(), itemModelObservable);
+        galleryGridController.bindAndSetup(
+                getActivity(),
+                progressBar,
+                recyclerView,
+                getStartingSpanSize(),
+                getFragmentManager(),
+                itemModelObservable);
     }
 
     @Override

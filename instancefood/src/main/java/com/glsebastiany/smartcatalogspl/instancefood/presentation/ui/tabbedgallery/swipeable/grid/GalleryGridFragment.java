@@ -39,6 +39,11 @@ public class GalleryGridFragment extends GalleryGridFragmentBase implements HasC
     }
 
     @Override
+    protected int getStartingSpanSize() {
+        return 3;
+    }
+
+    @Override
     protected void setupComponent() {
 
     }

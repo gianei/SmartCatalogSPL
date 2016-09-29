@@ -42,6 +42,8 @@ public abstract class BaseGalleryGridController extends BaseSubscriptionedContro
     private FragmentManager fragmentManager;
     private Observable<ItemModel> observable;
 
+    private GridLayoutManager gridLayoutManager;
+
     @NonNull
     protected abstract RecyclerView.Adapter<RecyclerView.ViewHolder>
         getRecyclerViewAdapter(Observable<ItemModel> observable, FragmentManager fragmentManager);
@@ -50,6 +52,7 @@ public abstract class BaseGalleryGridController extends BaseSubscriptionedContro
             Context context,
             final ProgressBar progressBar,
             final RecyclerView recyclerView,
+            int startSpan,
             FragmentManager fragmentManager,
             Observable<ItemModel> observable){
 
@@ -59,10 +62,10 @@ public abstract class BaseGalleryGridController extends BaseSubscriptionedContro
         this.fragmentManager = fragmentManager;
         this.observable = observable;
 
-        setupRecyclerView();
+        setupRecyclerView(startSpan);
     }
 
-    private void setupRecyclerView(){
+    private void setupRecyclerView(int startSpan){
         addSubscription(observable.subscribe(new Observer<ItemModel>() {
             @Override
             public void onCompleted() {
@@ -83,8 +86,16 @@ public abstract class BaseGalleryGridController extends BaseSubscriptionedContro
         }));
 
         recyclerView.setAdapter(getRecyclerViewAdapter(observable, fragmentManager));
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
+        gridLayoutManager = new GridLayoutManager(context, startSpan);
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(
                 new SpacesItemDecoration(context.getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
     }
+
+    public void changeZoom(int gridSpan){
+        gridLayoutManager.setSpanCount(gridSpan);
+        gridLayoutManager.requestLayout();
+    }
+
+
 }

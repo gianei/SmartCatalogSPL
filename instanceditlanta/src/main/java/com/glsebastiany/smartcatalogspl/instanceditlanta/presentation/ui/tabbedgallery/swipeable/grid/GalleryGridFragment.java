@@ -18,20 +18,31 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.MenuItem;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.SharedPreferencesZoom_;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ItemsGroupComponent;
 
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EFragment(R.layout.fragment_gallery_visualization_grid)
 public class GalleryGridFragment extends GalleryGridFragmentBase implements HasComponent<ItemsGroupComponent> {
 
     public static final int MAX_ITEMS_TO_SHOW_SCROLL = 100;
+
+    @Pref
+    SharedPreferencesZoom_ preferencesZoom;
 
     @Override
     public ItemsGroupComponent getComponent() {
@@ -44,9 +55,36 @@ public class GalleryGridFragment extends GalleryGridFragmentBase implements HasC
     }
 
     @Override
+    protected int getStartingSpanSize() {
+        return preferencesZoom.gridZoom().get();
+    }
+
+    @Override
     protected void setupComponent() {
 
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId_ = item.getItemId();
+        if (itemId_ == R.id.menu_zoom_in) {
+            zoomIn();
+            galleryGridController.changeZoom(preferencesZoom.gridZoom().get());
+        }
+        if (itemId_ == R.id.menu_zoom_out) {
+            zoomOut();
+            galleryGridController.changeZoom(preferencesZoom.gridZoom().get());
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void moveToSubCategorySection(CategoryModel categoryModel) {
         int newPosition = ((GalleryGridItemsAdapter)recyclerView.getAdapter()).findCategoryPositionInItems(categoryModel);
@@ -57,5 +95,31 @@ public class GalleryGridFragment extends GalleryGridFragmentBase implements HasC
             recyclerView.smoothScrollToPosition(newPosition);
         } else
             recyclerView.smoothScrollToPosition(newPosition);
+    }
+
+    protected void zoomIn() {
+        int newSpanSize = preferencesZoom.gridZoom().get();
+        if (!isGridSpanAtMinimal()) {
+            newSpanSize--;
+            if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() - 1 == newSpanSize)
+                preferencesZoom.gridZoom().put(newSpanSize);
+        }
+    }
+
+    protected void zoomOut() {
+        int newSpanSize = preferencesZoom.gridZoom().get();
+        if (!isGridSpanAtMaximum()) {
+            newSpanSize++;
+            if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() + 1 == newSpanSize)
+             preferencesZoom.gridZoom().put(newSpanSize);
+        }
+    }
+
+    private boolean isGridSpanAtMinimal() {
+        return preferencesZoom.gridZoom().get() <= getActivity().getResources().getInteger(R.integer.grid_span_min);
+    }
+
+    private boolean isGridSpanAtMaximum() {
+        return preferencesZoom.gridZoom().get() >= getActivity().getResources().getInteger(R.integer.grid_span_max);
     }
 }

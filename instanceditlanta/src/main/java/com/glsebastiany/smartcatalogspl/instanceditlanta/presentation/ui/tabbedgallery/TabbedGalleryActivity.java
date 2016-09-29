@@ -33,10 +33,12 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.FirebaseAuthentication;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsMenu;
 
 import java.util.List;
 
 @EActivity(R.layout.activity_gallery)
+@OptionsMenu({R.menu.menu_gallery})
 public class TabbedGalleryActivity extends TabbedGalleryBaseActivity {
 
     ActivityComponent activityComponent;
