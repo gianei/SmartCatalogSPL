@@ -18,6 +18,8 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -55,8 +57,7 @@ public abstract class SwipeableGalleryFragmentBase extends FragmentBase  {
     @InstanceState
     public boolean isFromSavedInstance = false;
 
-    @InstanceState
-    public ItemObservableSerializable itemObservableSerializable;
+    protected Observable<ItemModel> itemsObservable;
 
     @FragmentArg
     public String categoryId;
@@ -69,11 +70,16 @@ public abstract class SwipeableGalleryFragmentBase extends FragmentBase  {
 
     protected abstract void injectMe(SwipeableGalleryFragmentBase fragmentGalleryBase);
 
+    /*@Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }*/
 
     @AfterInject
     public void afterInject(){
-        if (itemObservableSerializable == null){
-            itemObservableSerializable = new ItemObservableSerializable( swipeableController.getItemsObservable(categoryId));
+        if (itemsObservable == null){
+            itemsObservable = swipeableController.getItemsObservable(categoryId);
         }
 
         innerAfterInject();
@@ -115,18 +121,4 @@ public abstract class SwipeableGalleryFragmentBase extends FragmentBase  {
         swipeableController.endSubscriptions();
     }
 
-
-
-    public static class ItemObservableSerializable implements Serializable {
-
-        private Observable<ItemModel> itemsObservable;
-
-        public ItemObservableSerializable(Observable<ItemModel> itemsObservable){
-            this.itemsObservable = itemsObservable;
-        }
-
-        public Observable<ItemModel> getItemsObservable() {
-            return itemsObservable;
-        }
-    }
 }

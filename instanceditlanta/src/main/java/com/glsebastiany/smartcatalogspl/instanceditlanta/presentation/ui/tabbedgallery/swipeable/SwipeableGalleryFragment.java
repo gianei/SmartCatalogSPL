@@ -48,7 +48,7 @@ public class SwipeableGalleryFragment extends SwipeableGalleryFragmentBase imple
         itemsGroupComponent = DaggerItemsGroupComponent.builder()
                 .fragmentComponent(fragmentComponent)
                 .itemsGroupModule(
-                        new ItemsGroupModule(itemObservableSerializable.getItemsObservable())
+                        new ItemsGroupModule(itemsObservable)
                 )
                 .build();
     }

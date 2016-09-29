@@ -23,8 +23,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.glsebastiany.smartcatalogspl.core.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryBaseActivity;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.ImageFetcherIntentService;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.ActivityPreferences_;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ActivityComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
@@ -33,12 +36,13 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.FirebaseAuthentication;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 
 import java.util.List;
 
 @EActivity(R.layout.activity_gallery)
-@OptionsMenu({R.menu.menu_gallery})
+@OptionsMenu({R.menu.menu_gallery, R.menu.menu_updates})
 public class TabbedGalleryActivity extends TabbedGalleryBaseActivity {
 
     ActivityComponent activityComponent;
@@ -66,6 +70,28 @@ public class TabbedGalleryActivity extends TabbedGalleryBaseActivity {
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
                 .start();
+    }
+
+    @OptionsItem(R.id.menu_update_images)
+    public void menuUpdateImage(){
+        ImageFetcherIntentService.startService(this, ImageFetcherIntentService.FetchType.CLOUDINARY);
+    }
+
+    @OptionsItem(R.id.menu_update_images_locally)
+    public void menuUpdateImageLocally(){
+        ImageFetcherIntentService.startService(this, ImageFetcherIntentService.FetchType.LOCAL_LAN);
+    }
+
+    @OptionsItem(R.id.menu_settings)
+    public void menuSettings(){
+
+        Intent intent = ActivityPreferences_.intent(this).get();
+        startActivity(intent);
+    }
+
+    @OptionsItem(R.id.menu_switch_lock_task)
+    public void menuSwitchLock(){
+        Utils.switchLockTasMode(this);
     }
 
     private FirebaseAuthentication firebaseAuthentication;
