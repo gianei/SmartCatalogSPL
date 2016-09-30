@@ -29,12 +29,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.glsebastiany.smartcatalogspl.core.Utils;
+import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.ImageFetcherIntentService;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.ActivityPreferences_;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
@@ -50,15 +55,19 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 
+import javax.inject.Inject;
+
 @EActivity(R.layout.activity_main)
 @OptionsMenu({R.menu.menu_search, R.menu.menu_updates })
-public class MainActivity extends MainActivityBase {
-    ActivityComponent activityComponent;
+@RequiresPresenter(MainPresenter.class)
+public class MainActivity extends MainActivityBase<MainPresenter> {
 
-    @Override
-    protected void injectMe(MainActivityBase activityMain) {
-        activityComponent.inject(activityMain);
-    }
+    @Inject
+    public BaseAppDisplayFactory baseAppDisplayFactory;
+
+    private ActivityComponent activityComponent;
+
+    private MainAdapter mainAdapter;
 
     @Override
     protected void setupComponent() {
@@ -67,6 +76,13 @@ public class MainActivity extends MainActivityBase {
                 .activityModule(new ActivityModule(this))
                 .build();
     }
+
+    @Override
+    protected void injectComponent() {
+        activityComponent.inject(this);
+    }
+
+
 
     public ApplicationComponent getApplicationComponent() {
         return ((AndroidApplication)getApplication()).getApplicationComponent();
@@ -92,9 +108,9 @@ public class MainActivity extends MainActivityBase {
 
     @OptionsItem(R.id.menu_settings)
     public void menuSettings(){
-
         Intent intent = ActivityPreferences_.intent(this).get();
         startActivity(intent);
+        finish();
     }
 
     @OptionsItem(R.id.menu_switch_lock_task)
@@ -107,6 +123,10 @@ public class MainActivity extends MainActivityBase {
         verifyPermission();
     }
 
+    @Override
+    public RecyclerView.Adapter getAdapter(){
+        return mainAdapter;
+    }
 
     private void verifyPermission() {
         // Should we show an explanation?
@@ -142,13 +162,11 @@ public class MainActivity extends MainActivityBase {
         }
     }
 
-
-
     private FirebaseAuthentication firebaseAuthentication;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainAdapter = new MainAdapter(this, baseAppDisplayFactory);
         firebaseAuthentication = new FirebaseAuthentication(this, baseAppDisplayFactory);
     }
 
@@ -160,8 +178,20 @@ public class MainActivity extends MainActivityBase {
 
     @Override
     protected void onResume() {
+        getPresenter().onTakeView();
         super.onResume();
         firebaseAuthentication.setOnResume();
     }
+
+    public void stopLoading() {
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    public void addItem(SuitCase suitCase) {
+        mainAdapter.addItem(suitCase);
+    }
+
+
 
 }

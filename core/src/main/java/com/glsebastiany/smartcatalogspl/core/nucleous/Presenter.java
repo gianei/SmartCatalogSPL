@@ -1,0 +1,254 @@
+package com.glsebastiany.smartcatalogspl.core.nucleous;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import rx.Subscription;
+import rx.functions.Func0;
+import rx.subscriptions.CompositeSubscription;
+
+public class Presenter<V> {
+
+    private static final String REQUESTED_KEY = Presenter.class.getName() + "#requested";
+
+    private final CompositeSubscription subscriptions = new CompositeSubscription();
+    private final HashMap<Integer, Func0<Subscription>> restartables = new HashMap<>();
+    private final HashMap<Integer, Subscription> restartableSubscriptions = new HashMap<>();
+    private final ArrayList<Integer> requested = new ArrayList<>();
+
+    @Nullable
+    private V view;
+    private CopyOnWriteArrayList<OnDestroyListener> onDestroyListeners = new CopyOnWriteArrayList<>();
+
+    /**
+     * Registers a subscription to automatically unsubscribe it during onDestroy.
+     * See {@link CompositeSubscription#add(Subscription) for details.}
+     *
+     * @param subscription a subscription to add.
+     */
+    protected void add(Subscription subscription) {
+        subscriptions.add(subscription);
+    }
+
+    /**
+     * Removes and unsubscribes a subscription that has been registered with {@link #add} previously.
+     * See {@link CompositeSubscription#remove(Subscription)} for details.
+     *
+     * @param subscription a subscription to remove.
+     */
+    protected void remove(Subscription subscription) {
+        subscriptions.remove(subscription);
+    }
+
+    /**
+     * A restartable is any RxJava observable that can be started (subscribed) and
+     * should be automatically restarted (re-subscribed) after a process restart if
+     * it was still subscribed at the moment of saving presenter's state.
+     *
+     * Registers a factory. Re-subscribes the restartable after the process restart.
+     *
+     * @param restartableId id of the restartable
+     * @param factory       factory of the restartable
+     */
+    protected void restartable(int restartableId, Func0<Subscription> factory) {
+        restartables.put(restartableId, factory);
+        if (requested.contains(restartableId))
+            start(restartableId);
+    }
+
+    /**
+     * Starts the given restartable.
+     *
+     * @param restartableId id of the restartable
+     */
+    protected void start(int restartableId) {
+        stop(restartableId);
+        requested.add(restartableId);
+        restartableSubscriptions.put(restartableId, restartables.get(restartableId).call());
+    }
+
+    /**
+     * Unsubscribes a restartable
+     *
+     * @param restartableId id of a restartable.
+     */
+    protected void stop(int restartableId) {
+        requested.remove((Integer) restartableId);
+        Subscription subscription = restartableSubscriptions.get(restartableId);
+        if (subscription != null)
+            subscription.unsubscribe();
+    }
+
+    /**
+     * Checks if a restartable is unsubscribed.
+     *
+     * @param restartableId id of the restartable.
+     * @return true if the subscription is null or unsubscribed, false otherwise.
+     */
+    protected boolean isUnsubscribed(int restartableId) {
+        Subscription subscription = restartableSubscriptions.get(restartableId);
+        return subscription == null || subscription.isUnsubscribed();
+    }
+
+    /**
+     * This method is called after presenter construction.
+     *
+     * This method is intended for overriding.
+     *
+     * @param savedState If the presenter is being re-instantiated after a process restart then this Bundle
+     *                   contains the data it supplied in {@link #onSave}.
+     */
+    @CallSuper
+    protected void onCreate(Bundle savedState) {
+        if (savedState != null)
+            requested.addAll(savedState.getIntegerArrayList(REQUESTED_KEY));
+    }
+
+    /**
+     * This method is being called when a user leaves view.
+     *
+     * This method is intended for overriding.
+     */
+    @CallSuper
+    protected void onDestroy() {
+        subscriptions.unsubscribe();
+        for (Map.Entry<Integer, Subscription> entry : restartableSubscriptions.entrySet())
+            entry.getValue().unsubscribe();
+    }
+
+    /**
+     * This method is being called when a view gets attached to it.
+     * Normally this happens during {@link Activity#onResume()}, {@link android.app.Fragment#onResume()}
+     * and {@link android.view.View#onAttachedToWindow()}.
+     *
+     * This method is intended for overriding.
+     *
+     */
+    protected void onTakeView() {
+    }
+
+    /**
+     * This method is being called when a view gets detached from the presenter.
+     * Normally this happens during {@link Activity#onPause()} ()}, {@link Fragment#onDestroyView()}
+     * and {@link android.view.View#onDetachedFromWindow()}.
+     *
+     * This method is intended for overriding.
+     */
+    protected void onDropView() {
+    }
+
+    /**
+     * A returned state is the state that will be passed to {@link #onCreate} for a new presenter instance after a process restart.
+     *
+     * This method is intended for overriding.
+     *
+     * @param state a non-null bundle which should be used to put presenter's state into.
+     */
+    @CallSuper
+    protected void onSave(Bundle state) {
+        for (int i = requested.size() - 1; i >= 0; i--) {
+            int restartableId = requested.get(i);
+            Subscription subscription = restartableSubscriptions.get(restartableId);
+            if (subscription != null && subscription.isUnsubscribed())
+                requested.remove(i);
+        }
+        state.putIntegerArrayList(REQUESTED_KEY, requested);
+    }
+
+    /**
+     * A callback to be invoked when a presenter is about to be destroyed.
+     */
+    public interface OnDestroyListener {
+        /**
+         * Called before {@link Presenter#onDestroy()}.
+         */
+        void onDestroy();
+    }
+
+    /**
+     * Adds a listener observing {@link #onDestroy}.
+     *
+     * @param listener a listener to add.
+     */
+    public void addOnDestroyListener(OnDestroyListener listener) {
+        onDestroyListeners.add(listener);
+    }
+
+    /**
+     * Removed a listener observing {@link #onDestroy}.
+     *
+     * @param listener a listener to remove.
+     */
+    public void removeOnDestroyListener(OnDestroyListener listener) {
+        onDestroyListeners.remove(listener);
+    }
+
+    /**
+     * Returns a current view attached to the presenter or null.
+     *
+     * View is normally available between
+     * {@link Activity#onResume()} and {@link Activity#onPause()},
+     * {@link Fragment#onResume()} and {@link Fragment#onPause()},
+     * {@link android.view.View#onAttachedToWindow()} and {@link android.view.View#onDetachedFromWindow()}.
+     *
+     * Calls outside of these ranges will return null.
+     * Notice here that {@link Activity#onActivityResult(int, int, Intent)} is called *before* {@link Activity#onResume()}
+     * so you can't use this method as a callback.
+     *
+     * @return a current attached view.
+     */
+    @Nullable
+    protected V getView() {
+        return view;
+    }
+
+    /**
+     * Initializes the presenter.
+     */
+    protected void create(Bundle bundle) {
+        onCreate(bundle);
+    }
+
+    /**
+     * Destroys the presenter, calling all {@link Presenter.OnDestroyListener} callbacks.
+     */
+    protected void destroy() {
+        for (OnDestroyListener listener : onDestroyListeners)
+            listener.onDestroy();
+        onDestroy();
+    }
+
+    /**
+     * Saves the presenter.
+     */
+    protected void save(Bundle state) {
+        onSave(state);
+    }
+
+    /**
+     * Attaches a view to the presenter.
+     *
+     * @param view a view to attach.
+     */
+    protected void takeView(V view) {
+        this.view = view;
+        onTakeView();
+    }
+
+    /**
+     * Detaches the presenter from a view.
+     */
+    protected void dropView() {
+        onDropView();
+        this.view = null;
+    }
+}

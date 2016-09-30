@@ -18,10 +18,14 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ProgressBar;
 
+import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxActivityBase;
+import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
@@ -33,13 +37,7 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EActivity(resName="activity_main")
-public abstract class MainActivityBase extends ActivityBase {
-
-    @Inject
-    BaseMainController baseMainController;
-
-    @Inject
-    public BaseAppDisplayFactory baseAppDisplayFactory;
+public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivityBase<P> {
 
     @ViewById(resName="progressBar")
     public ProgressBar progressBar;
@@ -53,20 +51,23 @@ public abstract class MainActivityBase extends ActivityBase {
     @AfterViews
     public void afterViews(){
         setSupportActionBar(toolbar);
-        baseMainController.bindAndSetup(this, progressBar, recyclerView);
+
+
+        recyclerView.setLayoutManager(
+                new GridLayoutManager(
+                        MainActivityBase.this,
+                        MainActivityBase.this.getResources().getInteger(com.glsebastiany.smartcatalogspl.core.R.integer.grid_span_start),
+                        LinearLayoutManager.VERTICAL, false
+                )
+        );
+
+        recyclerView.setAdapter(getAdapter());
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        baseMainController.endSubscriptions();
-    }
 
-    @Override
-    protected void injectComponent() {
-        injectMe(this);
-    }
-
-    protected abstract void injectMe(MainActivityBase activityMain);
-
+    /**
+     * Should return an adapter created onCreate
+     * @return
+     */
+    public abstract RecyclerView.Adapter getAdapter();
 }

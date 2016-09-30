@@ -33,7 +33,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.Utils;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
@@ -43,19 +42,15 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Observer;
-
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuitCase> implements Observer<CategoryGroupModel>{
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuitCase> {
     private final Context context;
     private final BaseAppDisplayFactory baseAppDisplayFactory;
 
     private List<SuitCase> categoriesGroup = new LinkedList<>();
 
-    public MainAdapter(Context context, Observable<CategoryGroupModel> categoryGroupObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
+    public MainAdapter(Context context, BaseAppDisplayFactory baseAppDisplayFactory) {
         this.context = context;
         this.baseAppDisplayFactory = baseAppDisplayFactory;
-        categoryGroupObservable.subscribe(this);
     }
 
     @Override
@@ -129,19 +124,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
         }
     }
 
-    @Override
-    public void onCompleted() {
-
+    public void addItem(SuitCase suitCase) {
+        categoriesGroup.add(suitCase);
+        notifyItemInserted(categoriesGroup.size()-1);
     }
 
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(CategoryGroupModel categoryGroupModel) {
-        categoriesGroup.add((SuitCase) categoryGroupModel);
-        notifyItemInserted(categoriesGroup.size() -1);
-    }
 }

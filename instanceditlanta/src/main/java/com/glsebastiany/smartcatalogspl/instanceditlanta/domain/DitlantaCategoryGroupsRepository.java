@@ -48,6 +48,11 @@ public class DitlantaCategoryGroupsRepository implements CategoryGroupUseCases {
         return Observable.create(new Observable.OnSubscribe<CategoryGroupModel>() {
             @Override
             public void call(Subscriber<? super CategoryGroupModel> subscriber) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 SuitCaseDao suitCaseDao = GreenDaoOpenHelper.daoSession(context).getSuitCaseDao();
                 for (CategoryGroupModel categoryGroupModel :
                         suitCaseDao.queryBuilder()
