@@ -23,6 +23,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragmentBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerFragmentComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.FragmentComponent;
@@ -57,7 +58,7 @@ public class SwipeableGalleryFragment extends SwipeableGalleryFragmentBase imple
     protected void setupComponent() {
 
         fragmentComponent = DaggerFragmentComponent.builder()
-                .applicationComponent(AndroidApplication.singleton.getApplicationComponent())
+                .applicationComponent(AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent())
                 .fragmentModule(new FragmentModule(this))
                 .build();
     }

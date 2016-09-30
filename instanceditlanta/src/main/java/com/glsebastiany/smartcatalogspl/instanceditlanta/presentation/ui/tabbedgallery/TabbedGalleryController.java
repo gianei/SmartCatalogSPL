@@ -18,63 +18,114 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.widget.BaseAdapter;
+import android.os.Bundle;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 
-import java.util.List;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Observer;
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.functions.Func0;
 
-public class TabbedGalleryController extends BaseTabbedGalleryController {
+import static com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryFragment_.CATEGORIES_ID_EXTRA_ARG;
 
-    private PagerAdapter pagerAdapter = null;
+public class TabbedGalleryController extends Presenter<TabbedGalleryFragment> {
 
     @Inject
     CategoryUseCases categoryUseCases;
 
     @Inject
-    FragmentManager fragmentManager;
-
-    @Inject
     BaseAppDisplayFactory baseAppDisplayFactory;
 
-    @Inject
-    public TabbedGalleryController(){}
+    private Observable<CategoryModel> categoryModelObservable;
+
+    private Subscription drawerSubscription;
+
+    public TabbedGalleryController(){
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
+    }
+    @Override
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
+
+        String[] categoriesIds = null;
+
+        if (savedState!= null) {
+            if (savedState.containsKey(CATEGORIES_ID_EXTRA_ARG)) {
+                categoriesIds = savedState.getStringArray(CATEGORIES_ID_EXTRA_ARG);
+            }
+        }
+
+        if (categoriesIds != null)
+            categoryModelObservable = ObservableHelper.setupThreads(
+                    categoryUseCases.findCategory(Arrays.asList(categoriesIds)).cache()
+            );
+        else
+            throw new RuntimeException("Categories must be set in fragment args");
+    }
 
     @Override
-    public FragmentStatePagerAdapter getFragmentStatePagerAdapter(Observable<CategoryModel> observable){
-
-        if (pagerAdapter == null)
-            pagerAdapter = new PagerAdapter(fragmentManager, observable, baseAppDisplayFactory);
-
-        return pagerAdapter;
-
+    protected void onTakeView() {
+        makeSubcription();
     }
 
-    protected Observable<CategoryModel> getCategoryObservable(List<String> categoriesIds) {
-        return categoryUseCases.findCategory(categoriesIds);
+    private void makeSubcription() {
+        restartable(5,
+                new Func0<Subscription>() {
+                    @Override
+                    public Subscription call() {
+                        return categoryModelObservable.subscribe(new Observer<CategoryModel>() {
+                            @Override
+                            public void onCompleted() {
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            @Override
+                            public void onNext(CategoryModel categoryModel) {
+                                if (getView() != null) {
+                                    getView().stopLoading();
+                                    getView().addPageItem(categoryModel);
+                                }
+                            }
+                        });
+                    }
+                }
+        );
+
+        start(5);
     }
 
-    @Override
-    protected DrawerClickSupport getDrawerClickSupport() {
-        return pagerAdapter;
+    public void findDrawerCategories(CategoryModel categoryModel) {
+
+        Observable<CategoryModel> allChildren = ObservableHelper.setupThreads(categoryUseCases.getAllChildren(categoryModel).onBackpressureBuffer());
+
+        if (drawerSubscription!= null ){
+            remove(drawerSubscription);
+        }
+
+        drawerSubscription = allChildren.subscribe(new Action1<CategoryModel>() {
+            @Override
+            public void call(CategoryModel categoryModel) {
+                getView().addDrawerItem(categoryModel);
+            }
+        });
+
+        add(drawerSubscription);
+
     }
-
-    @Override
-    public BaseAdapter getDrawerAdapter(String categoryId) {
-        CategoryModel category = categoryUseCases.findCategory(categoryId).toBlocking().single();
-        return new DrawerAdapter(context, categoryUseCases.getAllChildren(category), (Category) category);
-    }
-
-
-
 }

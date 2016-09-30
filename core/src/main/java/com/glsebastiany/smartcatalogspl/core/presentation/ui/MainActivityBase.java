@@ -26,15 +26,10 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxActivityBase;
 import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-
-import javax.inject.Inject;
 
 @EActivity(resName="activity_main")
 public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivityBase<P> {

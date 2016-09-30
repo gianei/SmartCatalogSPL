@@ -19,7 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di;
 
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ApplicationBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.BetterApplicationBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
@@ -28,23 +28,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import javax.inject.Inject;
 
 
-public class AndroidApplication extends ApplicationBase {
+public class AndroidApplication extends BetterApplicationBase<ApplicationComponent> {
 
-    public static AndroidApplication singleton;
+
 
     @Inject
     FirebaseAuth.AuthStateListener authStateListener;
 
-    private ApplicationComponent applicationComponent;
-
-    public AndroidApplication(){
-        singleton = this;
-    }
-
     @Override
-    protected void setupComponent() {
+    protected ApplicationComponent setupApplicationComponent() {
 
-        applicationComponent = DaggerApplicationComponent.builder()
+        return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
 
@@ -52,15 +46,11 @@ public class AndroidApplication extends ApplicationBase {
 
     @Override
     protected void injectComponent() {
-        applicationComponent.inject(this);
+        getApplicationComponent().inject(this);
 
         FirebaseAuth auth =  FirebaseAuth.getInstance();
 
         auth.addAuthStateListener(authStateListener);
-    }
-
-    public ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
     }
 
 }

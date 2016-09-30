@@ -25,6 +25,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 
 
 import javax.inject.Inject;
@@ -50,7 +51,7 @@ public class MainPresenter extends Presenter<MainActivity> implements Func0<Subs
     public MainPresenter(){
 
 
-        AndroidApplication.singleton.getApplicationComponent().inject(this);
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
 
         observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
 

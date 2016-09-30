@@ -29,6 +29,7 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.Android
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FirebaseModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainPresenter;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryController;
 
 import javax.inject.Singleton;
 
@@ -52,4 +53,6 @@ public interface ApplicationComponent {
     void inject(ImageFetcherIntentService imageFetcherIntentService);
 
     void inject(MainPresenter mainPresenter);
+
+    void inject(TabbedGalleryController tabbedGalleryController);
 }

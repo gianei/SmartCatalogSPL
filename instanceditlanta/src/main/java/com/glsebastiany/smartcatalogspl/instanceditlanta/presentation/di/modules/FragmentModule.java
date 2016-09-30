@@ -52,12 +52,6 @@ public class FragmentModule {
 
     @Provides
     @PerFragment
-    BaseTabbedGalleryController provideBaseGalleryController(TabbedGalleryController tabbedGalleryController){
-        return tabbedGalleryController;
-    }
-
-    @Provides
-    @PerFragment
     BaseSwipeableGalleryController provideBaseSwipeableController(SwipeableGalleryController swipeableController){
         return swipeableController;
     }

@@ -18,31 +18,31 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
+import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
 @EFragment
-public abstract class TabbedGalleryFragmentBase extends FragmentBase {
+public abstract class TabbedGalleryFragmentBase<P extends Presenter> extends MvpRxFragmentBase<P> {
 
-    @Inject
-    BaseTabbedGalleryController tabbedGalleryController;
+    TabbedGalleryDrawerAdapter drawerAdapter;
+    TabbedGalleryPageAdapter pagerAdapter;
 
     @ViewById(resName="pager")
     public ViewPager viewPager;
@@ -59,10 +59,15 @@ public abstract class TabbedGalleryFragmentBase extends FragmentBase {
     @ViewById(resName="drawer_layout")
     public DrawerLayout drawerLayout;
 
-    List<String> categoriesId;
+    @InstanceState
+    public String[] categoriesId;
+
+    @InstanceState
+    public int selectedTabId = 0;
+
     @FragmentArg
     public void categoriesIdExtra(String[] categoriesIds){
-        this.categoriesId = Arrays.asList(categoriesIds);
+        this.categoriesId = categoriesIds;
     }
 
     @Click(resName="drawerTriggerView")
@@ -73,34 +78,87 @@ public abstract class TabbedGalleryFragmentBase extends FragmentBase {
             drawerLayout.openDrawer(drawerListView);
     }
 
-    @Override
-    protected void injectComponent() {
-        injectMe(this);
-    }
-
-    protected abstract void injectMe(TabbedGalleryFragmentBase tabbedGalleryFragmentBase);
-
     @AfterViews
     public void afterViews() {
         setHasOptionsMenu(true);
+        setupPager();
+        setupSlidingTabs();
+    }
 
-        tabbedGalleryController.bindAndSetup(
-                getActivity(),
-                progressBar,
-                viewPager,
-                tabLayout,
-                drawerLayout,
-                drawerListView,
-                categoriesId
-        );
+    private void setupPager(){
 
+        pagerAdapter = createPagerAdapter();
+
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                selectedTabId = position;
+                setupDrawerAdapter();
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
+    private void setupSlidingTabs(){
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        tabbedGalleryController.endSubscriptions();
+    public void setupDrawerAdapter() {
+        CategoryModel currentTabCategory = pagerAdapter.getCategoryModel(viewPager.getCurrentItem());
+        drawerAdapter = createDrawerAdapter(currentTabCategory);
+        drawerListView.setAdapter(drawerAdapter);
+        drawerListView.setOnItemClickListener(new DrawerItemClickListener());
+        presenterFindDrawerCategories(currentTabCategory);
+    }
+
+    @NonNull
+    protected abstract TabbedGalleryPageAdapter createPagerAdapter();
+
+    @NonNull
+    protected abstract TabbedGalleryDrawerAdapter createDrawerAdapter(CategoryModel categoryModel);
+
+    protected abstract void presenterFindDrawerCategories(CategoryModel categoryModel);
+
+    public void stopLoading() {
+        progressBar.setVisibility(View.GONE);
+        viewPager.setVisibility(View.VISIBLE);
+    }
+
+    public void addPageItem(CategoryModel categoryModel){
+        pagerAdapter.addItem(categoryModel);
+        if (pagerAdapter.getCount() == 1){
+            setupDrawerAdapter();
+        }
+
+        if (pagerAdapter.getCount() > selectedTabId && viewPager.getCurrentItem() != selectedTabId)
+            viewPager.setCurrentItem(selectedTabId);
+    }
+
+    public void addDrawerItem(CategoryModel categoryModel){
+        drawerAdapter.addItem(categoryModel);
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            if (drawerLayout.isDrawerOpen(drawerListView))
+                drawerLayout.closeDrawer(drawerListView);
+
+            pagerAdapter.performDrawerClick(
+                    ((CategoryModel) drawerListView.getAdapter().getItem(position)),
+                    tabLayout.getSelectedTabPosition()
+            );
+        }
     }
 
 }

@@ -1,38 +1,17 @@
-/*
- *     SmartCatalogSPL, an Android catalog Software Product Line
- *     Copyright (c) 2016 Gianei Leandro Sebastiany
- *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package com.glsebastiany.smartcatalogspl.core.nucleous;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
-
-import org.androidannotations.annotations.EActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
 
 /**
- * This class is an example of how an activity could controls it's presenter.
+ * This view is an example of how a view should control it's presenter.
  * You can inherit from this class or copy/paste this class's code to
  * create your own view implementation.
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
-public abstract class MvpRxActivityBase<P extends Presenter> extends ActivityBase {
+public abstract class MvpRxFragmentBase<P extends Presenter> extends FragmentBase/* implements ViewWithPresenter<P> */{
 
     private static final String PRESENTER_STATE_KEY = "presenter_state";
 
@@ -68,37 +47,36 @@ public abstract class MvpRxActivityBase<P extends Presenter> extends ActivityBas
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        if (bundle == null && getArguments() != null)
+            presenterDelegate.onArguments(getArguments());
+        else if (bundle != null)
+            presenterDelegate.onRestoreInstanceState(bundle.getBundle(PRESENTER_STATE_KEY));
 
-        if (savedInstanceState != null)
-            presenterDelegate.onRestoreInstanceState(savedInstanceState.getBundle(PRESENTER_STATE_KEY));
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBundle(PRESENTER_STATE_KEY, presenterDelegate.onSaveInstanceState());
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putBundle(PRESENTER_STATE_KEY, presenterDelegate.onSaveInstanceState());
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         presenterDelegate.onResume(this);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         presenterDelegate.onDropView();
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        presenterDelegate.onDestroy(!isChangingConfigurations());
+        presenterDelegate.onDestroy(!getActivity().isChangingConfigurations());
     }
-
-
-
 }

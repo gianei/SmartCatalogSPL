@@ -109,7 +109,7 @@ public class Presenter<V> {
      */
     @CallSuper
     protected void onCreate(Bundle savedState) {
-        if (savedState != null)
+        if (savedState != null && savedState.containsKey(REQUESTED_KEY))
             requested.addAll(savedState.getIntegerArrayList(REQUESTED_KEY));
     }
 

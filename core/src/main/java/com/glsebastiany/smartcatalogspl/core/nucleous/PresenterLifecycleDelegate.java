@@ -12,6 +12,7 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
     @Nullable private PresenterFactory<P> presenterFactory;
     @Nullable private P presenter;
     @Nullable private Bundle bundle;
+    @Nullable private Bundle arguments;
 
     private boolean presenterHasView;
 
@@ -54,11 +55,18 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
             if (presenter == null) {
                 presenter = presenterFactory.createPresenter();
                 PresenterStorage.INSTANCE.add(presenter);
-                presenter.create(bundle == null ? null : bundle.getBundle(PRESENTER_KEY));
+                presenter.create(bundle == null ? arguments : bundle.getBundle(PRESENTER_KEY));
             }
             bundle = null;
+            arguments = null;
         }
         return presenter;
+    }
+
+    public void onArguments(Bundle arguments) {
+        if (presenter != null)
+            throw new IllegalArgumentException("onRestoreInstanceState() should be called before onResume()");
+        this.arguments = arguments;
     }
 
     /**

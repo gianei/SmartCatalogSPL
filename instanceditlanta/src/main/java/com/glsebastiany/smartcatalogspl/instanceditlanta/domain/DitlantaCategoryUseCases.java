@@ -124,6 +124,11 @@ public class DitlantaCategoryUseCases implements CategoryUseCases {
         return Observable.create(new Observable.OnSubscribe<CategoryModel>() {
             @Override
             public void call(Subscriber<? super CategoryModel> subscriber) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Category category = GreenDaoOpenHelper.daoSession(context).getCategoryDao().load(Utils.parseLong(categoryId));
                 if (category == null){
                     category = getSpecialCategory(categoryId);
@@ -158,7 +163,6 @@ public class DitlantaCategoryUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> findCategory(final List<String> categoriesId) {
-
         if(categoriesId.size() > 0) {
             Observable<CategoryModel> categories = findCategory(categoriesId.get(0));
 

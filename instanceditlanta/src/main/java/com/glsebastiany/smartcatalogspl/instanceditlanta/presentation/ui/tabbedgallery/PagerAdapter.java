@@ -20,34 +20,28 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbed
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragment;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Observer;
 
-
-public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<CategoryModel>, BaseTabbedGalleryController.DrawerClickSupport {
+public class PagerAdapter extends TabbedGalleryPageAdapter {
 
     private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
     SparseArray<SwipeableGalleryFragment> registeredFragments = new SparseArray<>();
 
-    public PagerAdapter(FragmentManager fm, Observable<CategoryModel> categoriesObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
+    public PagerAdapter(FragmentManager fm, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
         this.baseAppDisplayFactory = baseAppDisplayFactory;
-
-        categoriesObservable.subscribe(this);
     }
 
     //This method return the fragment for the every position in the View Pager
@@ -89,22 +83,14 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
         return categories.size();
     }
 
-
-
-    @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(CategoryModel categoryModel) {
+    public void addItem(CategoryModel categoryModel) {
         categories.add(categoryModel);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public CategoryModel getCategoryModel(int position){
+        return categories.get(position);
     }
 
 

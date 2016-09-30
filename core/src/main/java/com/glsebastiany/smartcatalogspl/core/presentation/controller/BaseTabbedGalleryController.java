@@ -51,7 +51,6 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
     protected abstract FragmentStatePagerAdapter getFragmentStatePagerAdapter(Observable<CategoryModel> observable);
     protected abstract BaseAdapter getDrawerAdapter(String categoryId);
     protected abstract Observable<CategoryModel> getCategoryObservable(List<String> categoriesIds);
-    protected abstract DrawerClickSupport getDrawerClickSupport();
 
     public void bindAndSetup(
             Context context,
@@ -73,83 +72,21 @@ public abstract class BaseTabbedGalleryController extends BaseSubscriptionedCont
         observable = ObservableHelper.setupThreads(getCategoryObservable(categoriesIds).cache());
 
         setupPager();
-        setupSlidingTabs();
-        setupDrawerClick();
-        setupDrawerAdapter(0);
 
     }
 
     private void setupPager(){
 
-        viewPager.setAdapter(getFragmentStatePagerAdapter(observable));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-            @Override
-            public void onPageSelected(int position) {
-                setupDrawerAdapter(position);
-            }
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
 
-        addSubscription(observable.subscribe(new Observer<CategoryModel>() {
-            @Override
-            public void onCompleted() {
-                progressBar.setVisibility(View.GONE);
-                viewPager.setVisibility(View.VISIBLE);
-            }
 
-            @Override
-            public void onError(Throwable e) {
 
-            }
-
-            @Override
-            public void onNext(CategoryModel categoryModel) {
-
-            }
-        }));
 
     }
 
-    private void setupSlidingTabs(){
-        tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
-    }
 
-    private void setupDrawerAdapter(int position) {
 
-        drawerListView.setAdapter(getDrawerAdapter(categoriesIds.get(position)));
 
-    }
 
-    private void setupDrawerClick() {
-        drawerListView.setOnItemClickListener(new DrawerItemClickListener());
-    }
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            if (drawerLayout.isDrawerOpen(drawerListView))
-                drawerLayout.closeDrawer(drawerListView);
-
-            if (getDrawerClickSupport() != null){
-                getDrawerClickSupport().performDrawerClick(
-                        ((CategoryModel) drawerListView.getAdapter().getItem(position)),
-                        tabLayout.getSelectedTabPosition()
-                );
-            }
-
-        }
-    }
-
-    public interface DrawerClickSupport{
-        void performDrawerClick(CategoryModel categoryModel, int currentTabPosition);
-    }
 }
