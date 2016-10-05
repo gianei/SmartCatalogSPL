@@ -16,21 +16,21 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.system;
+package com.glsebastiany.smartcatalogspl.core.presentation.di;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public abstract class FragmentBase extends Fragment {
+public abstract class InjectableActivity extends AppCompatActivity {
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        setupComponent();
-        injectComponent();
+        injectApplicationComponent();
     }
 
-    protected abstract void setupComponent();
-
-    protected abstract void injectComponent();
+    /**
+     * This method should call an inner abstract method that injects the base class
+     */
+    protected abstract void injectApplicationComponent();
 }

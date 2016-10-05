@@ -26,17 +26,21 @@ import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.ImageFetcherIntentService;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FirebaseModule;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.LoginActivity;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainActivity;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainPresenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailPresenter;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridFragment;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridPresenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailFragment;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.itempager.ItemPagerActivity;
 
 import javax.inject.Singleton;
 
@@ -74,4 +78,14 @@ public interface ApplicationComponent {
     void inject(GalleryGridFragmentBase<GalleryGridPresenter> galleryGridFragment);
 
     void inject(ItemPagerActivityBase itemPagerActivityBase);
+
+    void inject(TabbedGalleryActivityBase tabbedGalleryBaseActivity);
+
+    void inject(TabbedGalleryFragmentBase<TabbedGalleryController> tabbedGalleryFragmentBase);
+
+    void inject(MainActivityBase<MainPresenter> mainActivityBase);
+
+    void inject(SplashScreenBase splashScreen);
+
+    void inject(LoginActivity loginActivity);
 }

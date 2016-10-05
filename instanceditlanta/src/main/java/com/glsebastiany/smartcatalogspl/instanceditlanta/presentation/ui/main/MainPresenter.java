@@ -37,6 +37,8 @@ import rx.functions.Func0;
 
 public class MainPresenter extends Presenter<MainActivity> implements Func0<Subscription> {
 
+    private static int OBSERVABLE_ID = 0;
+
     @Inject
     CategoryGroupUseCases categoryGroupUseCases;
 
@@ -47,27 +49,23 @@ public class MainPresenter extends Presenter<MainActivity> implements Func0<Subs
     private Observable<CategoryGroupModel> observable;
 
 
-
     public MainPresenter(){
-
 
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
 
         observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
-
 
     }
 
 
     @Override
     protected void onTakeView() {
-
         makeSubcription();
     }
 
     private void makeSubcription() {
-        restartable(5, this);
-        start(5);
+        restartable(OBSERVABLE_ID, this);
+        start(OBSERVABLE_ID);
     }
 
     private Observable<CategoryGroupModel> getCategoryGroupObservable() {
@@ -84,7 +82,8 @@ public class MainPresenter extends Presenter<MainActivity> implements Func0<Subs
         return observable.subscribe(new Observer<CategoryGroupModel>() {
             @Override
             public void onCompleted() {
-                getView().stopLoading();
+                if (getView() != null)
+                    getView().stopLoading();
             }
 
             @Override
@@ -94,7 +93,8 @@ public class MainPresenter extends Presenter<MainActivity> implements Func0<Subs
 
             @Override
             public void onNext(CategoryGroupModel categoryGroupModel) {
-                getView().addItem((SuitCase)categoryGroupModel);
+                if (getView() != null)
+                    getView().addItem(categoryGroupModel);
             }
         });
     }

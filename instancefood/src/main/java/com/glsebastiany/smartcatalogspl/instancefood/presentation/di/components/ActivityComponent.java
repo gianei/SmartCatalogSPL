@@ -23,9 +23,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.MainActivityBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.SplashScreenBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryBaseActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
 import dagger.Component;
@@ -36,7 +36,7 @@ public interface ActivityComponent {
     AppCompatActivity appCompatActivity();
     BaseAppDisplayFactory baseAppDisplayFactory();
 
-    void inject(TabbedGalleryBaseActivity tabbedGalleryBaseActivity);
+    void inject(TabbedGalleryActivityBase tabbedGalleryBaseActivity);
     void inject(MainActivityBase activityMain);
     void inject(SplashScreenBase splashScreen);
 }

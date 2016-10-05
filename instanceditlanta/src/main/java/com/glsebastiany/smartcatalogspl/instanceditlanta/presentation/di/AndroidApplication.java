@@ -19,7 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di;
 
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.BetterApplicationBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
@@ -28,9 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import javax.inject.Inject;
 
 
-public class AndroidApplication extends BetterApplicationBase<ApplicationComponent> {
-
-
+public class AndroidApplication extends InjectableApplication<ApplicationComponent> {
 
     @Inject
     FirebaseAuth.AuthStateListener authStateListener;
@@ -41,7 +39,6 @@ public class AndroidApplication extends BetterApplicationBase<ApplicationCompone
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
-
     }
 
     @Override

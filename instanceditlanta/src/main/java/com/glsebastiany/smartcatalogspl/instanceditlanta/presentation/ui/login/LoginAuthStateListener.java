@@ -68,7 +68,7 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
         protected Void doInBackground(Void... params) {
             new FirebaseUpdater(itemsUpdater);
             new FirebaseUpdater(categoryUpdater);
-            //new FirebaseUpdater(suitCaseUpdater);
+            new FirebaseUpdater(suitCaseUpdater);
             return null;
         }
     }

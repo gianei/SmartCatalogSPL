@@ -29,11 +29,8 @@ import org.androidannotations.annotations.EActivity;
 public class ItemPagerActivity extends ItemPagerActivityBase {
 
     @Override
-    protected void injectComponent() {
-    }
-
-    @Override
     protected void injectMe(ItemPagerActivityBase itemPagerActivityBase) {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(itemPagerActivityBase);
     }
+
 }

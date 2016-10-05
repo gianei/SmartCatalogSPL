@@ -33,8 +33,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.Utils;
+import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCase;
 
@@ -42,15 +44,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuitCase> {
-    private final Context context;
-    private final BaseAppDisplayFactory baseAppDisplayFactory;
+public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase> {
 
     private List<SuitCase> categoriesGroup = new LinkedList<>();
 
     public MainAdapter(Context context, BaseAppDisplayFactory baseAppDisplayFactory) {
-        this.context = context;
-        this.baseAppDisplayFactory = baseAppDisplayFactory;
+        super(context, baseAppDisplayFactory);
     }
 
     @Override
@@ -124,8 +123,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
         }
     }
 
-    public void addItem(SuitCase suitCase) {
-        categoriesGroup.add(suitCase);
+    @Override
+    public void addItem(CategoryGroupModel categoryGroupModel) {
+        categoriesGroup.add((SuitCase)categoryGroupModel);
         notifyItemInserted(categoriesGroup.size()-1);
     }
 

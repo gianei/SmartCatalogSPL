@@ -22,7 +22,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainController;
 
 import dagger.Module;

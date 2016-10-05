@@ -27,12 +27,7 @@ public abstract class ItemDetailFragmentBase<P extends Presenter> extends MvpRxF
     public String itemId;
 
     @Override
-    protected void setupComponent() {
-
-    }
-
-    @Override
-    protected void injectComponent() {
+    protected void injectApplicationComponent() {
 
     }
 

@@ -24,15 +24,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.glsebastiany.smartcatalogspl.core.Utils;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryBaseActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.ImageFetcherIntentService;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.ActivityPreferences_;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ActivityComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ActivityModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.FirebaseAuthentication;
 
 import org.androidannotations.annotations.EActivity;
@@ -43,21 +40,11 @@ import java.util.List;
 
 @EActivity(R.layout.activity_gallery)
 @OptionsMenu({R.menu.menu_gallery, R.menu.menu_updates})
-public class TabbedGalleryActivity extends TabbedGalleryBaseActivity {
-
-    ActivityComponent activityComponent;
+public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
 
     @Override
-    protected void setupComponent() {
-        activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-    }
-
-    @Override
-    protected void injectMe(TabbedGalleryBaseActivity tabbedGalleryBaseActivity) {
-        activityComponent.inject(tabbedGalleryBaseActivity);
+    protected void injectMe(TabbedGalleryActivityBase tabbedGalleryBaseActivity) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(tabbedGalleryBaseActivity);
     }
 
     public ApplicationComponent getApplicationComponent() {

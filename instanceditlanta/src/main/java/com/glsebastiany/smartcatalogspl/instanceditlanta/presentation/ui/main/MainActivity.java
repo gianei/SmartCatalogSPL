@@ -29,24 +29,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.glsebastiany.smartcatalogspl.core.Utils;
 import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.ImageFetcherIntentService;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.ActivityPreferences_;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ActivityComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ActivityModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.FirebaseAuthentication;
 
 import org.androidannotations.annotations.AfterViews;
@@ -55,38 +49,10 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 
-import javax.inject.Inject;
-
 @EActivity(R.layout.activity_main)
 @OptionsMenu({R.menu.menu_search, R.menu.menu_updates })
 @RequiresPresenter(MainPresenter.class)
 public class MainActivity extends MainActivityBase<MainPresenter> {
-
-    @Inject
-    public BaseAppDisplayFactory baseAppDisplayFactory;
-
-    private ActivityComponent activityComponent;
-
-    private MainAdapter mainAdapter;
-
-    @Override
-    protected void setupComponent() {
-        activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-    }
-
-    @Override
-    protected void injectComponent() {
-        activityComponent.inject(this);
-    }
-
-
-
-    public ApplicationComponent getApplicationComponent() {
-        return ((AndroidApplication)getApplication()).getApplicationComponent();
-    }
 
     @OptionsMenuItem(R.id.menu_search)
     void singleInjection(MenuItem searchMenuItem){
@@ -94,7 +60,6 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
     }
-
 
     @OptionsItem(R.id.menu_update_images)
     public void menuUpdateImage(){
@@ -121,11 +86,6 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
     @AfterViews
     public void myAfterViews() {
         verifyPermission();
-    }
-
-    @Override
-    public RecyclerView.Adapter getAdapter(){
-        return mainAdapter;
     }
 
     private void verifyPermission() {
@@ -166,7 +126,7 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainAdapter = new MainAdapter(this, baseAppDisplayFactory);
+
         firebaseAuthentication = new FirebaseAuthentication(this, baseAppDisplayFactory);
     }
 
@@ -178,20 +138,18 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
 
     @Override
     protected void onResume() {
-        getPresenter().onTakeView();
         super.onResume();
         firebaseAuthentication.setOnResume();
     }
 
-    public void stopLoading() {
-        progressBar.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
+    @Override
+    public MainAdapterBase getAdapter(){
+        return new MainAdapter(this, baseAppDisplayFactory);
     }
 
-    public void addItem(SuitCase suitCase) {
-        mainAdapter.addItem(suitCase);
+    @Override
+    protected void injectMe(MainActivityBase<MainPresenter> mainActivityBase) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(mainActivityBase);
     }
-
-
 
 }

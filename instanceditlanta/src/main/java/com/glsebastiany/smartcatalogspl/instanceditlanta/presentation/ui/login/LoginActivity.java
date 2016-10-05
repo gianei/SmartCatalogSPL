@@ -20,21 +20,16 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
-
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseLoginController;
+import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxActivityBase;
+import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityResultCodes;
-
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ActivityComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerLoginComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.LoginComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ActivityModule;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.LoginModule;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -45,7 +40,18 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EActivity(R.layout.activity_login)
-public class LoginActivity extends AppCompatActivity {
+@RequiresPresenter(LoginPresenter.class)
+public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
+
+    public enum LoginErrorType{
+        googleSignInError,
+        googleUnknownSignInError,
+        firebaseError,
+        connectionError,
+    }
+
+    @Inject
+    BaseAppDisplayFactory appDisplayFactory;
 
     /* A dialog that is presented until the DatabaseReference authentication finished. */
     private ProgressDialog mAuthProgressDialog;
@@ -53,45 +59,66 @@ public class LoginActivity extends AppCompatActivity {
     @ViewById(R.id.login_with_google)
     View loginButton;
 
-
-    LoginComponent loginComponent;
-
-    @Inject
-    BaseLoginController baseLoginController;
-
     @AfterViews
     public void afterViews() {
-
-        ActivityComponent activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(getAndroidApplication().getApplicationComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-
         mAuthProgressDialog = new ProgressDialog(this);
-        loginComponent = DaggerLoginComponent.builder()
-                .activityComponent(activityComponent)
-                .loginModule(new LoginModule(mAuthProgressDialog, loginButton))
-                .build();
+        mAuthProgressDialog.setTitle("Login");
+        mAuthProgressDialog.setMessage("Conectando");
+        mAuthProgressDialog.setCancelable(false);
 
-        loginComponent.inject(this);
-
+        if (getPresenter().isMakingLogin())
+            mAuthProgressDialog.show();
     }
 
     @Click(R.id.login_with_google)
     public void onGoogleSignInClick() {
-        baseLoginController.getSignInIntent();
+
         mAuthProgressDialog.show();
+
+        getPresenter().startLogin();
+
     }
 
     @OnActivityResult(ActivityResultCodes.RC_GOOGLE_LOGIN)
     public void onGoogleSignInActivityResult(Intent data) {
-        baseLoginController.onActivityResult(data);
+        getPresenter().handleLoginWithActivityResult(data);
     }
 
-    public AndroidApplication getAndroidApplication(){
-        return (AndroidApplication)getApplication();
+    protected void loginOkCallback(){
+        mAuthProgressDialog.dismiss();
+        appDisplayFactory.startMainActivity(this);
+        finish();
+    }
+
+    protected void loginErrorCallback(LoginErrorType loginErrorType){
+        mAuthProgressDialog.dismiss();
+        Toast.makeText(this, getLoginErrorMessage(loginErrorType), Toast.LENGTH_LONG).show();
+    }
+
+    protected void loginErrorCallback(LoginErrorType loginErrorType, String additionalMessage){
+        mAuthProgressDialog.dismiss();
+
+        Toast.makeText(this, getLoginErrorMessage(loginErrorType) + " " + additionalMessage, Toast.LENGTH_LONG).show();
+    }
+
+    private String getLoginErrorMessage(LoginErrorType loginErrorType){
+        switch (loginErrorType){
+            case googleSignInError:
+                return getString(R.string.google_sign_in_error);
+            case googleUnknownSignInError:
+                return getString(R.string.google_unknown_sign_in_error);
+            case firebaseError:
+                return getString(R.string.firebase_auth_error);
+            case connectionError:
+                return getString(R.string.connection_error);
+            default:
+                return "Should never happen";
+        }
     }
 
 
-
+    @Override
+    protected void injectApplicationComponent() {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
+    }
 }

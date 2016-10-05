@@ -16,17 +16,31 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.splash;
+
+import android.os.Bundle;
+
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
+
+import javax.inject.Inject;
 
 
-import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerItemsGroup;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ItemsGroupModule;
+public abstract class SplashScreenBase extends InjectableActivity {
 
-import dagger.Component;
+    @Inject
+    BaseAppDisplayFactory baseAppDisplayFactory;
 
-@PerItemsGroup
-@Component(dependencies = FragmentComponent.class, modules = ItemsGroupModule.class)
-public interface ItemsGroupComponent {
-    void inject(ItemPagerActivityBase fragmentItemPager);
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        baseAppDisplayFactory.startMainActivity(this);
+    }
+
+    @Override
+    protected void injectApplicationComponent() {
+        injectMe(this);
+    }
+
+    protected abstract void injectMe(SplashScreenBase splashScreen);
 }

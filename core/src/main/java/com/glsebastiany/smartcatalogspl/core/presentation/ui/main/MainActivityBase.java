@@ -16,20 +16,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.main;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ProgressBar;
 
+import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxActivityBase;
 import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import javax.inject.Inject;
 
 @EActivity(resName="activity_main")
 public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivityBase<P> {
@@ -43,10 +48,15 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
     @ViewById(resName="toolbar")
     public Toolbar toolbar;
 
+    @Inject
+    public BaseAppDisplayFactory baseAppDisplayFactory;
+    protected MainAdapterBase mainAdapter;
+
     @AfterViews
     public void afterViews(){
         setSupportActionBar(toolbar);
 
+        mainAdapter = getAdapter();
 
         recyclerView.setLayoutManager(
                 new GridLayoutManager(
@@ -56,7 +66,24 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
                 )
         );
 
-        recyclerView.setAdapter(getAdapter());
+        recyclerView.setAdapter(mainAdapter);
+    }
+
+
+    @Override
+    protected void injectApplicationComponent() {
+        injectMe(this);
+    }
+
+    protected abstract void injectMe(MainActivityBase<P> mainActivityBase);
+
+    public void stopLoading() {
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    public void addItem(CategoryGroupModel suitCase) {
+        mainAdapter.addItem(suitCase);
     }
 
 
@@ -64,5 +91,5 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
      * Should return an adapter created onCreate
      * @return
      */
-    public abstract RecyclerView.Adapter getAdapter();
+    public abstract MainAdapterBase getAdapter();
 }

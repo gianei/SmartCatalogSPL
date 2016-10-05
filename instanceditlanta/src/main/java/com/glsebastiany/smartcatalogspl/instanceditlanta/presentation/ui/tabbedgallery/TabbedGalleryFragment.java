@@ -22,45 +22,21 @@ import android.support.annotation.NonNull;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryDrawerAdapter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerFragmentComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.FragmentComponent;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FragmentModule;
 
 import org.androidannotations.annotations.EFragment;
-
-import javax.inject.Inject;
 
 @EFragment(R.layout.fragment_gallery)
 @RequiresPresenter(TabbedGalleryController.class)
 public class TabbedGalleryFragment extends TabbedGalleryFragmentBase<TabbedGalleryController> {
 
-    @Inject
-    BaseAppDisplayFactory baseAppDisplayFactory;
-
-    FragmentComponent fragmentComponent;
-
     public static TabbedGalleryFragment newInstance(String[] categoriesId){
         return TabbedGalleryFragment_.builder().categoriesIdExtra(categoriesId).build();
-    }
-
-    @Override
-    protected void setupComponent() {
-        fragmentComponent = DaggerFragmentComponent.builder()
-                .applicationComponent(AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent())
-                .fragmentModule(new FragmentModule(this))
-                .build();
-    }
-
-    @Override
-    protected void injectComponent() {
-        fragmentComponent.inject(this);
     }
 
     @Override
@@ -78,5 +54,10 @@ public class TabbedGalleryFragment extends TabbedGalleryFragmentBase<TabbedGalle
     @Override
     protected void presenterFindDrawerCategories(CategoryModel categoryModel) {
         getPresenter().findDrawerCategories(categoryModel);
+    }
+
+    @Override
+    protected void injectMe(TabbedGalleryFragmentBase<TabbedGalleryController> tabbedGalleryFragmentBase) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(tabbedGalleryFragmentBase);
     }
 }

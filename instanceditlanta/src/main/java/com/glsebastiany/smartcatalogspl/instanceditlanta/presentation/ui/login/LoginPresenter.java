@@ -19,15 +19,13 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseLoginController;
+import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityResultCodes;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -43,46 +41,49 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import javax.inject.Inject;
-
-public class LoginController
-        extends BaseLoginController
+public class LoginPresenter
+        extends Presenter<LoginActivity>
         implements GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String LOG_TAG = LoginController.class.getSimpleName();
+    private static final String LOG_TAG = LoginPresenter.class.getSimpleName();
 
-    private GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient mGoogleApiClient = null;
+    private boolean isMakingLogin = false;
+
+    public boolean isMakingLogin(){
+        return isMakingLogin;
+    }
 
 
-    @Inject
-    public LoginController(
-            AppCompatActivity mActivity,
-            View loginButton,
-            ProgressDialog mProgressDialog,
-            BaseAppDisplayFactory baseAppDisplayFactory){
-        super(mActivity, loginButton, mProgressDialog, baseAppDisplayFactory);
-
+    @Override
+    public void onTakeView(){
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(mActivity.getString(R.string.default_web_client_id))
+                .requestIdToken(getView().getApplicationContext().getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(mActivity)
-                .enableAutoManage(mActivity /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+        if (mGoogleApiClient == null)
+            mGoogleApiClient = new GoogleApiClient.Builder(getView().getApplicationContext())
+                    .enableAutoManage(getView() /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
     }
 
     @Override
-    public Intent getSignInIntent() {
-        return Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+    protected void onSave(Bundle state) {
+        super.onSave(state);
     }
 
-    @Override
+    public void startLogin() {
+        isMakingLogin = true;
+        getView().startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient), ActivityResultCodes.RC_GOOGLE_LOGIN);
+    }
+
     public void handleLoginWithActivityResult(Intent data) {
         GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
         handleGoogleSignInResult(result);
@@ -94,27 +95,29 @@ public class LoginController
         } else {
 
             if (result.getStatus().getStatusCode() == GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
-                loginErrorCallback(mActivity.getString(R.string.google_sign_in_error));
+                getView().loginErrorCallback(LoginActivity.LoginErrorType.googleSignInError);
             } else {
-                loginErrorCallback(mActivity.getString(R.string.google_unknown_sign_in_error) + result.getStatus().getStatusMessage());
+                getView().loginErrorCallback(LoginActivity.LoginErrorType.googleUnknownSignInError,result.getStatus().getStatusMessage());
             }
 
             Log.d(LOG_TAG, "google login error: " + result.getStatus().getStatusMessage());
+            isMakingLogin = false;
         }
     }
 
     public void loginWithGoogleInFirebase(GoogleSignInAccount googleAccount) {
         AuthCredential credential = GoogleAuthProvider.getCredential(googleAccount.getIdToken(), null);
         FirebaseAuth.getInstance().signInWithCredential(credential)
-                .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(getView(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        isMakingLogin = false;
 
                         if (task.isSuccessful()) {
-                            loginOkCallback();
+                            getView().loginOkCallback();
                         } else {
                             Log.w(LOG_TAG, "firebase sign-in error: ", task.getException());
-                            loginErrorCallback(mActivity.getString(R.string.firebase_auth_error));
+                            getView().loginErrorCallback(LoginActivity.LoginErrorType.firebaseError);
                         }
                     }
                 });
@@ -122,7 +125,10 @@ public class LoginController
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        loginErrorCallback(connectionResult.toString());
+        isMakingLogin = false;
+        getView().loginErrorCallback(LoginActivity.LoginErrorType.connectionError, connectionResult.toString());
     }
+
+
 
 }

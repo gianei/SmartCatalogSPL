@@ -29,7 +29,7 @@ import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -42,7 +42,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 @EActivity(resName="activity_gallery")
-public abstract class TabbedGalleryBaseActivity extends ActivityBase {
+public abstract class TabbedGalleryActivityBase extends InjectableActivity {
 
     @Inject
     protected ItemUseCases itemUseCases;
@@ -164,12 +164,10 @@ public abstract class TabbedGalleryBaseActivity extends ActivityBase {
         }
     }
 
-
-
     @Override
-    protected void injectComponent() {
+    protected void injectApplicationComponent() {
         injectMe(this);
     }
 
-    protected abstract void injectMe(TabbedGalleryBaseActivity tabbedGalleryBaseActivity);
+    protected abstract void injectMe(TabbedGalleryActivityBase tabbedGalleryBaseActivity);
 }

@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -17,7 +17,7 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EActivity(resName="activity_gallery_visualization_pager")
-public abstract class ItemPagerActivityBase extends ActivityBase {
+public abstract class ItemPagerActivityBase extends InjectableActivity {
 
     @Inject
     BaseAppDisplayFactory appDisplayFactory;
@@ -59,7 +59,7 @@ public abstract class ItemPagerActivityBase extends ActivityBase {
     }
 
     @Override
-    protected void setupComponent() {
+    protected void injectApplicationComponent() {
         injectMe(this);
     }
 

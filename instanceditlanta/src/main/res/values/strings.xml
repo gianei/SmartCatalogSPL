@@ -59,6 +59,7 @@
     <string name="cancel">Cancelar</string>
     <string name="fotos_folder">FotosDitlanta</string>
     <string name="update">Atualizar</string>
+    <string name="connection_error">Certifique-se que você está conectado à internet e tente novamente.</string>
 
     <!-- Login Errors -->
     <string name="google_sign_in_error">O login foi cancelado. Certifique-se que você está conectado à internet e tente novamente.</string>

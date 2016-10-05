@@ -19,7 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main;
 
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;

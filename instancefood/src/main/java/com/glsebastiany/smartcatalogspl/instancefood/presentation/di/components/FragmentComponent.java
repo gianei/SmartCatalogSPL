@@ -32,7 +32,6 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {FragmentModule.class})
 public interface FragmentComponent {
     //void inject(BaseFragment baseFragment); // DO NOT INJECT ON BASE CLASSES
-    void inject(TabbedGalleryFragmentBase tabbedGalleryFragmentBase);
     void inject(SwipeableGalleryFragmentBase swipeableGalleryFragmentBase);
 
     //must expose to sub-graphs some classes provided in application

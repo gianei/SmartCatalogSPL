@@ -16,27 +16,36 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules;
+package com.glsebastiany.smartcatalogspl.core.presentation.di;
 
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerItemsGroup;
+import android.app.Application;
 
-import dagger.Module;
-import dagger.Provides;
-import rx.Observable;
+public abstract class InjectableApplication<C> extends Application {
 
-@Module
-public class ItemsGroupModule {
-    private final Observable<ItemModel> itemsObservable;
+    private static InjectableApplication singleton;
 
-    public ItemsGroupModule(Observable<ItemModel> itemsObservable) {
-        this.itemsObservable = itemsObservable;
+    public static <C> InjectableApplication<C> singleton() {
+        //noinspection unchecked
+        return singleton;
     }
 
-    @Provides
-    @PerItemsGroup
-    Observable<ItemModel> provideItemsObservable() {
-        return this.itemsObservable;
+    private C applicationComponent;
+
+    @Override public void onCreate() {
+        super.onCreate();
+        singleton = this;
+
+        applicationComponent = setupApplicationComponent();
+        injectComponent();
+
+    }
+
+    protected abstract C setupApplicationComponent();
+
+    protected abstract void injectComponent();
+
+    public C getApplicationComponent() {
+        return applicationComponent;
     }
 
 }

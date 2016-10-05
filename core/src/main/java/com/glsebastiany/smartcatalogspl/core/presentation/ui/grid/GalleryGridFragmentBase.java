@@ -69,18 +69,13 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
     }
 
     @Override
-    protected void setupComponent() {
+    protected void injectApplicationComponent() {
         injectMe(this);
     }
 
-    @Override
-    protected void injectComponent() {
-
-    }
+    public abstract void injectMe(GalleryGridFragmentBase<P> galleryGridFragmentBase);
 
     protected abstract int getStartingSpanSize();
-
-    public abstract void injectMe(GalleryGridFragmentBase<P> galleryGridFragmentBase);
 
     public void moveToSubCategorySection(CategoryModel categoryModel) {
         int newPosition = ((GalleryGridItemsAdapterBase)recyclerView.getAdapter()).findCategoryPositionInItems(categoryModel);

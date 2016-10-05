@@ -16,36 +16,21 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.system;
+package com.glsebastiany.smartcatalogspl.core.presentation.di;
 
-import android.app.Application;
+import android.content.Context;
+import android.support.v4.app.Fragment;
 
+public abstract class InjectableFragment extends Fragment {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
-public abstract class BetterApplicationBase<C> extends Application {
-
-    private static BetterApplicationBase singleton;
-
-    public static <C> BetterApplicationBase<C> singleton() {
-        //noinspection unchecked
-        return singleton;
+        injectApplicationComponent();
     }
 
-    private C applicationComponent;
-
-    @Override public void onCreate() {
-        super.onCreate();
-        singleton = this;
-
-        applicationComponent = setupApplicationComponent();
-        injectComponent();
-
-    }
-
-    protected abstract C setupApplicationComponent();
-
-    protected abstract void injectComponent();
-
-    public C getApplicationComponent() {
-        return applicationComponent;
-    }
+    /**
+     * This method should call an inner abstract method that injects the base class
+     */
+    protected abstract void injectApplicationComponent();
 }

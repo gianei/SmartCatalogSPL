@@ -18,12 +18,11 @@
 
 package com.glsebastiany.smartcatalogspl.core.nucleous;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
-
-import org.androidannotations.annotations.EActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
 /**
  * This class is an example of how an activity could controls it's presenter.
@@ -32,7 +31,7 @@ import org.androidannotations.annotations.EActivity;
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
-public abstract class MvpRxActivityBase<P extends Presenter> extends ActivityBase {
+public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableActivity {
 
     private PresenterLifecycleDelegate<P> presenterDelegate =
             new PresenterLifecycleDelegate<>(ReflectionPresenterFactory.<P>fromViewClass(getClass()));
@@ -63,6 +62,12 @@ public abstract class MvpRxActivityBase<P extends Presenter> extends ActivityBas
      */
     public P getPresenter() {
         return presenterDelegate.getPresenter();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        presenterDelegate.onResume(this);
     }
 
     @Override

@@ -30,6 +30,7 @@ import android.widget.ProgressBar;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -38,8 +39,14 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
+import javax.inject.Inject;
+
 @EFragment
 public abstract class TabbedGalleryFragmentBase<P extends Presenter> extends MvpRxFragmentBase<P> {
+
+    @Inject
+    protected
+    BaseAppDisplayFactory baseAppDisplayFactory;
 
     TabbedGalleryDrawerAdapter drawerAdapter;
     TabbedGalleryPageAdapter pagerAdapter;
@@ -110,7 +117,6 @@ public abstract class TabbedGalleryFragmentBase<P extends Presenter> extends Mvp
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
     }
 
     public void setupDrawerAdapter() {
@@ -161,4 +167,10 @@ public abstract class TabbedGalleryFragmentBase<P extends Presenter> extends Mvp
         }
     }
 
+    @Override
+    protected void injectApplicationComponent() {
+        injectMe(this);
+    }
+
+    protected abstract void injectMe(TabbedGalleryFragmentBase<P> tabbedGalleryFragmentBase);
 }

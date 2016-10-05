@@ -24,7 +24,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGallery
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerFragment;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableFragment;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryController;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridController;
@@ -34,15 +34,15 @@ import dagger.Provides;
 
 @Module
 public class FragmentModule {
-    private final FragmentBase fragment;
+    private final InjectableFragment fragment;
 
-    public FragmentModule(FragmentBase fragment) {
+    public FragmentModule(InjectableFragment fragment) {
         this.fragment = fragment;
     }
 
     @Provides
     @PerFragment
-    FragmentBase fragment() {
+    InjectableFragment fragment() {
         return this.fragment;
     }
 

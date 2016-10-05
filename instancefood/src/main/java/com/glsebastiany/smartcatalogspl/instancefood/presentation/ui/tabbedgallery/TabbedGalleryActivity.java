@@ -22,7 +22,7 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgall
 import android.content.Context;
 import android.content.Intent;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryBaseActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
@@ -35,7 +35,7 @@ import org.androidannotations.annotations.EActivity;
 import java.util.List;
 
 @EActivity(R.layout.activity_gallery)
-public class TabbedGalleryActivity extends TabbedGalleryBaseActivity {
+public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
 
     ActivityComponent activityComponent;
 
@@ -52,7 +52,7 @@ public class TabbedGalleryActivity extends TabbedGalleryBaseActivity {
     }
 
     @Override
-    protected void injectMe(TabbedGalleryBaseActivity tabbedGalleryBaseActivity) {
+    protected void injectMe(TabbedGalleryActivityBase tabbedGalleryBaseActivity) {
         activityComponent.inject(tabbedGalleryBaseActivity);
     }
 

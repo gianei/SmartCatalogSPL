@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class FirebaseAuthentication {
 
-    FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     public FirebaseAuthentication(final Activity activity, final BaseAppDisplayFactory baseAppDisplayFactory){
 
