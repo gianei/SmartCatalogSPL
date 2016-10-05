@@ -20,14 +20,8 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.module
 
 import android.support.v4.app.FragmentManager;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseTabbedGalleryController;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryController;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryController;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridController;
 
 import dagger.Module;
 import dagger.Provides;
@@ -50,15 +44,5 @@ public class FragmentModule {
     @PerFragment
     FragmentManager provideFragmentManager() { return fragment.getChildFragmentManager();}
 
-    @Provides
-    @PerFragment
-    BaseSwipeableGalleryController provideBaseSwipeableController(SwipeableGalleryController swipeableController){
-        return swipeableController;
-    }
 
-    @Provides
-    @PerFragment
-    BaseGalleryGridController provideBaseGalleryGridController(GalleryGridController galleryGridController){
-        return galleryGridController;
-    }
 }

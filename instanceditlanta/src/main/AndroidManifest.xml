@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~     SmartCatalogSPL, an Android catalog Software Product Line
   ~     Copyright (c) 2016 Gianei Leandro Sebastiany
   ~
@@ -14,8 +14,7 @@
   ~
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.glsebastiany.smartcatalogspl.instanceditlanta">
 
@@ -29,10 +28,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service
             android:name=".data.imagefetching.ImageFetcherIntentService"
-            android:enabled = "true"
+            android:enabled="true"
             android:exported="false" />
 
         <activity
@@ -45,23 +43,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".presentation.ui.main.MainActivity_">
-
-        </activity>
-
-        <activity android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_">
-
-        </activity>
-
-        <activity android:name=".presentation.ui.login.LoginActivity_" >
-
-        </activity>
-
+        <activity android:name=".presentation.ui.main.MainActivity_"></activity>
+        <activity android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_"></activity>
+        <activity android:name=".presentation.ui.login.LoginActivity_"></activity>
         <activity
             android:name=".data.preferences.ActivityPreferences_"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".presentation.ui.main.MainActivity_" />
+
+        <activity android:name=".presentation.ui.itempager.ItemPagerActivity_"></activity>
     </application>
 
 </manifest>

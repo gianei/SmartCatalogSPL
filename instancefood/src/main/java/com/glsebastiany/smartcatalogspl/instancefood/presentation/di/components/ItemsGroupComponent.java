@@ -20,9 +20,9 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components
 
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerItemsGroup;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemDetailFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ItemsGroupModule;
 
 import dagger.Component;
@@ -31,6 +31,6 @@ import dagger.Component;
 @Component(dependencies = FragmentComponent.class, modules = ItemsGroupModule.class)
 public interface ItemsGroupComponent {
     void inject(GalleryGridFragmentBase activityGalleryBase);
-    void inject(ItemPagerFragmentBase fragmentItemPager);
+    void inject(ItemPagerActivityBase fragmentItemPager);
     void inject(ItemDetailFragmentBase fragmentItemDetail);
 }

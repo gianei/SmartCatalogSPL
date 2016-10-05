@@ -16,76 +16,65 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid;
 
 import android.os.Bundle;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
-
-import java.util.Arrays;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
-import rx.functions.Action1;
 import rx.functions.Func0;
 
-import static com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryFragment_.CATEGORIES_ID_EXTRA_ARG;
+import static com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridFragment_.CATEGORY_ID_ARG;
 
-public class TabbedGalleryController extends Presenter<TabbedGalleryFragment> {
+public class GalleryGridPresenter extends Presenter<GalleryGridFragment> {
+
+    private static int OBSERVABLE_ID = 0;
 
     @Inject
-    CategoryUseCases categoryUseCases;
+    ItemUseCases itemUseCases;
 
-    @Inject
-    BaseAppDisplayFactory baseAppDisplayFactory;
+    private Observable<ItemModel> itemsObservable;
 
-    private Observable<CategoryModel> categoryModelObservable;
-
-    private Subscription drawerSubscription;
-
-    public TabbedGalleryController(){
+    public GalleryGridPresenter(){
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
     }
-    @Override
+
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-
-        String[] categoriesIds = null;
+        String categoryId = null;
 
         if (savedState!= null) {
-            if (savedState.containsKey(CATEGORIES_ID_EXTRA_ARG)) {
-                categoriesIds = savedState.getStringArray(CATEGORIES_ID_EXTRA_ARG);
+            if (savedState.containsKey(CATEGORY_ID_ARG)) {
+                categoryId = savedState.getString(CATEGORY_ID_ARG);
             }
         }
-
-        if (categoriesIds != null)
-            categoryModelObservable = ObservableHelper.setupThreads(
-                    categoryUseCases.findCategory(Arrays.asList(categoriesIds)).cache()
-            );
+        if (categoryId != null)
+            itemsObservable = ObservableHelper.setupThreads(itemUseCases.allFromCategory(categoryId).cache());
         else
-            throw new RuntimeException("Categories must be set in fragment args");
+            throw new RuntimeException("Category must be set in fragment args");
     }
 
     @Override
-    protected void onTakeView() {
+    public void onTakeView() {
         makeSubcription();
     }
 
     private void makeSubcription() {
-        restartable(5,
+        restartable(OBSERVABLE_ID,
                 new Func0<Subscription>() {
                     @Override
                     public Subscription call() {
-                        return categoryModelObservable.subscribe(new Observer<CategoryModel>() {
+                        return itemsObservable.subscribe(new Observer<ItemModel>() {
                             @Override
                             public void onCompleted() {
                                 if (getView() != null)
@@ -98,10 +87,10 @@ public class TabbedGalleryController extends Presenter<TabbedGalleryFragment> {
                             }
 
                             @Override
-                            public void onNext(CategoryModel categoryModel) {
+                            public void onNext(ItemModel itemModel) {
                                 if (getView() != null) {
                                     getView().stopLoading();
-                                    getView().addPageItem(categoryModel);
+                                    getView().addItem(itemModel);
                                 }
                             }
                         });
@@ -109,25 +98,7 @@ public class TabbedGalleryController extends Presenter<TabbedGalleryFragment> {
                 }
         );
 
-        start(5);
+        start(OBSERVABLE_ID);
     }
 
-    public void findDrawerCategories(CategoryModel categoryModel) {
-
-        Observable<CategoryModel> allChildren = ObservableHelper.setupThreads(categoryUseCases.getAllChildren(categoryModel).onBackpressureBuffer());
-
-        if (drawerSubscription!= null ){
-            remove(drawerSubscription);
-        }
-
-        drawerSubscription = allChildren.subscribe(new Action1<CategoryModel>() {
-            @Override
-            public void call(CategoryModel categoryModel) {
-                getView().addDrawerItem(categoryModel);
-            }
-        });
-
-        add(drawerSubscription);
-
-    }
 }

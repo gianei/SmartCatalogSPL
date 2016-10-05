@@ -19,20 +19,23 @@
 package com.glsebastiany.smartcatalogspl.core.presentation;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 
 import java.util.List;
 
 
 public interface BaseAppDisplayFactory {
     Fragment provideGalleryFragment(String[] categoriesIds);
-    Fragment provideGalleryVisualizationFragment(String category);
-    Fragment provideGalleryGridFragment();
+    GalleryGridCallbacks provideGalleryGridFragment(String category);
+    GalleryGridFragmentBase provideGalleryGridFragment();
     void startMainActivity(AppCompatActivity activityBase);
     void startLoginActivity();
     void startGalleryActivity(List<String> categoriesId);
-    void switchToItemView(FragmentManager fragmentManager, int position);
+    void switchToItemView(FragmentActivity fromActivity, String[] categoriesIds, int position);
+    ItemDetailFragmentBase getItemDetailFragment(String itemId);
 }

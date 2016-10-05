@@ -101,7 +101,7 @@ public class Presenter<V> {
 
     /**
      * This method is called after presenter construction.
-     *
+     * <p>
      * This method is intended for overriding.
      *
      * @param savedState If the presenter is being re-instantiated after a process restart then this Bundle
@@ -109,8 +109,7 @@ public class Presenter<V> {
      */
     @CallSuper
     protected void onCreate(Bundle savedState) {
-        if (savedState != null && savedState.containsKey(REQUESTED_KEY))
-            requested.addAll(savedState.getIntegerArrayList(REQUESTED_KEY));
+
     }
 
     /**
@@ -162,6 +161,9 @@ public class Presenter<V> {
                 requested.remove(i);
         }
         state.putIntegerArrayList(REQUESTED_KEY, requested);
+    }
+
+    public void resume(Bundle bundle) {
     }
 
     /**

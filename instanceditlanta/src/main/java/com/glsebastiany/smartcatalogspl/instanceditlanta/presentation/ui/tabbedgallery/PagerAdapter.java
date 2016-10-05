@@ -26,8 +26,8 @@ import android.view.ViewGroup;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragment;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class PagerAdapter extends TabbedGalleryPageAdapter {
 
     private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
-    SparseArray<SwipeableGalleryFragment> registeredFragments = new SparseArray<>();
+    SparseArray<GalleryGridCallbacks> registeredFragments = new SparseArray<>();
 
     public PagerAdapter(FragmentManager fm, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
@@ -47,7 +47,7 @@ public class PagerAdapter extends TabbedGalleryPageAdapter {
     //This method return the fragment for the every position in the View Pager
     @Override
     public Fragment getItem(int position) {
-        return baseAppDisplayFactory.provideGalleryVisualizationFragment(categories.get(position).getStringId());
+        return (Fragment) baseAppDisplayFactory.provideGalleryGridFragment(categories.get(position).getStringId());
     }
 
     // This method return the titles for the Tabs in the Tab Strip
@@ -59,7 +59,7 @@ public class PagerAdapter extends TabbedGalleryPageAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        SwipeableGalleryFragment fragment = (SwipeableGalleryFragment) super.instantiateItem(container, position);
+        GalleryGridCallbacks fragment = (GalleryGridCallbacks) super.instantiateItem(container, position);
         registeredFragments.put(position, fragment);
         return fragment;
     }

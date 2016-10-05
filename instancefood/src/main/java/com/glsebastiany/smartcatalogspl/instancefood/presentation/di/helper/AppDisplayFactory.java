@@ -26,7 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainActivity_;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryActivity;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryFragment;
@@ -56,7 +56,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     }
 
     @Override
-    public Fragment provideGalleryVisualizationFragment(String category){
+    public Fragment provideGalleryGridFragment(String category){
         return SwipeableGalleryFragment.newInstance(category);
     }
 
@@ -85,7 +85,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     public void switchToItemView(FragmentManager fragmentManager, int position) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        ItemPagerFragmentBase fragmentItemPager = ItemPagerFragment.newInstance(position);
+        ItemPagerActivityBase fragmentItemPager = ItemPagerFragment.newInstance(position);
         fragmentTransaction.add(R.id.gallery_visualization, fragmentItemPager);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

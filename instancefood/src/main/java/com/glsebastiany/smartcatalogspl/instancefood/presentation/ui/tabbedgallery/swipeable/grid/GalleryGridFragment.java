@@ -19,7 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid;
 
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 
@@ -43,8 +43,5 @@ public class GalleryGridFragment extends GalleryGridFragmentBase implements HasC
         return 3;
     }
 
-    @Override
-    protected void setupComponent() {
 
-    }
 }

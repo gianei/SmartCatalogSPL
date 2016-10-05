@@ -24,12 +24,19 @@ import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.ImageFetcherIntentService;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FirebaseModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainPresenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryController;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailPresenter;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridFragment;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridPresenter;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailFragment;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.itempager.ItemPagerActivity;
 
 import javax.inject.Singleton;
 
@@ -55,4 +62,16 @@ public interface ApplicationComponent {
     void inject(MainPresenter mainPresenter);
 
     void inject(TabbedGalleryController tabbedGalleryController);
+
+    void inject(GalleryGridPresenter galleryGridPresenter);
+
+
+
+    void inject(ItemDetailFragment itemDetailFragment);
+
+    void inject(ItemDetailPresenter itemDetailPresenter);
+
+    void inject(GalleryGridFragmentBase<GalleryGridPresenter> galleryGridFragment);
+
+    void inject(ItemPagerActivityBase itemPagerActivityBase);
 }

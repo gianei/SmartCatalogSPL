@@ -16,17 +16,24 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.itempager;
 
-
-import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerItemsGroup;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ItemsGroupModule;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 
-import dagger.Component;
+import org.androidannotations.annotations.EActivity;
 
-@PerItemsGroup
-@Component(dependencies = FragmentComponent.class, modules = ItemsGroupModule.class)
-public interface ItemsGroupComponent {
-    void inject(ItemPagerActivityBase fragmentItemPager);
+@EActivity(R.layout.activity_gallery_visualization_pager)
+public class ItemPagerActivity extends ItemPagerActivityBase {
+
+    @Override
+    protected void injectComponent() {
+    }
+
+    @Override
+    protected void injectMe(ItemPagerActivityBase itemPagerActivityBase) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(itemPagerActivityBase);
+    }
 }

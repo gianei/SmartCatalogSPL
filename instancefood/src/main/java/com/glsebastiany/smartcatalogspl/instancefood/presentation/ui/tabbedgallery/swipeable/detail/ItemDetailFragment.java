@@ -18,7 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.detail;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
@@ -43,4 +43,10 @@ public class ItemDetailFragment extends ItemDetailFragmentBase {
 
     }
 
+    @Override
+    public void stopLoading(){
+        //progressBar.setVisibility(View.GONE);
+        //recyclerView.setVisibility(View.VISIBLE);
+        SwipeableGalleryPresenter.inflateItemDetailStub(itemDetailStub, items.get(position));
+    }
 }

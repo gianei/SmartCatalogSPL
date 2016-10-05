@@ -125,7 +125,7 @@ public class DitlantaCategoryUseCases implements CategoryUseCases {
             @Override
             public void call(Subscriber<? super CategoryModel> subscriber) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

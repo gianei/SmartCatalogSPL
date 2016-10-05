@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail;
 
 import android.content.Context;
 import android.view.View;
@@ -25,77 +25,63 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
+import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.widget.TouchImageView;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.ImagesHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Item;
 
+import org.androidannotations.annotations.EFragment;
+
 import java.text.NumberFormat;
 
-import javax.inject.Inject;
+@EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
+@RequiresPresenter(ItemDetailPresenter.class)
+public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresenter> {
 
-import rx.Observable;
-
-public class SwipeableGalleryController extends BaseSwipeableGalleryController {
-
-    @Inject
-    Context context;
-
-    @Inject
-    ItemUseCases itemUseCases;
-
-    @Inject
-    BaseAppDisplayFactory baseAppDisplayFactory;
-
-    @Inject
-    public SwipeableGalleryController(){}
-
-    public Observable<ItemModel> getItemsObservableInternal(String categoryId){
-        return itemUseCases.allFromCategory(categoryId);
+    public static ItemDetailFragmentBase newInstance(String itemId){
+        return ItemDetailFragment_.builder().itemId(itemId).build();
     }
 
     @Override
-    public void inflateItemDetailStub(ViewStub viewStub, ItemModel itemModel){
-        viewStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
-        View newView = viewStub.inflate();
-
-        Item item = (Item) itemModel;
+    protected void inflateViewStub(ItemModel itemModel) {
+        Context context = getContext();
+        itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
+        View newView = itemDetailStub.inflate();
 
         ViewStub labelViewStub =  (ViewStub) newView.findViewById(R.id.label_stub);
-        inflateLabelViewStub(labelViewStub, item);
+        inflateLabelViewStub(labelViewStub, (Item) itemModel);
 
         TextView priceText = (TextView) newView.findViewById(R.id.textViewDetailItemPrice);
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
-        priceText.setText(currencyInstance.format(item.getPrice()));
+        priceText.setText(currencyInstance.format(((Item) itemModel).getPrice()));
 
         TextView fromText = (TextView) newView.findViewById(R.id.textViewDetailItemPricePrevious);
-        if (item.mustShowPreviousPrice()) {
+        if (((Item) itemModel).mustShowPreviousPrice()) {
             fromText.setText(context.getString(
                     R.string.item_view_promoted_price,
-                    currencyInstance.format(item.getPreviousPrice())
+                    currencyInstance.format(((Item) itemModel).getPreviousPrice())
             ));
         } else {
             fromText.setText("");
         }
 
         TextView idText = (TextView) newView.findViewById(R.id.textViewDetailItemId);
-        idText.setText(item.getId().toString());
+        idText.setText(((Item) itemModel).getId().toString());
 
         TextView descriptionText = (TextView) newView.findViewById(R.id.textViewDetailDescription);
-        descriptionText.setText(item.getName());
+        descriptionText.setText(((Item) itemModel).getName());
 
         ImageView buildIcon = (ImageView) newView.findViewById(R.id.item_view_detail_build);
-        buildIcon.setVisibility(item.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
+        buildIcon.setVisibility(((Item) itemModel).getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
         final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
-        ImagesHelper.loadDetailImageWithGlide(context, item, image);
+        ImagesHelper.loadDetailImageWithGlide(context, (Item) itemModel, image);
 
     }
 
-    private void inflateLabelViewStub(ViewStub labelViewStub, Item baseItem) {
+    private static void inflateLabelViewStub(ViewStub labelViewStub, Item baseItem) {
         if (baseItem.getIsNew()){
             labelViewStub.setLayoutResource(R.layout.image_label_new);
             labelViewStub.inflate();
@@ -109,5 +95,4 @@ public class SwipeableGalleryController extends BaseSwipeableGalleryController {
             labelViewStub.inflate();
         }
     }
-
 }

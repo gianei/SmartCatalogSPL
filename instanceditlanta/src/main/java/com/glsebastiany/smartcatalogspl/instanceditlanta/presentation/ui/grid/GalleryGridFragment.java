@@ -16,52 +16,51 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.SharedPreferencesZoom_;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ItemsGroupComponent;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EFragment(R.layout.fragment_gallery_visualization_grid)
-public class GalleryGridFragment extends GalleryGridFragmentBase implements HasComponent<ItemsGroupComponent> {
-
-    public static final int MAX_ITEMS_TO_SHOW_SCROLL = 100;
+@RequiresPresenter(GalleryGridPresenter.class)
+public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenter> implements GalleryGridCallbacks {
 
     @Pref
     SharedPreferencesZoom_ preferencesZoom;
 
-    @Override
-    public ItemsGroupComponent getComponent() {
-        return ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent();
+    public static GalleryGridCallbacks newInstance(String categoryId) {
+        return GalleryGridFragment_.builder().categoryId(categoryId).build();
     }
 
     @Override
-    protected void injectMe(GalleryGridFragmentBase activityGalleryBase) {
-        getComponent().inject(activityGalleryBase);
+    public void injectMe(GalleryGridFragmentBase<GalleryGridPresenter> galleryGridFragmentBase) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
+    }
+
+    @Override
+    @NonNull
+    protected GalleryGridItemsAdapterBase getGalleryGridItemsAdapter() {
+        return new GalleryGridItemsAdapter(this);
     }
 
     @Override
     protected int getStartingSpanSize() {
         return preferencesZoom.gridZoom().get();
-    }
-
-    @Override
-    protected void setupComponent() {
-
     }
 
     @Override
@@ -75,34 +74,26 @@ public class GalleryGridFragment extends GalleryGridFragmentBase implements HasC
         int itemId_ = item.getItemId();
         if (itemId_ == R.id.menu_zoom_in) {
             zoomIn();
-            galleryGridController.changeZoom(preferencesZoom.gridZoom().get());
         }
         if (itemId_ == R.id.menu_zoom_out) {
             zoomOut();
-            galleryGridController.changeZoom(preferencesZoom.gridZoom().get());
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
-    public void moveToSubCategorySection(CategoryModel categoryModel) {
-        int newPosition = ((GalleryGridItemsAdapter)recyclerView.getAdapter()).findCategoryPositionInItems(categoryModel);
-        int visiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        int difference = visiblePosition - newPosition;
-        if (Math.abs(difference) > MAX_ITEMS_TO_SHOW_SCROLL){
-            recyclerView.scrollToPosition(newPosition + (MAX_ITEMS_TO_SHOW_SCROLL * (int) Math.signum(difference)));
-            recyclerView.smoothScrollToPosition(newPosition);
-        } else
-            recyclerView.smoothScrollToPosition(newPosition);
-    }
+
 
     protected void zoomIn() {
         int newSpanSize = preferencesZoom.gridZoom().get();
         if (!isGridSpanAtMinimal()) {
             newSpanSize--;
-            if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() - 1 == newSpanSize)
+            if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() - 1 == newSpanSize){
                 preferencesZoom.gridZoom().put(newSpanSize);
+                gridLayoutManager.setSpanCount(newSpanSize);
+                gridLayoutManager.requestLayout();
+            }
         }
     }
 
@@ -110,8 +101,11 @@ public class GalleryGridFragment extends GalleryGridFragmentBase implements HasC
         int newSpanSize = preferencesZoom.gridZoom().get();
         if (!isGridSpanAtMaximum()) {
             newSpanSize++;
-            if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() + 1 == newSpanSize)
-             preferencesZoom.gridZoom().put(newSpanSize);
+            if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() + 1 == newSpanSize){
+                preferencesZoom.gridZoom().put(newSpanSize);
+                gridLayoutManager.setSpanCount(newSpanSize);
+                gridLayoutManager.requestLayout();
+            }
         }
     }
 
@@ -122,4 +116,5 @@ public class GalleryGridFragment extends GalleryGridFragmentBase implements HasC
     private boolean isGridSpanAtMaximum() {
         return preferencesZoom.gridZoom().get() >= getActivity().getResources().getInteger(R.integer.grid_span_max);
     }
+
 }

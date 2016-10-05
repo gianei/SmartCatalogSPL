@@ -41,13 +41,13 @@ allprojects {
 
 ext {
 
-    androidCompileSdkVersion = 23
-    androidBuildToolsVersion = '24.0.2'
+    androidCompileSdkVersion = 24
+    androidBuildToolsVersion = '24.0.3'
 
     appInstanceDitlantaConfig = {
         applicationId "com.glsebastiany.smartcatalogspl.instanceditlanta"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0.0"
     }
@@ -55,14 +55,14 @@ ext {
     appInstanceFoodConfig = {
         applicationId "com.glsebastiany.smartcatalogspl.instancefood"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0.0"
     }
 
     librariesDefaultConfig = {
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 24
     }
 
     glide = {

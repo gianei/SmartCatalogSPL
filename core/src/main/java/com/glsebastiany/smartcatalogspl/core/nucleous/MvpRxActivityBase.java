@@ -34,8 +34,6 @@ import org.androidannotations.annotations.EActivity;
  */
 public abstract class MvpRxActivityBase<P extends Presenter> extends ActivityBase {
 
-    private static final String PRESENTER_STATE_KEY = "presenter_state";
-
     private PresenterLifecycleDelegate<P> presenterDelegate =
             new PresenterLifecycleDelegate<>(ReflectionPresenterFactory.<P>fromViewClass(getClass()));
 
@@ -72,13 +70,13 @@ public abstract class MvpRxActivityBase<P extends Presenter> extends ActivityBas
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null)
-            presenterDelegate.onRestoreInstanceState(savedInstanceState.getBundle(PRESENTER_STATE_KEY));
+            presenterDelegate.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBundle(PRESENTER_STATE_KEY, presenterDelegate.onSaveInstanceState());
+        presenterDelegate.onSaveInstanceState(outState);
     }
 
     @Override

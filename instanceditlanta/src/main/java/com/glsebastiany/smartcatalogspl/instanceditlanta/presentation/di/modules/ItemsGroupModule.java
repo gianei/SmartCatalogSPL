@@ -19,10 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseGalleryGridController;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.scopes.PerItemsGroup;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridController;
 
 import dagger.Module;
 import dagger.Provides;

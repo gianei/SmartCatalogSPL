@@ -49,13 +49,14 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
      */
     public P getPresenter() {
         if (presenterFactory != null) {
-            if (presenter == null && bundle != null)
+            if (presenter == null && bundle != null) {
                 presenter = PresenterStorage.INSTANCE.getPresenter(bundle.getString(PRESENTER_ID_KEY));
+            }
 
             if (presenter == null) {
                 presenter = presenterFactory.createPresenter();
                 PresenterStorage.INSTANCE.add(presenter);
-                presenter.create(bundle == null ? arguments : bundle.getBundle(PRESENTER_KEY));
+                presenter.create(bundle == null ? arguments : bundle);
             }
             bundle = null;
             arguments = null;
@@ -72,16 +73,12 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
     /**
      * {@link android.app.Activity#onSaveInstanceState(Bundle)}, {@link android.app.Fragment#onSaveInstanceState(Bundle)}, {@link android.view.View#onSaveInstanceState()}.
      */
-    public Bundle onSaveInstanceState() {
-        Bundle bundle = new Bundle();
+    public void onSaveInstanceState(Bundle bundle) {
         getPresenter();
         if (presenter != null) {
-            Bundle presenterBundle = new Bundle();
-            presenter.save(presenterBundle);
-            bundle.putBundle(PRESENTER_KEY, presenterBundle);
+            presenter.save(bundle);
             bundle.putString(PRESENTER_ID_KEY, PresenterStorage.INSTANCE.getId(presenter));
         }
-        return bundle;
     }
 
     /**

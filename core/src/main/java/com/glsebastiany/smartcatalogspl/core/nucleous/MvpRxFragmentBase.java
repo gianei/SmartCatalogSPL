@@ -13,8 +13,6 @@ import com.glsebastiany.smartcatalogspl.core.presentation.system.FragmentBase;
  */
 public abstract class MvpRxFragmentBase<P extends Presenter> extends FragmentBase/* implements ViewWithPresenter<P> */{
 
-    private static final String PRESENTER_STATE_KEY = "presenter_state";
-
     private PresenterLifecycleDelegate<P> presenterDelegate =
             new PresenterLifecycleDelegate<>(ReflectionPresenterFactory.<P>fromViewClass(getClass()));
 
@@ -52,14 +50,14 @@ public abstract class MvpRxFragmentBase<P extends Presenter> extends FragmentBas
         if (bundle == null && getArguments() != null)
             presenterDelegate.onArguments(getArguments());
         else if (bundle != null)
-            presenterDelegate.onRestoreInstanceState(bundle.getBundle(PRESENTER_STATE_KEY));
+            presenterDelegate.onRestoreInstanceState(bundle);
 
     }
 
     @Override
     public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        bundle.putBundle(PRESENTER_STATE_KEY, presenterDelegate.onSaveInstanceState());
+        presenterDelegate.onSaveInstanceState(bundle);
     }
 
     @Override

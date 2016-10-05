@@ -27,10 +27,5 @@ import rx.Observable;
 
 public abstract class BaseSwipeableGalleryController extends BaseSubscriptionedController {
 
-    public Observable<ItemModel> getItemsObservable(String categoryId){
-        return ObservableHelper.setupThreads(getItemsObservableInternal(categoryId).cache());
-    }
 
-    public abstract Observable<ItemModel> getItemsObservableInternal(String categoryId);
-    public abstract void inflateItemDetailStub(ViewStub viewStub, ItemModel itemModel);
 }

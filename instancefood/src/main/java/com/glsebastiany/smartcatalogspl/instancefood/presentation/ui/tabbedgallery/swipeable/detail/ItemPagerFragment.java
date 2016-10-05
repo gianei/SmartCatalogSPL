@@ -20,17 +20,17 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgall
 
 import android.support.v4.app.Fragment;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ItemsGroupComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 
 import org.androidannotations.annotations.EFragment;
 
-@EFragment(R.layout.fragment_gallery_visualization_detail_pager)
-public class ItemPagerFragment extends ItemPagerFragmentBase implements HasComponent<ItemsGroupComponent> {
+@EFragment(R.layout.activity_gallery_visualization_pager)
+public class ItemPagerFragment extends ItemPagerActivityBase implements HasComponent<ItemsGroupComponent> {
 
-    public static ItemPagerFragmentBase newInstance(int position) {
+    public static ItemPagerActivityBase newInstance(int position) {
         return ItemPagerFragment_.builder().itemPosition(position).build();
     }
 
@@ -39,8 +39,8 @@ public class ItemPagerFragment extends ItemPagerFragmentBase implements HasCompo
     }
 
     @Override
-    protected void injectMe(ItemPagerFragmentBase itemPagerFragmentBase) {
-        getComponent().inject(itemPagerFragmentBase);
+    protected void injectMe(ItemPagerActivityBase itemPagerActivityBase) {
+        getComponent().inject(itemPagerActivityBase);
     }
 
     @Override

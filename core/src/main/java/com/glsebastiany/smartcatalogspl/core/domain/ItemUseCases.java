@@ -26,4 +26,5 @@ public interface ItemUseCases {
     Observable<ItemModel> getAll();
     Observable<ItemModel> mainViewItems();
     Observable<ItemModel> allFromCategory(String categoryId);
+    Observable<ItemModel> find(String itemId);
 }

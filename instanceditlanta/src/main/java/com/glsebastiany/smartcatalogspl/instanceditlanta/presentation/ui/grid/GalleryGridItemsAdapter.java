@@ -16,10 +16,9 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.swipeable.grid;
+package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,8 @@ import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.ImagesHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Item;
@@ -40,9 +40,7 @@ import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-import rx.Observable;
-
-public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements rx.Observer<ItemModel>{
+public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
     private static final int REGULAR_ITEM_TYPE = 1;
     private static final int PROMOTED_ITEM_TYPE = 2;
     private static final int NEW_ITEM_TYPE = 3;
@@ -50,31 +48,13 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private static final NumberFormat mCurrencyInstance = NumberFormat.getCurrencyInstance();
 
-    //private GalleryGridFragment.ZoomProvider zoomProvider;
     private Context context;
-    private final FragmentManager fragmentManager;
-    private final BaseAppDisplayFactory baseAppDisplayFactory;
-
-    //ItemUseCases itemUseCases;
 
     private List<Item> items = new LinkedList<>();
 
-    public GalleryGridItemsAdapter(Observable<ItemModel> itemsObservable, FragmentManager fragmentManager, BaseAppDisplayFactory baseAppDisplayFactory){
-        super();
-        this.fragmentManager = fragmentManager;
-        this.baseAppDisplayFactory = baseAppDisplayFactory;
-        //this.itemUseCases = itemUseCases;
-        //this.zoomProvider = zoomProvider;
-
-        /*if (mustGenerateSections()){
-            generateSections();
-        }*/
-
-        itemsObservable.subscribe(this);
-        //itemsHolderInterface.getItemHolder().addObserver(this);
-
+    public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks){
+        super(galleryGridCallbacks);
     }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int baseItemType) {
@@ -103,12 +83,11 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
         return new BaseItemViewHolder(v);
     }
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int baseItemPosition) {
         BaseItemViewHolder baseItemViewHolder = (BaseItemViewHolder) viewHolder;
 
-        Item item = (Item) items.get(baseItemPosition);
+        Item item = items.get(baseItemPosition);
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
         baseItemViewHolder.id.setText(item.getStringId());
@@ -129,7 +108,7 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemViewType(int baseItemPosition) {
-        Item item = (Item) items.get(baseItemPosition);
+        Item item = items.get(baseItemPosition);
 
         if (item.getIsPromoted())
             return PROMOTED_ITEM_TYPE;
@@ -171,26 +150,18 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
         return 0;
     }
 
-    @Override
-    public void onCompleted() {
-        //TODO
-        //Stop loading
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(ItemModel itemModel) {
+    public void addItem(ItemModel itemModel) {
         items.add((Item)itemModel);
         notifyItemInserted(items.size() -1);
-
     }
 
-
-
+    public String[] toStringArray(){
+        String[] itemsIds = new String[items.size()];
+        for (int i = 0; i < items.size(); i++){
+            itemsIds[i] = items.get(i).getStringId();
+        }
+        return itemsIds;
+    }
 
     private class BaseItemViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
@@ -211,8 +182,6 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-
-
     private class GridItemOnClickListener implements View.OnClickListener, View.OnLongClickListener{
         private int position;
 
@@ -223,7 +192,7 @@ public class GalleryGridItemsAdapter extends RecyclerView.Adapter<RecyclerView.V
         @Override
         public void onClick(View v) {
 
-            baseAppDisplayFactory.switchToItemView(fragmentManager, position);
+            galleryGridCallbacks.switchToItemView( position);
         }
 
         @Override

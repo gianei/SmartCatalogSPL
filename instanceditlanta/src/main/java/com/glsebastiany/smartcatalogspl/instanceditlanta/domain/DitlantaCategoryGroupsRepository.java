@@ -49,7 +49,7 @@ public class DitlantaCategoryGroupsRepository implements CategoryGroupUseCases {
             @Override
             public void call(Subscriber<? super CategoryGroupModel> subscriber) {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
