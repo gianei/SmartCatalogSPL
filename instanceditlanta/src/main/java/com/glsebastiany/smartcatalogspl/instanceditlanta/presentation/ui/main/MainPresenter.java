@@ -64,6 +64,8 @@ public class MainPresenter extends Presenter<MainActivity> implements Func0<Subs
     }
 
     private void makeSubcription() {
+        if(getView()!= null)
+            getView().clear();
         restartable(OBSERVABLE_ID, this);
         start(OBSERVABLE_ID);
     }

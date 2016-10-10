@@ -50,6 +50,7 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
 
     @Inject
     public BaseAppDisplayFactory baseAppDisplayFactory;
+
     protected MainAdapterBase mainAdapter;
 
     @AfterViews
@@ -92,4 +93,8 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
      * @return
      */
     public abstract MainAdapterBase getAdapter();
+
+    public void clear(){
+        mainAdapter.clear();
+    }
 }

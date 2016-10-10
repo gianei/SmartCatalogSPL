@@ -38,7 +38,6 @@ public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
     public static void start(Context context, List<String> categoriesIds ){
         TabbedGalleryActivity_
                 .intent(context)
-                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
                 .start();
     }

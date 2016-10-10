@@ -62,6 +62,8 @@ public class MainPresenter extends Presenter<MainActivity> implements Func0<Subs
 
     @Override
     protected void onTakeView() {
+        if(getView()!= null)
+            getView().clear();
         restartable(OBSERVABLE_ID, this);
         start(OBSERVABLE_ID);
     }

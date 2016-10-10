@@ -85,8 +85,8 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     }
 
     @Override
-    public void startGalleryActivity(List<String> categoriesId) {
-        TabbedGalleryActivity.start(context, categoriesId);
+    public void startGalleryActivity(Context fromContext, List<String> categoriesId) {
+        TabbedGalleryActivity.start(fromContext, categoriesId);
     }
 
     @Override

@@ -71,6 +71,7 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
                 String[] catArray = categories.split(",");
 
                 baseAppDisplayFactory.startGalleryActivity(
+                        context,
                         Arrays.asList(catArray)
                 );
             }
@@ -127,6 +128,12 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
     public void addItem(CategoryGroupModel categoryGroupModel) {
         categoriesGroup.add((SuitCase)categoryGroupModel);
         notifyItemInserted(categoriesGroup.size()-1);
+    }
+
+    @Override
+    public void clear() {
+        categoriesGroup.clear();
+        notifyDataSetChanged();
     }
 
 }

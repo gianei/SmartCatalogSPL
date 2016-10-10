@@ -18,6 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +36,7 @@ public interface BaseAppDisplayFactory {
     GalleryGridFragmentBase provideGalleryGridFragment();
     void startMainActivity(AppCompatActivity activityBase);
     void startLoginActivity();
-    void startGalleryActivity(List<String> categoriesId);
+    void startGalleryActivity(Context fromContext, List<String> categoriesId);
     void switchToItemView(FragmentActivity fromActivity, String[] categoriesIds, int position);
     ItemDetailFragmentBase getItemDetailFragment(String itemId);
 }

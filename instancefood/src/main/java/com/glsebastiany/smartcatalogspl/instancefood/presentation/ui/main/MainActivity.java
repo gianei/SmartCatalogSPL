@@ -41,5 +41,8 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
         return new MainAdapter(this, baseAppDisplayFactory);
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

@@ -67,6 +67,7 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
             @Override
             public void onClick(View v) {
                 baseAppDisplayFactory.startGalleryActivity(
+                        context,
                         categoriesGroup.get(viewHolderSuitCase.getAdapterPosition()).getCategoriesIds()
                 );
             }
@@ -123,5 +124,11 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
             image = (ImageView) v.findViewById(R.id.image);
             title = (TextView) v.findViewById(R.id.title);
         }
+    }
+
+    @Override
+    public void clear() {
+        categoriesGroup.clear();
+        notifyDataSetChanged();
     }
 }
