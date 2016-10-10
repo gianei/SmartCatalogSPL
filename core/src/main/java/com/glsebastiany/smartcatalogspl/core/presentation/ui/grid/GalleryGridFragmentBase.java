@@ -110,4 +110,8 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
         appDisplayFactory.switchToItemView(getActivity(), adapter.toStringArray(), position);
 
     }
+
+    public void clear(){
+        adapter.clear();
+    }
 }

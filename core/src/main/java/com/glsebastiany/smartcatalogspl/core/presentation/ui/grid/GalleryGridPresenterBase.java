@@ -66,6 +66,9 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
     }
 
     private void makeSubcription() {
+        if(getView()!= null)
+            getView().clear();
+
         restartable(OBSERVABLE_ID,
                 new Func0<Subscription>() {
                     @Override

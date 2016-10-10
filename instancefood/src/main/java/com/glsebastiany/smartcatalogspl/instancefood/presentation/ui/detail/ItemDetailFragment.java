@@ -22,12 +22,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
+@RequiresPresenter(ItemDetailPresenter.class)
 public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresenter> {
 
     public static ItemDetailFragmentBase newInstance(String itemId){

@@ -163,6 +163,12 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
         return itemsIds;
     }
 
+    @Override
+    public void clear() {
+        items.clear();
+        notifyDataSetChanged();
+    }
+
     private class BaseItemViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public TextView id;
