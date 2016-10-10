@@ -24,15 +24,17 @@ import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailPresenterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainPresenterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPresenterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ApplicationModule;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.detail.ItemDetailPresenter;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridPresenter;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainPresenter;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryPresenter;
@@ -57,19 +59,19 @@ public interface ApplicationComponent {
 
     void inject(MainActivityBase<MainPresenter> activityMain);
 
-    void inject(MainPresenter mainPresenter);
+    void inject(MainPresenterBase mainPresenter);
 
     void inject(SplashScreenBase splashScreen);
 
-    void inject(ItemDetailPresenter itemDetailPresenter);
+    void inject(ItemDetailPresenterBase itemDetailPresenter);
 
     void inject(GalleryGridFragmentBase<GalleryGridPresenter> activityGalleryBase);
 
-    void inject(GalleryGridPresenter galleryGridPresenter);
+    void inject(GalleryGridPresenterBase galleryGridPresenter);
 
     void inject(TabbedGalleryActivityBase tabbedGalleryBaseActivity);
 
-    void inject(TabbedGalleryPresenter tabbedGalleryPresenter);
+    void inject(TabbedGalleryPresenterBase tabbedGalleryPresenter);
 
     void inject(TabbedGalleryFragmentBase<TabbedGalleryPresenter> tabbedGalleryFragmentBase);
 

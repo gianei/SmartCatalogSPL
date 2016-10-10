@@ -24,9 +24,11 @@ import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailPresenterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainPresenterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
@@ -34,12 +36,13 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.data.imagefetching.Imag
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FirebaseModule;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailFragment;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.LoginActivity;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainPresenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryPresenter;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailPresenter;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridPresenter;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPresenterBase;
 
 import javax.inject.Singleton;
 
@@ -62,17 +65,15 @@ public interface ApplicationComponent {
     void inject(AndroidApplication androidApplication);
     void inject(ImageFetcherIntentService imageFetcherIntentService);
 
-    void inject(MainPresenter mainPresenter);
+    void inject(MainPresenterBase mainPresenter);
 
-    void inject(TabbedGalleryPresenter tabbedGalleryPresenter);
+    void inject(TabbedGalleryPresenterBase tabbedGalleryPresenter);
 
-    void inject(GalleryGridPresenter galleryGridPresenter);
-
-
+    void inject(GalleryGridPresenterBase galleryGridPresenter);
 
     void inject(ItemDetailFragment itemDetailFragment);
 
-    void inject(ItemDetailPresenter itemDetailPresenter);
+    void inject(ItemDetailPresenterBase itemDetailPresenter);
 
     void inject(GalleryGridFragmentBase<GalleryGridPresenter> galleryGridFragment);
 

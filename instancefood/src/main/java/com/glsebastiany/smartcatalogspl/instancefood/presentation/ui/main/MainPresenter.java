@@ -18,80 +18,15 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ProgressBar;
-
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.instancefood.R;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainPresenterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
 
-import javax.inject.Inject;
+public class MainPresenter extends MainPresenterBase {
 
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.functions.Func0;
-
-public class MainPresenter extends Presenter<MainActivity> implements Func0<Subscription> {
-
-    private static int OBSERVABLE_ID = 0;
-
-    @Inject
-    CategoryGroupUseCases categoryGroupUseCases;
-
-    private Observable<CategoryGroupModel> observable;
-
-    public MainPresenter(){
-
+    @Override
+    protected void injectMe(MainPresenterBase mainPresenterBase) {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
-
-        observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
-
     }
 
-    @Override
-    protected void onTakeView() {
-        if(getView()!= null)
-            getView().clear();
-        restartable(OBSERVABLE_ID, this);
-        start(OBSERVABLE_ID);
-    }
-
-    private Observable<CategoryGroupModel> getCategoryGroupObservable() {
-        return categoryGroupUseCases.mainViewCategoriesGroups();
-    }
-
-
-    @Override
-    public Subscription call() {
-        return observable.subscribe(new Observer<CategoryGroupModel>() {
-            @Override
-            public void onCompleted() {
-                if (getView() != null)
-                    getView().stopLoading();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                throw new RuntimeException(e);
-            }
-
-            @Override
-            public void onNext(CategoryGroupModel categoryGroupModel) {
-                if (getView() != null)
-                    getView().addItem(categoryGroupModel);
-            }
-        });
-    }
 }

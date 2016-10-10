@@ -19,47 +19,25 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPresenterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
 
-import java.util.Arrays;
-
-import javax.inject.Inject;
-
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func0;
-
 import static com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryFragment_.CATEGORIES_ID_EXTRA_ARG;
 
-public class TabbedGalleryPresenter extends Presenter<TabbedGalleryFragment> {
+public class TabbedGalleryPresenter extends TabbedGalleryPresenterBase {
 
-    @Inject
-    CategoryUseCases categoryUseCases;
-
-    @Inject
-    BaseAppDisplayFactory baseAppDisplayFactory;
-
-    private Observable<CategoryModel> categoryModelObservable;
-
-    private Subscription drawerSubscription;
-
-    public TabbedGalleryPresenter(){
+    @Override
+    protected void injectMe(TabbedGalleryPresenterBase tabbedGalleryPresenterBase) {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
     }
 
-    @Override
-    protected void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
 
+    @Nullable
+    @Override
+    protected String[] getCategoriesIdFrom(Bundle savedState) {
         String[] categoriesIds = null;
 
         if (savedState!= null) {
@@ -67,68 +45,6 @@ public class TabbedGalleryPresenter extends Presenter<TabbedGalleryFragment> {
                 categoriesIds = savedState.getStringArray(CATEGORIES_ID_EXTRA_ARG);
             }
         }
-
-        if (categoriesIds != null)
-            categoryModelObservable = ObservableHelper.setupThreads(
-                    categoryUseCases.findCategory(Arrays.asList(categoriesIds)).cache()
-            );
-        else
-            throw new RuntimeException("Categories must be set in fragment args");
-    }
-
-    @Override
-    protected void onTakeView() {
-        makeSubcription();
-    }
-
-    private void makeSubcription() {
-        restartable(5,
-                new Func0<Subscription>() {
-                    @Override
-                    public Subscription call() {
-                        return categoryModelObservable.subscribe(new Observer<CategoryModel>() {
-                            @Override
-                            public void onCompleted() {
-                                if (getView() != null)
-                                    getView().stopLoading();
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            @Override
-                            public void onNext(CategoryModel categoryModel) {
-                                if (getView() != null) {
-                                    getView().stopLoading();
-                                    getView().addPageItem(categoryModel);
-                                }
-                            }
-                        });
-                    }
-                }
-        );
-
-        start(5);
-    }
-
-    public void findDrawerCategories(CategoryModel categoryModel) {
-
-        Observable<CategoryModel> allChildren = ObservableHelper.setupThreads(categoryUseCases.getAllChildren(categoryModel).onBackpressureBuffer());
-
-        if (drawerSubscription!= null ){
-            remove(drawerSubscription);
-        }
-
-        drawerSubscription = allChildren.subscribe(new Action1<CategoryModel>() {
-            @Override
-            public void call(CategoryModel categoryModel) {
-                getView().addDrawerItem(categoryModel);
-            }
-        });
-
-        add(drawerSubscription);
-
+        return categoriesIds;
     }
 }

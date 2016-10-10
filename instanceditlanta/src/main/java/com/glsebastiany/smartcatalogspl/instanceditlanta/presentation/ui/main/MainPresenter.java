@@ -18,86 +18,15 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainPresenterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 
-
-import javax.inject.Inject;
-
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.functions.Func0;
-
-public class MainPresenter extends Presenter<MainActivity> implements Func0<Subscription> {
-
-    private static int OBSERVABLE_ID = 0;
-
-    @Inject
-    CategoryGroupUseCases categoryGroupUseCases;
-
-    @Inject
-    BaseAppDisplayFactory baseAppDisplayFactory;
-
-
-    private Observable<CategoryGroupModel> observable;
-
-
-    public MainPresenter(){
-
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
-
-        observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
-
-    }
-
+public class MainPresenter extends MainPresenterBase {
 
     @Override
-    protected void onTakeView() {
-        makeSubcription();
+    protected void injectMe(MainPresenterBase mainPresenterBase) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(mainPresenterBase);
     }
 
-    private void makeSubcription() {
-        if(getView()!= null)
-            getView().clear();
-        restartable(OBSERVABLE_ID, this);
-        start(OBSERVABLE_ID);
-    }
-
-    private Observable<CategoryGroupModel> getCategoryGroupObservable() {
-        return categoryGroupUseCases.mainViewCategoriesGroups();
-    }
-
-    public void refresh() {
-        observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
-        makeSubcription();
-    }
-
-    @Override
-    public Subscription call() {
-        return observable.subscribe(new Observer<CategoryGroupModel>() {
-            @Override
-            public void onCompleted() {
-                if (getView() != null)
-                    getView().stopLoading();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                throw new RuntimeException(e);
-            }
-
-            @Override
-            public void onNext(CategoryGroupModel categoryGroupModel) {
-                if (getView() != null)
-                    getView().addItem(categoryGroupModel);
-            }
-        });
-    }
 }

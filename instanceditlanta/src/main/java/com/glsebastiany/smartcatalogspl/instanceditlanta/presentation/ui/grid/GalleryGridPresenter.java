@@ -19,38 +19,24 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 
-import javax.inject.Inject;
-
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.functions.Func0;
-
 import static com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridFragment_.CATEGORY_ID_ARG;
 
-public class GalleryGridPresenter extends Presenter<GalleryGridFragment> {
+public class GalleryGridPresenter extends GalleryGridPresenterBase {
 
-    private static int OBSERVABLE_ID = 0;
-
-    @Inject
-    ItemUseCases itemUseCases;
-
-    private Observable<ItemModel> itemsObservable;
-
-    public GalleryGridPresenter(){
+    @Override
+    protected void injectMe(GalleryGridPresenterBase galleryGridPresenterBase) {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
     }
 
-    protected void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
+    @Override
+    @Nullable
+    protected String getCategoryIdFrom(Bundle savedState) {
         String categoryId = null;
 
         if (savedState!= null) {
@@ -58,47 +44,6 @@ public class GalleryGridPresenter extends Presenter<GalleryGridFragment> {
                 categoryId = savedState.getString(CATEGORY_ID_ARG);
             }
         }
-        if (categoryId != null)
-            itemsObservable = ObservableHelper.setupThreads(itemUseCases.allFromCategory(categoryId).cache());
-        else
-            throw new RuntimeException("Category must be set in fragment args");
+        return categoryId;
     }
-
-    @Override
-    public void onTakeView() {
-        makeSubcription();
-    }
-
-    private void makeSubcription() {
-        restartable(OBSERVABLE_ID,
-                new Func0<Subscription>() {
-                    @Override
-                    public Subscription call() {
-                        return itemsObservable.subscribe(new Observer<ItemModel>() {
-                            @Override
-                            public void onCompleted() {
-                                if (getView() != null)
-                                    getView().stopLoading();
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            @Override
-                            public void onNext(ItemModel itemModel) {
-                                if (getView() != null) {
-                                    getView().stopLoading();
-                                    getView().addItem(itemModel);
-                                }
-                            }
-                        });
-                    }
-                }
-        );
-
-        start(OBSERVABLE_ID);
-    }
-
 }
