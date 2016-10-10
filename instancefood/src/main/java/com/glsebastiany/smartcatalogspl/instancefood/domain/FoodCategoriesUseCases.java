@@ -52,7 +52,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> getAll() {
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
+        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
@@ -74,7 +74,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> getAllChildren(final CategoryModel categoryModel) {
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
+        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
@@ -100,7 +100,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> getDirectChildren(final CategoryModel categoryModel) {
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
+        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
@@ -133,7 +133,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> findCategory(final String categoryId) {
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
+        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {
@@ -160,7 +160,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     @Override
     public Observable<CategoryModel> findCategory(final List<String> categoriesId) {
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<CategoryModel>(){
+        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
             @Override
             public void call(final Subscriber<? super CategoryModel> subscriber) {
                 try {

@@ -19,25 +19,17 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.di;
 
 
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ApplicationBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ApplicationModule;
 
 
-public class AndroidApplication extends ApplicationBase {
-
-    public static AndroidApplication singleton;
-
-    private ApplicationComponent applicationComponent;
-
-    public AndroidApplication(){
-        singleton = this;
-    }
+public class AndroidApplication extends InjectableApplication<ApplicationComponent> {
 
     @Override
-    protected void setupComponent() {
-        applicationComponent = DaggerApplicationComponent.builder()
+    protected ApplicationComponent setupApplicationComponent() {
+        return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }
@@ -45,10 +37,6 @@ public class AndroidApplication extends ApplicationBase {
     @Override
     protected void injectComponent() {
         //nothing needs to be injected for now
-    }
-
-    public ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
     }
 
 }

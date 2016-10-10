@@ -24,12 +24,11 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.google.gms:google-services:3.0.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
@@ -41,28 +40,31 @@ allprojects {
 
 ext {
 
-    androidCompileSdkVersion = 23
-    androidBuildToolsVersion = '24.0.2'
+    androidCompileSdkVersion = 24
+    androidBuildToolsVersion = '24.0.3'
+
+    baseMinSdkVersion = 19
+    baseTargetSdkVersion = 24
 
     appInstanceDitlantaConfig = {
         applicationId "com.glsebastiany.smartcatalogspl.instanceditlanta"
-        minSdkVersion 19
-        targetSdkVersion 23
+        minSdkVersion baseMinSdkVersion
+        targetSdkVersion baseTargetSdkVersion
         versionCode 1
         versionName "1.0.0"
     }
 
     appInstanceFoodConfig = {
         applicationId "com.glsebastiany.smartcatalogspl.instancefood"
-        minSdkVersion 19
-        targetSdkVersion 23
+        minSdkVersion baseMinSdkVersion
+        targetSdkVersion baseTargetSdkVersion
         versionCode 1
         versionName "1.0.0"
     }
 
     librariesDefaultConfig = {
-        minSdkVersion 19
-        targetSdkVersion 23
+        minSdkVersion baseMinSdkVersion
+        targetSdkVersion baseTargetSdkVersion
     }
 
     glide = {
@@ -97,8 +99,8 @@ ext {
 
     androidSupportVersion = '24.2.1'
     androidSupport = {
-        compile "com.android.support:recyclerview-v7:${androidSupportVersion}"
         compile "com.android.support:appcompat-v7:${androidSupportVersion}"
+        compile "com.android.support:recyclerview-v7:${androidSupportVersion}"
         compile "com.android.support:cardview-v7:${androidSupportVersion}"
         compile "com.android.support:palette-v7:${androidSupportVersion}"
         compile "com.android.support:design:${androidSupportVersion}"

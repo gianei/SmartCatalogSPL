@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 
 import rx.Observable;
 import rx.Observer;
@@ -47,7 +48,7 @@ public abstract class BaseMainController extends BaseSubscriptionedController{
     }
 
     private void setupRecyclerView(){
-        Observable<CategoryGroupModel> observable = getCategoryGroupObservable();
+        Observable<CategoryGroupModel> observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
 
         addSubscription(observable.subscribe(new Observer<CategoryGroupModel>() {
             @Override
@@ -58,13 +59,11 @@ public abstract class BaseMainController extends BaseSubscriptionedController{
 
             @Override
             public void onError(Throwable e) {
-
+                throw new RuntimeException(e);
             }
 
             @Override
             public void onNext(CategoryGroupModel categoryGroupModel) {
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
             }
         }));
 

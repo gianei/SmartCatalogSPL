@@ -32,8 +32,7 @@ import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.helper.AppD
 import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodCategoriesUseCases;
 import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodCategoryGroupUseCase;
 import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodItemUseCases;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainController;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryController;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainPresenter;
 
 import javax.inject.Singleton;
 
@@ -82,15 +81,4 @@ public class ApplicationModule {
     }
 
 
-    @Provides
-    @Singleton
-    BaseMainController provideBaseMainController(MainController mainController){
-        return mainController;
-    }
-
-    @Provides
-    @Singleton
-    BaseSwipeableGalleryController provideBaseGalleryGridController(SwipeableGalleryController swipeableController){
-        return swipeableController;
-    }
 }

@@ -28,10 +28,4 @@ public class ObservableHelper {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
-    public static <T> Observable<T> createThreaded(Observable.OnSubscribe<T> observable){
-        return Observable.create(observable)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
 }

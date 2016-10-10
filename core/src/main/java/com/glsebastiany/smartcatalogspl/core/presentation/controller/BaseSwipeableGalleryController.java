@@ -21,10 +21,11 @@ package com.glsebastiany.smartcatalogspl.core.presentation.controller;
 import android.view.ViewStub;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 
 import rx.Observable;
 
 public abstract class BaseSwipeableGalleryController extends BaseSubscriptionedController {
-    public abstract Observable<ItemModel> getItemsObservable(String categoryId);
-    public abstract void inflateItemDetailStub(ViewStub viewStub, ItemModel itemModel);
+
+
 }

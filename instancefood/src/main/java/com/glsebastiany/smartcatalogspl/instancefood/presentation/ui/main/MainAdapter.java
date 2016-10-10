@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.instancefood.data.FoodCategoryGroupModel;
@@ -42,19 +43,13 @@ import com.glsebastiany.smartcatalogspl.core.Utils;
 import java.util.LinkedList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Observer;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuitCase> implements Observer<CategoryGroupModel>{
-    private final Context context;
-    private final BaseAppDisplayFactory baseAppDisplayFactory;
+public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>{
 
     private List<FoodCategoryGroupModel> categoriesGroup = new LinkedList<>();
 
-    public MainAdapter(Context context, Observable<CategoryGroupModel> categoryGroupObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
-        this.context = context;
-        this.baseAppDisplayFactory = baseAppDisplayFactory;
-        categoryGroupObservable.subscribe(this);
+    public MainAdapter(Context context, BaseAppDisplayFactory baseAppDisplayFactory) {
+        super(context, baseAppDisplayFactory);
     }
 
     @Override
@@ -72,6 +67,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
             @Override
             public void onClick(View v) {
                 baseAppDisplayFactory.startGalleryActivity(
+                        context,
                         categoriesGroup.get(viewHolderSuitCase.getAdapterPosition()).getCategoriesIds()
                 );
             }
@@ -91,7 +87,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
         return categoriesGroup.size();
     }
 
-    class SuitCaseViewTarget extends BitmapImageViewTarget {
+    @Override
+    public void addItem(CategoryGroupModel categoryGroupModel) {
+        categoriesGroup.add((FoodCategoryGroupModel) categoryGroupModel);
+        notifyItemInserted(categoriesGroup.size() -1);
+    }
+
+    private class SuitCaseViewTarget extends BitmapImageViewTarget {
 
         private final ViewHolderSuitCase viewHolder;
         private final Context context;
@@ -113,11 +115,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
         }
     }
 
-    public static class ViewHolderSuitCase extends RecyclerView.ViewHolder {
+    static class ViewHolderSuitCase extends RecyclerView.ViewHolder {
         public ImageView image;
         public TextView title;
 
-        public ViewHolderSuitCase(View v){
+        ViewHolderSuitCase(View v){
             super(v);
             image = (ImageView) v.findViewById(R.id.image);
             title = (TextView) v.findViewById(R.id.title);
@@ -125,18 +127,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
     }
 
     @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(CategoryGroupModel categoryGroupModel) {
-        categoriesGroup.add((FoodCategoryGroupModel)categoryGroupModel);
-        notifyItemInserted(categoriesGroup.size() -1);
+    public void clear() {
+        categoriesGroup.clear();
+        notifyDataSetChanged();
     }
 }

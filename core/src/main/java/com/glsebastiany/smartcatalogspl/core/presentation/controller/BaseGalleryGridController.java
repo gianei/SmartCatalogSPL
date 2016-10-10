@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
 
 import rx.Observable;
@@ -41,49 +42,13 @@ public abstract class BaseGalleryGridController extends BaseSubscriptionedContro
     private FragmentManager fragmentManager;
     private Observable<ItemModel> observable;
 
+    private GridLayoutManager gridLayoutManager;
+
     @NonNull
     protected abstract RecyclerView.Adapter<RecyclerView.ViewHolder>
         getRecyclerViewAdapter(Observable<ItemModel> observable, FragmentManager fragmentManager);
 
-    public void bindAndSetup(
-            Context context,
-            final ProgressBar progressBar,
-            final RecyclerView recyclerView,
-            FragmentManager fragmentManager,
-            Observable<ItemModel> observable){
 
-        this.context = context;
-        this.progressBar = progressBar;
-        this.recyclerView = recyclerView;
-        this.fragmentManager = fragmentManager;
-        this.observable = observable;
 
-        setupRecyclerView();
-    }
 
-    private void setupRecyclerView(){
-        addSubscription(observable.subscribe(new Observer<ItemModel>() {
-            @Override
-            public void onCompleted() {
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(ItemModel itemModel) {
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-        }));
-
-        recyclerView.setAdapter(getRecyclerViewAdapter(observable, fragmentManager));
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
-        recyclerView.addItemDecoration(
-                new SpacesItemDecoration(context.getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
-    }
 }

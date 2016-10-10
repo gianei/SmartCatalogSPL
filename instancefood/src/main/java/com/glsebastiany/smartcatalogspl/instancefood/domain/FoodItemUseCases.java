@@ -19,6 +19,8 @@
 package com.glsebastiany.smartcatalogspl.instancefood.domain;
 
 
+import android.content.ClipData;
+
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
@@ -31,6 +33,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.functions.Func1;
 
@@ -57,7 +60,7 @@ public class FoodItemUseCases implements ItemUseCases {
 
     @Override
     public Observable<ItemModel> getAll(){
-        return ObservableHelper.createThreaded(new Observable.OnSubscribe<ItemModel>(){
+        return Observable.create(new Observable.OnSubscribe<ItemModel>(){
             @Override
             public void call(final Subscriber<? super ItemModel> subscriber) {
                 try {
@@ -90,5 +93,27 @@ public class FoodItemUseCases implements ItemUseCases {
                 return item.getCategoryId().equals(categoryId);
             }
         });
+    }
+
+    @Override
+    public Observable<ItemModel> find(final String itemId) {
+        return Observable.create(new Observable.OnSubscribe<ItemModel>() {
+            @Override
+            public void call(Subscriber<? super ItemModel> subscriber) {
+                boolean found = false;
+                for (ItemModel item :
+                        items) {
+                    if (item.getStringId().equals(itemId)) {
+                        found = true;
+                        subscriber.onNext(item);
+                        subscriber.onCompleted();
+                    }
+                }
+
+                if (!found)
+                    subscriber.onError(new RuntimeException("Item id " + itemId + " was not found!"));
+            }
+        });
+
     }
 }

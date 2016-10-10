@@ -18,35 +18,31 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main;
 
+import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
 import org.androidannotations.annotations.EActivity;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends MainActivityBase {
-    ActivityComponent activityComponent;
+@RequiresPresenter(MainPresenter.class)
+public class MainActivity extends MainActivityBase<MainPresenter> {
 
     @Override
-    protected void injectMe(MainActivityBase activityMain) {
-        activityComponent.inject(activityMain);
+    protected void injectMe(MainActivityBase<MainPresenter> activityMain) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(activityMain);
     }
 
     @Override
-    protected void setupComponent() {
-        activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
+    public MainAdapterBase getAdapter() {
+        return new MainAdapter(this, baseAppDisplayFactory);
     }
 
-    public ApplicationComponent getApplicationComponent() {
-        return ((AndroidApplication)getApplication()).getApplicationComponent();
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
-
 }
