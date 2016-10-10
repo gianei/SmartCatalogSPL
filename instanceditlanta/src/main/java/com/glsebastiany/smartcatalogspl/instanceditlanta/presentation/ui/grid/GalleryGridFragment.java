@@ -38,7 +38,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EFragment(R.layout.fragment_gallery_visualization_grid)
 @RequiresPresenter(GalleryGridPresenter.class)
-public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenter> implements GalleryGridCallbacks {
+public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenter> {
 
     @Pref
     SharedPreferencesZoom_ preferencesZoom;

@@ -32,8 +32,8 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.compone
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_gallery)
-@RequiresPresenter(TabbedGalleryController.class)
-public class TabbedGalleryFragment extends TabbedGalleryFragmentBase<TabbedGalleryController> {
+@RequiresPresenter(TabbedGalleryPresenter.class)
+public class TabbedGalleryFragment extends TabbedGalleryFragmentBase<TabbedGalleryPresenter> {
 
     public static TabbedGalleryFragment newInstance(String[] categoriesId){
         return TabbedGalleryFragment_.builder().categoriesIdExtra(categoriesId).build();
@@ -57,7 +57,7 @@ public class TabbedGalleryFragment extends TabbedGalleryFragmentBase<TabbedGalle
     }
 
     @Override
-    protected void injectMe(TabbedGalleryFragmentBase<TabbedGalleryController> tabbedGalleryFragmentBase) {
+    protected void injectMe(TabbedGalleryFragmentBase<TabbedGalleryPresenter> tabbedGalleryFragmentBase) {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(tabbedGalleryFragmentBase);
     }
 }

@@ -25,36 +25,15 @@ import android.content.Intent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
 
 import java.util.List;
 
 @EActivity(R.layout.activity_gallery)
 public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
-
-    ActivityComponent activityComponent;
-
-    @Override
-    protected void setupComponent() {
-        activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-    }
-
-    public ApplicationComponent getApplicationComponent() {
-        return ((AndroidApplication)getApplication()).getApplicationComponent();
-    }
-
-    @Override
-    protected void injectMe(TabbedGalleryActivityBase tabbedGalleryBaseActivity) {
-        activityComponent.inject(tabbedGalleryBaseActivity);
-    }
 
     public static void start(Context context, List<String> categoriesIds ){
         TabbedGalleryActivity_
@@ -63,5 +42,11 @@ public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
                 .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
                 .start();
     }
+
+    @Override
+    protected void injectMe(TabbedGalleryActivityBase tabbedGalleryBaseActivity) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(tabbedGalleryBaseActivity);
+    }
+
 
 }

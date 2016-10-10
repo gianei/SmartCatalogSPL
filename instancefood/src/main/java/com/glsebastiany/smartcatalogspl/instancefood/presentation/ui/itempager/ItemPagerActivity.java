@@ -16,30 +16,21 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.itempager;
 
-import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
 
 import org.androidannotations.annotations.EActivity;
 
-@EActivity(R.layout.activity_main)
-@RequiresPresenter(MainPresenter.class)
-public class MainActivity extends MainActivityBase<MainPresenter> {
+@EActivity(R.layout.activity_gallery_visualization_pager)
+public class ItemPagerActivity extends ItemPagerActivityBase{
 
     @Override
-    protected void injectMe(MainActivityBase<MainPresenter> activityMain) {
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(activityMain);
+    protected void injectMe(ItemPagerActivityBase itemPagerActivityBase) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(itemPagerActivityBase);
     }
-
-    @Override
-    public MainAdapterBase getAdapter() {
-        return new MainAdapter(this, baseAppDisplayFactory);
-    }
-
 
 }

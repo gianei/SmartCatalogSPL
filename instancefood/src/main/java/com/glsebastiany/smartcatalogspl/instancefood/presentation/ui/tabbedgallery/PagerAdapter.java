@@ -18,53 +18,27 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Observer;
+public class PagerAdapter extends TabbedGalleryPageAdapter {
 
-
-public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<CategoryModel> {
-
-    private final BaseAppDisplayFactory baseAppDisplayFactory;
     List<CategoryModel> categories = new LinkedList<>();
 
-    public PagerAdapter(FragmentManager fm, Observable<CategoryModel> categoriesObservable, BaseAppDisplayFactory baseAppDisplayFactory) {
-        super(fm);
-        this.baseAppDisplayFactory = baseAppDisplayFactory;
-
-        categoriesObservable.subscribe(this);
+    public PagerAdapter(FragmentManager fm, BaseAppDisplayFactory baseAppDisplayFactory) {
+        super(fm, baseAppDisplayFactory);
     }
 
-    //This method return the fragment for the every position in the View Pager
-    @Override
-    public Fragment getItem(int position) {
-        return baseAppDisplayFactory.provideGalleryGridFragment(categories.get(position).getStringId());
-    }
-
-    // This method return the titles for the Tabs in the Tab Strip
     @Override
     public CharSequence getPageTitle(int position) {
         return categories.get(position).getStringId();
     }
-
-    /*public int getCategoryPosition(long baseCategoryId){
-        for(int i = 0; i < categoryUiItems.getCount(); i++){
-            if (get(i).getStringId() == baseCategoryId)
-                return i;
-        }
-        return -1;
-    }*/
-
-    // This method return the Number of slidingTabLayout for the slidingTabLayout Strip
 
     @Override
     public int getCount() {
@@ -72,20 +46,15 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements Observer<
     }
 
 
-
     @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(CategoryModel categoryModel) {
+    public void addItem(CategoryModel categoryModel) {
         categories.add(categoryModel);
         notifyDataSetChanged();
     }
+
+    @Override
+    public CategoryModel getCategoryModel(int position) {
+        return categories.get(position);
+    }
+
 }

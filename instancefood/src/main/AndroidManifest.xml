@@ -44,6 +44,10 @@
 
         </activity>
 
+        <activity android:name=".presentation.ui.itempager.ItemPagerActivity_">
+
+        </activity>
+
         <activity android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_">
 
         </activity>

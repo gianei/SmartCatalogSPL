@@ -20,22 +20,14 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.splash;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ActivityComponent;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerActivityComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ActivityModule;
 
 
 public class SplashScreen extends SplashScreenBase {
 
-
     @Override
     protected void injectMe(SplashScreenBase splashScreen) {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(splashScreen);
-    }
-
-    public ApplicationComponent getApplicationComponent() {
-        return ((AndroidApplication)getApplication()).getApplicationComponent();
     }
 
 }

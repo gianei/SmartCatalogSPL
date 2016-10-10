@@ -20,19 +20,25 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.helper;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.detail.ItemDetailFragment;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.itempager.ItemPagerActivity_;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainActivity_;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryActivity;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.SwipeableGalleryFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.detail.ItemPagerFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid.GalleryGridFragment_;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.itempager.ItemPagerActivity;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment_;
 
 import java.util.List;
 
@@ -56,12 +62,12 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     }
 
     @Override
-    public Fragment provideGalleryGridFragment(String category){
-        return SwipeableGalleryFragment.newInstance(category);
+    public GalleryGridCallbacks provideGalleryGridFragment(String category){
+        return GalleryGridFragment.newInstance(category);
     }
 
     @Override
-    public Fragment provideGalleryGridFragment() {
+    public GalleryGridFragmentBase provideGalleryGridFragment() {
         return GalleryGridFragment_.builder().build();
     }
 
@@ -82,14 +88,19 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     }
 
     @Override
-    public void switchToItemView(FragmentManager fragmentManager, int position) {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        ItemPagerActivityBase fragmentItemPager = ItemPagerFragment.newInstance(position);
-        fragmentTransaction.add(R.id.gallery_visualization, fragmentItemPager);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+    public void switchToItemView(FragmentActivity fromActivity, String[] categoriesIds, int position) {
+        ItemPagerActivity_
+                .intent(fromActivity)
+                .categoriesIds(categoriesIds)
+                .itemPosition(position)
+                .start();
     }
+
+    @Override
+    public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
+        return ItemDetailFragment.newInstance(itemId);
+    }
+
 
 
 }

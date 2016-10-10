@@ -28,34 +28,68 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscription;
+import rx.functions.Func0;
 
-public class MainController extends BaseMainController {
+public class MainPresenter extends Presenter<MainActivity> implements Func0<Subscription> {
+
+    private static int OBSERVABLE_ID = 0;
 
     @Inject
     CategoryGroupUseCases categoryGroupUseCases;
 
-    @Inject
-    BaseAppDisplayFactory baseAppDisplayFactory;
+    private Observable<CategoryGroupModel> observable;
 
-    @Inject
-    public MainController(){}
+    public MainPresenter(){
 
-    @NonNull
-    @Override
-    protected RecyclerView.Adapter<? extends RecyclerView.ViewHolder> getRecyclerViewAdapter(Observable<CategoryGroupModel> observable) {
-        return new MainAdapter(context, observable, baseAppDisplayFactory);
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
+
+        observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
+
     }
 
     @Override
-    protected Observable<CategoryGroupModel> getCategoryGroupObservable() {
+    protected void onTakeView() {
+        restartable(OBSERVABLE_ID, this);
+        start(OBSERVABLE_ID);
+    }
+
+    private Observable<CategoryGroupModel> getCategoryGroupObservable() {
         return categoryGroupUseCases.mainViewCategoriesGroups();
+    }
+
+
+    @Override
+    public Subscription call() {
+        return observable.subscribe(new Observer<CategoryGroupModel>() {
+            @Override
+            public void onCompleted() {
+                if (getView() != null)
+                    getView().stopLoading();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                throw new RuntimeException(e);
+            }
+
+            @Override
+            public void onNext(CategoryGroupModel categoryGroupModel) {
+                if (getView() != null)
+                    getView().addItem(categoryGroupModel);
+            }
+        });
     }
 }

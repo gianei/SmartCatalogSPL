@@ -1,18 +1,48 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 
 public abstract class TabbedGalleryPageAdapter extends FragmentStatePagerAdapter {
-    public TabbedGalleryPageAdapter(FragmentManager fm) {
+    protected final BaseAppDisplayFactory baseAppDisplayFactory;
+    protected SparseArray<GalleryGridCallbacks> registeredFragments = new SparseArray<>();
+
+    public TabbedGalleryPageAdapter(FragmentManager fm, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
+        this.baseAppDisplayFactory = baseAppDisplayFactory;
+    }
+
+    //This method return the fragment for the every position in the View Pager
+    @Override
+    public Fragment getItem(int position) {
+        return (Fragment) baseAppDisplayFactory.provideGalleryGridFragment(getCategoryModel(position).getStringId());
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        GalleryGridCallbacks fragment = (GalleryGridCallbacks) super.instantiateItem(container, position);
+        registeredFragments.put(position, fragment);
+        return fragment;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        registeredFragments.remove(position);
+        super.destroyItem(container, position, object);
     }
 
     public abstract void addItem(CategoryModel categoryModel);
 
     public abstract CategoryModel getCategoryModel(int position);
 
-    public abstract void performDrawerClick(CategoryModel categoryModel, int currentTabPosition);
+    public void performDrawerClick(CategoryModel categoryModel, int currentTabPosition) {
+        registeredFragments.get(currentTabPosition).moveToSubCategorySection(categoryModel);
+    }
 }

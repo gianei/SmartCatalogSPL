@@ -16,32 +16,30 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.swipeable.grid;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.detail;
 
+import android.view.View;
+import android.widget.TextView;
+
+import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ItemsGroupComponent;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.HasComponent;
 
 import org.androidannotations.annotations.EFragment;
 
-@EFragment(R.layout.fragment_gallery_visualization_grid)
-public class GalleryGridFragment extends GalleryGridFragmentBase implements HasComponent<ItemsGroupComponent> {
+@EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
+public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresenter> {
 
-    @Override
-    public ItemsGroupComponent getComponent() {
-        return ((HasComponent<ItemsGroupComponent>) getParentFragment()).getComponent();
-    }
-
-    @Override
-    protected void injectMe(GalleryGridFragmentBase activityGalleryBase) {
-        getComponent().inject(activityGalleryBase);
-    }
-
-    @Override
-    protected int getStartingSpanSize() {
-        return 3;
+    public static ItemDetailFragmentBase newInstance(String itemId){
+        return ItemDetailFragment_.builder().itemId(itemId).build();
     }
 
 
+    @Override
+    protected void inflateViewStub(ItemModel itemModel) {
+        itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
+        View newView = itemDetailStub.inflate();
+        TextView textView = (TextView) newView.findViewById(R.id.textViewDetailDescription);
+        textView.setText(itemModel.getStringId());
+    }
 }

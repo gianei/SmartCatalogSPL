@@ -35,9 +35,8 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.Android
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.FirebaseModule;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.LoginActivity;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainActivity;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainPresenter;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryController;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryPresenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailPresenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.GalleryGridPresenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.detail.ItemDetailFragment;
@@ -65,7 +64,7 @@ public interface ApplicationComponent {
 
     void inject(MainPresenter mainPresenter);
 
-    void inject(TabbedGalleryController tabbedGalleryController);
+    void inject(TabbedGalleryPresenter tabbedGalleryPresenter);
 
     void inject(GalleryGridPresenter galleryGridPresenter);
 
@@ -81,7 +80,7 @@ public interface ApplicationComponent {
 
     void inject(TabbedGalleryActivityBase tabbedGalleryBaseActivity);
 
-    void inject(TabbedGalleryFragmentBase<TabbedGalleryController> tabbedGalleryFragmentBase);
+    void inject(TabbedGalleryFragmentBase<TabbedGalleryPresenter> tabbedGalleryFragmentBase);
 
     void inject(MainActivityBase<MainPresenter> mainActivityBase);
 

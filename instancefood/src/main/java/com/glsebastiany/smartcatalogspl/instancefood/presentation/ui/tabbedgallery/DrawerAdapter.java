@@ -28,6 +28,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryDrawerAdapter;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 
 import java.util.LinkedList;
@@ -36,31 +37,12 @@ import java.util.List;
 import rx.Observable;
 import rx.Observer;
 
-public class DrawerAdapter extends BaseAdapter{
+public class DrawerAdapter extends TabbedGalleryDrawerAdapter {
 
-    private Context context;
     private List<CategoryModel> items = new LinkedList<>();
 
-    public DrawerAdapter(Context context, Observable<CategoryModel> observable) {
-        this.context = context;
-
-        observable.subscribe(new Observer<CategoryModel>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                throw new RuntimeException(e);
-            }
-
-            @Override
-            public void onNext(CategoryModel categoryModel) {
-                items.add(categoryModel);
-                notifyDataSetChanged();
-            }
-        });
+    public DrawerAdapter(CategoryModel parentCategory, Context context) {
+        super(parentCategory, context);
     }
 
 
@@ -91,5 +73,11 @@ public class DrawerAdapter extends BaseAdapter{
         //    view.setPadding((int) (TEXT_VIEW_LEFT_PADDING_DP * context.getResources().getDisplayMetrics().density),0 ,0 ,0 );
 
         return view;
+    }
+
+    @Override
+    public void addItem(CategoryModel categoryModel) {
+        items.add(categoryModel);
+        notifyDataSetChanged();
     }
 }

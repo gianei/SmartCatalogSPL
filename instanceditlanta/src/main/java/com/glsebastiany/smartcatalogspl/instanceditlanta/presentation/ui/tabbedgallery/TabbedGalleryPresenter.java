@@ -40,7 +40,7 @@ import rx.functions.Func0;
 
 import static com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryFragment_.CATEGORIES_ID_EXTRA_ARG;
 
-public class TabbedGalleryController extends Presenter<TabbedGalleryFragment> {
+public class TabbedGalleryPresenter extends Presenter<TabbedGalleryFragment> {
 
     @Inject
     CategoryUseCases categoryUseCases;
@@ -52,7 +52,7 @@ public class TabbedGalleryController extends Presenter<TabbedGalleryFragment> {
 
     private Subscription drawerSubscription;
 
-    public TabbedGalleryController(){
+    public TabbedGalleryPresenter(){
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
     }
     @Override

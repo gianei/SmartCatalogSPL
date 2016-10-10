@@ -24,7 +24,7 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EFragment(resName="fragment_gallery_visualization_grid")
-public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRxFragmentBase<P> {
+public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRxFragmentBase<P> implements GalleryGridCallbacks {
 
     public static final int MAX_ITEMS_TO_SHOW_SCROLL = 100;
 
