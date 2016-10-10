@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~     SmartCatalogSPL, an Android catalog Software Product Line
   ~     Copyright (c) 2016 Gianei Leandro Sebastiany
@@ -17,6 +18,5 @@
   -->
 
 <resources>
-    <string name="app_name" translatable="false">Presentation</string>
-    <string name="menu_button_categories">Categories</string>
+    <string name="menu_button_categories">Categorias</string>
 </resources>

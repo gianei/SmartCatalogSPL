@@ -29,25 +29,42 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             android:elevation="4dp"
             >
-            <!--android:background="@color/theme_primary"-->
             <!--android:divider="?attr/actionBarDivider"-->
             <!--android:showDividers="middle"-->
 
-
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
+                android:textColor="?attr/colorControlNormal"
 
-                android:text="Drawer"
-                android:textAllCaps="true"
-                android:textStyle="bold"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+
+                android:text="@string/menu_button_categories"
 
                 android:id="@+id/drawerTriggerView"
-                android:padding="15dp"
-                android:clickable="true" />
+                 />
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="?attr/selectableItemBackground"-->
+                <!--android:textAppearance="?attr/tabTextAppearance"-->
+                <!--android:textSize="13sp"-->
+
+                <!--android:text="@string/menu_button_categories"-->
+                <!--android:textAllCaps="true"-->
+
+                <!--android:id="@+id/drawerTriggerView"-->
+                <!--android:paddingTop="15dp"-->
+                <!--android:paddingLeft="16dp"-->
+                <!--android:paddingRight="16dp"-->
+                <!--android:paddingBottom="15dp"-->
+                <!--android:clickable="true" />-->
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/slidingTabLayout"

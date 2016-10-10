@@ -18,12 +18,14 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -66,6 +68,12 @@ public abstract class TabbedGalleryFragmentBase<P extends Presenter> extends Mvp
     @ViewById(resName="drawer_layout")
     public DrawerLayout drawerLayout;
 
+    @ViewById(resName="drawerTriggerView")
+    public Button drawerButton;
+
+    @InstanceState
+    public int drawerButtonUnselectedColor;
+
     @InstanceState
     public String[] categoriesId;
 
@@ -90,6 +98,7 @@ public abstract class TabbedGalleryFragmentBase<P extends Presenter> extends Mvp
         setHasOptionsMenu(true);
         setupPager();
         setupSlidingTabs();
+        setupDrawerButton();
     }
 
     private void setupPager(){
@@ -125,6 +134,31 @@ public abstract class TabbedGalleryFragmentBase<P extends Presenter> extends Mvp
         drawerListView.setAdapter(drawerAdapter);
         drawerListView.setOnItemClickListener(new DrawerItemClickListener());
         presenterFindDrawerCategories(currentTabCategory);
+
+    }
+
+    private void setupDrawerButton() {
+        if (drawerLayout.isDrawerOpen(drawerListView)){
+            drawerButton.setTextColor(Color.WHITE);
+        }
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {}
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                drawerButtonUnselectedColor = drawerButton.getCurrentTextColor();
+                drawerButton.setTextColor(Color.WHITE);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                drawerButton.setTextColor(drawerButtonUnselectedColor);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {}
+        });
     }
 
     @NonNull
