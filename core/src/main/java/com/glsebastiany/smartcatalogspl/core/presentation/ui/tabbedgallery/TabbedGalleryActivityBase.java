@@ -153,7 +153,7 @@ public abstract class TabbedGalleryActivityBase extends InjectableActivity {
 
         //Toast.LENGTH_SHORT is 2000
         if(currentTime - lastPress > 2000){
-            toast = Toast.makeText(getBaseContext(), "Back sure?", Toast.LENGTH_SHORT);
+            toast = Toast.makeText(getBaseContext(), R.string.confirm_back_toast, Toast.LENGTH_SHORT);
             toast.show();
             lastPress = currentTime;
         }else{

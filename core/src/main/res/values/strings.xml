@@ -18,5 +18,10 @@
 
 <resources>
     <string name="app_name" translatable="false">Presentation</string>
+
+    <!-- Menu strings -->
     <string name="menu_button_categories">Categories</string>
+
+    <!--toasts-->
+    <string name="confirm_back_toast">Press again to go back.</string>
 </resources>

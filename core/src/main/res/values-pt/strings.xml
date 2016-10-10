@@ -19,4 +19,5 @@
 
 <resources>
     <string name="menu_button_categories">Categorias</string>
+    <string name="confirm_back_toast">Pressione novamente para voltar.</string>
 </resources>
