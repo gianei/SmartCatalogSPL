@@ -140,14 +140,14 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
     public int findCategoryPositionInItems(CategoryModel categoryModel){
 
         for (int i = 0; i < items.size(); i++){
-            String itemId = ((Long)items.get(i).getCategoryId()).toString();
-            if (categoryModel.getStringId().equals(itemId)) {
-                return i + 1;
+            String itemCategoryId = ((Long)items.get(i).getCategoryId()).toString();
+            if (itemCategoryId.startsWith(categoryModel.getStringId())) {
+                return i;
             }
         }
 
-        //if nothing found, return top position
-        return 0;
+        //if nothing found, return -1
+        return -1;
     }
 
     public void addItem(ItemModel itemModel) {

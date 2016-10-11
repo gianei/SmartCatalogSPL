@@ -100,6 +100,9 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
 
     public void moveToSubCategorySection(CategoryModel categoryModel) {
         int newPosition = ((GalleryGridItemsAdapterBase)recyclerView.getAdapter()).findCategoryPositionInItems(categoryModel);
+        if (newPosition < 0)
+            return;
+
         int visiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         int difference = visiblePosition - newPosition;
         if (Math.abs(difference) > MAX_ITEMS_TO_SHOW_SCROLL){

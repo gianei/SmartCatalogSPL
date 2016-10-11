@@ -113,7 +113,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
 
     public int findCategoryPositionInItems(CategoryModel categoryModel){
         //if nothing found, return top position
-        return 0;
+        return -1;
     }
 
     @Override
