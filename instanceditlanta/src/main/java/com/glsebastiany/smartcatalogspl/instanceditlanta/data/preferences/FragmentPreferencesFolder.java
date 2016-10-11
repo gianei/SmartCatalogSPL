@@ -56,24 +56,27 @@ public class FragmentPreferencesFolder extends PreferenceFragment {
     @PreferenceClick(R.string.pref_fotos_folder_key)
     void fotosPreferenceClick(){
         final ArrayList<String> directories = FileServices.getPossibleFotosFolders(getActivity());
+        int currentSelected = -1;
+        for (int i = 0; i < directories.size(); i++) {
+            if (directories.get(i).equals(sharedPreferencesFolder.photosFolder().get()))
+                currentSelected = i;
+        }
         final int[] selected = {0};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle(R.string.pref_fotos_folder_title)
-                .setSingleChoiceItems(directories.toArray(new CharSequence[directories.size()]), -1,
+                .setSingleChoiceItems(directories.toArray(new CharSequence[directories.size()]), currentSelected,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 selected[0] = which;
                             }
-
                         }
                 )
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
                         sharedPreferencesFolder.photosFolder().put(directories.get(selected[0]));
                         fotosFolder.setSummary(directories.get(selected[0]));
                     }

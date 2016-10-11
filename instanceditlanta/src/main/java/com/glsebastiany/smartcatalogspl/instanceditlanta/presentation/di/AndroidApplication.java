@@ -20,6 +20,7 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di;
 
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.data.FileServices;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.DaggerApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.modules.ApplicationModule;
@@ -48,6 +49,8 @@ public class AndroidApplication extends InjectableApplication<ApplicationCompone
         FirebaseAuth auth =  FirebaseAuth.getInstance();
 
         auth.addAuthStateListener(authStateListener);
+
+        FileServices.checkAndSetDefaultFotosFolder(this);
     }
 
 }
