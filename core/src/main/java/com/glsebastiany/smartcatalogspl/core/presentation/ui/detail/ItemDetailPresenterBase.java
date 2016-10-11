@@ -48,9 +48,7 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
 
     protected abstract void injectMe(ItemDetailPresenterBase itemDetailPresenterBase);
 
-    protected void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
-
+    protected void onCreatePresenter(Bundle savedState) {
         String categoryId = getCategoryIdFrom(savedState);
 
         if (categoryId != null)
@@ -63,7 +61,7 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
     protected abstract String getCategoryIdFrom(Bundle savedState);
 
     @Override
-    public void onTakeView() {
+    public void onAfterViews() {
         restartable(OBSERVABLE_ID,
                 new Func0<Subscription>() {
                     @Override

@@ -68,6 +68,8 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
         );
 
         recyclerView.setAdapter(mainAdapter);
+
+        presenterAfterView();
     }
 
 
@@ -89,12 +91,9 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
 
 
     /**
-     * Should return an adapter created onCreate
+     * Should return an adapter created onCreatePresenter
      * @return
      */
     public abstract MainAdapterBase getAdapter();
 
-    public void clear(){
-        mainAdapter.clear();
-    }
 }

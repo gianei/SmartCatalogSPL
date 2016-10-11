@@ -34,7 +34,7 @@ import rx.Subscription;
 import rx.functions.Func0;
 import rx.subscriptions.CompositeSubscription;
 
-public class Presenter<V> {
+public abstract class Presenter<V> {
 
     private static final String REQUESTED_KEY = Presenter.class.getName() + "#requested";
 
@@ -118,101 +118,6 @@ public class Presenter<V> {
     }
 
     /**
-     * This method is called after presenter construction.
-     * <p>
-     * This method is intended for overriding.
-     *
-     * @param savedState If the presenter is being re-instantiated after a process restart then this Bundle
-     *                   contains the data it supplied in {@link #onSave}.
-     */
-    @CallSuper
-    protected void onCreate(Bundle savedState) {
-
-    }
-
-    /**
-     * This method is being called when a user leaves view.
-     *
-     * This method is intended for overriding.
-     */
-    @CallSuper
-    protected void onDestroy() {
-        subscriptions.unsubscribe();
-        for (Map.Entry<Integer, Subscription> entry : restartableSubscriptions.entrySet())
-            entry.getValue().unsubscribe();
-    }
-
-    /**
-     * This method is being called when a view gets attached to it.
-     * Normally this happens during {@link Activity#onResume()}, {@link android.app.Fragment#onResume()}
-     * and {@link android.view.View#onAttachedToWindow()}.
-     *
-     * This method is intended for overriding.
-     *
-     */
-    protected void onTakeView() {
-    }
-
-    /**
-     * This method is being called when a view gets detached from the presenter.
-     * Normally this happens during {@link Activity#onPause()} ()}, {@link Fragment#onDestroyView()}
-     * and {@link android.view.View#onDetachedFromWindow()}.
-     *
-     * This method is intended for overriding.
-     */
-    protected void onDropView() {
-    }
-
-    /**
-     * A returned state is the state that will be passed to {@link #onCreate} for a new presenter instance after a process restart.
-     *
-     * This method is intended for overriding.
-     *
-     * @param state a non-null bundle which should be used to put presenter's state into.
-     */
-    @CallSuper
-    protected void onSave(Bundle state) {
-        for (int i = requested.size() - 1; i >= 0; i--) {
-            int restartableId = requested.get(i);
-            Subscription subscription = restartableSubscriptions.get(restartableId);
-            if (subscription != null && subscription.isUnsubscribed())
-                requested.remove(i);
-        }
-        state.putIntegerArrayList(REQUESTED_KEY, requested);
-    }
-
-    public void resume(Bundle bundle) {
-    }
-
-    /**
-     * A callback to be invoked when a presenter is about to be destroyed.
-     */
-    public interface OnDestroyListener {
-        /**
-         * Called before {@link Presenter#onDestroy()}.
-         */
-        void onDestroy();
-    }
-
-    /**
-     * Adds a listener observing {@link #onDestroy}.
-     *
-     * @param listener a listener to add.
-     */
-    public void addOnDestroyListener(OnDestroyListener listener) {
-        onDestroyListeners.add(listener);
-    }
-
-    /**
-     * Removed a listener observing {@link #onDestroy}.
-     *
-     * @param listener a listener to remove.
-     */
-    public void removeOnDestroyListener(OnDestroyListener listener) {
-        onDestroyListeners.remove(listener);
-    }
-
-    /**
      * Returns a current view attached to the presenter or null.
      *
      * View is normally available between
@@ -231,44 +136,128 @@ public class Presenter<V> {
         return view;
     }
 
+
     /**
-     * Initializes the presenter.
+     * A callback to be invoked when a presenter is about to be destroyed.
      */
-    protected void create(Bundle bundle) {
-        onCreate(bundle);
+    public interface OnDestroyListener {
+        /**
+         * Called before {@link Presenter#onDestroyView()}.
+         */
+        void onDestroy();
     }
 
     /**
-     * Destroys the presenter, calling all {@link Presenter.OnDestroyListener} callbacks.
-     */
-    protected void destroy() {
-        for (OnDestroyListener listener : onDestroyListeners)
-            listener.onDestroy();
-        onDestroy();
-    }
-
-    /**
-     * Saves the presenter.
-     */
-    protected void save(Bundle state) {
-        onSave(state);
-    }
-
-    /**
-     * Attaches a view to the presenter.
+     * Adds a listener observing {@link #onDestroyView()}.
      *
-     * @param view a view to attach.
+     * @param listener a listener to add.
      */
-    protected void takeView(V view) {
-        this.view = view;
-        onTakeView();
+    public void addOnDestroyListener(OnDestroyListener listener) {
+        onDestroyListeners.add(listener);
     }
 
     /**
-     * Detaches the presenter from a view.
+     * Removed a listener observing {@link #onDestroyView()}.
+     *
+     * @param listener a listener to remove.
      */
-    protected void dropView() {
-        onDropView();
+    public void removeOnDestroyListener(OnDestroyListener listener) {
+        onDestroyListeners.remove(listener);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * This method is called after presenter construction.
+     * <p>
+     * This method is intended for overriding.
+     *
+     * @param savedState If the presenter is being re-instantiated after a process restart then this Bundle
+     *                   contains the data it supplied in {@link #onSaveViewInstance(Bundle)}.
+     */
+    protected void onCreatePresenter(Bundle savedState) {}
+
+    /**
+     * This method is called after a view is created. Take care since some fields such as those defined with findViewById
+     * may be null at this point
+     * @param view
+     */
+    @CallSuper
+    protected void onCreateView(V view){
+        this.view = view;
+    }
+
+    /**
+     * This method is called on creation when the view as filled its view fields with findViewById
+     */
+    protected void onAfterViews() {}
+
+    /**
+     * This method is called after presenter construction and recreation.
+     * <p>
+     * This method is intended for overriding.
+     */
+    @CallSuper
+    protected void onResumeView(V view) {
+        this.view = view;
+    }
+
+    /**
+     * This method is being called when a view gets detached from the presenter.
+     * Normally this happens during {@link Activity#onPause()} ()}, {@link Fragment#onDestroyView()}
+     * and {@link android.view.View#onDetachedFromWindow()}.
+     *
+     * This method is intended for overriding.
+     */
+    @CallSuper
+    protected void onPauseView() {
         this.view = null;
     }
+
+    /**
+     * This method is being called when a user leaves view.
+     *
+     * This method is intended for overriding.
+     */
+    @CallSuper
+    protected void onDestroyView() {
+        for (OnDestroyListener listener : onDestroyListeners)
+            listener.onDestroy();
+
+        subscriptions.unsubscribe();
+        for (Map.Entry<Integer, Subscription> entry : restartableSubscriptions.entrySet())
+            entry.getValue().unsubscribe();
+    }
+
+    /**
+     * A returned state is the state that will be passed to {@link #onCreatePresenter} for a new presenter instance after a process restart.
+     *
+     * This method is intended for overriding.
+     *
+     * @param state a non-null bundle which should be used to put presenter's state into.
+     */
+    @CallSuper
+    protected void onSaveViewInstance(Bundle state) {
+        for (int i = requested.size() - 1; i >= 0; i--) {
+            int restartableId = requested.get(i);
+            Subscription subscription = restartableSubscriptions.get(restartableId);
+            if (subscription != null && subscription.isUnsubscribed())
+                requested.remove(i);
+        }
+        state.putIntegerArrayList(REQUESTED_KEY, requested);
+    }
+
 }

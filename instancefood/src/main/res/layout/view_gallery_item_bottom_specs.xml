@@ -17,59 +17,20 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_weight="1"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:rowCount="2"
-    android:columnCount="3"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingBottom="5dp">
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
     <TextView
-        android:id="@+id/item_id"
+        android:id="@+id/item_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:layout_gravity="fill_horizontal"
-        android:layout_row="0"
-        android:layout_column="0"
-        tools:text="88888"/>
-
-    <TextView
-        android:id="@+id/item_price_previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:layout_gravity="right"
-        tools:text="De R$99.99 por "
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/item_price"
-        android:layout_row="0"
-        android:layout_column="2"
-        tools:text="R$9.99"
-        />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/item_description"
-        android:layout_columnSpan="3"
-        android:layout_row="1"
-        android:maxLines="2"
-        android:minLines="2"
-        android:ellipsize="end"
         tools:text="Description"/>
 
-</GridLayout>
+</LinearLayout>

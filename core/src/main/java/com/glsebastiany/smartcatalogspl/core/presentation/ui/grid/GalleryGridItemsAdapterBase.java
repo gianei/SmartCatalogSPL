@@ -37,5 +37,4 @@ public abstract class GalleryGridItemsAdapterBase extends RecyclerView.Adapter<R
 
     public abstract String[] toStringArray();
 
-    public abstract void clear();
 }

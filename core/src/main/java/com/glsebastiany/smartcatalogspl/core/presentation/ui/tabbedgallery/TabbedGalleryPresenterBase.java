@@ -53,9 +53,7 @@ public abstract class TabbedGalleryPresenterBase extends Presenter<TabbedGallery
     protected abstract void injectMe(TabbedGalleryPresenterBase tabbedGalleryPresenterBase);
 
     @Override
-    protected void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
-
+    protected void onCreatePresenter(Bundle savedState) {
         String[] categoriesIds = getCategoriesIdFrom(savedState);
 
         if (categoriesIds != null)
@@ -70,7 +68,7 @@ public abstract class TabbedGalleryPresenterBase extends Presenter<TabbedGallery
     protected abstract String[] getCategoriesIdFrom(Bundle savedState);
 
     @Override
-    protected void onTakeView() {
+    protected void onAfterViews() {
         makeSubcription();
     }
 

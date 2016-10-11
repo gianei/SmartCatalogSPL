@@ -68,6 +68,8 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
 
         if (getPresenter().isMakingLogin())
             mAuthProgressDialog.show();
+
+        presenterAfterView();
     }
 
     @Click(R.id.login_with_google)

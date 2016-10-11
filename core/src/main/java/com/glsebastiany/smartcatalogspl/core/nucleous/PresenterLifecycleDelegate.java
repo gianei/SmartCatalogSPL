@@ -19,7 +19,6 @@
 package com.glsebastiany.smartcatalogspl.core.nucleous;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 public final class PresenterLifecycleDelegate<P extends Presenter> {
@@ -30,9 +29,6 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
     @Nullable private PresenterFactory<P> presenterFactory;
     @Nullable private P presenter;
     @Nullable private Bundle bundle;
-    @Nullable private Bundle arguments;
-
-    private boolean presenterHasView;
 
     public PresenterLifecycleDelegate(@Nullable PresenterFactory<P> presenterFactory) {
         this.presenterFactory = presenterFactory;
@@ -48,7 +44,7 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
 
     /**
      * Sets a presenter factory.
-     * Call this method before onCreate/onFinishInflate to override default {@link ReflectionPresenterFactory} presenter factory.
+     * Call this method before onCreatePresenter/onFinishInflate to override default {@link ReflectionPresenterFactory} presenter factory.
      * Use this method for presenter dependency injection.
      */
     public void setPresenterFactory(@Nullable PresenterFactory<P> presenterFactory) {
@@ -74,18 +70,11 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
             if (presenter == null) {
                 presenter = presenterFactory.createPresenter();
                 PresenterStorage.INSTANCE.add(presenter);
-                presenter.create(bundle == null ? arguments : bundle);
+                presenter.onCreatePresenter(bundle);
             }
             bundle = null;
-            arguments = null;
         }
         return presenter;
-    }
-
-    public void onArguments(Bundle arguments) {
-        if (presenter != null)
-            throw new IllegalArgumentException("onRestoreInstanceState() should be called before onResume()");
-        this.arguments = arguments;
     }
 
     /**
@@ -94,18 +83,24 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
     public void onSaveInstanceState(Bundle bundle) {
         getPresenter();
         if (presenter != null) {
-            presenter.save(bundle);
+            presenter.onSaveViewInstance(bundle);
             bundle.putString(PRESENTER_ID_KEY, PresenterStorage.INSTANCE.getId(presenter));
         }
     }
 
-    /**
-     * {@link android.app.Activity#onCreate(Bundle)}, {@link android.app.Fragment#onCreate(Bundle)}, {@link android.view.View#onRestoreInstanceState(Parcelable)}.
-     */
-    public void onRestoreInstanceState(Bundle presenterState) {
+
+    public void onCreate(Bundle bundle, Object view) {
         if (presenter != null)
-            throw new IllegalArgumentException("onRestoreInstanceState() should be called before onResume()");
-        this.bundle = ParcelFn.unmarshall(ParcelFn.marshall(presenterState));
+            throw new IllegalArgumentException("onCreatePresenter() should be called before onResume()");
+        if (bundle != null)
+            this.bundle = ParcelFn.unmarshall(ParcelFn.marshall(bundle));
+        getPresenter();
+        //noinspection unchecked
+        presenter.onCreateView(view);
+    }
+
+    public void onAfterViews() {
+        presenter.onAfterViews();
     }
 
     /**
@@ -115,10 +110,9 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
      */
     public void onResume(Object view) {
         getPresenter();
-        if (presenter != null && !presenterHasView) {
+        if (presenter != null) {
             //noinspection unchecked
-            presenter.takeView(view);
-            presenterHasView = true;
+            presenter.onResumeView(view);
         }
     }
 
@@ -127,10 +121,9 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
      * {@link android.app.Fragment#onDestroyView()},
      * {@link android.view.View#onDetachedFromWindow()}
      */
-    public void onDropView() {
-        if (presenter != null && presenterHasView) {
-            presenter.dropView();
-            presenterHasView = false;
+    public void onPause() {
+        if (presenter != null) {
+            presenter.onPauseView();
         }
     }
 
@@ -141,8 +134,9 @@ public final class PresenterLifecycleDelegate<P extends Presenter> {
      */
     public void onDestroy(boolean isFinal) {
         if (presenter != null && isFinal) {
-            presenter.destroy();
+            presenter.onDestroyView();
             presenter = null;
         }
     }
+
 }

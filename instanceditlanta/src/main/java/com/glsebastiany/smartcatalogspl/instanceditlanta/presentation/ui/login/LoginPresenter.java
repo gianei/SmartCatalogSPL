@@ -56,7 +56,7 @@ public class LoginPresenter
 
 
     @Override
-    public void onTakeView(){
+    public void onAfterViews(){
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -72,11 +72,6 @@ public class LoginPresenter
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .build();
 
-    }
-
-    @Override
-    protected void onSave(Bundle state) {
-        super.onSave(state);
     }
 
     public void startLogin() {

@@ -130,10 +130,4 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
         notifyItemInserted(categoriesGroup.size()-1);
     }
 
-    @Override
-    public void clear() {
-        categoriesGroup.clear();
-        notifyDataSetChanged();
-    }
-
 }

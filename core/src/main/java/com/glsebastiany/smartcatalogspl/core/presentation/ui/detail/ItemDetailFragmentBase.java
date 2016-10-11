@@ -26,6 +26,7 @@ import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.InstanceState;
@@ -46,7 +47,11 @@ public abstract class ItemDetailFragmentBase<P extends Presenter> extends MvpRxF
 
     @Override
     protected void injectApplicationComponent() {
+    }
 
+    @AfterViews
+    protected void afterViews(){
+        presenterAfterViews();
     }
 
     public void addItem(ItemModel itemModel){

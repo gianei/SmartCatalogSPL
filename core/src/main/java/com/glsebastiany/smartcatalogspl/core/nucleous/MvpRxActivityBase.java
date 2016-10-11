@@ -21,13 +21,15 @@ package com.glsebastiany.smartcatalogspl.core.nucleous;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
 /**
  * This class is an example of how an activity could controls it's presenter.
  * You can inherit from this class or copy/paste this class's code to
- * create your own view implementation.
+ * createPresenter your own view implementation.
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
@@ -45,7 +47,7 @@ public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableA
 
     /**
      * Sets a presenter factory.
-     * Call this method before onCreate/onFinishInflate to override default {@link ReflectionPresenterFactory} presenter factory.
+     * Call this method before onCreatePresenter/onFinishInflate to override default {@link ReflectionPresenterFactory} presenter factory.
      * Use this method for presenter dependency injection.
      */
     public void setPresenterFactory(PresenterFactory<P> presenterFactory) {
@@ -73,15 +75,14 @@ public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null)
-            presenterDelegate.onRestoreInstanceState(savedInstanceState);
+        presenterDelegate.onCreate(savedInstanceState, this);
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        presenterDelegate.onSaveInstanceState(outState);
+    /**
+     * This method must be called after view fields are assigned, so that the presenter can work
+     */
+    public void presenterAfterView() {
+        presenterDelegate.onAfterViews();
     }
 
     @Override
@@ -93,7 +94,13 @@ public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableA
     @Override
     protected void onPause() {
         super.onPause();
-        presenterDelegate.onDropView();
+        presenterDelegate.onPause();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        presenterDelegate.onSaveInstanceState(outState);
     }
 
     @Override
@@ -101,7 +108,5 @@ public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableA
         super.onDestroy();
         presenterDelegate.onDestroy(!isChangingConfigurations());
     }
-
-
 
 }

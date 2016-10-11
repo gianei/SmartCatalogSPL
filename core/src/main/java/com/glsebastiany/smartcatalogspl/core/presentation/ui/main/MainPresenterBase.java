@@ -50,17 +50,14 @@ public abstract class MainPresenterBase extends Presenter<MainActivityBase> impl
     protected abstract void injectMe(MainPresenterBase mainPresenterBase);
 
     @Override
-    protected void onTakeView() {
+    protected void onAfterViews() {
         makeSubcription();
     }
 
     private void makeSubcription() {
-        if(getView()!= null)
-            getView().clear();
         restartable(OBSERVABLE_ID, this);
         start(OBSERVABLE_ID);
     }
-
 
     public Subscription call() {
         return observable.subscribe(new Observer<CategoryGroupModel>() {

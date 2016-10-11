@@ -19,13 +19,14 @@
 package com.glsebastiany.smartcatalogspl.core.nucleous;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableFragment;
 
 /**
  * This view is an example of how a view should control it's presenter.
  * You can inherit from this class or copy/paste this class's code to
- * create your own view implementation.
+ * createPresenter your own view implementation.
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
@@ -43,7 +44,7 @@ public abstract class MvpRxFragmentBase<P extends Presenter> extends InjectableF
 
     /**
      * Sets a presenter factory.
-     * Call this method before onCreate/onFinishInflate to override default {@link ReflectionPresenterFactory} presenter factory.
+     * Call this method before onCreatePresenter/onFinishInflate to override default {@link ReflectionPresenterFactory} presenter factory.
      * Use this method for presenter dependency injection.
      */
     public void setPresenterFactory(PresenterFactory<P> presenterFactory) {
@@ -65,17 +66,14 @@ public abstract class MvpRxFragmentBase<P extends Presenter> extends InjectableF
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        if (bundle == null && getArguments() != null)
-            presenterDelegate.onArguments(getArguments());
-        else if (bundle != null)
-            presenterDelegate.onRestoreInstanceState(bundle);
-
+        presenterDelegate.onCreate(bundle == null ? getArguments() : bundle, this);
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        presenterDelegate.onSaveInstanceState(bundle);
+    /**
+     * This method must be called after view fields are assigned, so that the presenter can work
+     */
+    public void presenterAfterViews() {
+        presenterDelegate.onAfterViews();
     }
 
     @Override
@@ -87,7 +85,13 @@ public abstract class MvpRxFragmentBase<P extends Presenter> extends InjectableF
     @Override
     public void onPause() {
         super.onPause();
-        presenterDelegate.onDropView();
+        presenterDelegate.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        presenterDelegate.onSaveInstanceState(bundle);
     }
 
     @Override

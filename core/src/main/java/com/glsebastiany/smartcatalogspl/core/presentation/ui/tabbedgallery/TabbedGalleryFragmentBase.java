@@ -99,6 +99,8 @@ public abstract class TabbedGalleryFragmentBase<P extends Presenter> extends Mvp
         setupPager();
         setupSlidingTabs();
         setupDrawerButton();
+
+        presenterAfterViews();
     }
 
     private void setupPager(){

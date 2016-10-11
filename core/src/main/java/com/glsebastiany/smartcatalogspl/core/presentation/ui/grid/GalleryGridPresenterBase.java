@@ -48,8 +48,7 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
 
     protected abstract void injectMe(GalleryGridPresenterBase galleryGridPresenterBase);
 
-    protected void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
+    protected void onCreatePresenter(Bundle savedState) {
         String categoryId = getCategoryIdFrom(savedState);
         if (categoryId != null)
             itemsObservable = ObservableHelper.setupThreads(itemUseCases.allFromCategory(categoryId).cache());
@@ -61,14 +60,11 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
     protected abstract String getCategoryIdFrom(Bundle savedState);
 
     @Override
-    public void onTakeView() {
+    public void onAfterViews() {
         makeSubcription();
     }
 
     private void makeSubcription() {
-        if(getView()!= null)
-            getView().clear();
-
         restartable(OBSERVABLE_ID,
                 new Func0<Subscription>() {
                     @Override

@@ -35,7 +35,7 @@ public class ReflectionPresenterFactory<P extends Presenter> implements Presente
      *
      * @param viewClass a class of the view
      * @param <P>       a type of the presenter
-     * @return a {@link ReflectionPresenterFactory} instance that is supposed to create a presenter from {@link RequiresPresenter} annotation.
+     * @return a {@link ReflectionPresenterFactory} instance that is supposed to createPresenter a presenter from {@link RequiresPresenter} annotation.
      */
     @Nullable
     public static <P extends Presenter> ReflectionPresenterFactory<P> fromViewClass(Class<?> viewClass) {

@@ -126,9 +126,4 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
         }
     }
 
-    @Override
-    public void clear() {
-        categoriesGroup.clear();
-        notifyDataSetChanged();
-    }
 }

@@ -35,5 +35,4 @@ public abstract class MainAdapterBase<VH extends RecyclerView.ViewHolder> extend
 
     public abstract void addItem(CategoryGroupModel categoryGroupModel);
 
-    public abstract void clear();
 }

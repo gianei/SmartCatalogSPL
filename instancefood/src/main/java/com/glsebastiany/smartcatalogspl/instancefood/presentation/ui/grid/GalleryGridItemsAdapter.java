@@ -20,6 +20,7 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +30,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainAdapter;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -71,7 +75,13 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
         ItemModel item = items.get(baseItemPosition);
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
-        baseItemViewHolder.id.setText(item.getStringId());
+        baseItemViewHolder.description.setText(item.getStringId());
+
+        Glide.with(context).load("https://unsplash.it/300?random")
+                .asBitmap()
+                .signature(new StringSignature(item.getStringId()))
+                .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
+                .into(baseItemViewHolder.image);
     }
 
     @Override
@@ -102,7 +112,6 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
     }
 
     public int findCategoryPositionInItems(CategoryModel categoryModel){
-
         //if nothing found, return top position
         return 0;
     }
@@ -116,32 +125,18 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
         return itemsIds;
     }
 
-    @Override
-    public void clear() {
-        items.clear();
-        notifyDataSetChanged();
-    }
-
     private class BaseItemViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
-        public TextView id;
-        public TextView price;
         public TextView description;
         public ImageButton button;
-        public TextView fromPrice;
 
         public BaseItemViewHolder(View v){
             super(v);
             image = (ImageView) v.findViewById(R.id.item_image);
-            id = (TextView) v.findViewById(R.id.item_id);
-            price = (TextView) v.findViewById(R.id.item_price);
             description = (TextView) v.findViewById(R.id.item_description);
             button = (ImageButton) v.findViewById(R.id.item_view_detail_button);
-            fromPrice = (TextView) v.findViewById(R.id.item_price_previous);
         }
     }
-
-
 
     private class GridItemOnClickListener implements View.OnClickListener, View.OnLongClickListener{
         private int position;
@@ -160,6 +155,5 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
             return false;
         }
     }
-
 
 }

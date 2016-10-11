@@ -70,6 +70,8 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(
                 new SpacesItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
+
+        presenterAfterViews();
     }
 
     @NonNull
@@ -111,7 +113,4 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
 
     }
 
-    public void clear(){
-        adapter.clear();
-    }
 }
