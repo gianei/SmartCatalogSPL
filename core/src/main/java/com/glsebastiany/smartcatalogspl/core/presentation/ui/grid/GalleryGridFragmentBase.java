@@ -31,6 +31,7 @@ import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.widget.MyGridLayoutManager;
 import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
@@ -66,7 +67,7 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
     protected void afterViews(){
         adapter = getGalleryGridItemsAdapter();
         recyclerView.setAdapter(adapter);
-        gridLayoutManager = new GridLayoutManager(getContext(), getStartingSpanSize());
+        gridLayoutManager = new MyGridLayoutManager(getContext(), getStartingSpanSize());
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(
                 new SpacesItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
