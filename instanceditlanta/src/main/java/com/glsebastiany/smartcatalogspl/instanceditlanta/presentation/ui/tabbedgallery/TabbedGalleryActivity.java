@@ -22,6 +22,8 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbed
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
 import com.glsebastiany.smartcatalogspl.core.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
@@ -32,6 +34,7 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.Android
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.FirebaseAuthentication;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
@@ -79,6 +82,29 @@ public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
     @OptionsItem(R.id.menu_switch_lock_task)
     public void menuSwitchLock(){
         Utils.switchLockTasMode(this);
+    }
+
+    @AfterViews
+    void myAfterViews(){
+        setupToolbar();
+    }
+
+    private void setupToolbar() {
+        setupToolbarLogo();
+        setSupportActionBar(toolbar);
+        setupToolbarNavigation();
+    }
+
+    private void setupToolbarLogo() {
+        toolbar.setLogo(R.drawable.image_logo);
+        toolbar.setLogoDescription(getString(R.string.menu_logo_description));
+        toolbar.setTitle("");
+    }
+
+    private void setupToolbarNavigation() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private FirebaseAuthentication firebaseAuthentication;

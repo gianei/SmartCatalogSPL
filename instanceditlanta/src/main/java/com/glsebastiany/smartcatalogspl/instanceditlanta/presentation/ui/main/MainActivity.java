@@ -28,6 +28,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
@@ -85,7 +86,19 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
 
     @AfterViews
     public void myAfterViews() {
+        setupToolbar();
         verifyPermission();
+    }
+
+    private void setupToolbar() {
+        setupToolbarLogo();
+        setSupportActionBar(toolbar);
+    }
+
+    private void setupToolbarLogo() {
+        toolbar.setLogo(R.drawable.image_logo);
+        toolbar.setLogoDescription(getString(R.string.menu_logo_description));
+        toolbar.setTitle("");
     }
 
     private void verifyPermission() {

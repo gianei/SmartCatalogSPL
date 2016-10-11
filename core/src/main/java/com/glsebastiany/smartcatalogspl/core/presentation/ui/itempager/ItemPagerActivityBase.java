@@ -22,7 +22,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
@@ -50,6 +53,9 @@ public abstract class ItemPagerActivityBase extends InjectableActivity {
     @ViewById(resName="pager")
     public ViewPager mPager;
 
+    @ViewById(resName="pager_toolbar")
+    public Toolbar toolbar;
+
     MyPageAdapter mPagerAdapter;
 
     @AfterViews
@@ -57,6 +63,14 @@ public abstract class ItemPagerActivityBase extends InjectableActivity {
         mPagerAdapter = new MyPageAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(itemPosition);
+
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private class MyPageAdapter extends FragmentStatePagerAdapter {

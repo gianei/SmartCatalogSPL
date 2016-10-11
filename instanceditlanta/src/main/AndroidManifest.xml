@@ -43,15 +43,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.ui.main.MainActivity_"></activity>
-        <activity android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_"></activity>
-        <activity android:name=".presentation.ui.login.LoginActivity_"></activity>
+
+        <activity android:name=".presentation.ui.main.MainActivity_" />
+
+        <activity
+            android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_"
+            android:parentActivityName=".presentation.ui.main.MainActivity_" />
+
+        <activity android:name=".presentation.ui.login.LoginActivity_" />
+
         <activity
             android:name=".data.preferences.ActivityPreferences_"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".presentation.ui.main.MainActivity_" />
 
-        <activity android:name=".presentation.ui.itempager.ItemPagerActivity_"></activity>
+        <activity android:name=".presentation.ui.itempager.ItemPagerActivity_" />
     </application>
 
 </manifest>
