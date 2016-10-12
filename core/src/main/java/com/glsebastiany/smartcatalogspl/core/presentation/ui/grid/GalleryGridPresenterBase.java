@@ -98,6 +98,7 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
                 }
         );
 
-        start(OBSERVABLE_ID);
+        if (isUnsubscribed(OBSERVABLE_ID))
+            start(OBSERVABLE_ID);
     }
 }

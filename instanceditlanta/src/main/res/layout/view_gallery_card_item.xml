@@ -50,6 +50,8 @@
                 android:id="@+id/item_image"
                 />
 
+            <include layout="@layout/view_gallery_item_detail_build" />
+
             <include layout="@layout/view_gallery_item_detail_button" />
 
             <ViewStub android:id="@+id/label_stub"

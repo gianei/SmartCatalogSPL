@@ -20,6 +20,7 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.splash;
 
 import android.os.Bundle;
 
+import com.glsebastiany.smartcatalogspl.core.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
@@ -31,8 +32,13 @@ public abstract class SplashScreenBase extends InjectableActivity {
     @Inject
     BaseAppDisplayFactory baseAppDisplayFactory;
 
+    private static int sessionDepth = 0;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        if (sessionDepth++ == 0 && forceTaskMode())
+            Utils.startLockTasMode(this);
 
         baseAppDisplayFactory.startMainActivity(this);
     }
@@ -43,4 +49,6 @@ public abstract class SplashScreenBase extends InjectableActivity {
     }
 
     protected abstract void injectMe(SplashScreenBase splashScreen);
+
+    protected abstract boolean forceTaskMode();
 }

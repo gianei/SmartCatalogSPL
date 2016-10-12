@@ -18,11 +18,18 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.preference.PreferenceActivity;
+import android.support.v7.app.AlertDialog;
 
 
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.PreferenceHeaders;
 
@@ -49,6 +56,44 @@ public class ActivityPreferences extends PreferenceActivity {
     @Override
     protected boolean isValidFragment(String fragmentName) {
         return fragments.contains(fragmentName);
+    }
+
+    @AfterViews
+    void afterViews(){
+        verifyPermission();
+    }
+
+    private void verifyPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                if (shouldShowRequestPermissionRationale(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                    builder.setTitle(R.string.write_external_storage_request_title)
+                            .setMessage(R.string.write_external_storage_request_message)
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @TargetApi(Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    requestPermissions(
+                                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                            0);
+                                }
+                            });
+
+                    builder.create().show();
+
+                } else {
+                    requestPermissions(
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            0);
+                }
+            }
+        }
     }
 
 }

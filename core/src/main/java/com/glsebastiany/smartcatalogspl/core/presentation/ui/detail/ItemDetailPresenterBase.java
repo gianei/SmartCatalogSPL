@@ -86,6 +86,7 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
                 }
         );
 
-        start(OBSERVABLE_ID);
+        if (isUnsubscribed(OBSERVABLE_ID))
+            start(OBSERVABLE_ID);
     }
 }

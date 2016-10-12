@@ -87,7 +87,6 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
     @AfterViews
     public void myAfterViews() {
         setupToolbar();
-        verifyPermission();
     }
 
     private void setupToolbar() {
@@ -101,39 +100,7 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
         toolbar.setTitle("");
     }
 
-    private void verifyPermission() {
-        // Should we show an explanation?
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
 
-                if (shouldShowRequestPermissionRationale(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-                    builder.setTitle(R.string.write_external_storage_request_title)
-                            .setMessage(R.string.write_external_storage_request_message)
-                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                @TargetApi(Build.VERSION_CODES.M)
-                                @Override
-                                public void onClick(DialogInterface dialog, int id) {
-                                    requestPermissions(
-                                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                            0);
-                                }
-                            });
-
-                    builder.create().show();
-
-                } else {
-                    requestPermissions(
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            0);
-                }
-            }
-        }
-    }
 
     private FirebaseAuthentication firebaseAuthentication;
 

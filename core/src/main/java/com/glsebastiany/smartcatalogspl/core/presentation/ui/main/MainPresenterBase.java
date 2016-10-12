@@ -56,7 +56,8 @@ public abstract class MainPresenterBase extends Presenter<MainActivityBase> impl
 
     private void makeSubcription() {
         restartable(OBSERVABLE_ID, this);
-        start(OBSERVABLE_ID);
+        if (isUnsubscribed(OBSERVABLE_ID))
+            start(OBSERVABLE_ID);
     }
 
     public Subscription call() {

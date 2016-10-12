@@ -30,4 +30,9 @@ public class SplashScreen extends SplashScreenBase {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(splashScreen);
     }
 
+    @Override
+    protected boolean forceTaskMode() {
+        return false;
+    }
+
 }

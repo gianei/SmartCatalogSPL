@@ -93,6 +93,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
         baseItemViewHolder.id.setText(item.getStringId());
         baseItemViewHolder.description.setText(item.getName());
         baseItemViewHolder.price.setText(mCurrencyInstance.format(item.getPrice()));
+        baseItemViewHolder.buildIcon.setVisibility(item.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
         ImagesHelper.loadCardImageWithGlide(context, item, baseItemViewHolder.image);
 
@@ -170,6 +171,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
         public TextView description;
         public ImageButton button;
         public TextView fromPrice;
+        public ImageView buildIcon;
 
         public BaseItemViewHolder(View v){
             super(v);
@@ -179,6 +181,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
             description = (TextView) v.findViewById(R.id.item_description);
             button = (ImageButton) v.findViewById(R.id.item_view_detail_button);
             fromPrice = (TextView) v.findViewById(R.id.item_price_previous);
+            buildIcon = (ImageView) v.findViewById(R.id.item_view_detail_build);
         }
     }
 

@@ -101,7 +101,8 @@ public abstract class TabbedGalleryPresenterBase extends Presenter<TabbedGallery
                 }
         );
 
-        start(OBSERVABLE_ID);
+        if (isUnsubscribed(OBSERVABLE_ID))
+            start(OBSERVABLE_ID);
     }
 
     public void findDrawerCategories(CategoryModel categoryModel) {
