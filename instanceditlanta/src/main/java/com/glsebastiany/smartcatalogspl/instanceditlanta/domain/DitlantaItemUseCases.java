@@ -88,12 +88,6 @@ public class DitlantaItemUseCases implements ItemUseCases {
             public void call(Subscriber<? super ItemModel> subscriber) {
                 List<Long> categoryModelsIds = getSubcategoriesIds(categoryId);
 
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
                 List<Item> items = new ArrayList<>();
                 for (Item item : GreenDaoOpenHelper.daoSession(context).getItemDao().loadAll()){
                     try {
@@ -136,11 +130,6 @@ public class DitlantaItemUseCases implements ItemUseCases {
         return Observable.create(new Observable.OnSubscribe<ItemModel>() {
             @Override
             public void call(Subscriber<? super ItemModel> subscriber) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 Item item = null;
                 try {
                     item = GreenDaoOpenHelper.daoSession(context).getItemDao().load(Utils.parseLong(itemId));

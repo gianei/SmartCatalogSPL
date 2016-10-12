@@ -49,10 +49,26 @@ public class DitlantaCategoryGroupsRepository implements CategoryGroupUseCases {
             @Override
             public void call(Subscriber<? super CategoryGroupModel> subscriber) {
                 SuitCaseDao suitCaseDao = GreenDaoOpenHelper.daoSession(context).getSuitCaseDao();
+
+                List<SuitCase> suitCases = suitCaseDao.queryBuilder()
+                        .orderAsc(SuitCaseDao.Properties.Order)
+                        .list();
+
+                while (suitCases.size() == 0){
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        subscriber.onError(e);
+                    }
+                    
+                    suitCases = suitCaseDao.queryBuilder()
+                            .orderAsc(SuitCaseDao.Properties.Order)
+                            .list();
+                }
+
+
                 for (CategoryGroupModel categoryGroupModel :
-                        suitCaseDao.queryBuilder()
-                                .orderAsc(SuitCaseDao.Properties.Order)
-                                .list()) {
+                        suitCases) {
                     subscriber.onNext(categoryGroupModel);
                 }
 
