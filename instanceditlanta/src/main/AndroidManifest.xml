@@ -44,7 +44,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.ui.main.MainActivity_" />
+        <activity android:name=".presentation.ui.main.MainActivity_">
+            <meta-data android:name="android.app.default_searchable"
+                android:value=".presentation.ui.search.SearchActivity_" />
+        </activity>
 
         <activity
             android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_"
@@ -58,6 +61,16 @@
             android:parentActivityName=".presentation.ui.main.MainActivity_" />
 
         <activity android:name=".presentation.ui.itempager.ItemPagerActivity_" />
+
+        <activity
+            android:name=".presentation.ui.search.SearchActivity_"
+            android:parentActivityName=".presentation.ui.main.MainActivity_" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
     </application>
 
 </manifest>

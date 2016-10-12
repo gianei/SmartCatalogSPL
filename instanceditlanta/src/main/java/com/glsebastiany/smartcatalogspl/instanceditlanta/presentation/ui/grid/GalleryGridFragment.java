@@ -43,8 +43,11 @@ public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPres
     @Pref
     SharedPreferencesZoom_ preferencesZoom;
 
-    public static GalleryGridCallbacks newInstance(String categoryId) {
-        return GalleryGridFragment_.builder().categoryId(categoryId).build();
+    public static GalleryGridCallbacks newInstance(String searchQuery, boolean isCategoryIdQuery) {
+        return GalleryGridFragment_.builder()
+                .searchQuery(searchQuery)
+                .isCategoryIdQuery(isCategoryIdQuery)
+                .build();
     }
 
     @Override

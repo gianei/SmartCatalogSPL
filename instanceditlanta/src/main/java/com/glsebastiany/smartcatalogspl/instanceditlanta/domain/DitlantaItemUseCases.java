@@ -44,6 +44,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import de.greenrobot.dao.query.QueryBuilder;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -151,6 +152,28 @@ public class DitlantaItemUseCases implements ItemUseCases {
                     subscriber.onCompleted();
                 } else
                     subscriber.onError(new RuntimeException("Item id " + itemId + " was not found!"));
+            }
+        });
+    }
+
+    @Override
+    public Observable<ItemModel> query(final String query) {
+        return Observable.create(new Observable.OnSubscribe<ItemModel>() {
+            @Override
+            public void call(Subscriber<? super ItemModel> subscriber) {
+                String myQuery = query.trim();
+                myQuery = myQuery.replaceAll("\\s+", " "); //only allow one whitespace between words
+                myQuery = myQuery.replaceAll(" ", "%"); //insert wild card between words
+                myQuery = myQuery.replaceAll("[^\\p{ASCII}]", "_"); //replace accents for any character
+                ItemDao itemDao = GreenDaoOpenHelper.daoSession(context).getItemDao();
+
+                List<Item> list = itemDao.queryBuilder().whereOr(ItemDao.Properties.Id.eq(myQuery), ItemDao.Properties.Name.like("%" + myQuery + "%")).list();
+
+                for (ItemModel item : list) {
+                    subscriber.onNext(item);
+                }
+
+                subscriber.onCompleted();
             }
         });
     }

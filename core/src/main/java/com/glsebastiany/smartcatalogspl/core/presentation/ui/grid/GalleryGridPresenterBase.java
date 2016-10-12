@@ -49,15 +49,20 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
     protected abstract void injectMe(GalleryGridPresenterBase galleryGridPresenterBase);
 
     protected void onCreatePresenter(Bundle savedState) {
-        String categoryId = getCategoryIdFrom(savedState);
-        if (categoryId != null)
-            itemsObservable = ObservableHelper.setupThreads(itemUseCases.allFromCategory(categoryId).cache());
+        String query = getQueryFrom(savedState);
+        if (query != null)
+            if (getIsCategoryIdQueryFrom(savedState))
+                itemsObservable = ObservableHelper.setupThreads(itemUseCases.allFromCategory(query).cache());
+            else
+                itemsObservable = ObservableHelper.setupThreads(itemUseCases.query(query).cache());
         else
             throw new RuntimeException("Category must be set in fragment args");
     }
 
     @Nullable
-    protected abstract String getCategoryIdFrom(Bundle savedState);
+    protected abstract String getQueryFrom(Bundle savedState);
+
+    protected abstract boolean getIsCategoryIdQueryFrom(Bundle savedState);
 
     @Override
     public void onAfterViews() {

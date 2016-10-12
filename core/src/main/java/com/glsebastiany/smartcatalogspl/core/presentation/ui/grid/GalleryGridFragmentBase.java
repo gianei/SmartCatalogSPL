@@ -58,7 +58,11 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
 
     @FragmentArg
     @InstanceState
-    public String categoryId;
+    public String searchQuery;
+
+    @FragmentArg
+    @InstanceState
+    public boolean isCategoryIdQuery;
 
     protected GalleryGridItemsAdapterBase adapter;
     protected GridLayoutManager gridLayoutManager;

@@ -205,7 +205,7 @@ public class Item implements ItemModel {
 
     public void setCategory(Category category) {
         if (category == null) {
-            throw new DaoException("To-one property 'categoryId' has not-null constraint; cannot set to-one to null");
+            throw new DaoException("To-one property 'searchQuery' has not-null constraint; cannot set to-one to null");
         }
         synchronized (this) {
             this.category = category;

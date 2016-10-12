@@ -116,4 +116,9 @@ public class FoodItemUseCases implements ItemUseCases {
         });
 
     }
+
+    @Override
+    public Observable<ItemModel> query(String itemId) {
+        throw new RuntimeException("Not implemented yet!");
+    }
 }

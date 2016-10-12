@@ -25,7 +25,9 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPre
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
 
-import static com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment_.CATEGORY_ID_ARG;
+import static com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment_.IS_CATEGORY_ID_QUERY_ARG;
+import static com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment_.SEARCH_QUERY_ARG;
+
 
 public class GalleryGridPresenter extends GalleryGridPresenterBase {
 
@@ -35,16 +37,28 @@ public class GalleryGridPresenter extends GalleryGridPresenterBase {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
     }
 
-    @Nullable
     @Override
-    protected String getCategoryIdFrom(Bundle savedState) {
-        String categoryId = null;
+    @Nullable
+    protected String getQueryFrom(Bundle savedState) {
+        String query = null;
 
-        if (savedState != null) {
-            if (savedState.containsKey(CATEGORY_ID_ARG)) {
-                categoryId = savedState.getString(CATEGORY_ID_ARG);
+        if (savedState!= null) {
+            if (savedState.containsKey(SEARCH_QUERY_ARG)) {
+                query = savedState.getString(SEARCH_QUERY_ARG);
             }
         }
-        return categoryId;
+        return query;
+    }
+
+    @Override
+    protected boolean getIsCategoryIdQueryFrom(Bundle savedState) {
+        boolean isCategoryIdQuery = false;
+
+        if (savedState!= null) {
+            if (savedState.containsKey(IS_CATEGORY_ID_QUERY_ARG)) {
+                isCategoryIdQuery = savedState.getBoolean(IS_CATEGORY_ID_QUERY_ARG);
+            }
+        }
+        return isCategoryIdQuery;
     }
 }

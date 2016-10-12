@@ -40,7 +40,7 @@ public abstract class TabbedGalleryPageAdapter extends FragmentStatePagerAdapter
     //This method return the fragment for the every position in the View Pager
     @Override
     public Fragment getItem(int position) {
-        return (Fragment) baseAppDisplayFactory.provideGalleryGridFragment(getCategoryModel(position).getStringId());
+        return (Fragment) baseAppDisplayFactory.provideGalleryGridFragment(getCategoryModel(position).getStringId(), true);
     }
 
     @Override

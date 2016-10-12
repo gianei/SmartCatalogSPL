@@ -53,7 +53,7 @@ public class ItemDao extends AbstractDao<Item, Long> {
         public final static Property IsSale = new Property(6, boolean.class, "isSale", false, "IS_SALE");
         public final static Property IsAssembled = new Property(7, boolean.class, "isAssembled", false, "IS_ASSEMBLED");
         public final static Property PreviousPrice = new Property(8, float.class, "previousPrice", false, "PREVIOUS_PRICE");
-        public final static Property CategoryId = new Property(9, long.class, "categoryId", false, "CATEGORY_ID");
+        public final static Property CategoryId = new Property(9, long.class, "searchQuery", false, "CATEGORY_ID");
         public final static Property CreationDate = new Property(10, java.util.Date.class, "creationDate", false, "CREATION_DATE");
     };
 
@@ -82,7 +82,7 @@ public class ItemDao extends AbstractDao<Item, Long> {
                 "\"IS_SALE\" INTEGER NOT NULL ," + // 6: isSale
                 "\"IS_ASSEMBLED\" INTEGER NOT NULL ," + // 7: isAssembled
                 "\"PREVIOUS_PRICE\" REAL NOT NULL ," + // 8: previousPrice
-                "\"CATEGORY_ID\" INTEGER NOT NULL ," + // 9: categoryId
+                "\"CATEGORY_ID\" INTEGER NOT NULL ," + // 9: searchQuery
                 "\"CREATION_DATE\" INTEGER NOT NULL );"); // 10: creationDate
         // Add Indexes
         db.execSQL("CREATE INDEX " + constraint + "IDX_ITEM_CATEGORY_ID ON ITEM" +
@@ -141,7 +141,7 @@ public class ItemDao extends AbstractDao<Item, Long> {
             cursor.getShort(offset + 6) != 0, // isSale
             cursor.getShort(offset + 7) != 0, // isAssembled
             cursor.getFloat(offset + 8), // previousPrice
-            cursor.getLong(offset + 9), // categoryId
+            cursor.getLong(offset + 9), // searchQuery
             new java.util.Date(cursor.getLong(offset + 10)) // creationDate
         );
         return entity;

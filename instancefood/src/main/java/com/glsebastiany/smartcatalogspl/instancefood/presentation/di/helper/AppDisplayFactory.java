@@ -62,8 +62,8 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     }
 
     @Override
-    public GalleryGridCallbacks provideGalleryGridFragment(String category){
-        return GalleryGridFragment.newInstance(category);
+    public GalleryGridCallbacks provideGalleryGridFragment(String searchQuery, boolean isCategoryIdQuery){
+        return GalleryGridFragment.newInstance(searchQuery, isCategoryIdQuery);
     }
 
     @Override

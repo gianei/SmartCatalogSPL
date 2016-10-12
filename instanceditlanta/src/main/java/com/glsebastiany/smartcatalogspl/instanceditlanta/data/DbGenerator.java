@@ -62,7 +62,7 @@ public class DbGenerator {
         item.addBooleanProperty("isSale").notNull();
         item.addBooleanProperty("isAssembled").notNull();
         item.addFloatProperty("previousPrice").notNull();
-        Property categoryIdProperty = item.addLongProperty("categoryId").notNull().index().getProperty();
+        Property categoryIdProperty = item.addLongProperty("searchQuery").notNull().index().getProperty();
         item.addToOne(category, categoryIdProperty, "category");
         item.addDateProperty("creationDate").notNull();
     }

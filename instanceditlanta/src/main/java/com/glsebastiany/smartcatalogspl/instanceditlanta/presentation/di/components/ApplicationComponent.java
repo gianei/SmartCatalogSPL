@@ -41,6 +41,7 @@ import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid.Ga
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login.LoginActivity;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main.MainPresenter;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.search.SearchActivity;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery.TabbedGalleryPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPresenterBase;
 
@@ -88,4 +89,6 @@ public interface ApplicationComponent {
     void inject(SplashScreenBase splashScreen);
 
     void inject(LoginActivity loginActivity);
+
+    void inject(SearchActivity searchActivity);
 }

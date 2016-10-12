@@ -34,8 +34,11 @@ import org.androidannotations.annotations.EFragment;
 @RequiresPresenter(GalleryGridPresenter.class)
 public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenter> {
 
-    public static GalleryGridCallbacks newInstance(String categoryId) {
-        return GalleryGridFragment_.builder().categoryId(categoryId).build();
+    public static GalleryGridCallbacks newInstance(String searchQuery, boolean isCategoryIdQuery) {
+        return GalleryGridFragment_.builder()
+                .searchQuery(searchQuery)
+                .isCategoryIdQuery(isCategoryIdQuery)
+                .build();
     }
 
     @NonNull

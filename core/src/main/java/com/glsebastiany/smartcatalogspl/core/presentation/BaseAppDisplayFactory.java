@@ -32,7 +32,7 @@ import java.util.List;
 
 public interface BaseAppDisplayFactory {
     Fragment provideGalleryFragment(String[] categoriesIds);
-    GalleryGridCallbacks provideGalleryGridFragment(String category);
+    GalleryGridCallbacks provideGalleryGridFragment(String searchQuery, boolean isCategoryIdQuery);
     GalleryGridFragmentBase provideGalleryGridFragment();
     void startMainActivity(AppCompatActivity activityBase);
     void startLoginActivity();
