@@ -74,9 +74,7 @@ public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
 
     @OptionsItem(R.id.menu_settings)
     public void menuSettings(){
-
-        Intent intent = ActivityPreferences_.intent(this).get();
-        startActivity(intent);
+        ActivityPreferences_.intent(this).start();
     }
 
     @OptionsItem(R.id.menu_switch_lock_task)

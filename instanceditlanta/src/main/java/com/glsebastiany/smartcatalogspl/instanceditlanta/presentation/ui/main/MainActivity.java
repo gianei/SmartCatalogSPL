@@ -74,9 +74,7 @@ public class MainActivity extends MainActivityBase<MainPresenter> {
 
     @OptionsItem(R.id.menu_settings)
     public void menuSettings(){
-        Intent intent = ActivityPreferences_.intent(this).get();
-        startActivity(intent);
-        finish();
+        ActivityPreferences_.intent(this).start();
     }
 
     @OptionsItem(R.id.menu_switch_lock_task)
