@@ -56,20 +56,11 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
         if (userIsLoggedIn(user) && !updadersStarted) {
             updadersStarted = true;
 
-            new MyAsyncTask().execute();
-
-            saveLoginUser(user);
-        }
-    }
-
-    private class MyAsyncTask extends AsyncTask<Void, Void, Void>{
-
-        @Override
-        protected Void doInBackground(Void... params) {
             new FirebaseUpdater(itemsUpdater);
             new FirebaseUpdater(categoryUpdater);
             new FirebaseUpdater(suitCaseUpdater);
-            return null;
+
+            saveLoginUser(user);
         }
     }
 

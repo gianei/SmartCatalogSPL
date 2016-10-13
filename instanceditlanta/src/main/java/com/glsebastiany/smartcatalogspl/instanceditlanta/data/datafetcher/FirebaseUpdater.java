@@ -18,6 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.data.datafetcher;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
@@ -50,27 +51,45 @@ public class FirebaseUpdater {
 
     private void addInitialListener() {
         final Query query = FirebaseDatabase.getInstance().getReference().child(firebaseUpdatable.getLocation());
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshots) {
-                firebaseUpdatable.clean();
-                long latestDate = firebaseUpdatable.insertAll(dataSnapshots);
-
-                firebaseUpdatable.saveUpdatedDate(latestDate);
-
-                addListenerSinceLastUpdate();
-
-                query.removeEventListener(this);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError DatabaseError) {
-                logCancel();
-                query.removeEventListener(this);
-            }
-        });
+        query.addValueEventListener(new InitialValueEventListener(query));
 
         Log.d(LOG_TAG, "SingleValue listener added");
+    }
+
+    private class InitialValueEventListener implements ValueEventListener{
+        final Query query;
+
+        private InitialValueEventListener(Query query) {
+            this.query = query;
+        }
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshots) {
+            new AsyncTask<DataSnapshot, Void, Void>() {
+                @Override
+                protected Void doInBackground(DataSnapshot... params) {
+                    firebaseUpdatable.clean();
+                    long latestDate = firebaseUpdatable.insertAll(params[0]);
+
+                    firebaseUpdatable.saveUpdatedDate(latestDate);
+
+                    addListenerSinceLastUpdate();
+
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    query.removeEventListener(InitialValueEventListener.this);
+                }
+            }.execute(dataSnapshots);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError DatabaseError) {
+            logCancel();
+            query.removeEventListener(this);
+        }
     }
 
 
@@ -88,18 +107,38 @@ public class FirebaseUpdater {
 
     private void checkForRemovedItems(FirebaseUpdatable firebaseUpdatable) {
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(firebaseUpdatable.getHashLocation());
-        //singleEventValueListener just dont work, and you can not even remove the listener: http://stackoverflow.com/questions/35840486/firebase-seems-to-use-old-data-snapshot
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshots) {
-                removeFromHash(dataSnapshots);
-            }
+        //singleEventValueListener just dont work: http://stackoverflow.com/questions/35840486/firebase-seems-to-use-old-data-snapshot
+        ref.addValueEventListener(new RemovedItemsValueEventListener(ref));
+    }
 
-            @Override
-            public void onCancelled(DatabaseError DatabaseError) {
-                logCancel();
-            }
-        });
+    private class RemovedItemsValueEventListener implements ValueEventListener{
+        final DatabaseReference databaseReference;
+
+        private RemovedItemsValueEventListener(DatabaseReference databaseReference) {
+            this.databaseReference = databaseReference;
+        }
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshots) {
+            new AsyncTask<DataSnapshot, Void, Void>() {
+                @Override
+                protected Void doInBackground(DataSnapshot... params) {
+                    removeFromHash(params[0]);
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    databaseReference.removeEventListener(RemovedItemsValueEventListener.this);
+                }
+            }.execute(dataSnapshots);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError DatabaseError) {
+            logCancel();
+            databaseReference.removeEventListener(this);
+        }
     }
 
     protected void removeFromHash(DataSnapshot dataSnapshots) {
@@ -119,19 +158,43 @@ public class FirebaseUpdater {
 
     private class MyChildEventListener implements ChildEventListener {
         public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
-            checkAndSetUpdatedDate(firebaseUpdatable.insert(snapshot));
+            new AsyncTask<DataSnapshot, Void, Void>(){
+                @Override
+                protected Void doInBackground(DataSnapshot... params) {
+                    checkAndSetUpdatedDate(firebaseUpdatable.insert(params[0]));
+                    return null;
+                }
+            }.execute(snapshot);
         }
 
         public void onChildChanged(DataSnapshot snapshot, String previousChildKey) {
-            checkAndSetUpdatedDate(firebaseUpdatable.change(snapshot));
+            new AsyncTask<DataSnapshot, Void, Void>(){
+                @Override
+                protected Void doInBackground(DataSnapshot... params) {
+                    checkAndSetUpdatedDate(firebaseUpdatable.change(params[0]));
+                    return null;
+                }
+            }.execute(snapshot);
         }
 
         public void onChildRemoved(DataSnapshot snapshot) {
-            checkAndSetUpdatedDate(firebaseUpdatable.remove(snapshot));
+            new AsyncTask<DataSnapshot, Void, Void>(){
+                @Override
+                protected Void doInBackground(DataSnapshot... params) {
+                    checkAndSetUpdatedDate(firebaseUpdatable.remove(params[0]));
+                    return null;
+                }
+            }.execute(snapshot);
         }
 
         public void onChildMoved(DataSnapshot snapshot, String previousChildKey) {
-            checkAndSetUpdatedDate(firebaseUpdatable.move(snapshot));
+            new AsyncTask<DataSnapshot, Void, Void>(){
+                @Override
+                protected Void doInBackground(DataSnapshot... params) {
+                    checkAndSetUpdatedDate(firebaseUpdatable.move(params[0]));
+                    return null;
+                }
+            }.execute(snapshot);
         }
 
         @Override
