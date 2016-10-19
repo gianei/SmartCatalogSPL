@@ -20,12 +20,11 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityResultCodes;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -76,7 +75,7 @@ public class LoginPresenter
 
     public void startLogin() {
         isMakingLogin = true;
-        getView().startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient), ActivityResultCodes.RC_GOOGLE_LOGIN);
+        getView().startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient), Utils.RC_GOOGLE_LOGIN);
     }
 
     public void handleLoginWithActivityResult(Intent data) {

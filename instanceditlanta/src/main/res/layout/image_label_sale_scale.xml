@@ -38,7 +38,7 @@
         android:layout_weight=".2"
         android:gravity="top|right">
 
-        <com.glsebastiany.smartcatalogspl.core.presentation.widget.SquareImageView
+        <com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.SquareImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/image_sale"

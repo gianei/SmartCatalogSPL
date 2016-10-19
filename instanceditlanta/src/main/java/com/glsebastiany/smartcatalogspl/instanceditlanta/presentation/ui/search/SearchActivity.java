@@ -21,12 +21,10 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.search
 import android.app.SearchManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;

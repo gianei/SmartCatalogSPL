@@ -16,28 +16,23 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.helper;
+package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
-import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.detail.ItemDetailFragment;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.itempager.ItemPagerActivity_;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainActivity_;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryActivity;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.itempager.ItemPagerActivity;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment_;
 
 import java.util.List;

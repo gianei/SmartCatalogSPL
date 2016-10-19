@@ -21,7 +21,7 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbed
 import android.support.annotation.NonNull;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryDrawerAdapter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;

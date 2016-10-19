@@ -20,7 +20,7 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid;
 
 import android.support.annotation.NonNull;
 
-import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;

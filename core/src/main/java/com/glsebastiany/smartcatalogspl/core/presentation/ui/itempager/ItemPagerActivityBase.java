@@ -26,7 +26,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
 import org.androidannotations.annotations.AfterViews;

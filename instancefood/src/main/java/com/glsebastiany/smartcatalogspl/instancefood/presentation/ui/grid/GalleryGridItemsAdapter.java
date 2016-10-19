@@ -19,13 +19,11 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,17 +32,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainAdapter;
 
-import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
-
-import rx.Observable;
 
 public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
     private static final int REGULAR_ITEM_TYPE = 1;

@@ -24,7 +24,7 @@ import android.support.annotation.Nullable;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 
 import javax.inject.Inject;
 

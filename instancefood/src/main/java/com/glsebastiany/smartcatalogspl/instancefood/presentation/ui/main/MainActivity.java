@@ -18,7 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main;
 
-import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;

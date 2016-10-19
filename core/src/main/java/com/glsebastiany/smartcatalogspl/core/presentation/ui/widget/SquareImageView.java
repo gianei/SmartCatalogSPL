@@ -16,36 +16,36 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.widget;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.widget;
 
 import android.content.Context;
-import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
-/**
- * Workaround class to use drawer inside fragment with Quick Return design pattern
- */
-public class MyDrawerLayout extends DrawerLayout {
+public class SquareImageView extends ImageView {
 
-    public MyDrawerLayout(Context context) {
+    public SquareImageView(Context context) {
         super(context);
     }
 
-    public MyDrawerLayout(Context context, AttributeSet attrs) {
+    public SquareImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MyDrawerLayout(Context context, AttributeSet attrs, int defStyle) {
+    public SquareImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        widthMeasureSpec = MeasureSpec.makeMeasureSpec(
-                MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY);
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                MeasureSpec.getSize(heightMeasureSpec), MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
 
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+
+        // Optimization so we don't measure twice unless we need to
+        if (width != height) {
+            setMeasuredDimension(width, width);
+        }
+    }
 }

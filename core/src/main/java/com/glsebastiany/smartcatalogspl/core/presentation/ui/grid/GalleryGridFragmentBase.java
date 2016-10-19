@@ -28,11 +28,11 @@ import android.widget.ProgressBar;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.widget.MyGridLayoutManager;
-import com.glsebastiany.smartcatalogspl.core.presentation.widget.SpacesItemDecoration;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.MyGridLayoutManager;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.SpacesItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;

@@ -24,7 +24,7 @@ import android.support.annotation.Nullable;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 
 import java.util.Arrays;
 

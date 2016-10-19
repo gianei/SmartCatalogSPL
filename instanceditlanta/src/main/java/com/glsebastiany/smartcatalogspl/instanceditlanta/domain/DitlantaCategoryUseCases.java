@@ -20,10 +20,9 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.domain;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.core.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.GreenDaoOpenHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.CategoryDao;
@@ -37,7 +36,6 @@ import javax.inject.Inject;
 import de.greenrobot.dao.DaoException;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Func1;
 
 public class DitlantaCategoryUseCases implements CategoryUseCases {
 

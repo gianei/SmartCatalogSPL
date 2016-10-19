@@ -20,8 +20,8 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.splash;
 
 import android.os.Bundle;
 
-import com.glsebastiany.smartcatalogspl.core.Utils;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
 import javax.inject.Inject;

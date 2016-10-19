@@ -18,23 +18,15 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.main;
 
-import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 
-import com.glsebastiany.smartcatalogspl.core.Utils;
-import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;

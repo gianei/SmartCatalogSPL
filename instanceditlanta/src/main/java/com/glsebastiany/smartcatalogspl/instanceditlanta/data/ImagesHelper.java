@@ -20,12 +20,11 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.data;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.MediaStoreSignature;
-import com.glsebastiany.smartcatalogspl.core.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 

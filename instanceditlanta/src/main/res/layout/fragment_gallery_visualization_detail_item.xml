@@ -23,7 +23,7 @@
     android:background="@color/background_floating_material_light"
     tools:activity="com.glsebastiany.catalogueditlanta.ui.gallery.visualization.grid.detail.FragmentItemDetail">
 
-    <com.glsebastiany.smartcatalogspl.core.presentation.widget.TouchImageView
+    <com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/imageViewDetalheItem"

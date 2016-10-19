@@ -16,21 +16,22 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.nucleous;
+package com.glsebastiany.smartcatalogspl.core.presentation.nucleous;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.support.annotation.NonNull;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
 /**
- * This view is an example of how a view should control it's presenter.
+ * This class is an example of how an activity could controls it's presenter.
  * You can inherit from this class or copy/paste this class's code to
  * createPresenter your own view implementation.
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
-public abstract class MvpRxFragmentBase<P extends Presenter> extends InjectableFragment/* implements ViewWithPresenter<P> */{
+public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableActivity {
 
     private PresenterLifecycleDelegate<P> presenterDelegate =
             new PresenterLifecycleDelegate<>(ReflectionPresenterFactory.<P>fromViewClass(getClass()));
@@ -64,39 +65,46 @@ public abstract class MvpRxFragmentBase<P extends Presenter> extends InjectableF
     }
 
     @Override
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        presenterDelegate.onCreate(bundle == null ? getArguments() : bundle, this);
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        presenterDelegate.onResume(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenterDelegate.onCreate(savedInstanceState, this);
     }
 
     /**
      * This method must be called after view fields are assigned, so that the presenter can work
      */
-    public void presenterAfterViews() {
+    public void presenterAfterView() {
         presenterDelegate.onAfterViews();
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         presenterDelegate.onResume(this);
     }
 
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
         presenterDelegate.onPause();
     }
 
     @Override
-    public void onSaveInstanceState(Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        presenterDelegate.onSaveInstanceState(bundle);
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        presenterDelegate.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
-        presenterDelegate.onDestroy(!getActivity().isChangingConfigurations());
+        presenterDelegate.onDestroy(!isChangingConfigurations());
     }
+
 }

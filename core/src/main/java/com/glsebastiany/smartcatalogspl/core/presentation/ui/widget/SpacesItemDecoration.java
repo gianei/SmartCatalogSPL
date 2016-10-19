@@ -16,8 +16,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.di;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.widget;
 
-public interface HasComponent<C> {
-    C getComponent();
+
+import android.graphics.Rect;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+    private int space;
+
+    public SpacesItemDecoration(int space) {
+        this.space = space;
+    }
+
+    @Override
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        outRect.left = space;
+        outRect.right = space;
+        outRect.bottom = space;
+        outRect.top = space;
+    }
 }

@@ -16,24 +16,20 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.nucleous;
+package com.glsebastiany.smartcatalogspl.core.presentation.nucleous;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableFragment;
 
 /**
- * This class is an example of how an activity could controls it's presenter.
+ * This view is an example of how a view should control it's presenter.
  * You can inherit from this class or copy/paste this class's code to
  * createPresenter your own view implementation.
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
-public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableActivity {
+public abstract class MvpRxFragmentBase<P extends Presenter> extends InjectableFragment/* implements ViewWithPresenter<P> */{
 
     private PresenterLifecycleDelegate<P> presenterDelegate =
             new PresenterLifecycleDelegate<>(ReflectionPresenterFactory.<P>fromViewClass(getClass()));
@@ -67,46 +63,39 @@ public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableA
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        presenterDelegate.onResume(this);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        presenterDelegate.onCreate(savedInstanceState, this);
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        presenterDelegate.onCreate(bundle == null ? getArguments() : bundle, this);
     }
 
     /**
      * This method must be called after view fields are assigned, so that the presenter can work
      */
-    public void presenterAfterView() {
+    public void presenterAfterViews() {
         presenterDelegate.onAfterViews();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         presenterDelegate.onResume(this);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         presenterDelegate.onPause();
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        presenterDelegate.onSaveInstanceState(outState);
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        presenterDelegate.onSaveInstanceState(bundle);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        presenterDelegate.onDestroy(!isChangingConfigurations());
+        presenterDelegate.onDestroy(!getActivity().isChangingConfigurations());
     }
-
 }

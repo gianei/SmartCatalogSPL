@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

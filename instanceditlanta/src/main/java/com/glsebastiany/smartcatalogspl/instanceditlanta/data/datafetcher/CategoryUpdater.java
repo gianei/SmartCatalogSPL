@@ -23,7 +23,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.glsebastiany.smartcatalogspl.core.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;

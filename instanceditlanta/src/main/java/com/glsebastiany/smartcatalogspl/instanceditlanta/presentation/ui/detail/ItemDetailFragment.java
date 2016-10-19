@@ -25,9 +25,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.widget.TouchImageView;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.ImagesHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Item;

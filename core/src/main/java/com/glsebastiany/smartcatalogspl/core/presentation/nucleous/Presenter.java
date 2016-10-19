@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.nucleous;
+package com.glsebastiany.smartcatalogspl.core.presentation.nucleous;
 
 import android.app.Activity;
 import android.content.Intent;

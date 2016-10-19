@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.widget;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.widget;
 
 import android.content.Context;
 import android.graphics.PointF;

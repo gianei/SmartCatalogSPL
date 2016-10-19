@@ -30,9 +30,9 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;

@@ -23,10 +23,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxActivityBase;
-import com.glsebastiany.smartcatalogspl.core.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.system.ActivityResultCodes;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.components.ApplicationComponent;
@@ -81,7 +81,7 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
 
     }
 
-    @OnActivityResult(ActivityResultCodes.RC_GOOGLE_LOGIN)
+    @OnActivityResult(Utils.RC_GOOGLE_LOGIN)
     public void onGoogleSignInActivityResult(Intent data) {
         getPresenter().handleLoginWithActivityResult(data);
     }

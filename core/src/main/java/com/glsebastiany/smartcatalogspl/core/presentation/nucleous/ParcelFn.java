@@ -16,28 +16,28 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.controller;
+package com.glsebastiany.smartcatalogspl.core.presentation.nucleous;
 
-import java.util.LinkedList;
-import java.util.List;
+import android.os.Parcel;
 
-import rx.Subscription;
+class ParcelFn {
 
-public abstract class BaseSubscriptionedController {
+    private static final ClassLoader CLASS_LOADER = ParcelFn.class.getClassLoader();
 
-    protected List<Subscription> subscriptions = new LinkedList<>();
-
-    protected void addSubscription(Subscription subscription){
-        subscriptions.add(subscription);
+    static <T> T unmarshall(byte[] array) {
+        Parcel parcel = Parcel.obtain();
+        parcel.unmarshall(array, 0, array.length);
+        parcel.setDataPosition(0);
+        Object value = parcel.readValue(CLASS_LOADER);
+        parcel.recycle();
+        return (T)value;
     }
 
-    public void endSubscriptions(){
-        for (Subscription subscription :
-                subscriptions) {
-            if (!subscription.isUnsubscribed()) {
-                subscription.unsubscribe();
-            }
-        }
+    static byte[] marshall(Object o) {
+        Parcel parcel = Parcel.obtain();
+        parcel.writeValue(o);
+        byte[] result = parcel.marshall();
+        parcel.recycle();
+        return result;
     }
-
 }

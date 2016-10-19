@@ -24,15 +24,12 @@ import android.content.Context;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseMainController;
-import com.glsebastiany.smartcatalogspl.core.presentation.controller.BaseSwipeableGalleryController;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.helper.AppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodCategoriesUseCases;
 import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodCategoryGroupUseCase;
 import com.glsebastiany.smartcatalogspl.instancefood.domain.FoodItemUseCases;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainPresenter;
 
 import javax.inject.Singleton;
 

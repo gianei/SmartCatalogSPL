@@ -22,12 +22,11 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.domain;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.glsebastiany.smartcatalogspl.core.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.GreenDaoOpenHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Category;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.Item;
@@ -38,13 +37,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import de.greenrobot.dao.query.QueryBuilder;
 import rx.Observable;
 import rx.Subscriber;
 

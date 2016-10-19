@@ -24,12 +24,12 @@ import android.content.Context;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.domain.DitlantaCategoryGroupsRepository;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.domain.DitlantaCategoryUseCases;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.domain.DitlantaItemUseCases;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.helper.AppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.AppDisplayFactory;
 
 import javax.inject.Singleton;
 

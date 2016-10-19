@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.glsebastiany.smartcatalogspl.core.presentation.widget.SquareImageView
+        <com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.SquareImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/image"

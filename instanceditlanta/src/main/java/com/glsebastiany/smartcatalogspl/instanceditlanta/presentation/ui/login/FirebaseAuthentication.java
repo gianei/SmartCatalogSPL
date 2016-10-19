@@ -22,7 +22,7 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.login;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

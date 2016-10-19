@@ -26,9 +26,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.nucleous.MvpRxActivityBase;
-import com.glsebastiany.smartcatalogspl.core.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
