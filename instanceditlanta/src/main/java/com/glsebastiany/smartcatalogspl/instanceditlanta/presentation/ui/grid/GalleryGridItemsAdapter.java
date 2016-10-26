@@ -19,11 +19,13 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.grid;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -105,6 +107,9 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
         } else {
             baseItemViewHolder.fromPrice.setText("");
         }
+        
+        if (viewHolder.getItemViewType() == PROMOTED_ITEM_TYPE)
+            baseItemViewHolder.bottomSpecGridLayout.setBackgroundColor(context.getResources().getColor(R.color.primary200));
     }
 
     @Override
@@ -172,6 +177,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
         public ImageButton button;
         public TextView fromPrice;
         public ImageView buildIcon;
+        public GridLayout bottomSpecGridLayout;
 
         public BaseItemViewHolder(View v){
             super(v);
@@ -182,6 +188,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
             button = (ImageButton) v.findViewById(R.id.item_view_detail_button);
             fromPrice = (TextView) v.findViewById(R.id.item_price_previous);
             buildIcon = (ImageView) v.findViewById(R.id.item_view_detail_build);
+            bottomSpecGridLayout = (GridLayout) v.findViewById(R.id.bottom_spec_layout);
         }
     }
 

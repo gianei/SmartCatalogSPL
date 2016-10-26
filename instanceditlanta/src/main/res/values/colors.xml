@@ -23,4 +23,6 @@
     <color name="colorAccent">#ffc6671c</color>
 
     <color name="gray">#eeeeee</color>
+    
+    <color name="primary200">#FAC190</color>
 </resources>
