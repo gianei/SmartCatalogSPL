@@ -41,6 +41,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils.depthFirstOnBackPressed;
+
 @EActivity(resName="activity_gallery")
 public abstract class TabbedGalleryActivityBase extends InjectableActivity {
 
@@ -62,7 +64,7 @@ public abstract class TabbedGalleryActivityBase extends InjectableActivity {
     @ViewById(resName="main_toolbar")
     public Toolbar toolbar;
 
-    private long lastPress;
+    protected long lastPress;
     private Toast toast;
 
     @AfterViews
@@ -111,41 +113,9 @@ public abstract class TabbedGalleryActivityBase extends InjectableActivity {
         getActionBar().setTitle(title);
     }
 
-    /**
-     * Workaround for child fragments backstack
-        based on http://stackoverflow.com/a/24176614
-     * @param fragmentManager
-     * @return true when backStack is popped
-     */
-    private boolean depthFirstOnBackPressed(FragmentManager fragmentManager) {
-        List<Fragment> fragmentList = fragmentManager.getFragments();
-        if (fragmentList != null && fragmentList.size() > 0) {
-            for (Fragment fragment : fragmentList) {
-                if (fragment == null) {
-                    continue;
-                }
-                if (fragment.isVisible()) {
-                    if (fragment.getChildFragmentManager() != null) {
-                        if (depthFirstOnBackPressed(fragment.getChildFragmentManager())) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack();
-            return true;
-        }
-
-        return false;
-    }
-
     @Override
     public void onBackPressed() {
-        FragmentManager fm = getSupportFragmentManager();
-        if (depthFirstOnBackPressed(fm)) {
+        if (depthFirstOnBackPressed(getSupportFragmentManager())) {
             return;
         }
 
@@ -159,8 +129,8 @@ public abstract class TabbedGalleryActivityBase extends InjectableActivity {
         }else{
             if (toast != null){
                 toast.cancel();
-                super.onBackPressed();
             }
+            super.onBackPressed();
         }
     }
 

@@ -25,6 +25,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+
+import java.util.List;
 
 /**
  * Class containing some static utility methods.
@@ -108,6 +112,37 @@ public class Utils {
         else
             //noinspection deprecation
             return context.getResources().getDrawable(resourceId);
+    }
+
+    /**
+     * Workaround for child fragments backstack
+     based on http://stackoverflow.com/a/24176614
+     * @param fragmentManager
+     * @return true when backStack is popped
+     */
+    public static boolean depthFirstOnBackPressed(FragmentManager fragmentManager) {
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+        if (fragmentList != null && fragmentList.size() > 0) {
+            for (Fragment fragment : fragmentList) {
+                if (fragment == null) {
+                    continue;
+                }
+                if (fragment.isVisible()) {
+                    if (fragment.getChildFragmentManager() != null) {
+                        if (depthFirstOnBackPressed(fragment.getChildFragmentManager())) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+            return true;
+        }
+
+        return false;
     }
 
 }

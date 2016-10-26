@@ -19,10 +19,16 @@
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery;
 
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
@@ -37,11 +43,14 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 
 import java.util.List;
 
+import static com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils.depthFirstOnBackPressed;
+
 @EActivity(R.layout.activity_gallery)
-@OptionsMenu({R.menu.menu_gallery, R.menu.menu_updates})
+@OptionsMenu({R.menu.menu_gallery, R.menu.menu_updates, R.menu.menu_search })
 public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
 
     @Override
@@ -59,6 +68,13 @@ public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
                 .start();
+    }
+
+    @OptionsMenuItem(R.id.menu_search)
+    void singleInjection(MenuItem searchMenuItem){
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
     }
 
     @OptionsItem(R.id.menu_update_images)
@@ -99,9 +115,13 @@ public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
     }
 
     private void setupToolbarNavigation() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastPress = System.currentTimeMillis();
+                onBackPressed();
+            }
+        });
     }
 
     private FirebaseAuthentication firebaseAuthentication;
