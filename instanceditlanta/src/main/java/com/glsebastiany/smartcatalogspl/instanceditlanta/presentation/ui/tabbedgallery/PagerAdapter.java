@@ -58,6 +58,7 @@ public class PagerAdapter extends TabbedGalleryPageAdapter {
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
+        //workaround to make onMenuOption get called on every fragment of this pager
         for (int i = 0; i < registeredFragments.size(); i++){
             Fragment fragment = (Fragment) registeredFragments.get(registeredFragments.keyAt(i));
             fragment.setMenuVisibility(true);

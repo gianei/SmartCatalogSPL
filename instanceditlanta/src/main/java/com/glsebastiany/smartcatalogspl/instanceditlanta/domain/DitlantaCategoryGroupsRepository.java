@@ -22,6 +22,7 @@ import android.content.Context;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.GreenDaoOpenHelper;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.db.SuitCaseDao;
@@ -90,7 +91,7 @@ public class DitlantaCategoryGroupsRepository implements CategoryGroupUseCases {
     }
 
     public void remove(String id) {
-        GreenDaoOpenHelper.daoSession(context).getSuitCaseDao().deleteByKey(Long.parseLong(id));
+        GreenDaoOpenHelper.daoSession(context).getSuitCaseDao().deleteByKey(Utils.parseLong(id));
     }
 
     public void insert(Object suitCase) {
