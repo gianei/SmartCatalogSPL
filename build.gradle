@@ -47,7 +47,7 @@ ext {
     baseTargetSdkVersion = 25
 
     appInstanceDitlantaConfig = {
-        applicationId "com.glsebastiany.smartcatalogspl.instanceditlanta"
+        applicationId "com.glsebastiany.ditlantaapp"
         minSdkVersion baseMinSdkVersion
         targetSdkVersion baseTargetSdkVersion
         versionCode 1

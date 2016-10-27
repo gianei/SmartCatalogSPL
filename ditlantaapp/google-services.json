@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "135784356975",
+    "firebase_url": "https://smartcatalog.firebaseio.com",
+    "project_id": "project-4832339167989677178",
+    "storage_bucket": "project-4832339167989677178.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135784356975:android:15141027ce4652a2",
+        "android_client_info": {
+          "package_name": "com.glsebastiany.ditlantaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135784356975-67rrnud6bk11naab54j247ljob5ia7q7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.glsebastiany.ditlantaapp",
+            "certificate_hash": "6C85A20B1FC91897A4E3EB41CF80F2561C02F635"
+          }
+        },
+        {
+          "client_id": "135784356975-j808hu85nvcbnp5viuiuj42l1693lk13.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.glsebastiany.ditlantaapp",
+            "certificate_hash": "7D43FC0E1FAC62AB87264B402D59B0CB88F8E2FE"
+          }
+        },
+        {
+          "client_id": "135784356975-r6epb0tbpnvnb8qf94q11h82npqn8umk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.glsebastiany.ditlantaapp",
+            "certificate_hash": "819BD40422A12B8F3F1C5209506A5F7481C35298"
+          }
+        },
+        {
+          "client_id": "135784356975-ppscph1md4nqggmfoopnigd08g2embav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6NxOhAqXTI-roiTwuxmbzSk7U1pkxpaI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135784356975-ppscph1md4nqggmfoopnigd08g2embav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
