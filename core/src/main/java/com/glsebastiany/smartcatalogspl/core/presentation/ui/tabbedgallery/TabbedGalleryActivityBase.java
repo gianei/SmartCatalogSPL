@@ -69,28 +69,7 @@ public abstract class TabbedGalleryActivityBase extends InjectableActivity {
 
     @AfterViews
     protected void afterViews() {
-
-        setupToolbar();
         setupGalleryFragment();
-
-    }
-
-    private void setupToolbar() {
-        setupToolbarLogo(toolbar);
-        setSupportActionBar(toolbar);
-        //setupToolbarNavigation();
-    }
-
-    private void setupToolbarLogo(Toolbar toolbar) {
-        //toolbar.setLogo(R.drawable.image_logo);
-        toolbar.setLogoDescription(getString(R.string.app_name));
-        toolbar.setTitle(getString(R.string.app_name));
-    }
-
-    private void setupToolbarNavigation() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupGalleryFragment() {

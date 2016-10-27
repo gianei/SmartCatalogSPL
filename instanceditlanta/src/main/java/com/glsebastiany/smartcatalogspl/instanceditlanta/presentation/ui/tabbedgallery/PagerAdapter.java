@@ -18,7 +18,9 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.ui.tabbedgallery;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.ViewGroup;
 
 import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
@@ -51,6 +53,15 @@ public class PagerAdapter extends TabbedGalleryPageAdapter {
     public void addItem(CategoryModel categoryModel) {
         categories.add(categoryModel);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        super.setPrimaryItem(container, position, object);
+        for (int i = 0; i < registeredFragments.size(); i++){
+            Fragment fragment = (Fragment) registeredFragments.get(registeredFragments.keyAt(i));
+            fragment.setMenuVisibility(true);
+        }
     }
 
     @Override

@@ -25,9 +25,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.MenuItem;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.R;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.data.preferences.SharedPreferencesZoom_;
 import com.glsebastiany.smartcatalogspl.instanceditlanta.presentation.di.AndroidApplication;
@@ -77,39 +77,45 @@ public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPres
         int itemId_ = item.getItemId();
         if (itemId_ == R.id.menu_zoom_in) {
             zoomIn();
+            return false;
         }
         if (itemId_ == R.id.menu_zoom_out) {
             zoomOut();
+            return false;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
 
-
-
     protected void zoomIn() {
-        int newSpanSize = preferencesZoom.gridZoom().get();
-        if (!isGridSpanAtMinimal()) {
-            newSpanSize--;
-            if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() - 1 == newSpanSize){
-                preferencesZoom.gridZoom().put(newSpanSize);
-                gridLayoutManager.setSpanCount(newSpanSize);
-                gridLayoutManager.requestLayout();
+        int actualSpanSize = preferencesZoom.gridZoom().get();
+        if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() == actualSpanSize){
+            if (!isGridSpanAtMinimal()) {
+                actualSpanSize--;
+                preferencesZoom.gridZoom().put(actualSpanSize);
+                changeLayoutSpan(actualSpanSize);
             }
+        } else {
+            changeLayoutSpan(actualSpanSize);
         }
     }
 
     protected void zoomOut() {
-        int newSpanSize = preferencesZoom.gridZoom().get();
-        if (!isGridSpanAtMaximum()) {
-            newSpanSize++;
-            if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() + 1 == newSpanSize){
-                preferencesZoom.gridZoom().put(newSpanSize);
-                gridLayoutManager.setSpanCount(newSpanSize);
-                gridLayoutManager.requestLayout();
+        int actualSpanSize = preferencesZoom.gridZoom().get();
+        if (((GridLayoutManager)recyclerView.getLayoutManager()).getSpanCount() == actualSpanSize){
+            if (!isGridSpanAtMaximum()) {
+                actualSpanSize++;
+                preferencesZoom.gridZoom().put(actualSpanSize);
+                changeLayoutSpan(actualSpanSize);
             }
+        } else {
+            changeLayoutSpan(actualSpanSize);
         }
+    }
+
+    private void changeLayoutSpan(int actualSpanSize) {
+        gridLayoutManager.setSpanCount(actualSpanSize);
+        gridLayoutManager.requestLayout();
     }
 
     private boolean isGridSpanAtMinimal() {
