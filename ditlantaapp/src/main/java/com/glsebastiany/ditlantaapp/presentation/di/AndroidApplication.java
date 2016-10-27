@@ -19,6 +19,9 @@
 package com.glsebastiany.ditlantaapp.presentation.di;
 
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
+import com.glsebastiany.ditlantaapp.BuildConfig;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.ditlantaapp.data.FileServices;
 import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
@@ -28,11 +31,21 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
+import io.fabric.sdk.android.Fabric;
+
 
 public class AndroidApplication extends InjectableApplication<ApplicationComponent> {
 
     @Inject
     FirebaseAuth.AuthStateListener authStateListener;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
+        Fabric.with(this, new Crashlytics.Builder().core(core).build());
+    }
 
     @Override
     protected ApplicationComponent setupApplicationComponent() {

@@ -28,6 +28,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3f87610c1311893e3e73a1ea84457a26181e8786" />
+
         <service
             android:name="com.glsebastiany.ditlantaapp.data.imagefetching.ImageFetcherIntentService"
             android:enabled="true"
