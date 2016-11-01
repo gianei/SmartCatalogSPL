@@ -19,9 +19,9 @@
 package com.glsebastiany.smartcatalogspl.instancefood.data;
 
 
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 
-public class FoodItemModel implements ItemModel {
+public class FoodItemModel implements ItemBasicModel {
 
     private String id;
     private String categoryId;

@@ -29,13 +29,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.ditlantaapp.R;
 import com.glsebastiany.ditlantaapp.data.ImagesHelper;
-import com.glsebastiany.ditlantaapp.data.db.Item;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -51,7 +50,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
 
     private Context context;
 
-    private List<Item> items = new LinkedList<>();
+    private List<ItemBasicModel> items = new LinkedList<>();
 
     public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks){
         super(galleryGridCallbacks);
@@ -88,24 +87,24 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int baseItemPosition) {
         BaseItemViewHolder baseItemViewHolder = (BaseItemViewHolder) viewHolder;
 
-        Item item = items.get(baseItemPosition);
+        ItemBasicModel item = items.get(baseItemPosition);
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
         baseItemViewHolder.id.setText(item.getStringId());
         baseItemViewHolder.description.setText(item.getName());
         baseItemViewHolder.price.setText(mCurrencyInstance.format(item.getPrice()));
-        baseItemViewHolder.buildIcon.setVisibility(item.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
+        //baseItemViewHolder.buildIcon.setVisibility(item.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
         ImagesHelper.loadCardImageWithGlide(context, item, baseItemViewHolder.image);
 
-        if (item.mustShowPreviousPrice()) {
+        /*if (item.mustShowPreviousPrice()) {
             baseItemViewHolder.fromPrice.setText(context.getString(
                     R.string.item_view_promoted_price,
                     mCurrencyInstance.format(item.getPreviousPrice())
             ));
         } else {
             baseItemViewHolder.fromPrice.setText("");
-        }
+        }*/
         
         if (viewHolder.getItemViewType() == PROMOTED_ITEM_TYPE)
             baseItemViewHolder.bottomSpecGridLayout.setBackgroundColor(context.getResources().getColor(R.color.primary200));
@@ -113,16 +112,16 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
 
     @Override
     public int getItemViewType(int baseItemPosition) {
-        Item item = items.get(baseItemPosition);
+        ItemBasicModel item = items.get(baseItemPosition);
 
-        if (item.getIsPromoted())
+        /*if (item.getIsPromoted())
             return PROMOTED_ITEM_TYPE;
 
         if (item.getIsSale())
             return SALE_ITEM_TYPE;
 
         if (item.getIsNew())
-            return NEW_ITEM_TYPE;
+            return NEW_ITEM_TYPE;*/
 
         return REGULAR_ITEM_TYPE;
     }
@@ -155,8 +154,8 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
         return -1;
     }
 
-    public void addItem(ItemModel itemModel) {
-        items.add((Item)itemModel);
+    public void addItem(ItemBasicModel itemBasicModel) {
+        items.add(itemBasicModel);
         notifyItemInserted(items.size() -1);
     }
 

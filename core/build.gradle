@@ -18,6 +18,7 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'org.greenrobot.greendao'
 apt {
     arguments {
         androidManifestFile variant.outputs[0]?.processResources?.manifestFile
@@ -52,6 +53,7 @@ dependencies androidSupport
 dependencies jUnit
 dependencies rxAndroid
 dependencies javaxInject
+dependencies orm
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

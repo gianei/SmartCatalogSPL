@@ -18,9 +18,8 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.domain;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.instancefood.data.FoodCategoryModel;
 
 import java.util.LinkedList;
@@ -33,7 +32,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 @Singleton
-public class FoodCategoriesUseCases implements CategoryUseCases {
+public class FoodCategoriesUseCases extends CategoryUseCases {
 
     List<CategoryModel> items = new LinkedList<>();
 
@@ -50,53 +49,7 @@ public class FoodCategoriesUseCases implements CategoryUseCases {
 
     }
 
-    @Override
-    public Observable<CategoryModel> getAll() {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
-            @Override
-            public void call(final Subscriber<? super CategoryModel> subscriber) {
-                try {
-                    for (CategoryModel item :
-                            items) {
-                        subscriber.onNext(item);
-                    }
 
-                    Thread.sleep(1000);
-
-                    subscriber.onCompleted();
-
-                } catch (Exception e){
-                    subscriber.onError(e);
-                }
-            }
-        });
-    }
-
-    @Override
-    public Observable<CategoryModel> getAllChildren(final CategoryModel categoryModel) {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>(){
-            @Override
-            public void call(final Subscriber<? super CategoryModel> subscriber) {
-                try {
-                    switch (categoryModel.getStringId()){
-                        case "Drinks":
-                            subscriber.onNext(items.get(4));
-                            subscriber.onNext(items.get(5));
-                        case "Sweet":
-                            subscriber.onNext(items.get(7));
-                        case "Root":
-                            for (int i = 1; i < items.size(); i++)
-                                subscriber.onNext(items.get(i));
-                    }
-
-                    subscriber.onCompleted();
-
-                } catch (Exception e){
-                    subscriber.onError(e);
-                }
-            }
-        });
-    }
 
     @Override
     public Observable<CategoryModel> getDirectChildren(final CategoryModel categoryModel) {

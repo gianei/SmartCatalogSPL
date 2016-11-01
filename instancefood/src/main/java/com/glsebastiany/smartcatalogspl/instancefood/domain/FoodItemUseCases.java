@@ -19,11 +19,8 @@
 package com.glsebastiany.smartcatalogspl.instancefood.domain;
 
 
-import android.content.ClipData;
-
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.instancefood.data.FoodItemModel;
 
 import java.util.LinkedList;
@@ -33,14 +30,13 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
 import rx.functions.Func1;
 
 @Singleton
-public class FoodItemUseCases implements ItemUseCases {
+public class FoodItemUseCases implements ItemBasicUseCases {
 
-    List<ItemModel> items = new LinkedList<>();
+    List<ItemBasicModel> items = new LinkedList<>();
 
     @Inject //must have constructor so that it can be magically created
     public FoodItemUseCases(){
@@ -59,12 +55,12 @@ public class FoodItemUseCases implements ItemUseCases {
     }
 
     @Override
-    public Observable<ItemModel> getAll(){
-        return Observable.create(new Observable.OnSubscribe<ItemModel>(){
+    public Observable<ItemBasicModel> getAll(){
+        return Observable.create(new Observable.OnSubscribe<ItemBasicModel>(){
             @Override
-            public void call(final Subscriber<? super ItemModel> subscriber) {
+            public void call(final Subscriber<? super ItemBasicModel> subscriber) {
                 try {
-                    for (ItemModel item :
+                    for (ItemBasicModel item :
                             items) {
                         Thread.sleep(100);
                         subscriber.onNext(item);
@@ -80,15 +76,15 @@ public class FoodItemUseCases implements ItemUseCases {
     }
 
     @Override
-    public Observable<ItemModel> mainViewItems() {
+    public Observable<ItemBasicModel> mainViewItems() {
         return getAll();
     }
 
     @Override
-    public Observable<ItemModel> allFromCategory(final String categoryId) {
-        return getAll().filter(new Func1<ItemModel, Boolean>() {
+    public Observable<ItemBasicModel> allFromCategory(final String categoryId) {
+        return getAll().filter(new Func1<ItemBasicModel, Boolean>() {
             @Override
-            public Boolean call(ItemModel s) {
+            public Boolean call(ItemBasicModel s) {
                 FoodItemModel item =  (FoodItemModel) s;
                 return item.getCategoryId().equals(categoryId);
             }
@@ -96,12 +92,12 @@ public class FoodItemUseCases implements ItemUseCases {
     }
 
     @Override
-    public Observable<ItemModel> find(final String itemId) {
-        return Observable.create(new Observable.OnSubscribe<ItemModel>() {
+    public Observable<ItemBasicModel> find(final String itemId) {
+        return Observable.create(new Observable.OnSubscribe<ItemBasicModel>() {
             @Override
-            public void call(Subscriber<? super ItemModel> subscriber) {
+            public void call(Subscriber<? super ItemBasicModel> subscriber) {
                 boolean found = false;
-                for (ItemModel item :
+                for (ItemBasicModel item :
                         items) {
                     if (item.getStringId().equals(itemId)) {
                         found = true;
@@ -118,7 +114,7 @@ public class FoodItemUseCases implements ItemUseCases {
     }
 
     @Override
-    public Observable<ItemModel> query(String itemId) {
+    public Observable<ItemBasicModel> query(String itemId) {
         throw new RuntimeException("Not implemented yet!");
     }
 }

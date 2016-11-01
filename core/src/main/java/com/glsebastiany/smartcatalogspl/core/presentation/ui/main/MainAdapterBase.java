@@ -21,7 +21,7 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.main;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 
 public abstract class MainAdapterBase<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {

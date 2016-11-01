@@ -20,9 +20,9 @@ package com.glsebastiany.ditlantaapp.presentation.di.components;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailPresenterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
@@ -57,7 +57,7 @@ import dagger.Component;
 public interface ApplicationComponent {
     //Exposed to sub-graphs.
     Context context();
-    ItemUseCases useCases();
+    ItemBasicUseCases useCases();
     CategoryUseCases categoryUseCases();
     CategoryGroupUseCases categoryGroupUseCases();
     BaseAppDisplayFactory baseAppDisplayFactory();

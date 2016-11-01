@@ -21,16 +21,23 @@ package com.glsebastiany.ditlantaapp.presentation.di.modules;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.ditlantaapp.domain.DitlantaCategoryGroupsRepository;
-import com.glsebastiany.ditlantaapp.domain.DitlantaCategoryUseCases;
-import com.glsebastiany.ditlantaapp.domain.DitlantaItemUseCases;
 import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
 import com.glsebastiany.ditlantaapp.presentation.ui.AppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.categorygroup.CategoryGroupGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -53,24 +60,49 @@ public class ApplicationModule {
         return this.application;
     }
 
-    @Provides
-    @Singleton
-    ItemUseCases provideItemUseCases(DitlantaItemUseCases itemUseCases){
-        return itemUseCases;
-    }
+    //--------------------------
 
     @Provides
     @Singleton
-    CategoryUseCases provideCategoryUseCases(DitlantaCategoryUseCases categoriyUseCases){
-        return categoriyUseCases;
+    ItemBasicRepository provideItemBasicRepository(ItemBasicGreendaoRepository repository){
+        return repository;
     }
+
+
+
+    //--------------------------
 
     @Provides
     @Singleton
-    CategoryGroupUseCases provideCategoryGroupUseCases(DitlantaCategoryGroupsRepository categoryGroupUseCase){
-        return categoryGroupUseCase;
+    ItemPromotedRepository provideItemPromotedRepository(ItemPromotedGreendaoRepository repository){
+        return repository;
     }
 
+
+
+    //--------------------------
+
+    @Provides
+    @Singleton
+    CategoryRepository provideCategoryRepository(CategoryGreendaoRepository repository){
+        return repository;
+    }
+
+
+
+
+    //--------------------------
+    @Provides
+    @Singleton
+    CategoryGroupRepository provideCategoryGroupRepository(CategoryGroupGreendaoRepository repository){
+        return repository;
+    }
+
+
+
+
+
+    //--------------------------
     @Provides
     @Singleton
     BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){

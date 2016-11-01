@@ -19,8 +19,8 @@
 package com.glsebastiany.ditlantaapp.data.firebase;
 
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.ditlantaapp.data.db.Category;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryEntity;
 
 import java.io.Serializable;
 
@@ -57,6 +57,6 @@ public class FirebaseCategory implements Serializable {
     }
 
     public CategoryModel toBaseCategory() {
-        return new Category(id, parentId, name);
+        return new CategoryEntity(id, parentId, name);
     }
 }

@@ -21,13 +21,12 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 
@@ -37,8 +36,6 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import static com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils.depthFirstOnBackPressed;
@@ -47,7 +44,7 @@ import static com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils.depthF
 public abstract class TabbedGalleryActivityBase extends InjectableActivity {
 
     @Inject
-    protected ItemUseCases itemUseCases;
+    protected ItemBasicUseCases itemBasicUseCases;
 
     @Inject
     protected CategoryUseCases categoryUseCases;

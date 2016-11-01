@@ -20,7 +20,7 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgall
 
 import android.support.v4.app.FragmentManager;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
 

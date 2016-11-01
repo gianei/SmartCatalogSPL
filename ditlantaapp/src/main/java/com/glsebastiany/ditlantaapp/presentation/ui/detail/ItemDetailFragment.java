@@ -24,13 +24,12 @@ import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView;
 import com.glsebastiany.ditlantaapp.R;
 import com.glsebastiany.ditlantaapp.data.ImagesHelper;
-import com.glsebastiany.ditlantaapp.data.db.Item;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -45,43 +44,43 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
     }
 
     @Override
-    protected void inflateViewStub(ItemModel itemModel) {
+    protected void inflateViewStub(ItemBasicModel itemBasicModel) {
         Context context = getContext();
         itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
         View newView = itemDetailStub.inflate();
 
         ViewStub labelViewStub =  (ViewStub) newView.findViewById(R.id.label_stub);
-        inflateLabelViewStub(labelViewStub, (Item) itemModel);
+        //inflateLabelViewStub(labelViewStub, itemBasicModel);
 
         TextView priceText = (TextView) newView.findViewById(R.id.textViewDetailItemPrice);
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
-        priceText.setText(currencyInstance.format(((Item) itemModel).getPrice()));
+        priceText.setText(currencyInstance.format((itemBasicModel).getPrice()));
 
         TextView fromText = (TextView) newView.findViewById(R.id.textViewDetailItemPricePrevious);
-        if (((Item) itemModel).mustShowPreviousPrice()) {
+        /*if (itemBasicModel.mustShowPreviousPrice()) {
             fromText.setText(context.getString(
                     R.string.item_view_promoted_price,
-                    currencyInstance.format(((Item) itemModel).getPreviousPrice())
+                    currencyInstance.format(((Item) itemBasicModel).getPreviousPrice())
             ));
         } else {
             fromText.setText("");
-        }
+        }*/
 
         TextView idText = (TextView) newView.findViewById(R.id.textViewDetailItemId);
-        idText.setText(((Item) itemModel).getId().toString());
+        idText.setText( itemBasicModel.getStringId());
 
         TextView descriptionText = (TextView) newView.findViewById(R.id.textViewDetailDescription);
-        descriptionText.setText(((Item) itemModel).getName());
+        descriptionText.setText(itemBasicModel.getName());
 
         ImageView buildIcon = (ImageView) newView.findViewById(R.id.item_view_detail_build);
-        buildIcon.setVisibility(((Item) itemModel).getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
+        //buildIcon.setVisibility(itemBasicModel.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
         final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
-        ImagesHelper.loadDetailImageWithGlide(context, (Item) itemModel, image);
+        ImagesHelper.loadDetailImageWithGlide(context, itemBasicModel, image);
 
     }
 
-    private static void inflateLabelViewStub(ViewStub labelViewStub, Item baseItem) {
+    /*private static void inflateLabelViewStub(ViewStub labelViewStub, ItemBasicModel baseItem) {
         if (baseItem.getIsNew()){
             labelViewStub.setLayoutResource(R.layout.image_label_new);
             labelViewStub.inflate();
@@ -94,5 +93,5 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
             labelViewStub.setLayoutResource(R.layout.image_label_promoted);
             labelViewStub.inflate();
         }
-    }
+    }*/
 }

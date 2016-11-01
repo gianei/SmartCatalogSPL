@@ -21,8 +21,8 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 
@@ -38,9 +38,9 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
     private static int OBSERVABLE_ID = 0;
 
     @Inject
-    ItemUseCases itemUseCases;
+    ItemBasicUseCases itemBasicUseCases;
 
-    private Observable<ItemModel> itemsObservable;
+    private Observable<ItemBasicModel> itemsObservable;
 
     public GalleryGridPresenterBase(){
         injectMe(this);
@@ -52,9 +52,9 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
         String query = getQueryFrom(savedState);
         if (query != null)
             if (getIsCategoryIdQueryFrom(savedState))
-                itemsObservable = ObservableHelper.setupThreads(itemUseCases.allFromCategory(query).cache());
+                itemsObservable = ObservableHelper.setupThreads(itemBasicUseCases.allFromCategory(query).cache());
             else
-                itemsObservable = ObservableHelper.setupThreads(itemUseCases.query(query).cache());
+                itemsObservable = ObservableHelper.setupThreads(itemBasicUseCases.query(query).cache());
         else
             throw new RuntimeException("Category must be set in fragment args");
     }
@@ -74,7 +74,7 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
                 new Func0<Subscription>() {
                     @Override
                     public Subscription call() {
-                        return itemsObservable.subscribe(new Observer<ItemModel>() {
+                        return itemsObservable.subscribe(new Observer<ItemBasicModel>() {
                             @Override
                             public void onCompleted() {
                                 if (getView() != null)
@@ -87,10 +87,10 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
                             }
 
                             @Override
-                            public void onNext(ItemModel itemModel) {
+                            public void onNext(ItemBasicModel itemBasicModel) {
                                 if (getView() != null) {
                                     getView().stopLoading();
-                                    getView().addItem(itemModel);
+                                    getView().addItem(itemBasicModel);
                                 }
                             }
                         });

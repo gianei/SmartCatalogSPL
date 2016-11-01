@@ -33,12 +33,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 import com.glsebastiany.ditlantaapp.R;
-import com.glsebastiany.ditlantaapp.data.db.SuitCase;
+import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -46,7 +45,7 @@ import java.util.List;
 
 public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase> {
 
-    private List<SuitCase> categoriesGroup = new LinkedList<>();
+    private List<CategoryGroupModel> categoriesGroup = new LinkedList<>();
 
     public MainAdapter(Context context, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(context, baseAppDisplayFactory);
@@ -61,7 +60,7 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
 
     @Override
     public void onBindViewHolder(final ViewHolderSuitCase viewHolderSuitCase, int position) {
-        SuitCase model = categoriesGroup.get(position);
+        CategoryGroupModel model = categoriesGroup.get(position);
 
 
         viewHolderSuitCase.itemView.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +125,7 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
 
     @Override
     public void addItem(CategoryGroupModel categoryGroupModel) {
-        categoriesGroup.add((SuitCase)categoryGroupModel);
+        categoriesGroup.add(categoryGroupModel);
         notifyItemInserted(categoriesGroup.size()-1);
     }
 

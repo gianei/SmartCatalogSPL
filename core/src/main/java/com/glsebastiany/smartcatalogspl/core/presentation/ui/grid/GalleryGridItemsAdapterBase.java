@@ -20,8 +20,8 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 
 public abstract class GalleryGridItemsAdapterBase extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected GalleryGridCallbacks galleryGridCallbacks;
@@ -31,7 +31,7 @@ public abstract class GalleryGridItemsAdapterBase extends RecyclerView.Adapter<R
         this.galleryGridCallbacks = galleryGridCallbacks;
     }
 
-    public abstract void addItem(ItemModel itemModel);
+    public abstract void addItem(ItemBasicModel itemBasicModel);
 
     public abstract int findCategoryPositionInItems(CategoryModel categoryModel);
 

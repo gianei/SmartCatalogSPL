@@ -23,8 +23,9 @@ import android.support.annotation.NonNull;
 
 import com.glsebastiany.ditlantaapp.data.datafetcher.CategoryUpdater;
 import com.glsebastiany.ditlantaapp.data.datafetcher.FirebaseUpdater;
-import com.glsebastiany.ditlantaapp.data.datafetcher.ItemsUpdater;
-import com.glsebastiany.ditlantaapp.data.datafetcher.SuitCaseUpdater;
+import com.glsebastiany.ditlantaapp.data.datafetcher.ItemsBasicUpdater;
+import com.glsebastiany.ditlantaapp.data.datafetcher.ItemsPromotedUpdater;
+import com.glsebastiany.ditlantaapp.data.datafetcher.CategoryGroupsUpdater;
 import com.glsebastiany.ditlantaapp.data.firebase.FirebaseUidMapping;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,13 +38,16 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
     private boolean updadersStarted = false;
 
     @Inject
-    SuitCaseUpdater suitCaseUpdater;
+    CategoryGroupsUpdater categoryGroupsUpdater;
 
     @Inject
     CategoryUpdater categoryUpdater;
 
     @Inject
-    ItemsUpdater itemsUpdater;
+    ItemsBasicUpdater itemsBasicUpdater;
+
+    @Inject
+    ItemsPromotedUpdater itemsPromotedUpdater;
 
     @Inject
     public LoginAuthStateListener(){
@@ -55,9 +59,10 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
         if (userIsLoggedIn(user) && !updadersStarted) {
             updadersStarted = true;
 
-            new FirebaseUpdater(itemsUpdater);
+            new FirebaseUpdater(itemsBasicUpdater);
+            new FirebaseUpdater(itemsPromotedUpdater);
             new FirebaseUpdater(categoryUpdater);
-            new FirebaseUpdater(suitCaseUpdater);
+            new FirebaseUpdater(categoryGroupsUpdater);
 
             saveLoginUser(user);
         }

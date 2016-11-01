@@ -21,7 +21,7 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
 import android.content.Context;
 import android.widget.BaseAdapter;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 
 
 public abstract class TabbedGalleryDrawerAdapter extends BaseAdapter {

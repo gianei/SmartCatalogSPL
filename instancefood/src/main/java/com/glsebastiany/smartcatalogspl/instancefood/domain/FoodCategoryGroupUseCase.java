@@ -18,9 +18,8 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.domain;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryGroupUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.instancefood.data.FoodCategoryGroupModel;
 
 import java.util.ArrayList;

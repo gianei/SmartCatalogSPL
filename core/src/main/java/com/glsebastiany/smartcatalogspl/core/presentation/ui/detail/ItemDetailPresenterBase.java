@@ -21,8 +21,8 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.detail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 
@@ -38,9 +38,9 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
     private static int OBSERVABLE_ID = 0;
 
     @Inject
-    ItemUseCases itemUseCases;
+    ItemBasicUseCases itemBasicUseCases;
 
-    private Observable<ItemModel> itemsObservable;
+    private Observable<ItemBasicModel> itemsObservable;
 
     public ItemDetailPresenterBase(){
         injectMe(this);
@@ -52,7 +52,7 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
         String categoryId = getCategoryIdFrom(savedState);
 
         if (categoryId != null)
-            itemsObservable = ObservableHelper.setupThreads(itemUseCases.find(categoryId).cache());
+            itemsObservable = ObservableHelper.setupThreads(itemBasicUseCases.find(categoryId).cache());
         else
             throw new RuntimeException("Item id must be set in fragment args");
     }
@@ -66,7 +66,7 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
                 new Func0<Subscription>() {
                     @Override
                     public Subscription call() {
-                        return itemsObservable.subscribe(new Observer<ItemModel>() {
+                        return itemsObservable.subscribe(new Observer<ItemBasicModel>() {
                             @Override
                             public void onCompleted() {
                             }
@@ -77,9 +77,9 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
                             }
 
                             @Override
-                            public void onNext(ItemModel itemModel) {
+                            public void onNext(ItemBasicModel itemBasicModel) {
                                 if (getView() != null)
-                                    getView().addItem(itemModel);
+                                    getView().addItem(itemBasicModel);
                             }
                         });
                     }

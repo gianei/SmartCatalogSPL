@@ -18,8 +18,8 @@
 
 package com.glsebastiany.ditlantaapp.data.firebase;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
-import com.glsebastiany.ditlantaapp.data.db.SuitCase;
+import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.categorygroup.CategoryGroupEntity;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -89,7 +89,7 @@ public class FirebaseSuitCase {
         if (categoriesIds.size() != 0)
             categoriesStringBuilder.append(categoriesIds.get(categoriesIds.size() - 1).getKey());
 
-        return new SuitCase((long)name.hashCode(), name, imageUrl, categoriesStringBuilder.toString(), order);
+        return new CategoryGroupEntity((long)name.hashCode(), name, imageUrl, categoriesStringBuilder.toString(), order);
 
     }
 }

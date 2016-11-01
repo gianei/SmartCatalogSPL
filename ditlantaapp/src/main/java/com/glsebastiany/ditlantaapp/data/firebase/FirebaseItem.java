@@ -19,8 +19,10 @@
 package com.glsebastiany.ditlantaapp.data.firebase;
 
 
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.ditlantaapp.data.db.Item;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicEntity;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedEntity;
 
 import java.util.Date;
 
@@ -96,8 +98,24 @@ public class FirebaseItem {
 
     public boolean isAssembled() {return assembled;}
 
-    public ItemModel toBaseItem(){
-        return new Item(id, name, getPrice().floatValue(), "descr", getPhotoUrl(), isPromoted(), isSale(), isAssembled(), getPreviousPrice().floatValue(), category, new Date(getDate()) );
+    public ItemBasicModel toBasicItemModel(){
+        return new ItemBasicEntity(
+                id,
+                category,
+                name,
+                getPrice().floatValue(),
+                "descr",
+                getPhotoUrl());
+    }
+
+    public ItemPromotedModel toPromotedItemModel(){
+        return new ItemPromotedEntity(
+                id,
+                isPromoted(),
+                isSale(),
+                isAssembled(),
+                getPreviousPrice().floatValue(),
+                new Date(getDate()) );
     }
 
 }

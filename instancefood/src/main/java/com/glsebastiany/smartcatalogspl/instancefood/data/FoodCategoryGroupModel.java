@@ -19,7 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instancefood.data;
 
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
 
 import java.util.List;
 

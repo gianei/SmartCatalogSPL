@@ -24,8 +24,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.MediaStoreSignature;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
 import com.glsebastiany.ditlantaapp.R;
 
 import java.io.File;
@@ -33,7 +33,7 @@ import java.io.File;
 public class ImagesHelper {
 
     @NonNull
-    private static String getImageCompleteUrl(Context context, ItemModel myListItem) {
+    private static String getImageCompleteUrl(Context context, ItemBasicModel myListItem) {
         return FileServices.getFotosFolder(context)
                 + File.separator + myListItem.getStringId() + ".jpg";
     }
@@ -50,7 +50,7 @@ public class ImagesHelper {
         return new MediaStoreSignature("", modifiedSignature, 0);
     }
 
-    public static void loadDetailImageWithGlide(Context context, ItemModel baseItem, ImageView intoView){
+    public static void loadDetailImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView){
         String imageCompleteUrl = ImagesHelper.getImageCompleteUrl(context, baseItem);
         Glide.with(context).load(imageCompleteUrl)
                 .asBitmap()
@@ -60,7 +60,7 @@ public class ImagesHelper {
                 .into(intoView);
     }
 
-    public static void loadCardImageWithGlide(Context context, ItemModel baseItem, ImageView intoView){
+    public static void loadCardImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView){
         String imageCompleteUrl = ImagesHelper.getImageCompleteUrl(context, baseItem);
         Glide.with(context).load(imageCompleteUrl)
                 .asBitmap()

@@ -21,8 +21,8 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.domain.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 

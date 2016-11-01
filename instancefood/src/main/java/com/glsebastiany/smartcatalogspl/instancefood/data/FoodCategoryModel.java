@@ -19,7 +19,7 @@
 package com.glsebastiany.smartcatalogspl.instancefood.data;
 
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 
 public class FoodCategoryModel implements CategoryModel{
 

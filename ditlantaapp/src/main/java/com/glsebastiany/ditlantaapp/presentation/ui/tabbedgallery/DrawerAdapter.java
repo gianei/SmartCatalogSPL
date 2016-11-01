@@ -26,10 +26,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryDrawerAdapter;
 import com.glsebastiany.ditlantaapp.R;
-import com.glsebastiany.ditlantaapp.data.db.Category;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryDrawerAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class DrawerAdapter extends TabbedGalleryDrawerAdapter {
 
     private static final int TEXT_VIEW_LEFT_PADDING_DP = 32;
 
-    private List<Category> categories = new LinkedList<>();
+    private List<CategoryModel> categories = new LinkedList<>();
 
     public DrawerAdapter(Context context, CategoryModel parentCategory) {
         super(parentCategory, context);
@@ -68,7 +67,7 @@ public class DrawerAdapter extends TabbedGalleryDrawerAdapter {
                 .inflate(R.layout.view_gallery_drawer_list_item, parent, false);
 
         ((TextView) view).setText(categories.get(position).getName());
-        if(categories.get(position).getParentId() != ((Category)parentCategory).getId())
+        if(categories.get(position).getParentId() != parentCategory.getId())
             view.setPadding((int) (TEXT_VIEW_LEFT_PADDING_DP * context.getResources().getDisplayMetrics().density),0 ,0 ,0 );
 
         return view;
@@ -76,7 +75,7 @@ public class DrawerAdapter extends TabbedGalleryDrawerAdapter {
 
     @Override
     public void addItem(CategoryModel categoryModel){
-        categories.add((Category)categoryModel);
+        categories.add(categoryModel);
         notifyDataSetChanged();
     }
 

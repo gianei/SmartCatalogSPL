@@ -18,7 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 
 public interface GalleryGridCallbacks {
     void moveToSubCategorySection(CategoryModel categoryModel);

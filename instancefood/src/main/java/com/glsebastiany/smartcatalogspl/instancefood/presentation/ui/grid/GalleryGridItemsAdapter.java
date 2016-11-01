@@ -30,8 +30,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
@@ -44,7 +44,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
 
     private Context context;
 
-    private List<ItemModel> items = new LinkedList<>();
+    private List<ItemBasicModel> items = new LinkedList<>();
 
     public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks){
         super(galleryGridCallbacks);
@@ -65,7 +65,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int baseItemPosition) {
         BaseItemViewHolder baseItemViewHolder = (BaseItemViewHolder) viewHolder;
 
-        ItemModel item = items.get(baseItemPosition);
+        ItemBasicModel item = items.get(baseItemPosition);
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
         baseItemViewHolder.description.setText(item.getStringId());
@@ -98,8 +98,8 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
     }
 
     @Override
-    public void addItem(ItemModel itemModel) {
-        items.add(itemModel);
+    public void addItem(ItemBasicModel itemBasicModel) {
+        items.add(itemBasicModel);
         notifyItemInserted(items.size() - 1);
 
     }

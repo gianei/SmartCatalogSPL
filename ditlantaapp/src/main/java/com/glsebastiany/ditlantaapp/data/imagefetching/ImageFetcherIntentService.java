@@ -22,7 +22,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.ditlantaapp.data.imagefetching.servers.FetchFromCloudinary;
 import com.glsebastiany.ditlantaapp.data.imagefetching.servers.FetchFromLan;
 import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
@@ -42,7 +42,7 @@ public class ImageFetcherIntentService extends IntentService {
     private FetchType fetchType;
 
     @Inject
-    ItemUseCases itemUseCases;
+    ItemBasicUseCases itemBasicUseCases;
 
     public static void startService(Context context, FetchType fetchType){
         Intent intent = new Intent(context, ImageFetcherIntentService.class);
@@ -74,7 +74,7 @@ public class ImageFetcherIntentService extends IntentService {
                 new FetchFromCloudinary(getApplicationContext()).fetch();
                 return;
             case LOCAL_LAN:
-                new FetchFromLan(getApplicationContext(), itemUseCases).fetch();
+                new FetchFromLan(getApplicationContext(), itemBasicUseCases).fetch();
                 return;
         }
     }

@@ -22,10 +22,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.ViewGroup;
 
-import com.glsebastiany.smartcatalogspl.core.data.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
-import com.glsebastiany.ditlantaapp.data.db.Category;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class PagerAdapter extends TabbedGalleryPageAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Category cat = ((Category)categories.get(position));
+        CategoryModel cat = categories.get(position);
         return cat.getName();
     }
 

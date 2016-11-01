@@ -23,11 +23,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.glsebastiany.smartcatalogspl.core.data.ItemModel;
-import com.glsebastiany.smartcatalogspl.core.domain.ItemUseCases;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.ditlantaapp.R;
 import com.glsebastiany.ditlantaapp.data.FileServices;
-import com.glsebastiany.ditlantaapp.data.db.Item;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -43,11 +42,11 @@ public class FetchFromLan extends FetchFrom {
 
     private static final String LOG_TAG = FetchFromLan.class.getName();
 
-    private final ItemUseCases itemUseCases;
+    private final ItemBasicUseCases itemBasicUseCases;
 
-    public FetchFromLan(Context context, ItemUseCases itemUseCases){
+    public FetchFromLan(Context context, ItemBasicUseCases itemBasicUseCases){
         super(context);
-        this.itemUseCases = itemUseCases;
+        this.itemBasicUseCases = itemBasicUseCases;
     }
 
     public void fetchFromServer() {
@@ -59,18 +58,18 @@ public class FetchFromLan extends FetchFrom {
         ) {
             imageFetcherNotification.informStatus();
 
-            List<ItemModel> fetchItems = itemUseCases.getAll().toList().toBlocking().single();
+            List<ItemBasicModel> fetchItems = itemBasicUseCases.getAll().toList().toBlocking().single();
 
             informRequestedImagesQuantity(outputStream, fetchItems.size());
 
-            for (ItemModel fetchItem : fetchItems) {
-                informNeededImageToServer(outputStream, (Item) fetchItem);
+            for (ItemBasicModel fetchItem : fetchItems) {
+                informNeededImageToServer(outputStream, fetchItem);
             }
             outputStream.flush();
 
             imageFetcherNotification.setNeededImages(readReceiveFilesQuantity(inputStream));
 
-            for (ItemModel fetchItem : fetchItems) {
+            for (ItemBasicModel fetchItem : fetchItems) {
                 if (!isServerSendingFile(inputStream)) {
                     continue;
                 }
@@ -79,7 +78,7 @@ public class FetchFromLan extends FetchFrom {
 
                 byte[] buffer = readInputStreamToArray(inputStream, fileSize);
 
-                FileServices.tryWriteToLocalFile(buffer, FileServices.getFullImageUrlFromFileName(applicationContext, ((Item)fetchItem).getImageUrl() + ".jpg"));
+                FileServices.tryWriteToLocalFile(buffer, FileServices.getFullImageUrlFromFileName(applicationContext, (fetchItem).getImageUrl() + ".jpg"));
 
                 imageFetcherNotification.increaseProcessedImages();
                 imageFetcherNotification.informStatus();
@@ -118,7 +117,7 @@ public class FetchFromLan extends FetchFrom {
         outputStream.writeInt(quantity);
     }
 
-    private void informNeededImageToServer(DataOutputStream outputStream, Item fetchItem) throws IOException {
+    private void informNeededImageToServer(DataOutputStream outputStream, ItemBasicModel fetchItem) throws IOException {
         outputStream.writeUTF(fetchItem.getImageUrl() + ".jpg");
 
         String imageFullUrl = FileServices.getFullImageUrlFromFileName(applicationContext, fetchItem.getImageUrl() + ".jpg");
