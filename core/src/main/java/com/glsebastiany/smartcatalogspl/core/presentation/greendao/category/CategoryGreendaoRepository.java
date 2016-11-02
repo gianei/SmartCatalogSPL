@@ -34,12 +34,6 @@ import javax.inject.Inject;
 
 public class CategoryGreendaoRepository implements CategoryRepository{
 
-    public static final String ID_PROMOTION = "-1";
-    public static final String ID_SALE = "-2";
-    public static final String ID_NEW = "-3";
-    public static final String ID_PROMOTION_AND_SALE = "-4";
-    public static final String ID_OTHER = "-99";
-
     private final Context context;
 
     @Inject

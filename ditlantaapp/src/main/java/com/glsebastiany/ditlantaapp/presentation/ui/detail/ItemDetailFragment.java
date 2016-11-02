@@ -24,7 +24,11 @@ import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
+import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView;
@@ -35,6 +39,8 @@ import org.androidannotations.annotations.EFragment;
 
 import java.text.NumberFormat;
 
+import javax.inject.Inject;
+
 @EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
 @RequiresPresenter(ItemDetailPresenter.class)
 public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresenter> {
@@ -43,28 +49,40 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
         return ItemDetailFragment_.builder().itemId(itemId).build();
     }
 
+    @Inject
+    ItemPromotedRepository itemPromotedRepository;
+
+    @Override
+    protected void injectApplicationComponent() {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
+    }
+
     @Override
     protected void inflateViewStub(ItemBasicModel itemBasicModel) {
         Context context = getContext();
+
+        //TODO
+        ItemPromotedModel itemPromotedModel = itemPromotedRepository.load(itemBasicModel.getStringId());
+
         itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
         View newView = itemDetailStub.inflate();
 
         ViewStub labelViewStub =  (ViewStub) newView.findViewById(R.id.label_stub);
-        //inflateLabelViewStub(labelViewStub, itemBasicModel);
+        inflateLabelViewStub(labelViewStub, itemPromotedModel);
 
         TextView priceText = (TextView) newView.findViewById(R.id.textViewDetailItemPrice);
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         priceText.setText(currencyInstance.format((itemBasicModel).getPrice()));
 
         TextView fromText = (TextView) newView.findViewById(R.id.textViewDetailItemPricePrevious);
-        /*if (itemBasicModel.mustShowPreviousPrice()) {
+        if (itemPromotedModel.mustShowPreviousPrice()) {
             fromText.setText(context.getString(
                     R.string.item_view_promoted_price,
-                    currencyInstance.format(((Item) itemBasicModel).getPreviousPrice())
+                    currencyInstance.format(itemPromotedModel.getPreviousPrice())
             ));
         } else {
             fromText.setText("");
-        }*/
+        }
 
         TextView idText = (TextView) newView.findViewById(R.id.textViewDetailItemId);
         idText.setText( itemBasicModel.getStringId());
@@ -73,14 +91,14 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
         descriptionText.setText(itemBasicModel.getName());
 
         ImageView buildIcon = (ImageView) newView.findViewById(R.id.item_view_detail_build);
-        //buildIcon.setVisibility(itemBasicModel.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
+        buildIcon.setVisibility(itemPromotedModel.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
         final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
         ImagesHelper.loadDetailImageWithGlide(context, itemBasicModel, image);
 
     }
 
-    /*private static void inflateLabelViewStub(ViewStub labelViewStub, ItemBasicModel baseItem) {
+    private static void inflateLabelViewStub(ViewStub labelViewStub, ItemPromotedModel baseItem) {
         if (baseItem.getIsNew()){
             labelViewStub.setLayoutResource(R.layout.image_label_new);
             labelViewStub.inflate();
@@ -93,5 +111,5 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
             labelViewStub.setLayoutResource(R.layout.image_label_promoted);
             labelViewStub.inflate();
         }
-    }*/
+    }
 }

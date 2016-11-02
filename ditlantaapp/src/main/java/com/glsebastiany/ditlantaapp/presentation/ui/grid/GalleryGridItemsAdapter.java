@@ -31,6 +31,8 @@ import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.ditlantaapp.R;
@@ -47,13 +49,16 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
     private static final int SALE_ITEM_TYPE = 4;
 
     private static final NumberFormat mCurrencyInstance = NumberFormat.getCurrencyInstance();
+    private final ItemPromotedRepository itemPromotedRepository;
 
     private Context context;
 
     private List<ItemBasicModel> items = new LinkedList<>();
+    private List<ItemPromotedModel> promotedItems = new LinkedList<>();
 
-    public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks){
+    public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks, ItemPromotedRepository itemPromotedRepository){
         super(galleryGridCallbacks);
+        this.itemPromotedRepository = itemPromotedRepository;
     }
 
     @Override
@@ -88,23 +93,26 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
         BaseItemViewHolder baseItemViewHolder = (BaseItemViewHolder) viewHolder;
 
         ItemBasicModel item = items.get(baseItemPosition);
+        //TODO
+        ItemPromotedModel promotedModel = promotedItems.get(baseItemPosition);
+
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
         baseItemViewHolder.id.setText(item.getStringId());
         baseItemViewHolder.description.setText(item.getName());
         baseItemViewHolder.price.setText(mCurrencyInstance.format(item.getPrice()));
-        //baseItemViewHolder.buildIcon.setVisibility(item.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
+        baseItemViewHolder.buildIcon.setVisibility(promotedModel.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
         ImagesHelper.loadCardImageWithGlide(context, item, baseItemViewHolder.image);
 
-        /*if (item.mustShowPreviousPrice()) {
+        if (promotedModel.mustShowPreviousPrice()) {
             baseItemViewHolder.fromPrice.setText(context.getString(
                     R.string.item_view_promoted_price,
-                    mCurrencyInstance.format(item.getPreviousPrice())
+                    mCurrencyInstance.format(promotedModel.getPreviousPrice())
             ));
         } else {
             baseItemViewHolder.fromPrice.setText("");
-        }*/
+        }
         
         if (viewHolder.getItemViewType() == PROMOTED_ITEM_TYPE)
             baseItemViewHolder.bottomSpecGridLayout.setBackgroundColor(context.getResources().getColor(R.color.primary200));
@@ -112,16 +120,16 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
 
     @Override
     public int getItemViewType(int baseItemPosition) {
-        ItemBasicModel item = items.get(baseItemPosition);
+        ItemPromotedModel item = promotedItems.get(baseItemPosition);
 
-        /*if (item.getIsPromoted())
+        if (item.getIsPromoted())
             return PROMOTED_ITEM_TYPE;
 
         if (item.getIsSale())
             return SALE_ITEM_TYPE;
 
         if (item.getIsNew())
-            return NEW_ITEM_TYPE;*/
+            return NEW_ITEM_TYPE;
 
         return REGULAR_ITEM_TYPE;
     }
@@ -156,6 +164,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
 
     public void addItem(ItemBasicModel itemBasicModel) {
         items.add(itemBasicModel);
+        promotedItems.add(itemPromotedRepository.load(itemBasicModel.getStringId()));
         notifyItemInserted(items.size() -1);
     }
 

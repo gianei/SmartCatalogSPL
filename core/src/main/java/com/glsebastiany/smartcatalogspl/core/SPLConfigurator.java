@@ -16,33 +16,9 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.domain.category;
+package com.glsebastiany.smartcatalogspl.core;
 
-import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+public interface SPLConfigurator {
 
-import java.util.ArrayList;
-import java.util.List;
-
-public interface CategoryRepository {
-
-    String ID_PROMOTION = "-1";
-    String ID_SALE = "-2";
-    String ID_NEW = "-3";
-    String ID_PROMOTION_AND_SALE = "-4";
-    String ID_OTHER = "-99";
-
-    List<? extends CategoryModel> loadAll();
-
-    CategoryModel load(String categoryId);
-
-    List<? extends CategoryModel> load(List<String> categoriesId);
-
-    void insert(CategoryModel categoryModel);
-
-    void insertAll(List<CategoryModel> categoryList);
-
-    void remove(String categoryId);
-
-    void removeAll();
-
+    boolean hasPromotedItemsFeature();
 }

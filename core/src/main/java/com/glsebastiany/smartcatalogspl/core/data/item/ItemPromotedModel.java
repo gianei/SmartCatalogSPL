@@ -18,10 +18,13 @@
 
 package com.glsebastiany.smartcatalogspl.core.data.item;
 
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicEntity;
+
 public interface ItemPromotedModel {
 
     String getStringId();
 
+    ItemBasicEntity getItemBasicEntity();
 
     boolean getIsPromoted();
 

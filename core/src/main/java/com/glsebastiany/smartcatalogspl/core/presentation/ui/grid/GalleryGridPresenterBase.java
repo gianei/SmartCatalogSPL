@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
@@ -40,6 +41,9 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
     @Inject
     ItemBasicUseCases itemBasicUseCases;
 
+    @Inject
+    CategoryUseCases categoryUseCases;
+
     private Observable<ItemBasicModel> itemsObservable;
 
     public GalleryGridPresenterBase(){
@@ -52,7 +56,7 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
         String query = getQueryFrom(savedState);
         if (query != null)
             if (getIsCategoryIdQueryFrom(savedState))
-                itemsObservable = ObservableHelper.setupThreads(itemBasicUseCases.allFromCategory(query).cache());
+                itemsObservable = ObservableHelper.setupThreads(categoryUseCases.allItemsFromCategory(query).cache());
             else
                 itemsObservable = ObservableHelper.setupThreads(itemBasicUseCases.query(query).cache());
         else

@@ -21,23 +21,20 @@ package com.glsebastiany.ditlantaapp.presentation.di.modules;
 
 import android.content.Context;
 
+import com.glsebastiany.ditlantaapp.DitlantaConfigurator;
 import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
 import com.glsebastiany.ditlantaapp.presentation.ui.AppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.categorygroup.CategoryGroupGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -107,5 +104,12 @@ public class ApplicationModule {
     @Singleton
     BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
         return appDisplayFactory;
+    }
+
+    //--------------------------
+    @Provides
+    @Singleton
+    SPLConfigurator provideSPLConfigurator(DitlantaConfigurator configurator){
+        return configurator;
     }
 }

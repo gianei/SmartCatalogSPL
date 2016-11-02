@@ -24,6 +24,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.MenuItem;
 
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
@@ -36,12 +37,17 @@ import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationCompon
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import javax.inject.Inject;
+
 @EFragment(R.layout.fragment_gallery_visualization_grid)
 @RequiresPresenter(GalleryGridPresenter.class)
 public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenter> {
 
     @Pref
     SharedPreferencesZoom_ preferencesZoom;
+
+    @Inject
+    ItemPromotedRepository itemsPromotedRepository;
 
     public static GalleryGridCallbacks newInstance(String searchQuery, boolean isCategoryIdQuery) {
         return GalleryGridFragment_.builder()
@@ -52,13 +58,15 @@ public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPres
 
     @Override
     public void injectMe(GalleryGridFragmentBase<GalleryGridPresenter> galleryGridFragmentBase) {
+        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(galleryGridFragmentBase);
+
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
     }
 
     @Override
     @NonNull
     protected GalleryGridItemsAdapterBase getGalleryGridItemsAdapter() {
-        return new GalleryGridItemsAdapter(this);
+        return new GalleryGridItemsAdapter(this, itemsPromotedRepository);
     }
 
     @Override

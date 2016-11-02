@@ -20,6 +20,7 @@ package com.glsebastiany.ditlantaapp.presentation.di.components;
 
 import android.content.Context;
 
+import com.glsebastiany.ditlantaapp.presentation.ui.grid.GalleryGridFragment;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
@@ -77,6 +78,8 @@ public interface ApplicationComponent {
     void inject(ItemDetailPresenterBase itemDetailPresenter);
 
     void inject(GalleryGridFragmentBase<GalleryGridPresenter> galleryGridFragment);
+
+    void inject(GalleryGridFragment galleryGridFragment);
 
     void inject(ItemPagerActivityBase itemPagerActivityBase);
 

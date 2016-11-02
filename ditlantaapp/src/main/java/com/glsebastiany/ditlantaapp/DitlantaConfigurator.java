@@ -16,33 +16,20 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.domain.category;
+package com.glsebastiany.ditlantaapp;
 
-import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Inject;
 
-public interface CategoryRepository {
 
-    String ID_PROMOTION = "-1";
-    String ID_SALE = "-2";
-    String ID_NEW = "-3";
-    String ID_PROMOTION_AND_SALE = "-4";
-    String ID_OTHER = "-99";
+public class DitlantaConfigurator implements SPLConfigurator {
 
-    List<? extends CategoryModel> loadAll();
+    @Inject
+    public DitlantaConfigurator(){}
 
-    CategoryModel load(String categoryId);
-
-    List<? extends CategoryModel> load(List<String> categoriesId);
-
-    void insert(CategoryModel categoryModel);
-
-    void insertAll(List<CategoryModel> categoryList);
-
-    void remove(String categoryId);
-
-    void removeAll();
-
+    @Override
+    public boolean hasPromotedItemsFeature() {
+        return true;
+    }
 }
