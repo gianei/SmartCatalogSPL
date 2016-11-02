@@ -21,9 +21,13 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.detail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 
 import javax.inject.Inject;
@@ -31,6 +35,7 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
+import rx.functions.Action1;
 import rx.functions.Func0;
 
 public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragmentBase> {
@@ -40,9 +45,15 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
     @Inject
     ItemBasicUseCases itemBasicUseCases;
 
-    private Observable<ItemBasicModel> itemsObservable;
+    @Inject
+    ItemPromotedUseCases itemPromotedUseCases;
 
-    public ItemDetailPresenterBase(){
+    @Inject
+    SPLConfigurator splConfigurator;
+
+    private Observable<ItemComposition> itemsObservable;
+
+    public ItemDetailPresenterBase() {
         injectMe(this);
     }
 
@@ -51,9 +62,18 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
     protected void onCreatePresenter(Bundle savedState) {
         String categoryId = getCategoryIdFrom(savedState);
 
-        if (categoryId != null)
-            itemsObservable = ObservableHelper.setupThreads(itemBasicUseCases.find(categoryId).cache());
-        else
+        if (categoryId != null) {
+            Observable<ItemBasicModel> basicObservable = itemBasicUseCases.find(categoryId);
+
+            if (splConfigurator.hasPromotedItemsFeature())
+                itemsObservable = basicObservable.concatMap(itemBasicModel -> itemPromotedUseCases.load(itemBasicModel.getStringId())
+                        .map(itemPromotedModel -> new ItemComposition(itemBasicModel, itemPromotedModel))
+                );
+            else
+                itemsObservable = basicObservable.map(ItemComposition::new);
+
+            itemsObservable = ObservableHelper.setupThreads(itemsObservable.cache());
+        } else
             throw new RuntimeException("Item id must be set in fragment args");
     }
 
@@ -63,27 +83,15 @@ public abstract class ItemDetailPresenterBase extends Presenter<ItemDetailFragme
     @Override
     public void onAfterViews() {
         restartable(OBSERVABLE_ID,
-                new Func0<Subscription>() {
-                    @Override
-                    public Subscription call() {
-                        return itemsObservable.subscribe(new Observer<ItemBasicModel>() {
-                            @Override
-                            public void onCompleted() {
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            @Override
-                            public void onNext(ItemBasicModel itemBasicModel) {
-                                if (getView() != null)
-                                    getView().addItem(itemBasicModel);
-                            }
-                        });
-                    }
-                }
+                () -> itemsObservable.subscribe(
+                        itemComposition -> {
+                            if (getView() != null)
+                                getView().addItem(itemComposition);
+                        },
+                        error -> {
+                            throw new RuntimeException(error);
+                        }
+                )
         );
 
         if (isUnsubscribed(OBSERVABLE_ID))

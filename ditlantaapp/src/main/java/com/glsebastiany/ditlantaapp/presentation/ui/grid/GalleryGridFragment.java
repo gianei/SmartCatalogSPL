@@ -46,9 +46,6 @@ public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPres
     @Pref
     SharedPreferencesZoom_ preferencesZoom;
 
-    @Inject
-    ItemPromotedRepository itemsPromotedRepository;
-
     public static GalleryGridCallbacks newInstance(String searchQuery, boolean isCategoryIdQuery) {
         return GalleryGridFragment_.builder()
                 .searchQuery(searchQuery)
@@ -59,14 +56,12 @@ public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPres
     @Override
     public void injectMe(GalleryGridFragmentBase<GalleryGridPresenter> galleryGridFragmentBase) {
         AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(galleryGridFragmentBase);
-
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
     }
 
     @Override
     @NonNull
     protected GalleryGridItemsAdapterBase getGalleryGridItemsAdapter() {
-        return new GalleryGridItemsAdapter(this, itemsPromotedRepository);
+        return new GalleryGridItemsAdapter(this);
     }
 
     @Override

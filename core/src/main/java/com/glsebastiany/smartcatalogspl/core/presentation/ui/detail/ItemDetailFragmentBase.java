@@ -23,6 +23,8 @@ import android.view.ViewStub;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 
@@ -54,13 +56,14 @@ public abstract class ItemDetailFragmentBase<P extends Presenter> extends MvpRxF
         presenterAfterViews();
     }
 
-    public void addItem(ItemBasicModel itemBasicModel){
+    public void addItem(ItemComposition itemComposition){
 
-        inflateViewStub(itemBasicModel);
+        inflateViewStub(itemComposition);
 
         progressBar.setVisibility(View.GONE);
         itemDetailStub.setVisibility(View.VISIBLE);
     }
 
-    protected abstract void inflateViewStub(ItemBasicModel itemBasicModel);
+    protected abstract void inflateViewStub(ItemComposition itemComposition);
+
 }

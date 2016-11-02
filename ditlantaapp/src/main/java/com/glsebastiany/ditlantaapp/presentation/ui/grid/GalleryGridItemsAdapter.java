@@ -29,14 +29,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.ditlantaapp.R;
 import com.glsebastiany.ditlantaapp.data.ImagesHelper;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -49,16 +49,13 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
     private static final int SALE_ITEM_TYPE = 4;
 
     private static final NumberFormat mCurrencyInstance = NumberFormat.getCurrencyInstance();
-    private final ItemPromotedRepository itemPromotedRepository;
 
     private Context context;
 
-    private List<ItemBasicModel> items = new LinkedList<>();
-    private List<ItemPromotedModel> promotedItems = new LinkedList<>();
+    private List<ItemComposition> items = new LinkedList<>();
 
-    public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks, ItemPromotedRepository itemPromotedRepository){
+    public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks){
         super(galleryGridCallbacks);
-        this.itemPromotedRepository = itemPromotedRepository;
     }
 
     @Override
@@ -92,18 +89,16 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int baseItemPosition) {
         BaseItemViewHolder baseItemViewHolder = (BaseItemViewHolder) viewHolder;
 
-        ItemBasicModel item = items.get(baseItemPosition);
-        //TODO
-        ItemPromotedModel promotedModel = promotedItems.get(baseItemPosition);
-
+        ItemBasicModel basicModel = items.get(baseItemPosition).getItemBasicModel();
+        ItemPromotedModel promotedModel = items.get(baseItemPosition).getItemPromotedModel();
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
-        baseItemViewHolder.id.setText(item.getStringId());
-        baseItemViewHolder.description.setText(item.getName());
-        baseItemViewHolder.price.setText(mCurrencyInstance.format(item.getPrice()));
+        baseItemViewHolder.id.setText(basicModel.getStringId());
+        baseItemViewHolder.description.setText(basicModel.getName());
+        baseItemViewHolder.price.setText(mCurrencyInstance.format(basicModel.getPrice()));
         baseItemViewHolder.buildIcon.setVisibility(promotedModel.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
-        ImagesHelper.loadCardImageWithGlide(context, item, baseItemViewHolder.image);
+        ImagesHelper.loadCardImageWithGlide(context, basicModel, baseItemViewHolder.image);
 
         if (promotedModel.mustShowPreviousPrice()) {
             baseItemViewHolder.fromPrice.setText(context.getString(
@@ -120,7 +115,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
 
     @Override
     public int getItemViewType(int baseItemPosition) {
-        ItemPromotedModel item = promotedItems.get(baseItemPosition);
+        ItemPromotedModel item = items.get(baseItemPosition).getItemPromotedModel();
 
         if (item.getIsPromoted())
             return PROMOTED_ITEM_TYPE;
@@ -136,7 +131,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
 
     @Override
     public long getItemId(int baseItemPosition) {
-        return items.get(baseItemPosition).getStringId().hashCode();
+        return items.get(baseItemPosition).getItemPromotedModel().getStringId().hashCode();
     }
 
     @Override
@@ -152,7 +147,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
     public int findCategoryPositionInItems(CategoryModel categoryModel){
 
         for (int i = 0; i < items.size(); i++){
-            String itemCategoryId = ((Long)items.get(i).getCategoryId()).toString();
+            String itemCategoryId = items.get(i).getItemBasicModel().getCategoryId().toString();
             if (itemCategoryId.startsWith(categoryModel.getStringId())) {
                 return i;
             }
@@ -162,16 +157,16 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
         return -1;
     }
 
-    public void addItem(ItemBasicModel itemBasicModel) {
-        items.add(itemBasicModel);
-        promotedItems.add(itemPromotedRepository.load(itemBasicModel.getStringId()));
+    public void addItem(ItemComposition itemComposition) {
+        items.add(itemComposition);
         notifyItemInserted(items.size() -1);
     }
+
 
     public String[] toStringArray(){
         String[] itemsIds = new String[items.size()];
         for (int i = 0; i < items.size(); i++){
-            itemsIds[i] = items.get(i).getStringId();
+            itemsIds[i] = items.get(i).getItemBasicModel().getStringId();
         }
         return itemsIds;
     }

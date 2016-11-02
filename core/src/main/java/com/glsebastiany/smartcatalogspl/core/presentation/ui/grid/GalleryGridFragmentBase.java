@@ -27,7 +27,7 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
@@ -82,8 +82,8 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
     @NonNull
     protected abstract GalleryGridItemsAdapterBase getGalleryGridItemsAdapter();
 
-    public void addItem(ItemBasicModel itemBasicModel){
-        adapter.addItem(itemBasicModel);
+    public void addItem(ItemComposition itemComposition){
+        adapter.addItem(itemComposition);
     }
 
     public void stopLoading(){

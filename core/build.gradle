@@ -46,6 +46,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
 }
 
 dependencies androidAnnotations
@@ -57,3 +64,5 @@ dependencies orm
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+apply plugin: 'me.tatarka.retrolambda'

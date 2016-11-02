@@ -24,22 +24,18 @@ import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
-import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
+import com.glsebastiany.ditlantaapp.R;
+import com.glsebastiany.ditlantaapp.data.ImagesHelper;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView;
-import com.glsebastiany.ditlantaapp.R;
-import com.glsebastiany.ditlantaapp.data.ImagesHelper;
 
 import org.androidannotations.annotations.EFragment;
 
 import java.text.NumberFormat;
-
-import javax.inject.Inject;
 
 @EFragment(R.layout.fragment_gallery_visualization_detail_item_stub)
 @RequiresPresenter(ItemDetailPresenter.class)
@@ -49,20 +45,12 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
         return ItemDetailFragment_.builder().itemId(itemId).build();
     }
 
-    @Inject
-    ItemPromotedRepository itemPromotedRepository;
-
     @Override
-    protected void injectApplicationComponent() {
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
-    }
-
-    @Override
-    protected void inflateViewStub(ItemBasicModel itemBasicModel) {
+    protected void inflateViewStub(ItemComposition itemComposition) {
         Context context = getContext();
 
-        //TODO
-        ItemPromotedModel itemPromotedModel = itemPromotedRepository.load(itemBasicModel.getStringId());
+        ItemBasicModel itemBasicModel = itemComposition.getItemBasicModel();
+        ItemPromotedModel itemPromotedModel = itemComposition.getItemPromotedModel();
 
         itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
         View newView = itemDetailStub.inflate();
@@ -72,7 +60,7 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
 
         TextView priceText = (TextView) newView.findViewById(R.id.textViewDetailItemPrice);
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
-        priceText.setText(currencyInstance.format((itemBasicModel).getPrice()));
+        priceText.setText(currencyInstance.format(itemBasicModel.getPrice()));
 
         TextView fromText = (TextView) newView.findViewById(R.id.textViewDetailItemPricePrevious);
         if (itemPromotedModel.mustShowPreviousPrice()) {

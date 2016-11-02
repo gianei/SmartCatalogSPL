@@ -16,25 +16,29 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
+package com.glsebastiany.smartcatalogspl.core.data.item;
 
-import android.support.v7.widget.RecyclerView;
 
-import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
+public class ItemComposition {
 
-public abstract class GalleryGridItemsAdapterBase extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    protected GalleryGridCallbacks galleryGridCallbacks;
+    private final ItemBasicModel itemBasicModel;
+    private final ItemPromotedModel itemPromotedModel;
 
-    public GalleryGridItemsAdapterBase(GalleryGridCallbacks galleryGridCallbacks) {
-        super();
-        this.galleryGridCallbacks = galleryGridCallbacks;
+    public ItemComposition(ItemBasicModel itemBasicModel) {
+        this.itemBasicModel = itemBasicModel;
+        this.itemPromotedModel = null;
     }
 
-    public abstract void addItem(ItemComposition itemComposition);
+    public ItemComposition(ItemBasicModel itemBasicModel, ItemPromotedModel itemPromotedModel) {
+        this.itemBasicModel = itemBasicModel;
+        this.itemPromotedModel = itemPromotedModel;
+    }
 
-    public abstract int findCategoryPositionInItems(CategoryModel categoryModel);
+    public ItemBasicModel getItemBasicModel() {
+        return itemBasicModel;
+    }
 
-    public abstract String[] toStringArray();
-
+    public ItemPromotedModel getItemPromotedModel() {
+        return itemPromotedModel;
+    }
 }

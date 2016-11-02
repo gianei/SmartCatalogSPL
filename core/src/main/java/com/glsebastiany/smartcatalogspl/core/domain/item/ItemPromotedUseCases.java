@@ -36,6 +36,22 @@ public class ItemPromotedUseCases {
     @Inject
     public ItemPromotedUseCases(){}
 
+    public Observable<ItemPromotedModel> load(final String itemId){
+        return Observable.create(new Observable.OnSubscribe<ItemPromotedModel>() {
+            @Override
+            public void call(Subscriber<? super ItemPromotedModel> subscriber) {
+                ItemPromotedModel itemPromotedModel = itemPromotedRepository.load(itemId);
+
+                if (itemPromotedModel == null)
+                    subscriber.onError(new Throwable("Promoted item " + itemId + " was not found."));
+                else
+                    subscriber.onNext(itemPromotedModel);
+
+                subscriber.onCompleted();
+            }
+        });
+    }
+
     public Observable<ItemPromotedModel> getAll(){
         return Observable.create(new Observable.OnSubscribe<ItemPromotedModel>() {
             @Override

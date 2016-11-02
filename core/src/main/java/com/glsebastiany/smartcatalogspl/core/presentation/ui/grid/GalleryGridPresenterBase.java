@@ -21,18 +21,20 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.functions.Func0;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFragmentBase> {
 
@@ -44,9 +46,15 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
     @Inject
     CategoryUseCases categoryUseCases;
 
-    private Observable<ItemBasicModel> itemsObservable;
+    @Inject
+    ItemPromotedUseCases itemPromotedUseCases;
 
-    public GalleryGridPresenterBase(){
+    @Inject
+    SPLConfigurator splConfigurator;
+
+    private Observable<ItemComposition> itemsCompositionObservable;
+
+    public GalleryGridPresenterBase() {
         injectMe(this);
     }
 
@@ -54,12 +62,24 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
 
     protected void onCreatePresenter(Bundle savedState) {
         String query = getQueryFrom(savedState);
-        if (query != null)
+        if (query != null) {
+            Observable<ItemBasicModel> basicObserver;
+
             if (getIsCategoryIdQueryFrom(savedState))
-                itemsObservable = ObservableHelper.setupThreads(categoryUseCases.allItemsFromCategory(query).cache());
+                basicObserver = categoryUseCases.allItemsFromCategory(query);
             else
-                itemsObservable = ObservableHelper.setupThreads(itemBasicUseCases.query(query).cache());
-        else
+                basicObserver = itemBasicUseCases.query(query);
+
+            if (splConfigurator.hasPromotedItemsFeature())
+                itemsCompositionObservable = basicObserver
+                        .concatMap(itemBasicModel -> itemPromotedUseCases.load(itemBasicModel.getStringId())
+                                .map(itemPromotedModel -> new ItemComposition(itemBasicModel, itemPromotedModel))
+                        );
+            else
+                itemsCompositionObservable = basicObserver.map(ItemComposition::new);
+
+            itemsCompositionObservable = ObservableHelper.setupThreads(itemsCompositionObservable.cache());
+        } else
             throw new RuntimeException("Category must be set in fragment args");
     }
 
@@ -75,31 +95,23 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
 
     private void makeSubcription() {
         restartable(OBSERVABLE_ID,
-                new Func0<Subscription>() {
-                    @Override
-                    public Subscription call() {
-                        return itemsObservable.subscribe(new Observer<ItemBasicModel>() {
-                            @Override
-                            public void onCompleted() {
-                                if (getView() != null)
-                                    getView().stopLoading();
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            @Override
-                            public void onNext(ItemBasicModel itemBasicModel) {
-                                if (getView() != null) {
-                                    getView().stopLoading();
-                                    getView().addItem(itemBasicModel);
+                () -> itemsCompositionObservable
+                        .subscribe(
+                                itemComposition -> {
+                                    if (getView() != null) {
+                                        getView().stopLoading();
+                                        getView().addItem(itemComposition);
+                                    }
+                                },
+                                error -> {
+                                    throw new RuntimeException(error);
+                                },
+                                () -> {
+                                    if (getView() != null)
+                                        getView().stopLoading();
                                 }
-                            }
-                        });
-                    }
-                }
+
+                        )
         );
 
         if (isUnsubscribed(OBSERVABLE_ID))
