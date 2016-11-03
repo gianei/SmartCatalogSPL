@@ -16,27 +16,19 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.data;
+package com.glsebastiany.smartcatalogspl.instancefood;
 
+import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import javax.inject.Inject;
 
-public class FoodItemModel implements ItemBasicModel {
+public class FoodConfigurator implements SPLConfigurator {
 
-    private String id;
-    private String categoryId;
-
-    public FoodItemModel(String id, String categoryId) {
-        this.id = id;
-        this.categoryId = categoryId;
-    }
+    @Inject
+    public FoodConfigurator(){}
 
     @Override
-    public String getStringId() {
-        return id;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
+    public boolean hasPromotedItemsFeature() {
+        return false;
     }
 }

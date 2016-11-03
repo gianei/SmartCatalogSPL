@@ -67,7 +67,7 @@ public class DrawerAdapter extends TabbedGalleryDrawerAdapter {
                 .inflate(R.layout.view_gallery_drawer_list_item, parent, false);
 
         ((TextView) view).setText(categories.get(position).getName());
-        if(categories.get(position).getParentId() != parentCategory.getId())
+        if(!categories.get(position).getParentStringId().equals(parentCategory.getStringId()))
             view.setPadding((int) (TEXT_VIEW_LEFT_PADDING_DP * context.getResources().getDisplayMetrics().density),0 ,0 ,0 );
 
         return view;

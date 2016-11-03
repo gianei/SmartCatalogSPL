@@ -24,13 +24,11 @@ public interface CategoryModel {
 
     Long ROOT_ID = (long) 0;
 
-    Long getId();
-
     String getStringId();
 
     String getName();
 
-    Long getParentId();
+    String getParentStringId();
 
     List<? extends CategoryModel> getChildren();
 

@@ -70,6 +70,7 @@ public class CategoryEntity implements CategoryModel {
         return this.id;
     }
 
+    @Override
     @Keep
     public String getStringId(){
         return this.id.toString();
@@ -89,6 +90,12 @@ public class CategoryEntity implements CategoryModel {
 
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    @Keep
+    public String getParentStringId() {
+        return parentId.toString();
     }
 
     public void setName(String name) {

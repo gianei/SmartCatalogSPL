@@ -16,23 +16,46 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.data;
+package com.glsebastiany.smartcatalogspl.instancefood.memory.category;
 
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 
-public class FoodCategoryModel implements CategoryModel{
+import java.util.List;
+
+public class MemoryCategoryModel implements CategoryModel{
 
     private String id;
+    private String parentId;
+    private String name;
+    private List<? extends CategoryModel> children;
 
 
-    public FoodCategoryModel(String id){
+    public MemoryCategoryModel(String id, String parentId, String name, List<? extends CategoryModel> children){
         this.id = id;
+        this.parentId = parentId;
+        this.name = name;
+        this.children = children;
     }
 
     @Override
     public String getStringId() {
         return id;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getParentStringId() {
+        return parentId;
+    }
+
+    @Override
+    public List<? extends CategoryModel> getChildren() {
+        return children;
     }
 
 

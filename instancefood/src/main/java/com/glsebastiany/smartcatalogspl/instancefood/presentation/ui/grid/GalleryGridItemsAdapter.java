@@ -32,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
@@ -44,7 +45,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
 
     private Context context;
 
-    private List<ItemBasicModel> items = new LinkedList<>();
+    private List<ItemComposition> items = new LinkedList<>();
 
     public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks){
         super(galleryGridCallbacks);
@@ -65,7 +66,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int baseItemPosition) {
         BaseItemViewHolder baseItemViewHolder = (BaseItemViewHolder) viewHolder;
 
-        ItemBasicModel item = items.get(baseItemPosition);
+        ItemBasicModel item = items.get(baseItemPosition).getItemBasicModel();
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
         baseItemViewHolder.description.setText(item.getStringId());
@@ -84,7 +85,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
 
     @Override
     public long getItemId(int baseItemPosition) {
-        return items.get(baseItemPosition).getStringId().hashCode();
+        return items.get(baseItemPosition).getItemBasicModel().getStringId().hashCode();
     }
 
     @Override
@@ -98,8 +99,8 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
     }
 
     @Override
-    public void addItem(ItemBasicModel itemBasicModel) {
-        items.add(itemBasicModel);
+    public void addItem(ItemComposition itemComposition) {
+        items.add(itemComposition);
         notifyItemInserted(items.size() - 1);
 
     }
@@ -113,7 +114,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase{
     public String[] toStringArray() {
         String[] itemsIds = new String[items.size()];
         for (int i = 0; i < items.size(); i++){
-            itemsIds[i] = items.get(i).getStringId();
+            itemsIds[i] = items.get(i).getItemBasicModel().getStringId();
         }
         return itemsIds;
     }

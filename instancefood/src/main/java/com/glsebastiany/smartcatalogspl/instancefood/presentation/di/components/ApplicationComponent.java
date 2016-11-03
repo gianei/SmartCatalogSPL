@@ -34,6 +34,8 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreen
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPresenterBase;
+import com.glsebastiany.smartcatalogspl.instancefood.memory.categorygroup.CategoryGroupMemoryRepository;
+import com.glsebastiany.smartcatalogspl.instancefood.memory.item.ItemBasicMemoryRepository;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridPresenter;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainPresenter;
@@ -76,4 +78,8 @@ public interface ApplicationComponent {
     void inject(TabbedGalleryFragmentBase<TabbedGalleryPresenter> tabbedGalleryFragmentBase);
 
     void inject(ItemPagerActivityBase itemPagerActivityBase);
+
+    void inject(CategoryGroupMemoryRepository categoryGroupMemoryRepository);
+
+    void inject(ItemBasicMemoryRepository itemBasicMemoryRepository);
 }

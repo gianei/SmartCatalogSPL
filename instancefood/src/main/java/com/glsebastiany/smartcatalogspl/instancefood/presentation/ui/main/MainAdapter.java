@@ -36,17 +36,18 @@ import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.instancefood.data.FoodCategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.instancefood.memory.categorygroup.MemoryCategoryGroupEntity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>{
 
-    private List<FoodCategoryGroupModel> categoriesGroup = new LinkedList<>();
+    private List<MemoryCategoryGroupEntity> categoriesGroup = new LinkedList<>();
 
     public MainAdapter(Context context, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(context, baseAppDisplayFactory);
@@ -61,14 +62,16 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
 
     @Override
     public void onBindViewHolder(final ViewHolderSuitCase viewHolderSuitCase, int position) {
-        FoodCategoryGroupModel model = categoriesGroup.get(position);
+        MemoryCategoryGroupEntity model = categoriesGroup.get(position);
 
         viewHolderSuitCase.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String categories = categoriesGroup.get(viewHolderSuitCase.getAdapterPosition()).getCategoryList();
+                String[] catArray = categories.split(",");
                 baseAppDisplayFactory.startGalleryActivity(
                         context,
-                        categoriesGroup.get(viewHolderSuitCase.getAdapterPosition()).getCategoriesIds()
+                        Arrays.asList(catArray)
                 );
             }
         });
@@ -89,7 +92,7 @@ public class MainAdapter extends MainAdapterBase<MainAdapter.ViewHolderSuitCase>
 
     @Override
     public void addItem(CategoryGroupModel categoryGroupModel) {
-        categoriesGroup.add((FoodCategoryGroupModel) categoryGroupModel);
+        categoriesGroup.add((MemoryCategoryGroupEntity) categoryGroupModel);
         notifyItemInserted(categoriesGroup.size() -1);
     }
 

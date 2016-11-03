@@ -147,7 +147,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase {
     public int findCategoryPositionInItems(CategoryModel categoryModel){
 
         for (int i = 0; i < items.size(); i++){
-            String itemCategoryId = items.get(i).getItemBasicModel().getCategoryId().toString();
+            String itemCategoryId = items.get(i).getItemBasicModel().getCategoryStringId();
             if (itemCategoryId.startsWith(categoryModel.getStringId())) {
                 return i;
             }

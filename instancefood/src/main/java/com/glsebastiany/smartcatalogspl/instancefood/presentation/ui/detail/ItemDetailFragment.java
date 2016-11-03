@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.instancefood.R;
@@ -38,10 +39,10 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
 
 
     @Override
-    protected void inflateViewStub(ItemBasicModel itemBasicModel) {
+    protected void inflateViewStub(ItemComposition itemComposition) {
         itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
         View newView = itemDetailStub.inflate();
         TextView textView = (TextView) newView.findViewById(R.id.textViewDetailDescription);
-        textView.setText(itemBasicModel.getStringId());
+        textView.setText(itemComposition.getItemBasicModel().getStringId());
     }
 }

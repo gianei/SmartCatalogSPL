@@ -16,25 +16,24 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instancefood.data;
+package com.glsebastiany.smartcatalogspl.instancefood.memory.item;
 
 
-import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
+import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 
-import java.util.List;
+public class MemoryItemEntity implements ItemBasicModel {
 
-public class FoodCategoryGroupModel implements CategoryGroupModel {
+    private String id;
+    private CategoryModel categoryModel;
+    private String name;
+    private float price;
 
-    private final String id;
-    private final String name;
-    private final String imageUrl;
-    private final List<String> categoriesIds;
-
-    public FoodCategoryGroupModel(String id, String name, String imageUrl, List<String> categoriesIds){
+    public MemoryItemEntity(String id, CategoryModel categoryModel, String name, float price) {
         this.id = id;
+        this.categoryModel = categoryModel;
         this.name = name;
-        this.imageUrl = imageUrl;
-        this.categoriesIds = categoriesIds;
+        this.price = price;
     }
 
     @Override
@@ -42,15 +41,33 @@ public class FoodCategoryGroupModel implements CategoryGroupModel {
         return id;
     }
 
-    public List<String> getCategoriesIds() {
-        return categoriesIds;
+    @Override
+    public String getCategoryStringId() {
+        return categoryModel.getStringId();
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    @Override
+    public CategoryModel getCategory() {
+        return categoryModel;
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public float getPrice() {
+        return price;
+    }
+
+    @Override
+    public String getDescription() {
+        return id + ":" + name;
+    }
+
+    @Override
+    public String getImageUrl() {
+        return getDescription() + ".jpg";
     }
 }

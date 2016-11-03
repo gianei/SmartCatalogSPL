@@ -25,8 +25,6 @@ public interface ItemBasicModel {
 
     String getStringId();
 
-    Long getCategoryId();
-
     String getCategoryStringId();
 
     CategoryModel getCategory();

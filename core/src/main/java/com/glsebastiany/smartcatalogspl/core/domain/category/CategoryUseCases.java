@@ -132,12 +132,12 @@ public class CategoryUseCases {
                 }
 
 
-                List<Long> categoryModelsIds = getSubcategoriesIds(categoryId);
+                List<String> categoryModelsIds = getSubcategoriesIds(categoryId);
 
                 List<ItemBasicModel> items = new ArrayList<>();
                 for (ItemBasicModel item : itemBasicRepository.loadAll()){
                     try {
-                        if (categoryModelsIds.contains(item.getCategory().getId()))
+                        if (categoryModelsIds.contains(item.getCategory().getStringId()))
                             items.add(item);
                     } catch (NullPointerException e){
                         continue;
@@ -157,14 +157,14 @@ public class CategoryUseCases {
     }
 
     @NonNull
-    private List<Long> getSubcategoriesIds(String categoryId) {
+    private List<String> getSubcategoriesIds(String categoryId) {
         CategoryModel category = findCategory(categoryId).toBlocking().single();
         List<CategoryModel> categoryModels = getAllChildren(category).toList().toBlocking().single();
 
-        List<Long> categoryModelsIds = new ArrayList<>(categoryModels.size());
+        List<String> categoryModelsIds = new ArrayList<>(categoryModels.size());
         for (CategoryModel categoryModel :
                 categoryModels) {
-            categoryModelsIds.add(Utils.parseLong(categoryModel.getStringId()));
+            categoryModelsIds.add(categoryModel.getStringId());
         }
         return categoryModelsIds;
     }
@@ -172,16 +172,16 @@ public class CategoryUseCases {
     private void orderByCategoryBasePrice(List<? extends ItemBasicModel> Items){
         if (Items == null)
             return;
-        Map<Long, Integer> orderedIds = getOrderedIds();
+        Map<String, Integer> orderedIds = getOrderedIds();
         Collections.sort(Items, new CategoryBasePriceComparator<>(orderedIds));
     }
 
-    public Map<Long, Integer> getOrderedIds() {
-        List<Long> categories = getSubcategoriesIds(CategoryModel.ROOT_ID.toString());
+    public Map<String, Integer> getOrderedIds() {
+        List<String> categories = getSubcategoriesIds(CategoryModel.ROOT_ID.toString());
 
-        Map<Long,Integer> categoriesMap = new HashMap<>();
+        Map<String,Integer> categoriesMap = new HashMap<>();
         int i = 0;
-        for (Long id : categories)
+        for (String id : categories)
             categoriesMap.put(id,i++);
 
         return categoriesMap;
@@ -189,20 +189,20 @@ public class CategoryUseCases {
 
     private static class CategoryBasePriceComparator<T extends ItemBasicModel> implements Comparator<T> {
 
-        private final Map<Long,Integer> categoriesPositions;
+        private final Map<String,Integer> categoriesPositions;
 
-        CategoryBasePriceComparator(Map<Long, Integer> categoriesPositions){
+        CategoryBasePriceComparator(Map<String, Integer> categoriesPositions){
             this.categoriesPositions = categoriesPositions;
         }
 
         @Override
         public int compare(T lhs, T rhs) {
-            if (!categoriesPositions.containsKey(lhs.getCategoryId()))
+            if (!categoriesPositions.containsKey(lhs.getCategoryStringId()))
                 return 0;
-            if (!categoriesPositions.containsKey(rhs.getCategoryId()))
+            if (!categoriesPositions.containsKey(rhs.getCategoryStringId()))
                 return 0;
-            int firstComparator = categoriesPositions.get(lhs.getCategoryId()).
-                    compareTo(categoriesPositions.get(rhs.getCategoryId()));
+            int firstComparator = categoriesPositions.get(lhs.getCategoryStringId()).
+                    compareTo(categoriesPositions.get(rhs.getCategoryStringId()));
 
             if (firstComparator != 0)
                 return firstComparator;
@@ -278,31 +278,32 @@ public class CategoryUseCases {
     }
 
 
+    //TODO
 
     public void orderByCategoryBasePricePromoted(List<? extends ItemPromotedModel> Items){
         if (Items == null)
             return;
-        Map<Long, Integer> orderedIds = getOrderedIds();
+        Map<String, Integer> orderedIds = getOrderedIds();
         Collections.sort(Items, new CategoryBasePriceComparatorPromoted<>(orderedIds));
         return;
     }
 
     private static class CategoryBasePriceComparatorPromoted<T extends ItemPromotedModel> implements Comparator<T> {
 
-        private final Map<Long,Integer> categoriesPositions;
+        private final Map<String,Integer> categoriesPositions;
 
-        CategoryBasePriceComparatorPromoted(Map<Long, Integer> categoriesPositions){
+        CategoryBasePriceComparatorPromoted(Map<String, Integer> categoriesPositions){
             this.categoriesPositions = categoriesPositions;
         }
 
         @Override
         public int compare(T lhs, T rhs) {
-            if (!categoriesPositions.containsKey(lhs.getItemBasicEntity().getCategoryId()))
+            if (!categoriesPositions.containsKey(lhs.getItemBasicEntity().getCategoryStringId()))
                 return 0;
-            if (!categoriesPositions.containsKey(rhs.getItemBasicEntity().getCategoryId()))
+            if (!categoriesPositions.containsKey(rhs.getItemBasicEntity().getCategoryStringId()))
                 return 0;
-            int firstComparator = categoriesPositions.get(lhs.getItemBasicEntity().getCategoryId()).
-                    compareTo(categoriesPositions.get(rhs.getItemBasicEntity().getCategoryId()));
+            int firstComparator = categoriesPositions.get(lhs.getItemBasicEntity().getCategoryStringId()).
+                    compareTo(categoriesPositions.get(rhs.getItemBasicEntity().getCategoryStringId()));
 
             if (firstComparator != 0)
                 return firstComparator;
