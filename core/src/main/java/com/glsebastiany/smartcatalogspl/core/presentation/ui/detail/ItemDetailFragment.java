@@ -18,10 +18,19 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.detail;
 
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView;
 
 import org.androidannotations.annotations.EFragment;
+
+import java.text.NumberFormat;
 
 @EFragment(resName="fragment_gallery_visualization_detail_item_stub")
 @RequiresPresenter(ItemDetailPresenter.class)
@@ -32,7 +41,27 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
     }
 
     @Override
-    protected void inflateViewStub(ItemBasicModel item) {
+    protected void inflateViewStub(ItemBasicModel itemBasicModel) {
         //TODO
+        Context context = getContext();
+
+        itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
+        View newView = itemDetailStub.inflate();
+
+        TextView priceText = (TextView) newView.findViewById(R.id.textViewDetailItemPrice);
+        NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
+        priceText.setText(currencyInstance.format(itemBasicModel.getPrice()));
+
+
+        TextView idText = (TextView) newView.findViewById(R.id.textViewDetailItemId);
+        idText.setText( itemBasicModel.getStringId());
+
+        TextView descriptionText = (TextView) newView.findViewById(R.id.textViewDetailDescription);
+        descriptionText.setText(itemBasicModel.getName());
+
+        ImageView buildIcon = (ImageView) newView.findViewById(R.id.item_view_detail_build);
+        buildIcon.setVisibility(View.INVISIBLE);
+
+        final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
     }
 }

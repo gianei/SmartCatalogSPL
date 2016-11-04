@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
@@ -43,7 +44,7 @@ public class ItemDetailPresenter extends Presenter<ItemDetailFragment> {
 
 
         if (categoryId != null) {
-            itemsObservable = itemBasicUseCases.find(categoryId);
+            itemsObservable = ObservableHelper.setupThreads(itemBasicUseCases.find(categoryId).cache());
 
         } else
             throw new RuntimeException("Item id must be set in fragment args");
@@ -67,9 +68,9 @@ public class ItemDetailPresenter extends Presenter<ItemDetailFragment> {
     public void onAfterViews() {
         restartable(OBSERVABLE_ID,
                 () -> itemsObservable.subscribe(
-                        itemComposition -> {
+                        itemBasicModel -> {
                             if (getView() != null)
-                                getView().addItem(itemComposition);
+                                getView().addItem(itemBasicModel);
                         },
                         error -> {
                             throw new RuntimeException(error);
