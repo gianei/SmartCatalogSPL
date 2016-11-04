@@ -41,6 +41,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.FirebaseAuthentication;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -64,12 +65,29 @@ public class MainActivityBase extends MvpRxActivityBase<MainPresenterBase> {
 
     protected MainAdapterBase mainAdapter;
 
+    private FirebaseAuthentication firebaseAuthentication;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        firebaseAuthentication.setOnPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAuthentication.setOnResume();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         baseAppDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+
+        firebaseAuthentication = new FirebaseAuthentication(this, baseAppDisplayFactory);
+
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);

@@ -21,7 +21,6 @@ package com.glsebastiany.smartcatalogspl.instanceditlanta;
 
 import android.content.Context;
 
-import com.glsebastiany.ditlantaapp.presentation.ui.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
@@ -32,6 +31,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasi
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.AppDisplayFactoryBasic;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginAuthStateListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

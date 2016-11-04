@@ -18,7 +18,6 @@
 
 package com.glsebastiany.smartcatalogspl.instanceditlanta;
 
-import com.glsebastiany.ditlantaapp.presentation.di.components.DaggerApplicationComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
 

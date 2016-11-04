@@ -49,4 +49,5 @@ public interface ApplicationComponent {
     void inject(SplashScreenExtended splashScreen);
 
 
+    void inject(SplashScreenBase splashScreenBase);
 }

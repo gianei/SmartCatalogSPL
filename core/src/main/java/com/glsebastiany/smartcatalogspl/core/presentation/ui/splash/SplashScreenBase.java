@@ -29,6 +29,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
@@ -63,6 +64,9 @@ public abstract class SplashScreenBase extends InjectableActivity {
             Utils.startLockTasMode(this);
 
         baseAppDisplayFactory.startMainActivity(this);
+        FirebaseAuth auth =  FirebaseAuth.getInstance();
+
+        auth.addAuthStateListener(authStateListener);
     }
 
     @Override
@@ -101,6 +105,9 @@ public abstract class SplashScreenBase extends InjectableActivity {
 
     @Inject
     public CategoryGroupUseCases categoryGroupUseCases;
+
+    @Inject
+    FirebaseAuth.AuthStateListener authStateListener;
 
 
 

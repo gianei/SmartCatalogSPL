@@ -29,6 +29,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFr
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBasic;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginActivity_;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragment;
@@ -68,7 +69,12 @@ public class AppDisplayFactoryBasic implements BaseAppDisplayFactory {
 
     @Override
     public void startLoginActivity() {
-        throw new RuntimeException("NOT IMPLEMENTED!");
+        LoginActivity_
+                .intent(context)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        | Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                .start();
     }
 
     @Override
