@@ -28,11 +28,10 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemId;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.MyGridLayoutManager;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.SpacesItemDecoration;
@@ -43,10 +42,8 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
-import javax.inject.Inject;
-
 @EFragment(resName="fragment_gallery_visualization_grid")
-public abstract class GalleryGridFragmentBase<P extends Presenter, I> extends MvpRxFragmentBase<P> implements GalleryGridCallbacks {
+public abstract class GalleryGridFragmentBase<P extends Presenter, I extends ItemId> extends MvpRxFragmentBase<P> implements GalleryGridCallbacks {
 
     public static final int MAX_ITEMS_TO_SHOW_SCROLL = 100;
 
@@ -99,11 +96,6 @@ public abstract class GalleryGridFragmentBase<P extends Presenter, I> extends Mv
             progressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    protected void injectApplicationComponent() {
-
     }
 
     protected int getStartingSpanSize(){

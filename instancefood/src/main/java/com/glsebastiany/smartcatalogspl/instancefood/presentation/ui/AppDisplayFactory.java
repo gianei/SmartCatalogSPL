@@ -24,11 +24,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBaseBasic;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBasic;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
@@ -57,7 +57,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public GalleryGridCallbacks provideGalleryGridFragment(String searchQuery, boolean isCategoryIdQuery){
-        return GalleryGridFragmentBasic.newInstance(searchQuery, isCategoryIdQuery);
+        return GalleryGridFragment.newInstance(searchQuery, isCategoryIdQuery);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
-        return ItemDetailFragmentBaseBasic.newInstance(itemId);
+        return ItemDetailFragment.newInstance(itemId);
     }
 
 

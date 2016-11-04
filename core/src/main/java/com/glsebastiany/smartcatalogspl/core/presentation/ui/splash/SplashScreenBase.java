@@ -19,6 +19,7 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.splash;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
@@ -26,20 +27,40 @@ import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupR
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
 
-public abstract class SplashScreenBase extends InjectableActivity {
+public abstract class SplashScreenBase extends AppCompatActivity {
+
+    @Inject
+    public ItemBasicRepository itemBasicRepository;
+
+    @Inject
+    public CategoryRepository categoryRepository;
+
+    @Inject
+    public CategoryGroupRepository categoryGroupRepository;
+
+    @Inject
+    public BaseAppDisplayFactory baseAppDisplayFactory;
+
+    @Inject
+    public ItemBasicUseCases itemBasicUseCases;
+
+    @Inject
+    public CategoryUseCases categoryUseCases;
+
+    @Inject
+    public CategoryGroupUseCases categoryGroupUseCases;
+
+    @Inject
+    FirebaseAuth.AuthStateListener authStateListener;
 
     protected static SplashScreenBase instance = null;
-
-    //@Inject
-    //BaseAppDisplayFactory baseAppDisplayFactory;
 
     private static int sessionDepth = 0;
 
@@ -69,47 +90,11 @@ public abstract class SplashScreenBase extends InjectableActivity {
         auth.addAuthStateListener(authStateListener);
     }
 
-    @Override
-    protected void injectApplicationComponent() {
-        //baseAppDisplayFactory = InjectableApplication.singleton().baseAppDisplayFactory;
-        //injectMe(this);
-    }
-
     protected abstract void injectMe(SplashScreenBase splashScreen);
 
-    protected abstract boolean forceTaskMode();
-
-
-
-
-
-
-
-    @Inject
-    public ItemBasicRepository itemBasicRepository;
-
-    @Inject
-    public CategoryRepository categoryRepository;
-
-    @Inject
-    public CategoryGroupRepository categoryGroupRepository;
-
-    @Inject
-    public BaseAppDisplayFactory baseAppDisplayFactory;
-
-    @Inject
-    public ItemBasicUseCases itemBasicUseCases;
-
-    @Inject
-    public CategoryUseCases categoryUseCases;
-
-    @Inject
-    public CategoryGroupUseCases categoryGroupUseCases;
-
-    @Inject
-    FirebaseAuth.AuthStateListener authStateListener;
-
-
+    protected boolean forceTaskMode() {
+        return true;
+    }
 
     public static SplashScreenBase getInstance() {
 

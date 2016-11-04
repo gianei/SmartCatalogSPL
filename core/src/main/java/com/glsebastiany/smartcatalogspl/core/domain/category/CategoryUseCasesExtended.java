@@ -20,8 +20,8 @@ package com.glsebastiany.smartcatalogspl.core.domain.category;
 
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +34,14 @@ import rx.Subscriber;
 
 public class CategoryUseCasesExtended extends CategoryUseCases{
 
-    ItemPromotedUseCases itemPromotedUseCases;
+    public static final String ID_PROMOTION = "-1";
+    public static final String ID_SALE = "-2";
+    public static final String ID_NEW = "-3";
+    public static final String ID_PROMOTION_AND_SALE = "-4";
+    public static final String ID_OTHER = "-99";
+
+
+    ItemExtendedUseCases itemExtendedUseCases;
 
     @Override
     public Observable<ItemBasicModel> allItemsFromCategory(final String categoryId) {
@@ -43,28 +50,28 @@ public class CategoryUseCasesExtended extends CategoryUseCases{
             @Override
             public void call(Subscriber<? super ItemBasicModel> subscriber) {
 
-                List<ItemPromotedModel> promotedItems = null;
+                List<ItemExtendedModel> promotedItems = null;
 
                 switch (categoryId) {
-                    case CategoryRepository.ID_PROMOTION:
-                        promotedItems = itemPromotedUseCases.getAllPromoted().toList().toBlocking().single();
+                    case ID_PROMOTION:
+                        promotedItems = itemExtendedUseCases.getAllPromoted().toList().toBlocking().single();
                         break;
-                    case CategoryRepository.ID_SALE:
-                        promotedItems = itemPromotedUseCases.getAllSale().toList().toBlocking().single();
+                    case ID_SALE:
+                        promotedItems = itemExtendedUseCases.getAllSale().toList().toBlocking().single();
                         break;
-                    case CategoryRepository.ID_NEW:
-                        promotedItems = itemPromotedUseCases.getAllNew().toList().toBlocking().single();
+                    case ID_NEW:
+                        promotedItems = itemExtendedUseCases.getAllNew().toList().toBlocking().single();
                         break;
-                    case CategoryRepository.ID_PROMOTION_AND_SALE:
-                        promotedItems = itemPromotedUseCases.getAllPromotedOrSale().toList().toBlocking().single();
+                    case ID_PROMOTION_AND_SALE:
+                        promotedItems = itemExtendedUseCases.getAllPromotedOrSale().toList().toBlocking().single();
                         break;
                 }
 
                 if (promotedItems != null){
                     orderByCategoryBasePricePromoted(promotedItems);
-                    for (ItemPromotedModel item:
+                    for (ItemExtendedModel item:
                             promotedItems) {
-                        subscriber.onNext(item.getItemBasicEntity());
+                        subscriber.onNext(item.getItemBasicModel());
                     }
 
                     subscriber.onCompleted();
@@ -98,15 +105,14 @@ public class CategoryUseCasesExtended extends CategoryUseCases{
     }
 
 
-    public void orderByCategoryBasePricePromoted(List<? extends ItemPromotedModel> Items){
+    private void orderByCategoryBasePricePromoted(List<? extends ItemExtendedModel> Items){
         if (Items == null)
             return;
         Map<String, Integer> orderedIds = getOrderedIds();
         Collections.sort(Items, new CategoryBasePriceComparatorPromoted<>(orderedIds));
-        return;
     }
 
-    private static class CategoryBasePriceComparatorPromoted<T extends ItemPromotedModel> implements Comparator<T> {
+    private static class CategoryBasePriceComparatorPromoted<T extends ItemExtendedModel> implements Comparator<T> {
 
         private final Map<String,Integer> categoriesPositions;
 
@@ -116,17 +122,17 @@ public class CategoryUseCasesExtended extends CategoryUseCases{
 
         @Override
         public int compare(T lhs, T rhs) {
-            if (!categoriesPositions.containsKey(lhs.getItemBasicEntity().getCategoryStringId()))
+            if (!categoriesPositions.containsKey(lhs.getItemBasicModel().getCategoryStringId()))
                 return 0;
-            if (!categoriesPositions.containsKey(rhs.getItemBasicEntity().getCategoryStringId()))
+            if (!categoriesPositions.containsKey(rhs.getItemBasicModel().getCategoryStringId()))
                 return 0;
-            int firstComparator = categoriesPositions.get(lhs.getItemBasicEntity().getCategoryStringId()).
-                    compareTo(categoriesPositions.get(rhs.getItemBasicEntity().getCategoryStringId()));
+            int firstComparator = categoriesPositions.get(lhs.getItemBasicModel().getCategoryStringId()).
+                    compareTo(categoriesPositions.get(rhs.getItemBasicModel().getCategoryStringId()));
 
             if (firstComparator != 0)
                 return firstComparator;
             else
-                return Float.compare(lhs.getItemBasicEntity().getPrice(), rhs.getItemBasicEntity().getPrice());
+                return Float.compare(lhs.getItemBasicModel().getPrice(), rhs.getItemBasicModel().getPrice());
 
         }
 

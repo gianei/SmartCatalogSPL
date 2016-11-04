@@ -37,8 +37,4 @@ public class SplashScreen extends SplashScreenBase {
         applicationComponent.inject(splashScreen);
     }
 
-    @Override
-    protected boolean forceTaskMode() {
-        return false;
-    }
 }

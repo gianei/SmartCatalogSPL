@@ -21,13 +21,12 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.login;
 
 import android.support.annotation.NonNull;
 
-
-import com.glsebastiany.smartcatalogspl.core.presentation.datafetcher.CategoryGroupsUpdater;
-import com.glsebastiany.smartcatalogspl.core.presentation.datafetcher.CategoryUpdater;
-import com.glsebastiany.smartcatalogspl.core.presentation.datafetcher.FirebaseUpdater;
-import com.glsebastiany.smartcatalogspl.core.presentation.datafetcher.ItemsBasicUpdater;
-import com.glsebastiany.smartcatalogspl.core.presentation.datafetcher.ItemsPromotedUpdater;
-import com.glsebastiany.smartcatalogspl.core.presentation.firebase.FirebaseUidMapping;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.datafetcher.CategoryGroupsUpdater;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.datafetcher.CategoryUpdater;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.datafetcher.FirebaseUpdater;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.datafetcher.ItemExtendedUpdater;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.datafetcher.ItemsBasicUpdater;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.firebase.FirebaseUidMapping;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,7 +47,7 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
     ItemsBasicUpdater itemsBasicUpdater;
 
     @Inject
-    ItemsPromotedUpdater itemsPromotedUpdater;
+    ItemExtendedUpdater itemExtendedUpdater;
 
     @Inject
     public LoginAuthStateListener(){
@@ -61,7 +60,7 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
             updadersStarted = true;
 
             new FirebaseUpdater(itemsBasicUpdater);
-            new FirebaseUpdater(itemsPromotedUpdater);
+            new FirebaseUpdater(itemExtendedUpdater);
             new FirebaseUpdater(categoryUpdater);
             new FirebaseUpdater(categoryGroupsUpdater);
 
@@ -81,7 +80,7 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
             String name = user.getDisplayName();
 
             saveUidMapping(user.getUid(), email);
-            saveUser(email, new com.glsebastiany.smartcatalogspl.core.presentation.firebase.FirebaseUser(name));
+            saveUser(email, new com.glsebastiany.smartcatalogspl.core.presentation.persistence.firebase.FirebaseUser(name));
         }
 
     }
@@ -90,7 +89,7 @@ public class LoginAuthStateListener implements FirebaseAuth.AuthStateListener {
         FirebaseDatabase.getInstance().getReference().child(FirebaseUidMapping.LOCATION).child(uid).setValue(email);
     }
 
-    private void saveUser(String email, com.glsebastiany.smartcatalogspl.core.presentation.firebase.FirebaseUser firebaseUser) {
-        FirebaseDatabase.getInstance().getReference().child(com.glsebastiany.smartcatalogspl.core.presentation.firebase.FirebaseUser.LOCATION).child(email).setValue(firebaseUser);
+    private void saveUser(String email, com.glsebastiany.smartcatalogspl.core.presentation.persistence.firebase.FirebaseUser firebaseUser) {
+        FirebaseDatabase.getInstance().getReference().child(com.glsebastiany.smartcatalogspl.core.presentation.persistence.firebase.FirebaseUser.LOCATION).child(email).setValue(firebaseUser);
     }
 }

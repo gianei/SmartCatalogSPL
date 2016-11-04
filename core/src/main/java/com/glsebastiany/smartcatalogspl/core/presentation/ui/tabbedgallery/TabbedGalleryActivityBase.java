@@ -24,15 +24,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -43,20 +42,15 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import static com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils.depthFirstOnBackPressed;
+import static com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils.depthFirstOnBackPressed;
 
 @EActivity(resName="activity_gallery")
-public class TabbedGalleryActivityBase extends InjectableActivity {
+public class TabbedGalleryActivityBase extends AppCompatActivity {
 
-    //@Inject
     protected ItemBasicUseCases itemBasicUseCases;
 
-    //@Inject
     protected CategoryUseCases categoryUseCases;
 
-    //@Inject
     protected BaseAppDisplayFactory appDisplayFactory;
 
     @Extra
@@ -133,11 +127,4 @@ public class TabbedGalleryActivityBase extends InjectableActivity {
             super.onBackPressed();
         }
     }
-
-    @Override
-    protected void injectApplicationComponent() {
-
-    }
-
-
 }

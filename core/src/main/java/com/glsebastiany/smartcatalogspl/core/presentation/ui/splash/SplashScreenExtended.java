@@ -19,18 +19,18 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.splash;
 
 
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 
 import javax.inject.Inject;
 
 public abstract class SplashScreenExtended extends SplashScreenBase{
 
     @Inject
-    public ItemPromotedRepository itemPromotedRepository;
+    public ItemExtendedRepository itemExtendedRepository;
 
     @Inject
-    public ItemPromotedUseCases itemPromotedUseCases;
+    public ItemExtendedUseCases itemExtendedUseCases;
 
     protected void injectMe(SplashScreenBase splashScreenBase){
         injectMeInner(splashScreenBase);
@@ -46,9 +46,4 @@ public abstract class SplashScreenExtended extends SplashScreenBase{
         return (SplashScreenExtended) instance;
     }
 
-
-    @Override
-    protected boolean forceTaskMode() {
-        return true;
-    }
 }

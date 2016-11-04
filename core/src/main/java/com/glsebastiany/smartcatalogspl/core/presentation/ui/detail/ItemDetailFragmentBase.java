@@ -22,9 +22,7 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.ProgressBar;
 
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemId;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 
@@ -35,7 +33,7 @@ import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(resName="fragment_gallery_visualization_detail_item_stub")
-public abstract class ItemDetailFragmentBase<P extends Presenter, I> extends MvpRxFragmentBase<P> {
+public abstract class ItemDetailFragmentBase<P extends Presenter, I extends ItemId> extends MvpRxFragmentBase<P> {
 
     @ViewById(resName="item_detail_stub")
     public ViewStub itemDetailStub;
@@ -46,10 +44,6 @@ public abstract class ItemDetailFragmentBase<P extends Presenter, I> extends Mvp
     @FragmentArg
     @InstanceState
     public String itemId;
-
-    @Override
-    protected void injectApplicationComponent() {
-    }
 
     @AfterViews
     protected void afterViews(){

@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.ditlantaapp.R;
 import com.google.android.gms.auth.api.Auth;

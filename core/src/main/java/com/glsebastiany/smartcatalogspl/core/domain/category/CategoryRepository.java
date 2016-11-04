@@ -20,16 +20,9 @@ package com.glsebastiany.smartcatalogspl.core.domain.category;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface CategoryRepository {
-
-    String ID_PROMOTION = "-1";
-    String ID_SALE = "-2";
-    String ID_NEW = "-3";
-    String ID_PROMOTION_AND_SALE = "-4";
-    String ID_OTHER = "-99";
 
     List<? extends CategoryModel> loadAll();
 

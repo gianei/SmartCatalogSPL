@@ -25,13 +25,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.ditlantaapp.R;
-import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
-import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -39,8 +37,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
-
-import javax.inject.Inject;
 
 @EActivity(R.layout.activity_login)
 @RequiresPresenter(LoginPresenter.class)

@@ -35,8 +35,8 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -64,17 +64,14 @@ public class MainAdapterBase extends RecyclerView.Adapter<MainAdapterBase.ViewHo
         CategoryGroupModel model = categoriesGroup.get(position);
 
 
-        viewHolderSuitCase.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String categories = categoriesGroup.get(viewHolderSuitCase.getAdapterPosition()).getCategoryList();
-                String[] catArray = categories.split(",");
+        viewHolderSuitCase.itemView.setOnClickListener(v -> {
+            String categories = categoriesGroup.get(viewHolderSuitCase.getAdapterPosition()).getCategoryList();
+            String[] catArray = categories.split(",");
 
-                baseAppDisplayFactory.startGalleryActivity(
-                        context,
-                        Arrays.asList(catArray)
-                );
-            }
+            baseAppDisplayFactory.startGalleryActivity(
+                    context,
+                    Arrays.asList(catArray)
+            );
         });
 
         viewHolderSuitCase.title.setText(model.getName());

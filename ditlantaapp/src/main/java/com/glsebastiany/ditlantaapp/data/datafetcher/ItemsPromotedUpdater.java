@@ -24,8 +24,8 @@ import android.util.Log;
 
 import com.glsebastiany.ditlantaapp.data.firebase.FirebaseItem;
 import com.glsebastiany.ditlantaapp.data.preferences.SharedPreferencesUpdate_;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
@@ -39,13 +39,13 @@ public class ItemsPromotedUpdater implements FirebaseUpdatable {
     private static final String LOG_TAG = ItemsPromotedUpdater.class.getSimpleName();
 
     private final SharedPreferencesUpdate_ sharedPreferencesUpdate;
-    private final ItemPromotedUseCases itemPromotedUseCases;
+    private final ItemExtendedUseCases itemExtendedUseCases;
 
 
     @Inject
-    public ItemsPromotedUpdater(Context context, ItemPromotedUseCases itemBasicUseCases) {
+    public ItemsPromotedUpdater(Context context, ItemExtendedUseCases itemBasicUseCases) {
         this.sharedPreferencesUpdate = new SharedPreferencesUpdate_(context);
-        this.itemPromotedUseCases = itemBasicUseCases;
+        this.itemExtendedUseCases = itemBasicUseCases;
     }
 
     @Override
@@ -85,8 +85,8 @@ public class ItemsPromotedUpdater implements FirebaseUpdatable {
     @NonNull
     public Set<String> getLocalIds(int expectedSize) {
         Set<String> localItemsIds = new LinkedHashSet<>(expectedSize);
-        List<ItemPromotedModel> allItems = itemPromotedUseCases.getAll().toList().toBlocking().single();
-        for (ItemPromotedModel item :
+        List<ItemExtendedModel> allItems = itemExtendedUseCases.getAll().toList().toBlocking().single();
+        for (ItemExtendedModel item :
                 allItems) {
             localItemsIds.add(item.getStringId());
         }
@@ -95,12 +95,12 @@ public class ItemsPromotedUpdater implements FirebaseUpdatable {
 
     @Override
     public void clean() {
-        itemPromotedUseCases.removeAll();
+        itemExtendedUseCases.removeAll();
     }
 
     public long insertAll(DataSnapshot dataSnapshots) {
         long latestDate = 0;
-        List<ItemPromotedModel> items = new ArrayList<>(5000);
+        List<ItemExtendedModel> items = new ArrayList<>(5000);
         for (DataSnapshot dataSnapshot :
                 dataSnapshots.getChildren()) {
             FirebaseItem firebaseItem = dataSnapshot.getValue(FirebaseItem.class);
@@ -110,7 +110,7 @@ public class ItemsPromotedUpdater implements FirebaseUpdatable {
                 latestDate = firebaseItem.getUpdatedDate();
         }
 
-        itemPromotedUseCases.insertAll(items);
+        itemExtendedUseCases.insertAll(items);
         return latestDate;
     }
 
@@ -119,8 +119,8 @@ public class ItemsPromotedUpdater implements FirebaseUpdatable {
         FirebaseItem firebaseItem = snapshot.getValue(FirebaseItem.class);
         Log.d(LOG_TAG, "Inserting item: " + firebaseItem.getId());
 
-        itemPromotedUseCases.remove(String.valueOf(firebaseItem.getId()));
-        itemPromotedUseCases.insert(firebaseItem.toPromotedItemModel());
+        itemExtendedUseCases.remove(String.valueOf(firebaseItem.getId()));
+        itemExtendedUseCases.insert(firebaseItem.toPromotedItemModel());
 
         return firebaseItem.getUpdatedDate();
     }
@@ -130,8 +130,8 @@ public class ItemsPromotedUpdater implements FirebaseUpdatable {
         FirebaseItem firebaseItem = snapshot.getValue(FirebaseItem.class);
         Log.d(LOG_TAG, "Changing item: " + firebaseItem.getId());
 
-        itemPromotedUseCases.remove(String.valueOf(firebaseItem.getId()));
-        itemPromotedUseCases.insert(firebaseItem.toPromotedItemModel());
+        itemExtendedUseCases.remove(String.valueOf(firebaseItem.getId()));
+        itemExtendedUseCases.insert(firebaseItem.toPromotedItemModel());
 
         return firebaseItem.getUpdatedDate();
     }
@@ -147,7 +147,7 @@ public class ItemsPromotedUpdater implements FirebaseUpdatable {
 
     public void remove(String id) {
         Log.d(LOG_TAG, "Removing item: " + id);
-        itemPromotedUseCases.remove(id);
+        itemExtendedUseCases.remove(id);
     }
 
 

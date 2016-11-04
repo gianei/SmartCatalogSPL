@@ -20,9 +20,9 @@ package com.glsebastiany.ditlantaapp.data.firebase;
 
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicEntity;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedEntity;
+import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemExtendedEntity;
 
 import java.util.Date;
 
@@ -108,8 +108,8 @@ public class FirebaseItem {
                 getPhotoUrl());
     }
 
-    public ItemPromotedModel toPromotedItemModel(){
-        return new ItemPromotedEntity(
+    public ItemExtendedModel toPromotedItemModel(){
+        return new ItemExtendedEntity(
                 id,
                 isPromoted(),
                 isSale(),

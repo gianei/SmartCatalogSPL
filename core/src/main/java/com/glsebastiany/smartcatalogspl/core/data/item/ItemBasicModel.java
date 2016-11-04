@@ -21,7 +21,7 @@ package com.glsebastiany.smartcatalogspl.core.data.item;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 
-public interface ItemBasicModel {
+public interface ItemBasicModel extends ItemId {
 
     String getStringId();
 

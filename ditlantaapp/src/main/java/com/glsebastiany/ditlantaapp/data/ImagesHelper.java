@@ -25,7 +25,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.MediaStoreSignature;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.glsebastiany.ditlantaapp.R;
 
 import java.io.File;

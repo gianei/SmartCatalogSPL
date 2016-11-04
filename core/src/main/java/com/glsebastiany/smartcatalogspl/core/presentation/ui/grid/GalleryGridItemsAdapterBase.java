@@ -21,7 +21,6 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
 import android.support.v7.widget.RecyclerView;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
 
 public abstract class GalleryGridItemsAdapterBase<I> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected GalleryGridCallbacks galleryGridCallbacks;

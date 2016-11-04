@@ -35,21 +35,12 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.FirebaseAuthentication;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.ViewById;
-
-import javax.inject.Inject;
 
 @RequiresPresenter(MainPresenterBase.class)
 public class MainActivityBase extends MvpRxActivityBase<MainPresenterBase> {
@@ -60,7 +51,6 @@ public class MainActivityBase extends MvpRxActivityBase<MainPresenterBase> {
 
     public Toolbar toolbar;
 
-    //@Inject
     public BaseAppDisplayFactory baseAppDisplayFactory;
 
     protected MainAdapterBase mainAdapter;
@@ -128,7 +118,6 @@ public class MainActivityBase extends MvpRxActivityBase<MainPresenterBase> {
         return super.onOptionsItemSelected(item);
     }
 
-    //@AfterViews
     public void afterViews(){
         setSupportActionBar(toolbar);
 
@@ -159,13 +148,6 @@ public class MainActivityBase extends MvpRxActivityBase<MainPresenterBase> {
         toolbar.setLogoDescription(getString(R.string.menu_logo_description));
         toolbar.setTitle("");
     }
-
-
-    @Override
-    protected void injectApplicationComponent() {
-
-    }
-
 
     public void stopLoading() {
         progressBar.setVisibility(View.GONE);

@@ -25,8 +25,8 @@ import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupU
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailPresenterBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainPresenterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
@@ -36,7 +36,7 @@ import com.glsebastiany.ditlantaapp.data.imagefetching.ImageFetcherIntentService
 import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
 import com.glsebastiany.ditlantaapp.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.ditlantaapp.presentation.di.modules.FirebaseModule;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenterBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenter;
 import com.glsebastiany.ditlantaapp.presentation.ui.login.LoginActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.search.SearchActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPresenterBase;
@@ -66,9 +66,9 @@ public interface ApplicationComponent {
 
     void inject(TabbedGalleryPresenterBase tabbedGalleryPresenter);
 
-    void inject(GalleryGridPresenterBase galleryGridPresenter);
+    void inject(GalleryGridPresenter galleryGridPresenter);
 
-    void inject(ItemDetailPresenterBase itemDetailPresenter);
+    void inject(ItemDetailPresenter itemDetailPresenter);
 
     void inject(GalleryGridFragment galleryGridFragment);
 

@@ -18,12 +18,12 @@
 
 package com.glsebastiany.ditlantaapp.presentation.ui.grid;
 
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenterExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.extended.GalleryGridPresenterExtended;
 
 
-public abstract class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenterExtended, ItemComposition> {
+public abstract class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenterExtended, ItemExtendedModel> {
 /*
     @Pref
     SharedPreferencesZoom_ preferencesZoom;

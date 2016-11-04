@@ -24,13 +24,13 @@ import android.content.Context;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.categorygroup.CategoryGroupGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.AppDisplayFactoryBasic;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.CategoryGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.categorygroup.CategoryGroupGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemBasicGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemExtendedGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactoryBasic;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginAuthStateListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -73,7 +73,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ItemPromotedRepository provideItemPromotedRepository(ItemPromotedGreendaoRepository repository){
+    ItemExtendedRepository provideItemPromotedRepository(ItemExtendedGreendaoRepository repository){
         return repository;
     }
 

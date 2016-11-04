@@ -19,8 +19,7 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.nucleous;
 
 import android.os.Bundle;
-
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableFragment;
+import android.support.v4.app.Fragment;
 
 /**
  * This view is an example of how a view should control it's presenter.
@@ -29,7 +28,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableFragment;
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
-public abstract class MvpRxFragmentBase<P extends Presenter> extends InjectableFragment/* implements ViewWithPresenter<P> */{
+public abstract class MvpRxFragmentBase<P extends Presenter> extends Fragment{
 
     private PresenterLifecycleDelegate<P> presenterDelegate =
             new PresenterLifecycleDelegate<>(ReflectionPresenterFactory.<P>fromViewClass(getClass()));

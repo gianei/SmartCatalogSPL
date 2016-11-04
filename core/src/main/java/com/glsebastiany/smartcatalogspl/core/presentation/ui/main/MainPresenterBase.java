@@ -19,9 +19,8 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.main;
 
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
@@ -44,13 +43,10 @@ public class MainPresenterBase extends Presenter<MainActivityBase> implements Fu
     public MainPresenterBase(){
 
         categoryGroupUseCases = SplashScreenBase.getInstance().categoryGroupUseCases;
-        //injectMeMotherlord(this);
 
         observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
 
     }
-
-    //protected abstract void injectMeMotherlord(MainPresenterBase mainPresenterBase);
 
     @Override
     protected void onAfterViews() {

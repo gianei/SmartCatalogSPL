@@ -127,14 +127,14 @@ public class CategoryUseCases {
         return categoryModelsIds;
     }
 
-    protected void orderByCategoryBasePrice(List<? extends ItemBasicModel> Items){
+    void orderByCategoryBasePrice(List<? extends ItemBasicModel> Items){
         if (Items == null)
             return;
         Map<String, Integer> orderedIds = getOrderedIds();
         Collections.sort(Items, new CategoryBasePriceComparator<>(orderedIds));
     }
 
-    public Map<String, Integer> getOrderedIds() {
+    Map<String, Integer> getOrderedIds() {
         List<String> categories = getSubcategoriesIds(CategoryModel.ROOT_ID.toString());
 
         Map<String,Integer> categoriesMap = new HashMap<>();

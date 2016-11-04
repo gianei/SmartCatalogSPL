@@ -25,12 +25,12 @@ import com.glsebastiany.ditlantaapp.presentation.ui.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.categorygroup.CategoryGroupGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 
 import javax.inject.Singleton;
 
@@ -68,7 +68,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ItemPromotedRepository provideItemPromotedRepository(ItemPromotedGreendaoRepository repository){
+    ItemExtendedRepository provideItemPromotedRepository(ItemPromotedGreendaoRepository repository){
         return repository;
     }
 

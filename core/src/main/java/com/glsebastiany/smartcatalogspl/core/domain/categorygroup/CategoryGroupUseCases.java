@@ -19,7 +19,6 @@
 package com.glsebastiany.smartcatalogspl.core.domain.categorygroup;
 
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 
 import java.util.List;
 

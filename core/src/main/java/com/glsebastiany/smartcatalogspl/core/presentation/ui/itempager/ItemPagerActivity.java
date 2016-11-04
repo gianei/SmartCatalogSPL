@@ -23,13 +23,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -38,10 +36,8 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
-import javax.inject.Inject;
-
 @EActivity(resName="activity_gallery_visualization_pager")
-public class ItemPagerActivity extends InjectableActivity {
+public class ItemPagerActivity extends AppCompatActivity {
 
     BaseAppDisplayFactory appDisplayFactory;
 
@@ -73,12 +69,7 @@ public class ItemPagerActivity extends InjectableActivity {
         mPager.setCurrentItem(itemPosition);
 
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     private class MyPageAdapter extends FragmentStatePagerAdapter {
@@ -97,11 +88,5 @@ public class ItemPagerActivity extends InjectableActivity {
             return categoriesIds.length;
         }
     }
-
-    @Override
-    protected void injectApplicationComponent() {
-
-    }
-
 
 }

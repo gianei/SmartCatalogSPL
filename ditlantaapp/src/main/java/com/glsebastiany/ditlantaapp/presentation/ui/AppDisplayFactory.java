@@ -28,12 +28,11 @@ import com.glsebastiany.ditlantaapp.presentation.ui.login.LoginActivity_;
 import com.glsebastiany.ditlantaapp.presentation.ui.main.MainActivity_;
 
 import com.glsebastiany.ditlantaapp.presentation.ui.tabbedgallery.TabbedGalleryActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBaseExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.extended.ItemDetailFragmentExtended;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.extended.GalleryGridFragmentExtended;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragment;
 
@@ -95,7 +94,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
-        return ItemDetailFragmentBaseExtended.newInstance(itemId);
+        return ItemDetailFragmentExtended.newInstance(itemId);
     }
 
 

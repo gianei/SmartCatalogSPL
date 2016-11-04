@@ -31,10 +31,9 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -219,11 +218,4 @@ public class TabbedGalleryFragment extends MvpRxFragmentBase<TabbedGalleryPresen
             );
         }
     }
-
-    @Override
-    protected void injectApplicationComponent() {
-
-    }
-
-
 }

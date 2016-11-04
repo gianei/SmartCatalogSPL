@@ -23,7 +23,7 @@ import android.content.Context;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
 

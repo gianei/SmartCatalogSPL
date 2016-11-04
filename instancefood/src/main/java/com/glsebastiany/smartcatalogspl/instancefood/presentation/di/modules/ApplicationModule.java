@@ -21,19 +21,14 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules;
 
 import android.content.Context;
 
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instancefood.memory.category.CategoryMemoryRepository;
 import com.glsebastiany.smartcatalogspl.instancefood.memory.categorygroup.CategoryGroupMemoryRepository;
 import com.glsebastiany.smartcatalogspl.instancefood.memory.item.ItemBasicMemoryRepository;
-
-import java.util.List;
 
 import javax.inject.Singleton;
 

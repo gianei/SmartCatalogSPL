@@ -21,14 +21,12 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.search;
 import android.app.SearchManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -38,14 +36,9 @@ import org.androidannotations.annotations.ViewById;
 
 @EActivity(resName = "activity_search")
 //@OptionsMenu(R.menu.menu_gallery)
-public class SearchActivity extends InjectableActivity {
+public class SearchActivity extends AppCompatActivity {
 
     BaseAppDisplayFactory appDisplayFactory;
-
-    @Override
-    protected void injectApplicationComponent() {
-        appDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
-    }
 
     @Extra(SearchManager.QUERY)
     String searchQuery;
@@ -69,12 +62,7 @@ public class SearchActivity extends InjectableActivity {
     }
 
     private void setupToolbarNavigation() {
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     @AfterViews

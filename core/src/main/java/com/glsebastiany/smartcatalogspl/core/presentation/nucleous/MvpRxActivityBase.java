@@ -21,8 +21,7 @@ package com.glsebastiany.smartcatalogspl.core.presentation.nucleous;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * This class is an example of how an activity could controls it's presenter.
@@ -31,7 +30,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
-public abstract class MvpRxActivityBase<P extends Presenter> extends InjectableActivity {
+public abstract class MvpRxActivityBase<P extends Presenter> extends AppCompatActivity {
 
     private PresenterLifecycleDelegate<P> presenterDelegate =
             new PresenterLifecycleDelegate<>(ReflectionPresenterFactory.<P>fromViewClass(getClass()));
