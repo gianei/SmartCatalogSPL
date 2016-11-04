@@ -22,13 +22,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import java.util.Arrays;
-
-import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Observer;
@@ -36,21 +35,19 @@ import rx.Subscription;
 import rx.functions.Action1;
 import rx.functions.Func0;
 
-public abstract class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragmentBase> {
+public class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragment> {
 
     private static int OBSERVABLE_ID = 0;
 
-    @Inject
     CategoryUseCases categoryUseCases;
 
     private Observable<CategoryModel> categoryModelObservable;
     private Subscription drawerSubscription;
 
     public TabbedGalleryPresenterBase(){
-        injectMe(this);
+        categoryUseCases = SplashScreenBase.getInstance().categoryUseCases;
     }
 
-    protected abstract void injectMe(TabbedGalleryPresenterBase tabbedGalleryPresenterBase);
 
     @Override
     protected void onCreatePresenter(Bundle savedState) {
@@ -65,7 +62,17 @@ public abstract class TabbedGalleryPresenterBase extends Presenter<TabbedGallery
     }
 
     @Nullable
-    protected abstract String[] getCategoriesIdFrom(Bundle savedState);
+    protected String[] getCategoriesIdFrom(Bundle savedState) {
+        String[] categoriesIds = null;
+
+        if (savedState!= null) {
+            if (savedState.containsKey(TabbedGalleryFragment_.CATEGORIES_ID_EXTRA_ARG)) {
+                categoriesIds = savedState.getStringArray(TabbedGalleryFragment_.CATEGORIES_ID_EXTRA_ARG);
+            }
+        }
+
+        return categoriesIds;
+    }
 
     @Override
     protected void onAfterViews() {

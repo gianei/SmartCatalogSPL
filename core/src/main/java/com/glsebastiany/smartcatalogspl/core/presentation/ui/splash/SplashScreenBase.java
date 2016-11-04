@@ -20,22 +20,44 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.splash;
 
 import android.os.Bundle;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 
 import javax.inject.Inject;
 
 
 public abstract class SplashScreenBase extends InjectableActivity {
 
-    @Inject
-    BaseAppDisplayFactory baseAppDisplayFactory;
+    protected static SplashScreenBase instance = null;
+
+    //@Inject
+    //BaseAppDisplayFactory baseAppDisplayFactory;
 
     private static int sessionDepth = 0;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+
+        if (instance == null) {
+            // Thread Safe. Might be costly operation in some case
+            synchronized (SplashScreenBase.class) {
+                if (instance == null) {
+                    instance = this;
+                    instance.injectMe(instance);
+                }
+            }
+        }
+
+
+
 
         if (sessionDepth++ == 0 && forceTaskMode())
             Utils.startLockTasMode(this);
@@ -45,10 +67,46 @@ public abstract class SplashScreenBase extends InjectableActivity {
 
     @Override
     protected void injectApplicationComponent() {
-        injectMe(this);
+        //baseAppDisplayFactory = InjectableApplication.singleton().baseAppDisplayFactory;
+        //injectMe(this);
     }
 
     protected abstract void injectMe(SplashScreenBase splashScreen);
 
     protected abstract boolean forceTaskMode();
+
+
+
+
+
+
+
+    @Inject
+    public ItemBasicRepository itemBasicRepository;
+
+    @Inject
+    public CategoryRepository categoryRepository;
+
+    @Inject
+    public CategoryGroupRepository categoryGroupRepository;
+
+    @Inject
+    public BaseAppDisplayFactory baseAppDisplayFactory;
+
+    @Inject
+    public ItemBasicUseCases itemBasicUseCases;
+
+    @Inject
+    public CategoryUseCases categoryUseCases;
+
+    @Inject
+    public CategoryGroupUseCases categoryGroupUseCases;
+
+
+
+    public static SplashScreenBase getInstance() {
+
+        return instance;
+    }
+
 }

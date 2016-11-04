@@ -24,6 +24,7 @@ import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
 
@@ -42,37 +43,44 @@ public class CategoryGroupMemoryRepository implements CategoryGroupRepository {
 
     List<CategoryGroupModel> categoryGroups = new LinkedList<>();
 
-    @Inject
-    CategoryRepository categoryRepository;
+    private boolean started = false;
+
 
     @Inject
     public CategoryGroupMemoryRepository(){
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
-        List<? extends CategoryModel> foodCats = categoryRepository.load( new ArrayList<>(Arrays.asList("Pasta", "Breakfest")));
-        categoryGroups.add(
-                new MemoryCategoryGroupEntity("0", "Food", "https://unsplash.it/300?random",
-                        foodCats
-                )
-        );
-
-        List<? extends CategoryModel> liquidCats = categoryRepository.load( new ArrayList<>(Arrays.asList("Drinks", "Alcoholic", "Juice")));
-
-        categoryGroups.add(
-                new MemoryCategoryGroupEntity("1", "Liquids", "https://unsplash.it/300?random",
-                        liquidCats
-                )
-        );
-
-        List<? extends CategoryModel> root = categoryRepository.load( new ArrayList<>(Arrays.asList(CategoryModel.ROOT_ID.toString())));
-        categoryGroups.add(
-                new MemoryCategoryGroupEntity("2", "All", "https://unsplash.it/300?random",
-                        root
-                )
-        );
     }
 
     @Override
     public List<? extends CategoryGroupModel> loadAll() {
+        if (!started){
+            CategoryRepository categoryRepository = SplashScreenBase.getInstance().categoryRepository;
+
+            List<? extends CategoryModel> foodCats = categoryRepository.load( new ArrayList<>(Arrays.asList("Pasta", "Breakfest")));
+            categoryGroups.add(
+                    new MemoryCategoryGroupEntity("0", "Food", "https://unsplash.it/300?random",
+                            foodCats
+                    )
+            );
+
+            List<? extends CategoryModel> liquidCats = categoryRepository.load( new ArrayList<>(Arrays.asList("Drinks", "Alcoholic", "Juice")));
+
+            categoryGroups.add(
+                    new MemoryCategoryGroupEntity("1", "Liquids", "https://unsplash.it/300?random",
+                            liquidCats
+                    )
+            );
+
+            List<? extends CategoryModel> root = categoryRepository.load( new ArrayList<>(Arrays.asList(CategoryModel.ROOT_ID.toString())));
+            categoryGroups.add(
+                    new MemoryCategoryGroupEntity("2", "All", "https://unsplash.it/300?random",
+                            root
+                    )
+            );
+
+            started = true;
+        }
+
+
         return categoryGroups;
     }
 

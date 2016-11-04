@@ -21,7 +21,9 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.main;
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import javax.inject.Inject;
 
@@ -30,7 +32,7 @@ import rx.Observer;
 import rx.Subscription;
 import rx.functions.Func0;
 
-public abstract class MainPresenterBase extends Presenter<MainActivityBase> implements Func0<Subscription> {
+public class MainPresenterBase extends Presenter<MainActivityBase> implements Func0<Subscription> {
 
     private static int OBSERVABLE_ID = 0;
 
@@ -41,13 +43,14 @@ public abstract class MainPresenterBase extends Presenter<MainActivityBase> impl
 
     public MainPresenterBase(){
 
-        injectMe(this);
+        categoryGroupUseCases = SplashScreenBase.getInstance().categoryGroupUseCases;
+        //injectMeMotherlord(this);
 
         observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
 
     }
 
-    protected abstract void injectMe(MainPresenterBase mainPresenterBase);
+    //protected abstract void injectMeMotherlord(MainPresenterBase mainPresenterBase);
 
     @Override
     protected void onAfterViews() {

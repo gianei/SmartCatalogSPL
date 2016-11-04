@@ -40,15 +40,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.ui.main.MainActivity_">
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase">
 
         </activity>
 
-        <activity android:name=".presentation.ui.itempager.ItemPagerActivity_">
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_">
 
         </activity>
 
-        <activity android:name=".presentation.ui.tabbedgallery.TabbedGalleryActivity_">
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase_">
 
         </activity>
     </application>

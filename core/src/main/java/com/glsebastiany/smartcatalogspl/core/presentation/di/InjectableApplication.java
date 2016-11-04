@@ -20,32 +20,31 @@ package com.glsebastiany.smartcatalogspl.core.presentation.di;
 
 import android.app.Application;
 
-public abstract class InjectableApplication<C> extends Application {
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 
-    private static InjectableApplication singleton;
+import javax.inject.Inject;
 
-    public static <C> InjectableApplication<C> singleton() {
-        //noinspection unchecked
-        return singleton;
-    }
-
-    private C applicationComponent;
+public abstract class InjectableApplication extends Application {
 
     @Override public void onCreate() {
         super.onCreate();
-        singleton = this;
 
-        applicationComponent = setupApplicationComponent();
+        setupApplicationComponent();
         injectComponent();
 
     }
 
-    protected abstract C setupApplicationComponent();
+    protected abstract void setupApplicationComponent();
 
     protected abstract void injectComponent();
 
-    public C getApplicationComponent() {
-        return applicationComponent;
-    }
 
 }

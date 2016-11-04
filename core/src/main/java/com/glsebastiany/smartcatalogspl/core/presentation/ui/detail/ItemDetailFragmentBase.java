@@ -35,7 +35,7 @@ import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(resName="fragment_gallery_visualization_detail_item_stub")
-public abstract class ItemDetailFragmentBase<P extends Presenter> extends MvpRxFragmentBase<P> {
+public abstract class ItemDetailFragmentBase<P extends Presenter, I> extends MvpRxFragmentBase<P> {
 
     @ViewById(resName="item_detail_stub")
     public ViewStub itemDetailStub;
@@ -56,14 +56,14 @@ public abstract class ItemDetailFragmentBase<P extends Presenter> extends MvpRxF
         presenterAfterViews();
     }
 
-    public void addItem(ItemComposition itemComposition){
+    public void addItem(I item){
 
-        inflateViewStub(itemComposition);
+        inflateViewStub(item);
 
         progressBar.setVisibility(View.GONE);
         itemDetailStub.setVisibility(View.VISIBLE);
     }
 
-    protected abstract void inflateViewStub(ItemComposition itemComposition);
+    protected abstract void inflateViewStub(I item);
 
 }

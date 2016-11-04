@@ -18,6 +18,9 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -27,8 +30,10 @@ import android.widget.Toast;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -36,20 +41,22 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import static com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils.depthFirstOnBackPressed;
 
 @EActivity(resName="activity_gallery")
-public abstract class TabbedGalleryActivityBase extends InjectableActivity {
+public class TabbedGalleryActivityBase extends InjectableActivity {
 
-    @Inject
+    //@Inject
     protected ItemBasicUseCases itemBasicUseCases;
 
-    @Inject
+    //@Inject
     protected CategoryUseCases categoryUseCases;
 
-    @Inject
+    //@Inject
     protected BaseAppDisplayFactory appDisplayFactory;
 
     @Extra
@@ -63,6 +70,23 @@ public abstract class TabbedGalleryActivityBase extends InjectableActivity {
 
     protected long lastPress;
     private Toast toast;
+
+    public static void start(Context context, List<String> categoriesIds ){
+        TabbedGalleryActivityBase_
+                .intent(context)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .categoriesIds(categoriesIds.toArray(new String[categoriesIds.size()]))
+                .start();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        itemBasicUseCases = SplashScreenBase.getInstance().itemBasicUseCases;
+        categoryUseCases = SplashScreenBase.getInstance().categoryUseCases;
+        appDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+    }
 
     @AfterViews
     protected void afterViews() {
@@ -112,8 +136,8 @@ public abstract class TabbedGalleryActivityBase extends InjectableActivity {
 
     @Override
     protected void injectApplicationComponent() {
-        injectMe(this);
+
     }
 
-    protected abstract void injectMe(TabbedGalleryActivityBase tabbedGalleryBaseActivity);
+
 }

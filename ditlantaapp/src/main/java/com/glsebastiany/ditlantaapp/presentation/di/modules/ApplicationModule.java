@@ -21,10 +21,7 @@ package com.glsebastiany.ditlantaapp.presentation.di.modules;
 
 import android.content.Context;
 
-import com.glsebastiany.ditlantaapp.DitlantaConfigurator;
-import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
 import com.glsebastiany.ditlantaapp.presentation.ui.AppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
@@ -45,16 +42,16 @@ import dagger.Provides;
  */
 @Module
 public class ApplicationModule {
-    private final AndroidApplication application;
+    private final Context context;
 
-    public ApplicationModule(AndroidApplication application) {
-        this.application = application;
+    public ApplicationModule(Context context) {
+        this.context = context;
     }
 
     @Provides
     @Singleton
     Context provideApplicationContext() {
-        return this.application;
+        return this.context;
     }
 
     //--------------------------
@@ -106,10 +103,4 @@ public class ApplicationModule {
         return appDisplayFactory;
     }
 
-    //--------------------------
-    @Provides
-    @Singleton
-    SPLConfigurator provideSPLConfigurator(DitlantaConfigurator configurator){
-        return configurator;
-    }
 }

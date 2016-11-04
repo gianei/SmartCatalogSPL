@@ -18,6 +18,7 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,9 +29,11 @@ import android.widget.ProgressBar;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.MyGridLayoutManager;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.SpacesItemDecoration;
 
@@ -43,11 +46,10 @@ import org.androidannotations.annotations.ViewById;
 import javax.inject.Inject;
 
 @EFragment(resName="fragment_gallery_visualization_grid")
-public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRxFragmentBase<P> implements GalleryGridCallbacks {
+public abstract class GalleryGridFragmentBase<P extends Presenter, I> extends MvpRxFragmentBase<P> implements GalleryGridCallbacks {
 
     public static final int MAX_ITEMS_TO_SHOW_SCROLL = 100;
 
-    @Inject
     protected BaseAppDisplayFactory appDisplayFactory;
 
     @ViewById(resName="my_recycler_view")
@@ -64,8 +66,14 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
     @InstanceState
     public boolean isCategoryIdQuery;
 
-    protected GalleryGridItemsAdapterBase adapter;
+    protected GalleryGridItemsAdapterBase<I> adapter;
     protected GridLayoutManager gridLayoutManager;
+
+    @Override
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        appDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+    }
 
     @AfterViews
     protected void afterViews(){
@@ -80,9 +88,9 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
     }
 
     @NonNull
-    protected abstract GalleryGridItemsAdapterBase getGalleryGridItemsAdapter();
+    protected abstract GalleryGridItemsAdapterBase<I> getGalleryGridItemsAdapter();
 
-    public void addItem(ItemComposition itemComposition){
+    public void addItem(I itemComposition){
         adapter.addItem(itemComposition);
     }
 
@@ -95,12 +103,12 @@ public abstract class GalleryGridFragmentBase<P extends Presenter> extends MvpRx
 
     @Override
     protected void injectApplicationComponent() {
-        injectMe(this);
+
     }
 
-    public abstract void injectMe(GalleryGridFragmentBase<P> galleryGridFragmentBase);
-
-    protected abstract int getStartingSpanSize();
+    protected int getStartingSpanSize(){
+        return 2;
+    }
 
     public void moveToSubCategorySection(CategoryModel categoryModel) {
         int newPosition = ((GalleryGridItemsAdapterBase)recyclerView.getAdapter()).findCategoryPositionInItems(categoryModel);

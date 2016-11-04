@@ -21,72 +21,46 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
-
-import javax.inject.Inject;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
-public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFragmentBase> {
+public class GalleryGridPresenterBase extends Presenter<GalleryGridFragmentBase> {
 
     private static int OBSERVABLE_ID = 0;
 
-    @Inject
-    ItemBasicUseCases itemBasicUseCases;
 
-    @Inject
-    CategoryUseCases categoryUseCases;
-
-    @Inject
-    ItemPromotedUseCases itemPromotedUseCases;
-
-    @Inject
-    SPLConfigurator splConfigurator;
-
-    private Observable<ItemComposition> itemsCompositionObservable;
+    private Observable<ItemBasicModel> itemsCompositionObservable;
 
     public GalleryGridPresenterBase() {
-        injectMe(this);
+
     }
 
-    protected abstract void injectMe(GalleryGridPresenterBase galleryGridPresenterBase);
 
     protected void onCreatePresenter(Bundle savedState) {
+        ItemBasicUseCases itemBasicUseCases = SplashScreenBase.getInstance().itemBasicUseCases;
+        CategoryUseCases categoryUseCases = SplashScreenBase.getInstance().categoryUseCases;
+
+
         String query = getQueryFrom(savedState);
         if (query != null) {
-            Observable<ItemBasicModel> basicObserver;
 
             if (getIsCategoryIdQueryFrom(savedState))
-                basicObserver = categoryUseCases.allItemsFromCategory(query);
+                itemsCompositionObservable = categoryUseCases.allItemsFromCategory(query);
             else
-                basicObserver = itemBasicUseCases.query(query);
+                itemsCompositionObservable = itemBasicUseCases.query(query);
 
-            if (splConfigurator.hasPromotedItemsFeature())
-                itemsCompositionObservable = basicObserver
-                        .concatMap(itemBasicModel -> itemPromotedUseCases.load(itemBasicModel.getStringId())
-                                .map(itemPromotedModel -> new ItemComposition(itemBasicModel, itemPromotedModel))
-                        );
-            else
-                itemsCompositionObservable = basicObserver.map(ItemComposition::new);
 
             itemsCompositionObservable = ObservableHelper.setupThreads(itemsCompositionObservable.cache());
         } else
             throw new RuntimeException("Category must be set in fragment args");
     }
 
-    @Nullable
-    protected abstract String getQueryFrom(Bundle savedState);
-
-    protected abstract boolean getIsCategoryIdQueryFrom(Bundle savedState);
 
     @Override
     public void onAfterViews() {
@@ -116,5 +90,29 @@ public abstract class GalleryGridPresenterBase extends Presenter<GalleryGridFrag
 
         if (isUnsubscribed(OBSERVABLE_ID))
             start(OBSERVABLE_ID);
+    }
+
+    @Nullable
+    protected String getQueryFrom(Bundle savedState) {
+        String query = null;
+
+
+        if (savedState!= null) {
+            if (savedState.containsKey(GalleryGridFragmentBasic_.SEARCH_QUERY_ARG)) {
+                query = savedState.getString(GalleryGridFragmentBasic_.SEARCH_QUERY_ARG);
+            }
+        }
+        return query;
+    }
+
+    protected boolean getIsCategoryIdQueryFrom(Bundle savedState) {
+        boolean isCategoryIdQuery = false;
+
+        if (savedState!= null) {
+            if (savedState.containsKey(GalleryGridFragmentBasic_.IS_CATEGORY_ID_QUERY_ARG)) {
+                isCategoryIdQuery = savedState.getBoolean(GalleryGridFragmentBasic_.IS_CATEGORY_ID_QUERY_ARG);
+            }
+        }
+        return isCategoryIdQuery;
     }
 }

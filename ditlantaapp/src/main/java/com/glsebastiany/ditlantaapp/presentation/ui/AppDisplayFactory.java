@@ -24,18 +24,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.ditlantaapp.presentation.ui.itempager.ItemPagerActivity_;
 import com.glsebastiany.ditlantaapp.presentation.ui.login.LoginActivity_;
 import com.glsebastiany.ditlantaapp.presentation.ui.main.MainActivity_;
+
 import com.glsebastiany.ditlantaapp.presentation.ui.tabbedgallery.TabbedGalleryActivity;
-import com.glsebastiany.ditlantaapp.presentation.ui.tabbedgallery.TabbedGalleryFragment;
-import com.glsebastiany.ditlantaapp.presentation.ui.detail.ItemDetailFragment;
-import com.glsebastiany.ditlantaapp.presentation.ui.grid.GalleryGridFragment;
-import com.glsebastiany.ditlantaapp.presentation.ui.grid.GalleryGridFragment_;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBaseExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragment;
 
 import java.util.List;
 
@@ -60,12 +60,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public GalleryGridCallbacks provideGalleryGridFragment(String searchQuery, boolean isCategoryIdQuery){
-        return GalleryGridFragment.newInstance(searchQuery, isCategoryIdQuery);
-    }
-
-    @Override
-    public GalleryGridFragmentBase provideGalleryGridFragment() {
-        return GalleryGridFragment_.builder().build();
+        return GalleryGridFragmentExtended.newInstance(searchQuery, isCategoryIdQuery);
     }
 
     @Override
@@ -100,7 +95,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
-        return ItemDetailFragment.newInstance(itemId);
+        return ItemDetailFragmentBaseExtended.newInstance(itemId);
     }
 
 

@@ -25,7 +25,7 @@ apt {
         // if you have multiple outputs (when using splits), you may want to have other index than 0
 
         // you should set your package name here if you are using different application IDs
-        // resourcePackageName "your.package.name"
+        resourcePackageName "com.glsebastiany.smartcatalogspl.core"
 
         // You can set optional annotation processing options here, like these commented options:
         // logLevel 'INFO'
@@ -61,6 +61,8 @@ dependencies jUnit
 dependencies rxAndroid
 dependencies javaxInject
 dependencies orm
+dependencies firebase
+dependencies glide
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

@@ -26,6 +26,8 @@ import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.ditlantaapp.data.imagefetching.servers.FetchFromCloudinary;
 import com.glsebastiany.ditlantaapp.data.imagefetching.servers.FetchFromLan;
 import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import javax.inject.Inject;
 
@@ -41,7 +43,6 @@ public class ImageFetcherIntentService extends IntentService {
 
     private FetchType fetchType;
 
-    @Inject
     ItemBasicUseCases itemBasicUseCases;
 
     public static void startService(Context context, FetchType fetchType){
@@ -57,7 +58,7 @@ public class ImageFetcherIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        ((AndroidApplication)getApplication()).getApplicationComponent().inject(this);
+        itemBasicUseCases = SplashScreenBase.getInstance().itemBasicUseCases;
     }
 
     @Override

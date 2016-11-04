@@ -18,21 +18,34 @@
 
 package com.glsebastiany.ditlantaapp.presentation.ui.splash;
 
+import com.glsebastiany.ditlantaapp.presentation.di.components.DaggerApplicationComponent;
+import com.glsebastiany.ditlantaapp.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
 import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
+
+import org.androidannotations.annotations.App;
 
 
-public class SplashScreen extends SplashScreenBase {
+public class SplashScreen extends SplashScreenExtended {
+
+    private static ApplicationComponent applicationComponent;
 
     @Override
-    protected void injectMe(SplashScreenBase splashScreen) {
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(splashScreen);
+    protected void injectMeInner(SplashScreenBase splashScreenBase) {
+        applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(getApplication().getApplicationContext()))
+                .build();
+
+        applicationComponent.inject(splashScreenBase);
+
     }
 
     @Override
-    protected boolean forceTaskMode() {
-        return true;
+    protected void injectMeInner(SplashScreenExtended splashScreen) {
+        applicationComponent.inject(splashScreen);
+
     }
 
 }

@@ -23,6 +23,7 @@ import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.instancefood.memory.item.MemoryItemEntity;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
@@ -41,31 +42,36 @@ import rx.functions.Func1;
 @Singleton
 public class ItemBasicMemoryRepository implements ItemBasicRepository {
 
+    private boolean started = false;
+
     List<ItemBasicModel> items = new LinkedList<>();
 
     @Inject
-    CategoryRepository categoryRepository;
-
-    @Inject
     public ItemBasicMemoryRepository(){
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
 
-        items.add(new MemoryItemEntity("Tagliateri", categoryRepository.load("Pasta"), "Tagliateri", 8.88f));
-        items.add(new MemoryItemEntity("Toasts", categoryRepository.load("Breakfest"), "Toasts", 8.88f));
-        items.add(new MemoryItemEntity("Eggs", categoryRepository.load("Breakfest"), "Eggs", 8.88f));
-        items.add(new MemoryItemEntity("Beer", categoryRepository.load("Alcoholic"), "Beer", 8.88f));
-        items.add(new MemoryItemEntity("Wine", categoryRepository.load("Alcoholic"), "Wine", 8.88f));
-        items.add(new MemoryItemEntity("AppleJuice", categoryRepository.load("Juice"), "AppleJuice", 8.88f));
-        items.add(new MemoryItemEntity("Brigadeiro", categoryRepository.load("Sweet"), "Brigadeiro", 8.88f));
-        items.add(new MemoryItemEntity("Fudge", categoryRepository.load("Sweet"), "Fudge", 8.88f));
-        items.add(new MemoryItemEntity("JellyBean", categoryRepository.load("Android"), "JellyBean", 8.88f));
-        items.add(new MemoryItemEntity("KitKat", categoryRepository.load("Android"), "KitKat", 8.88f));
-        items.add(new MemoryItemEntity("Marshmallow", categoryRepository.load("Android"), "Marshmallow", 8.88f));
-        items.add(new MemoryItemEntity("Nougat", categoryRepository.load("Android"), "Nougat", 8.88f));
     }
 
     @Override
     public List<? extends ItemBasicModel> loadAll() {
+        if (started ==false){
+            CategoryRepository categoryRepository = SplashScreenBase.getInstance().categoryRepository;
+
+            items.add(new MemoryItemEntity("Tagliateri", categoryRepository.load("Pasta"), "Tagliateri", 8.88f));
+            items.add(new MemoryItemEntity("Toasts", categoryRepository.load("Breakfest"), "Toasts", 8.88f));
+            items.add(new MemoryItemEntity("Eggs", categoryRepository.load("Breakfest"), "Eggs", 8.88f));
+            items.add(new MemoryItemEntity("Beer", categoryRepository.load("Alcoholic"), "Beer", 8.88f));
+            items.add(new MemoryItemEntity("Wine", categoryRepository.load("Alcoholic"), "Wine", 8.88f));
+            items.add(new MemoryItemEntity("AppleJuice", categoryRepository.load("Juice"), "AppleJuice", 8.88f));
+            items.add(new MemoryItemEntity("Brigadeiro", categoryRepository.load("Sweet"), "Brigadeiro", 8.88f));
+            items.add(new MemoryItemEntity("Fudge", categoryRepository.load("Sweet"), "Fudge", 8.88f));
+            items.add(new MemoryItemEntity("JellyBean", categoryRepository.load("Android"), "JellyBean", 8.88f));
+            items.add(new MemoryItemEntity("KitKat", categoryRepository.load("Android"), "KitKat", 8.88f));
+            items.add(new MemoryItemEntity("Marshmallow", categoryRepository.load("Android"), "Marshmallow", 8.88f));
+            items.add(new MemoryItemEntity("Nougat", categoryRepository.load("Android"), "Nougat", 8.88f));
+
+            started = true;
+        }
+
         return items;
     }
 

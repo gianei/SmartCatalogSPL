@@ -23,7 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
 
-public abstract class GalleryGridItemsAdapterBase extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class GalleryGridItemsAdapterBase<I> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected GalleryGridCallbacks galleryGridCallbacks;
 
     public GalleryGridItemsAdapterBase(GalleryGridCallbacks galleryGridCallbacks) {
@@ -31,7 +31,7 @@ public abstract class GalleryGridItemsAdapterBase extends RecyclerView.Adapter<R
         this.galleryGridCallbacks = galleryGridCallbacks;
     }
 
-    public abstract void addItem(ItemComposition itemComposition);
+    public abstract void addItem(I item);
 
     public abstract int findCategoryPositionInItems(CategoryModel categoryModel);
 

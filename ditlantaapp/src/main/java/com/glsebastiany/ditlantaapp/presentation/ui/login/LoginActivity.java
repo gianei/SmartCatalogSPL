@@ -20,9 +20,11 @@ package com.glsebastiany.ditlantaapp.presentation.ui.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
@@ -30,6 +32,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFacto
 import com.glsebastiany.ditlantaapp.R;
 import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
 import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -50,7 +53,7 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
         connectionError,
     }
 
-    @Inject
+    //@Inject
     BaseAppDisplayFactory appDisplayFactory;
 
     /* A dialog that is presented until the DatabaseReference authentication finished. */
@@ -58,6 +61,12 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
 
     @ViewById(R.id.login_with_google)
     View loginButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        appDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+    }
 
     @AfterViews
     public void afterViews() {
@@ -121,6 +130,6 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
 
     @Override
     protected void injectApplicationComponent() {
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
+        //AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(this);
     }
 }

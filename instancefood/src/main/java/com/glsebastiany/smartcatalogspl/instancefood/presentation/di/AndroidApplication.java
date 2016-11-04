@@ -20,18 +20,13 @@ package com.glsebastiany.smartcatalogspl.instancefood.presentation.di;
 
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ApplicationModule;
 
 
-public class AndroidApplication extends InjectableApplication<ApplicationComponent> {
+public class AndroidApplication extends InjectableApplication {
 
     @Override
-    protected ApplicationComponent setupApplicationComponent() {
-        return DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
+    protected void setupApplicationComponent() {
+
     }
 
     @Override

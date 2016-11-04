@@ -20,11 +20,9 @@
     <string name="app_name">Catálogo Ditlanta</string>
 
     <!-- Menu strings -->
-    <string name="menu_logo_description">Ditlanta</string>
 
-    <string name="menu_settings">Configurações</string>
-    <string name="menu_zoom_out">Mais</string>
-    <string name="menu_zoom_in">Menos</string>
+
+
     <string name="menu_clean">Limpar</string>
     <string name="menu_update_database">Atualizar dados</string>
     <string name="menu_update_images">Atualizar imagens externo</string>
@@ -34,10 +32,8 @@
     <string name="menu_button_categories">Categorias</string>
     <string name="menu_set_remove_mode">Remover itens</string>
     <string name="menu_unset_remove_mode">Parar de remover itens</string>
-    <string name="menu_lock_task">Marcar/Desmarcar janela</string>
 
-    <string name="menu_search_hint">nome ou código</string>
-    <string name="menu_search">Pesquisar</string>
+
 
     <!--activities titles-->
     <string name="title_activity_activity_suit_case">Pastas</string>
@@ -45,26 +41,17 @@
     <!--toasts-->
     <string name="confirm_back_toast">Pressione novamente para voltar.</string>
 
-    <!--gallery-->
-    <string name="item_view_promoted_price">"De %1$s por "</string>
 
-    <!-- content descriptions -->
-    <string name="content_description_image_details">Detalhes da imagem</string>
-    <string name="content_description_promoted">Em promoção</string>
-    <string name="content_description_new">Novidade</string>
-    <string name="content_description_sale">Liquidação</string>
+
+
 
     <!-- other -->
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="fotos_folder">FotosDitlanta</string>
     <string name="update">Atualizar</string>
-    <string name="connection_error">Certifique-se que você está conectado à internet e tente novamente.</string>
 
-    <!-- Login Errors -->
-    <string name="google_sign_in_error">O login foi cancelado. Certifique-se que você está conectado à internet e tente novamente.</string>
-    <string name="google_unknown_sign_in_error">Houve um erro com o login: </string>
-    <string name="firebase_auth_error">A autenticação falhou.</string>
+
 
     <!-- Permissions -->
     <string name="write_external_storage_request_title">Permissões</string>

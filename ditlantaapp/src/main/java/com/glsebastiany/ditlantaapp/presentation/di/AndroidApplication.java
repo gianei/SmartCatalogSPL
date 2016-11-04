@@ -34,10 +34,12 @@ import javax.inject.Inject;
 import io.fabric.sdk.android.Fabric;
 
 
-public class AndroidApplication extends InjectableApplication<ApplicationComponent> {
+public class AndroidApplication extends InjectableApplication {
 
     @Inject
     FirebaseAuth.AuthStateListener authStateListener;
+
+    ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
@@ -48,16 +50,18 @@ public class AndroidApplication extends InjectableApplication<ApplicationCompone
     }
 
     @Override
-    protected ApplicationComponent setupApplicationComponent() {
+    protected void setupApplicationComponent() {
 
-        return DaggerApplicationComponent.builder()
+        applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }
 
     @Override
     protected void injectComponent() {
-        getApplicationComponent().inject(this);
+        applicationComponent.inject(this);
+
+
 
         FirebaseAuth auth =  FirebaseAuth.getInstance();
 

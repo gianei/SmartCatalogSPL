@@ -19,21 +19,20 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.detail.ItemDetailFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.itempager.ItemPagerActivity_;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.main.MainActivity_;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryActivity;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.tabbedgallery.TabbedGalleryFragment;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.grid.GalleryGridFragment_;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBaseBasic;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBasic;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragment;
 
 import java.util.List;
 
@@ -58,17 +57,13 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public GalleryGridCallbacks provideGalleryGridFragment(String searchQuery, boolean isCategoryIdQuery){
-        return GalleryGridFragment.newInstance(searchQuery, isCategoryIdQuery);
-    }
-
-    @Override
-    public GalleryGridFragmentBase provideGalleryGridFragment() {
-        return GalleryGridFragment_.builder().build();
+        return GalleryGridFragmentBasic.newInstance(searchQuery, isCategoryIdQuery);
     }
 
     @Override
     public void startMainActivity(AppCompatActivity activityBase) {
-        MainActivity_.intent(activityBase).start();
+        Intent intent = new Intent(activityBase, MainActivityBase.class);
+        activityBase.startActivity(intent);
         activityBase.finish();
     }
 
@@ -79,7 +74,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public void startGalleryActivity(Context fromContext, List<String> categoriesId) {
-        TabbedGalleryActivity.start(fromContext, categoriesId);
+        TabbedGalleryActivityBase.start(fromContext, categoriesId);;
     }
 
     @Override
@@ -93,7 +88,7 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Override
     public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
-        return ItemDetailFragment.newInstance(itemId);
+        return ItemDetailFragmentBaseBasic.newInstance(itemId);
     }
 
 

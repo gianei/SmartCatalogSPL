@@ -20,4 +20,10 @@
 <resources>
     <string name="menu_button_categories">Categorias</string>
     <string name="confirm_back_toast">Pressione novamente para voltar.</string>
+    <string name="menu_search">Pesquisar</string>
+    <string name="menu_search_hint">nome ou código</string>
+    <string name="menu_zoom_in">Ampliar</string>
+    <string name="menu_zoom_out">Reduzir</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="menu_lock_task">Marcar/Desmarcar janela</string>
 </resources>

@@ -20,23 +20,13 @@
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
-import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.categorygroup.CategoryGroupGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.instancefood.FoodConfigurator;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
 import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instancefood.memory.category.CategoryMemoryRepository;
@@ -55,16 +45,16 @@ import dagger.Provides;
  */
 @Module
 public class ApplicationModule {
-    private final AndroidApplication application;
+    private final Context context;
 
-    public ApplicationModule(AndroidApplication application) {
-        this.application = application;
+    public ApplicationModule(Context context) {
+        this.context = context;
     }
 
     @Provides
     @Singleton
     Context provideApplicationContext() {
-        return this.application;
+        return this.context;
     }
 
     //--------------------------
@@ -74,48 +64,6 @@ public class ApplicationModule {
     ItemBasicRepository provideItemBasicRepository(ItemBasicMemoryRepository repository){
         return repository;
     }
-
-
-
-    //--------------------------
-
-    @Provides
-    @Singleton
-    ItemPromotedRepository provideItemPromotedRepository( ){
-        //TODO make a stub
-        return new ItemPromotedRepository() {
-            @Override
-            public List<? extends ItemPromotedModel> loadAll() {
-                return null;
-            }
-
-            @Override
-            public ItemPromotedModel load(String itemId) {
-                return null;
-            }
-
-            @Override
-            public void insert(ItemPromotedModel itemPromotedModel) {
-
-            }
-
-            @Override
-            public void insertAll(List<ItemPromotedModel> itemPromotedList) {
-
-            }
-
-            @Override
-            public void remove(String itemId) {
-
-            }
-
-            @Override
-            public void removeAll() {
-
-            }
-        };
-    }
-
 
 
     //--------------------------
@@ -147,12 +95,6 @@ public class ApplicationModule {
         return appDisplayFactory;
     }
 
-    //--------------------------
-    @Provides
-    @Singleton
-    SPLConfigurator provideSPLConfigurator(FoodConfigurator configurator){
-        return configurator;
-    }
 
 
 }

@@ -49,15 +49,6 @@ import java.util.List;
 @OptionsMenu({R.menu.menu_gallery, R.menu.menu_updates, R.menu.menu_search })
 public class TabbedGalleryActivity extends TabbedGalleryActivityBase {
 
-    @Override
-    protected void injectMe(TabbedGalleryActivityBase tabbedGalleryBaseActivity) {
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(tabbedGalleryBaseActivity);
-    }
-
-    public ApplicationComponent getApplicationComponent() {
-        return ((AndroidApplication)getApplication()).getApplicationComponent();
-    }
-
     public static void start(Context context, List<String> categoriesIds ){
         TabbedGalleryActivity_
                 .intent(context)

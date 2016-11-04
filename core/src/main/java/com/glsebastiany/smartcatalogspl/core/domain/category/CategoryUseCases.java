@@ -20,15 +20,10 @@ package com.glsebastiany.smartcatalogspl.core.domain.category;
 
 import android.support.annotation.NonNull;
 
-import com.glsebastiany.smartcatalogspl.core.SPLConfigurator;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemPromotedModel;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.Utils;
 
 import org.greenrobot.greendao.DaoException;
 
@@ -44,7 +39,6 @@ import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Func1;
 
 public class CategoryUseCases {
 
@@ -56,12 +50,6 @@ public class CategoryUseCases {
 
     @Inject
     ItemBasicUseCases itemBasicUseCases;
-
-    @Inject
-    ItemPromotedUseCases itemPromotedUseCases;
-
-    @Inject
-    SPLConfigurator splConfigurator;
 
     @Inject
     public CategoryUseCases(){}
@@ -101,36 +89,6 @@ public class CategoryUseCases {
         return Observable.create(new Observable.OnSubscribe<ItemBasicModel>() {
             @Override
             public void call(Subscriber<? super ItemBasicModel> subscriber) {
-                if (splConfigurator.hasPromotedItemsFeature()) {
-                    List<ItemPromotedModel> promotedItems = null;
-
-                    switch (categoryId) {
-                        case CategoryRepository.ID_PROMOTION:
-                            promotedItems = itemPromotedUseCases.getAllPromoted().toList().toBlocking().single();
-                            break;
-                        case CategoryRepository.ID_SALE:
-                            promotedItems = itemPromotedUseCases.getAllSale().toList().toBlocking().single();
-                            break;
-                        case CategoryRepository.ID_NEW:
-                            promotedItems = itemPromotedUseCases.getAllNew().toList().toBlocking().single();
-                            break;
-                        case CategoryRepository.ID_PROMOTION_AND_SALE:
-                            promotedItems = itemPromotedUseCases.getAllPromotedOrSale().toList().toBlocking().single();
-                            break;
-                    }
-
-                    if (promotedItems != null){
-                        orderByCategoryBasePricePromoted(promotedItems);
-                        for (ItemPromotedModel item:
-                                promotedItems) {
-                            subscriber.onNext(item.getItemBasicEntity());
-                        }
-
-                        subscriber.onCompleted();
-                        return;
-                    }
-                }
-
 
                 List<String> categoryModelsIds = getSubcategoriesIds(categoryId);
 
@@ -157,7 +115,7 @@ public class CategoryUseCases {
     }
 
     @NonNull
-    private List<String> getSubcategoriesIds(String categoryId) {
+    protected List<String> getSubcategoriesIds(String categoryId) {
         CategoryModel category = findCategory(categoryId).toBlocking().single();
         List<CategoryModel> categoryModels = getAllChildren(category).toList().toBlocking().single();
 
@@ -169,7 +127,7 @@ public class CategoryUseCases {
         return categoryModelsIds;
     }
 
-    private void orderByCategoryBasePrice(List<? extends ItemBasicModel> Items){
+    protected void orderByCategoryBasePrice(List<? extends ItemBasicModel> Items){
         if (Items == null)
             return;
         Map<String, Integer> orderedIds = getOrderedIds();
@@ -277,41 +235,5 @@ public class CategoryUseCases {
         categoryRepository.removeAll();
     }
 
-
-    //TODO
-
-    public void orderByCategoryBasePricePromoted(List<? extends ItemPromotedModel> Items){
-        if (Items == null)
-            return;
-        Map<String, Integer> orderedIds = getOrderedIds();
-        Collections.sort(Items, new CategoryBasePriceComparatorPromoted<>(orderedIds));
-        return;
-    }
-
-    private static class CategoryBasePriceComparatorPromoted<T extends ItemPromotedModel> implements Comparator<T> {
-
-        private final Map<String,Integer> categoriesPositions;
-
-        CategoryBasePriceComparatorPromoted(Map<String, Integer> categoriesPositions){
-            this.categoriesPositions = categoriesPositions;
-        }
-
-        @Override
-        public int compare(T lhs, T rhs) {
-            if (!categoriesPositions.containsKey(lhs.getItemBasicEntity().getCategoryStringId()))
-                return 0;
-            if (!categoriesPositions.containsKey(rhs.getItemBasicEntity().getCategoryStringId()))
-                return 0;
-            int firstComparator = categoriesPositions.get(lhs.getItemBasicEntity().getCategoryStringId()).
-                    compareTo(categoriesPositions.get(rhs.getItemBasicEntity().getCategoryStringId()));
-
-            if (firstComparator != 0)
-                return firstComparator;
-            else
-                return Float.compare(lhs.getItemBasicEntity().getPrice(), rhs.getItemBasicEntity().getPrice());
-
-        }
-
-    }
 
 }

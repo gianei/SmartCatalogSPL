@@ -28,9 +28,12 @@ import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
 
-public abstract class TabbedGalleryPageAdapter extends FragmentStatePagerAdapter {
+import java.util.LinkedList;
+import java.util.List;
+
+public class TabbedGalleryPageAdapter extends FragmentStatePagerAdapter {
     protected final BaseAppDisplayFactory baseAppDisplayFactory;
-    protected SparseArray<GalleryGridCallbacks> registeredFragments = new SparseArray<>();
+    protected SparseArray<GalleryGridCallbacks> registeredFragments = new SparseArray<>();List<CategoryModel> categories = new LinkedList<>();
 
     public TabbedGalleryPageAdapter(FragmentManager fm, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
@@ -56,9 +59,35 @@ public abstract class TabbedGalleryPageAdapter extends FragmentStatePagerAdapter
         super.destroyItem(container, position, object);
     }
 
-    public abstract void addItem(CategoryModel categoryModel);
+    @Override
+    public CharSequence getPageTitle(int position) {
+        CategoryModel cat = categories.get(position);
+        return cat.getName();
+    }
 
-    public abstract CategoryModel getCategoryModel(int position);
+    @Override
+    public int getCount() {
+        return categories.size();
+    }
+
+    public void addItem(CategoryModel categoryModel) {
+        categories.add(categoryModel);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        super.setPrimaryItem(container, position, object);
+        //workaround to make onMenuOption get called on every fragment of this pager
+        for (int i = 0; i < registeredFragments.size(); i++){
+            Fragment fragment = (Fragment) registeredFragments.get(registeredFragments.keyAt(i));
+            fragment.setMenuVisibility(true);
+        }
+    }
+
+    public CategoryModel getCategoryModel(int position){
+        return categories.get(position);
+    }
 
     public void performDrawerClick(CategoryModel categoryModel, int currentTabPosition) {
         registeredFragments.get(currentTabPosition).moveToSubCategorySection(categoryModel);

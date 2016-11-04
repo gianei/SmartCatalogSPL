@@ -18,31 +18,13 @@
 
 package com.glsebastiany.ditlantaapp.presentation.ui.grid;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.view.MenuItem;
-
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemPromotedRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemComposition;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
-import com.glsebastiany.ditlantaapp.R;
-import com.glsebastiany.ditlantaapp.data.preferences.SharedPreferencesZoom_;
-import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
-import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenterExtended;
 
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import javax.inject.Inject;
-
-@EFragment(R.layout.fragment_gallery_visualization_grid)
-@RequiresPresenter(GalleryGridPresenter.class)
-public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenter> {
-
+public abstract class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenterExtended, ItemComposition> {
+/*
     @Pref
     SharedPreferencesZoom_ preferencesZoom;
 
@@ -54,14 +36,14 @@ public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPres
     }
 
     @Override
-    public void injectMe(GalleryGridFragmentBase<GalleryGridPresenter> galleryGridFragmentBase) {
-        AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(galleryGridFragmentBase);
+    public void injectMe(GalleryGridFragmentBase<GalleryGridPresenterExtended> galleryGridFragmentBase) {
+        //AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(galleryGridFragmentBase);
     }
 
     @Override
     @NonNull
     protected GalleryGridItemsAdapterBase getGalleryGridItemsAdapter() {
-        return new GalleryGridItemsAdapter(this);
+        return new GalleryGridItemsAdapterExtended(this);
     }
 
     @Override
@@ -128,5 +110,6 @@ public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPres
     private boolean isGridSpanAtMaximum() {
         return preferencesZoom.gridZoom().get() >= getActivity().getResources().getInteger(R.integer.grid_span_max);
     }
+    */
 
 }
