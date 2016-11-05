@@ -27,4 +27,4 @@
     android:padding="@dimen/abc_button_padding_horizontal_material"
     android:layout_gravity="bottom|start"
     android:contentDescription="@string/content_description_image_details"
-    tools:showIn="@layout/view_gallery_card_item" />
+    tools:showIn="@layout/view_gallery_card_item_extended" />

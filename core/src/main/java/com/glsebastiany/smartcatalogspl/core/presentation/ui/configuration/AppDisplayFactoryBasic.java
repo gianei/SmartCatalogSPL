@@ -30,7 +30,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCal
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginActivity_;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.tabbed.MainActivityTabbed;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragment;
 
@@ -62,7 +62,7 @@ public class AppDisplayFactoryBasic implements BaseAppDisplayFactory {
 
     @Override
     public void startMainActivity(AppCompatActivity activityBase) {
-        Intent intent = new Intent(activityBase, MainActivityBase.class);
+        Intent intent = new Intent(activityBase, MainActivityTabbed.class);
         activityBase.startActivity(intent);
         activityBase.finish();
     }

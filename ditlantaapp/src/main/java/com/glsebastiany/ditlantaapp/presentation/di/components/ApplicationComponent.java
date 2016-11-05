@@ -28,7 +28,6 @@ import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplicati
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainPresenterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
@@ -62,7 +61,7 @@ public interface ApplicationComponent {
     void inject(AndroidApplication androidApplication);
     void inject(ImageFetcherIntentService imageFetcherIntentService);
 
-    void inject(MainPresenterBase mainPresenter);
+    void inject(MainPresenter mainPresenter);
 
     void inject(TabbedGalleryPresenterBase tabbedGalleryPresenter);
 

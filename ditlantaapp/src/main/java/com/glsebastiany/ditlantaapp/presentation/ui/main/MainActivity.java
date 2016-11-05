@@ -20,21 +20,12 @@ package com.glsebastiany.ditlantaapp.presentation.ui.main;
 
 import android.os.Bundle;
 
-import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
-import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.ditlantaapp.presentation.ui.login.FirebaseAuthentication;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainAdapterBase;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.OptionsMenuItem;
 
 @EActivity()
-public class MainActivity extends MainActivityBase {
+public class MainActivity extends com.glsebastiany.smartcatalogspl.core.presentation.ui.main.basic.MainActivity {
 
     private FirebaseAuthentication firebaseAuthentication;
 

@@ -28,6 +28,7 @@ import android.os.Build.VERSION_CODES;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -143,6 +144,10 @@ public class Utils {
         }
 
         return false;
+    }
+
+    public static String getImageCompleteUrl() {
+        return "http://res.cloudinary.com/smartcatalog/image/upload/v" + (new Date().getTime() / 1000) + "/ditlanta/items/";
     }
 
 }

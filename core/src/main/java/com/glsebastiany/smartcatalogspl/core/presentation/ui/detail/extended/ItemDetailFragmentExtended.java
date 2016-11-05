@@ -19,17 +19,21 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.extended;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -49,7 +53,7 @@ public class ItemDetailFragmentExtended extends ItemDetailFragmentBase<ItemDetai
 
         ItemBasicModel itemBasicModel = itemExtendedModel.getItemBasicModel();
 
-        itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
+        itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item_extended);
         View newView = itemDetailStub.inflate();
 
         ViewStub labelViewStub =  (ViewStub) newView.findViewById(R.id.label_stub);
@@ -80,8 +84,11 @@ public class ItemDetailFragmentExtended extends ItemDetailFragmentBase<ItemDetai
 
         final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
 
-        //TODO
-        //ImagesHelper.loadDetailImageWithGlide(context, itemBasicModel, image);
+        Glide.with(context).load(Utils.getImageCompleteUrl() + itemBasicModel.getImageUrl())
+                .asBitmap()
+                .signature(new StringSignature(itemBasicModel.getStringId()))
+                .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
+                .into(image);
 
     }
 

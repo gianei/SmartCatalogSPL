@@ -60,7 +60,7 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int baseItemType) {
         setContextIfNull(parent.getContext());
 
-        View v = LayoutInflater.from(context).inflate(R.layout.view_gallery_card_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.view_gallery_card_item_extended, parent, false);
 
         ViewStub viewStub;
         switch (baseItemType){

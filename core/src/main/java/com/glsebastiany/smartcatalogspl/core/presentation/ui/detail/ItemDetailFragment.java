@@ -19,14 +19,18 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.detail;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -45,7 +49,7 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
         //TODO
         Context context = getContext();
 
-        itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item);
+        itemDetailStub.setLayoutResource(R.layout.fragment_gallery_visualization_detail_item_extended);
         View newView = itemDetailStub.inflate();
 
         TextView priceText = (TextView) newView.findViewById(R.id.textViewDetailItemPrice);
@@ -63,5 +67,10 @@ public class ItemDetailFragment extends ItemDetailFragmentBase<ItemDetailPresent
         buildIcon.setVisibility(View.INVISIBLE);
 
         final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
+        Glide.with(context).load(Utils.getImageCompleteUrl() + itemBasicModel.getImageUrl())
+                .asBitmap()
+                .signature(new StringSignature(itemBasicModel.getStringId()))
+                .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
+                .into(image);
     }
 }

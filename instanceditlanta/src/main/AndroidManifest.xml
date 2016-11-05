@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase">
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.main.tabbed.MainActivityTabbed">
             <meta-data android:name="android.app.default_searchable"
                 android:value=".presentation.ui.search.SearchActivity_" />
         </activity>

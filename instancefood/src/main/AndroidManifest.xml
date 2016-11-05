@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase">
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.main.basic.MainActivity">
 
         </activity>
 

@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.main;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.main.basic;
 
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
@@ -31,7 +31,7 @@ import rx.Observer;
 import rx.Subscription;
 import rx.functions.Func0;
 
-public class MainPresenterBase extends Presenter<MainActivityBase> implements Func0<Subscription> {
+public class MainPresenter extends Presenter<MainActivity> implements Func0<Subscription> {
 
     private static int OBSERVABLE_ID = 0;
 
@@ -40,7 +40,7 @@ public class MainPresenterBase extends Presenter<MainActivityBase> implements Fu
     @Inject
     public CategoryGroupUseCases categoryGroupUseCases;
 
-    public MainPresenterBase(){
+    public MainPresenter(){
 
         categoryGroupUseCases = SplashScreenBase.getInstance().categoryGroupUseCases;
 

@@ -33,7 +33,10 @@ import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
+import java.text.NumberFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,9 +69,14 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase<ItemBas
         ItemBasicModel item = items.get(baseItemPosition);
 
         baseItemViewHolder.button.setOnClickListener(new GridItemOnClickListener(baseItemPosition));
-        baseItemViewHolder.description.setText(item.getStringId());
 
-        Glide.with(context).load("https://unsplash.it/300?random")
+
+        baseItemViewHolder.itemId.setText(item.getStringId());
+        NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
+        baseItemViewHolder.itemPrice.setText(currencyInstance.format(item.getPrice()));
+        baseItemViewHolder.description.setText(item.getName());
+
+        Glide.with(context).load(Utils.getImageCompleteUrl() + item.getImageUrl())
                 .asBitmap()
                 .signature(new StringSignature(item.getStringId()))
                 .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
@@ -118,12 +126,16 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase<ItemBas
 
     private class BaseItemViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
+        public TextView itemId;
+        public TextView itemPrice;
         public TextView description;
         public ImageButton button;
 
         public BaseItemViewHolder(View v){
             super(v);
             image = (ImageView) v.findViewById(R.id.item_image);
+            itemId = (TextView) v.findViewById(R.id.item_id);
+            itemPrice = (TextView) v.findViewById(R.id.item_price);
             description = (TextView) v.findViewById(R.id.item_description);
             button = (ImageButton) v.findViewById(R.id.item_view_detail_button);
         }
@@ -146,6 +158,5 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase<ItemBas
             return false;
         }
     }
-
 
 }

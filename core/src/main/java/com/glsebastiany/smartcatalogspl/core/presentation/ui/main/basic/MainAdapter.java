@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.main;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.main.basic;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -42,12 +42,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainAdapterBase extends RecyclerView.Adapter<MainAdapterBase.ViewHolderSuitCase> {
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuitCase> {
     protected final Context context;
     protected final BaseAppDisplayFactory baseAppDisplayFactory;
     private List<CategoryGroupModel> categoriesGroup = new LinkedList<>();
 
-    public MainAdapterBase(Context context, BaseAppDisplayFactory baseAppDisplayFactory) {
+    public MainAdapter(Context context, BaseAppDisplayFactory baseAppDisplayFactory) {
         this.context = context;
         this.baseAppDisplayFactory = baseAppDisplayFactory;
     }
