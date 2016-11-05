@@ -16,11 +16,23 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets;
 
-import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 
-public interface GalleryGridCallbacks {
-    void moveToSubCategorySection(CategoryModel categoryModel);
-    void switchToItemView( int position);
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragment;
+
+import javax.inject.Inject;
+
+public class VerticalItemExtendedSet implements AppDisplayFactory.ItemSetsConfigurator {
+
+    @Inject
+    public VerticalItemExtendedSet() {
+    }
+
+    @Override
+    public ItemSetsCallbacks provideItemSetFragment(String searchQuery, boolean isCategoryIdQuery) {
+        return GalleryGridFragment.newInstance(searchQuery, isCategoryIdQuery);
+    }
 }

@@ -29,8 +29,11 @@ import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.c
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.categorygroup.CategoryGroupGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemBasicGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemExtendedGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactoryBasic;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.home.GategoryGroupsHome;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemdetail.ListDetail;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets.VerticalItemSet;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginAuthStateListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -104,9 +107,38 @@ public class ApplicationModule {
     //--------------------------
     @Provides
     @Singleton
-    BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactoryBasic appDisplayFactory){
+    BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
         return appDisplayFactory;
     }
+
+
+
+
+
+    @Provides
+    @Singleton
+    AppDisplayFactory.HomeScreenConfigurator homeScreenConfigurator(GategoryGroupsHome homeScreenConfigurator){
+        return homeScreenConfigurator;
+    }
+
+    @Provides
+    @Singleton
+    AppDisplayFactory.ItemDetailConfigurator itemDetailConfigurator(ListDetail itemDetailConfigurator){
+        return itemDetailConfigurator;
+    }
+
+    @Provides
+    @Singleton
+    AppDisplayFactory.ItemSetsConfigurator itemSetsConfigurator(VerticalItemSet itemSetsConfigurator){
+        return itemSetsConfigurator;
+    }
+
+
+
+
+
+
+
 
 
 

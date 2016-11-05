@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -33,10 +33,10 @@ import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import java.text.NumberFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,8 +47,8 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase<ItemBas
 
     private List<ItemBasicModel> items = new LinkedList<>();
 
-    public GalleryGridItemsAdapter(GalleryGridCallbacks galleryGridCallbacks){
-        super(galleryGridCallbacks);
+    public GalleryGridItemsAdapter(ItemSetsCallbacks itemSetsCallbacks){
+        super(itemSetsCallbacks);
     }
 
 
@@ -150,7 +150,7 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase<ItemBas
 
         @Override
         public void onClick(View v) {
-            galleryGridCallbacks.switchToItemView(position);
+            itemSetsCallbacks.switchToItemView(position);
         }
 
         @Override

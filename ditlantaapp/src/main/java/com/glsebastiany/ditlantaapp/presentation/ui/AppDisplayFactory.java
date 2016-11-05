@@ -31,8 +31,8 @@ import com.glsebastiany.ditlantaapp.presentation.ui.tabbedgallery.TabbedGalleryA
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.extended.ItemDetailFragmentExtended;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.extended.GalleryGridFragmentExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.ItemSetsCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.extended.GalleryGridFragmentExtended;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragment;
 
@@ -58,12 +58,12 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     }
 
     @Override
-    public GalleryGridCallbacks provideGalleryGridFragment(String searchQuery, boolean isCategoryIdQuery){
+    public ItemSetsCallbacks provideItemSetFragment(String searchQuery, boolean isCategoryIdQuery){
         return GalleryGridFragmentExtended.newInstance(searchQuery, isCategoryIdQuery);
     }
 
     @Override
-    public void startMainActivity(AppCompatActivity activityBase) {
+    public void startHomeScreen(AppCompatActivity activityBase) {
         MainActivity_.intent(activityBase).start();
         activityBase.finish();
     }

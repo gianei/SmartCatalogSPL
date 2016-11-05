@@ -20,7 +20,7 @@ package com.glsebastiany.ditlantaapp.presentation.di.components;
 
 import android.content.Context;
 
-import com.glsebastiany.ditlantaapp.presentation.ui.grid.GalleryGridFragment;
+import com.glsebastiany.ditlantaapp.presentation.ui.grid.ItemSetsFragment;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
@@ -35,7 +35,7 @@ import com.glsebastiany.ditlantaapp.data.imagefetching.ImageFetcherIntentService
 import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
 import com.glsebastiany.ditlantaapp.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.ditlantaapp.presentation.di.modules.FirebaseModule;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridPresenter;
 import com.glsebastiany.ditlantaapp.presentation.ui.login.LoginActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.search.SearchActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPresenterBase;
@@ -69,7 +69,7 @@ public interface ApplicationComponent {
 
     void inject(ItemDetailPresenter itemDetailPresenter);
 
-    void inject(GalleryGridFragment galleryGridFragment);
+    void inject(ItemSetsFragment galleryGridFragment);
 
     void inject(ItemPagerActivity itemPagerActivity);
 

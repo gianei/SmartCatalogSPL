@@ -25,7 +25,6 @@ import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.instancefood.memory.category.CategoryMemoryRepository;
 import com.glsebastiany.smartcatalogspl.instancefood.memory.categorygroup.CategoryGroupMemoryRepository;
 import com.glsebastiany.smartcatalogspl.instancefood.memory.item.ItemBasicMemoryRepository;
@@ -86,7 +85,7 @@ public class ApplicationModule {
     //--------------------------
     @Provides
     @Singleton
-    BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
+    BaseAppDisplayFactory provideAppDisplayFactory(com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.AppDisplayFactory appDisplayFactory){
         return appDisplayFactory;
     }
 

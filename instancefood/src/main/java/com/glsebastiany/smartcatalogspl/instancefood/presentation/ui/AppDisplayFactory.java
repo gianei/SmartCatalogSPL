@@ -27,8 +27,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.ItemSetsCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.basic.MainActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
@@ -56,12 +56,12 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     }
 
     @Override
-    public GalleryGridCallbacks provideGalleryGridFragment(String searchQuery, boolean isCategoryIdQuery){
+    public ItemSetsCallbacks provideItemSetFragment(String searchQuery, boolean isCategoryIdQuery){
         return GalleryGridFragment.newInstance(searchQuery, isCategoryIdQuery);
     }
 
     @Override
-    public void startMainActivity(AppCompatActivity activityBase) {
+    public void startHomeScreen(AppCompatActivity activityBase) {
         Intent intent = new Intent(activityBase, MainActivity.class);
         activityBase.startActivity(intent);
         activityBase.finish();

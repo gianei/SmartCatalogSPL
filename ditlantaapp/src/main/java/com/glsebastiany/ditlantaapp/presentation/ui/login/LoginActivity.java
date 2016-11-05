@@ -25,10 +25,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.ditlantaapp.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
@@ -93,7 +93,7 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
 
     protected void loginOkCallback(){
         mAuthProgressDialog.dismiss();
-        appDisplayFactory.startMainActivity(this);
+        appDisplayFactory.startHomeScreen(this);
         finish();
     }
 

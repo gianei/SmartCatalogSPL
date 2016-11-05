@@ -84,7 +84,7 @@ public abstract class SplashScreenBase extends AppCompatActivity {
         if (sessionDepth++ == 0 && forceTaskMode())
             Utils.startLockTasMode(this);
 
-        baseAppDisplayFactory.startMainActivity(this);
+        baseAppDisplayFactory.startHomeScreen(this);
         FirebaseAuth auth =  FirebaseAuth.getInstance();
 
         auth.addAuthStateListener(authStateListener);

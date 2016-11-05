@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.extended;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.extended;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

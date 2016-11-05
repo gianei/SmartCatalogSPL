@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.extended;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.extended;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -33,8 +33,8 @@ import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridItemsAdapterBase;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -52,8 +52,8 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
 
     private List<ItemExtendedModel> items = new LinkedList<>();
 
-    public GalleryGridItemsAdapterExtended(GalleryGridCallbacks galleryGridCallbacks){
-        super(galleryGridCallbacks);
+    public GalleryGridItemsAdapterExtended(ItemSetsCallbacks itemSetsCallbacks){
+        super(itemSetsCallbacks);
     }
 
     @Override
@@ -203,7 +203,7 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
         @Override
         public void onClick(View v) {
 
-            galleryGridCallbacks.switchToItemView( position);
+            itemSetsCallbacks.switchToItemView( position);
         }
 
         @Override

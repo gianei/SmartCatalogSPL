@@ -16,12 +16,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid;
 
 import android.support.annotation.NonNull;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -29,7 +30,7 @@ import org.androidannotations.annotations.EFragment;
 @RequiresPresenter(GalleryGridPresenter.class)
 public class GalleryGridFragment extends GalleryGridFragmentBase<GalleryGridPresenter, ItemBasicModel> {
 
-    public static GalleryGridCallbacks newInstance(String searchQuery, boolean isCategoryIdQuery) {
+    public static ItemSetsCallbacks newInstance(String searchQuery, boolean isCategoryIdQuery) {
         return GalleryGridFragment_.builder()
                 .searchQuery(searchQuery)
                 .isCategoryIdQuery(isCategoryIdQuery)

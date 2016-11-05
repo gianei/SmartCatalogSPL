@@ -36,6 +36,7 @@ import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import java.util.Arrays;
@@ -68,10 +69,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderSuit
             String categories = categoriesGroup.get(viewHolderSuitCase.getAdapterPosition()).getCategoryList();
             String[] catArray = categories.split(",");
 
-            baseAppDisplayFactory.startGalleryActivity(
-                    context,
-                    Arrays.asList(catArray)
-            );
+            TabbedGalleryActivityBase.start(context, Arrays.asList(catArray));
+
         });
 
         viewHolderSuitCase.title.setText(model.getName());

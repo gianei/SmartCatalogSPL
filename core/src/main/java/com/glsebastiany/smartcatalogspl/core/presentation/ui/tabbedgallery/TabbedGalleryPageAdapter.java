@@ -26,14 +26,14 @@ import android.view.ViewGroup;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class TabbedGalleryPageAdapter extends FragmentStatePagerAdapter {
     protected final BaseAppDisplayFactory baseAppDisplayFactory;
-    protected SparseArray<GalleryGridCallbacks> registeredFragments = new SparseArray<>();List<CategoryModel> categories = new LinkedList<>();
+    protected SparseArray<ItemSetsCallbacks> registeredFragments = new SparseArray<>();List<CategoryModel> categories = new LinkedList<>();
 
     public TabbedGalleryPageAdapter(FragmentManager fm, BaseAppDisplayFactory baseAppDisplayFactory) {
         super(fm);
@@ -43,12 +43,12 @@ public class TabbedGalleryPageAdapter extends FragmentStatePagerAdapter {
     //This method return the fragment for the every position in the View Pager
     @Override
     public Fragment getItem(int position) {
-        return (Fragment) baseAppDisplayFactory.provideGalleryGridFragment(getCategoryModel(position).getStringId(), true);
+        return (Fragment) baseAppDisplayFactory.provideItemSetFragment(getCategoryModel(position).getStringId(), true);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        GalleryGridCallbacks fragment = (GalleryGridCallbacks) super.instantiateItem(container, position);
+        ItemSetsCallbacks fragment = (ItemSetsCallbacks) super.instantiateItem(container, position);
         registeredFragments.put(position, fragment);
         return fragment;
     }

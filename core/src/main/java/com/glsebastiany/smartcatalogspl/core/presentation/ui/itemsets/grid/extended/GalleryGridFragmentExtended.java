@@ -16,15 +16,15 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.extended;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.extended;
 
 import android.support.annotation.NonNull;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridItemsAdapterBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridItemsAdapterBase;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -32,7 +32,7 @@ import org.androidannotations.annotations.EFragment;
 @RequiresPresenter(GalleryGridPresenterExtended.class)
 public class GalleryGridFragmentExtended extends GalleryGridFragmentBase<GalleryGridPresenterExtended, ItemExtendedModel> {
 
-    public static GalleryGridCallbacks newInstance(String searchQuery, boolean isCategoryIdQuery) {
+    public static ItemSetsCallbacks newInstance(String searchQuery, boolean isCategoryIdQuery) {
         return GalleryGridFragmentExtended_.builder()
                 .searchQuery(searchQuery)
                 .isCategoryIdQuery(isCategoryIdQuery)

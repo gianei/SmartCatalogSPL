@@ -92,7 +92,7 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
 
     protected void loginOkCallback(){
         mAuthProgressDialog.dismiss();
-        appDisplayFactory.startMainActivity(this);
+        appDisplayFactory.startHomeScreen(this);
         finish();
     }
 

@@ -93,7 +93,7 @@ public class TabbedGalleryActivityBase extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            Fragment galleryFragment = appDisplayFactory.provideGalleryFragment(categoriesIds);
+            Fragment galleryFragment = TabbedGalleryFragment.newInstance(categoriesIds);
             fragmentTransaction.add(R.id.main_fragment_container, galleryFragment);
             fragmentTransaction.commit();
 

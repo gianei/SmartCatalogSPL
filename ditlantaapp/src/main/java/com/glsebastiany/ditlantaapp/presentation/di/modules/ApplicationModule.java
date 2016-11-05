@@ -21,7 +21,6 @@ package com.glsebastiany.ditlantaapp.presentation.di.modules;
 
 import android.content.Context;
 
-import com.glsebastiany.ditlantaapp.presentation.ui.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
@@ -99,7 +98,7 @@ public class ApplicationModule {
     //--------------------------
     @Provides
     @Singleton
-    BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
+    BaseAppDisplayFactory provideAppDisplayFactory(com.glsebastiany.ditlantaapp.presentation.ui.AppDisplayFactory appDisplayFactory){
         return appDisplayFactory;
     }
 

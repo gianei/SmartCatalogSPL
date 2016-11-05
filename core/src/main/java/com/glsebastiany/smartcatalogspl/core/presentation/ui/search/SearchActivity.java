@@ -26,7 +26,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.grid.GalleryGridFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragmentBase;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -73,7 +73,7 @@ public class SearchActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            GalleryGridFragmentBase galleryGridFragment = (GalleryGridFragmentBase) appDisplayFactory.provideGalleryGridFragment(searchQuery, false);
+            GalleryGridFragmentBase galleryGridFragment = (GalleryGridFragmentBase) appDisplayFactory.provideItemSetFragment(searchQuery, false);
 
             fragmentTransaction.add(R.id.main_fragment_container, galleryGridFragment);
             fragmentTransaction.commit();

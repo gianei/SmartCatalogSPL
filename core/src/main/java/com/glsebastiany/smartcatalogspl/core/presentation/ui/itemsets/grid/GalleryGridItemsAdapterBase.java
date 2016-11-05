@@ -16,18 +16,19 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid;
 
 import android.support.v7.widget.RecyclerView;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 
 public abstract class GalleryGridItemsAdapterBase<I> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    protected GalleryGridCallbacks galleryGridCallbacks;
+    protected ItemSetsCallbacks itemSetsCallbacks;
 
-    public GalleryGridItemsAdapterBase(GalleryGridCallbacks galleryGridCallbacks) {
+    public GalleryGridItemsAdapterBase(ItemSetsCallbacks itemSetsCallbacks) {
         super();
-        this.galleryGridCallbacks = galleryGridCallbacks;
+        this.itemSetsCallbacks = itemSetsCallbacks;
     }
 
     public abstract void addItem(I item);

@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.grid;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +32,7 @@ import com.glsebastiany.smartcatalogspl.core.data.item.ItemId;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.MyGridLayoutManager;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.SpacesItemDecoration;
@@ -43,7 +44,7 @@ import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(resName="fragment_gallery_visualization_grid")
-public abstract class GalleryGridFragmentBase<P extends Presenter, I extends ItemId> extends MvpRxFragmentBase<P> implements GalleryGridCallbacks {
+public abstract class GalleryGridFragmentBase<P extends Presenter, I extends ItemId> extends MvpRxFragmentBase<P> implements ItemSetsCallbacks {
 
     public static final int MAX_ITEMS_TO_SHOW_SCROLL = 100;
 

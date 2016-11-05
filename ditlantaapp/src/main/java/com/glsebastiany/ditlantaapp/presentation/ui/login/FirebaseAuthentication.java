@@ -20,6 +20,7 @@ package com.glsebastiany.ditlantaapp.presentation.ui.login;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
@@ -37,7 +38,12 @@ public class FirebaseAuthentication {
             public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (userIsNotLoggedIn(user)) {
-                    baseAppDisplayFactory.startLoginActivity();
+                    com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginActivity_
+                            .intent(activity)
+                            .flags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    | Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                            .start();
                     activity.finish();
                 }
             }

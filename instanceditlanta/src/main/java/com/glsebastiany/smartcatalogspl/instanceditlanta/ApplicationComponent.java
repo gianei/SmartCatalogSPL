@@ -23,7 +23,6 @@ import android.content.Context;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
 
@@ -42,7 +41,6 @@ public interface ApplicationComponent {
     ItemBasicUseCases useCases();
     CategoryUseCases categoryUseCases();
     CategoryGroupUseCases categoryGroupUseCases();
-    BaseAppDisplayFactory baseAppDisplayFactory();
 
 
 

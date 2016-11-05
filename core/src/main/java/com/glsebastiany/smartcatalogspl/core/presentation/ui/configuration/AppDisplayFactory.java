@@ -18,36 +18,48 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration;
 
+
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 
+import javax.inject.Inject;
 
-public interface BaseAppDisplayFactory {
+public class AppDisplayFactory implements BaseAppDisplayFactory {
 
-    interface HomeScreenConfigurator{
-        void startHomeScreen(AppCompatActivity activityBase);
+    @Inject
+    HomeScreenConfigurator homeScreenConfigurator;
+
+    @Inject
+    ItemDetailConfigurator itemDetailConfigurator;
+
+    @Inject
+    ItemSetsConfigurator itemSetsConfigurator;
+
+    @Inject
+    public AppDisplayFactory() {
     }
 
-    interface ItemSetsConfigurator{
-        ItemSetsCallbacks provideItemSetFragment(String searchQuery, boolean isCategoryIdQuery);
+    @Override
+    public void startHomeScreen(AppCompatActivity activityBase) {
+        homeScreenConfigurator.startHomeScreen(activityBase);
     }
 
-    interface ItemDetailConfigurator{
-        void switchToItemView(FragmentActivity fromActivity, String[] categoriesIds, int position);
-        ItemDetailFragmentBase getItemDetailFragment(String itemId);
+    @Override
+    public ItemSetsCallbacks provideItemSetFragment(String searchQuery, boolean isCategoryIdQuery){
+        return itemSetsConfigurator.provideItemSetFragment(searchQuery, isCategoryIdQuery);
     }
 
-    void startHomeScreen(AppCompatActivity activityBase);
+    @Override
+    public void switchToItemView(FragmentActivity fromActivity, String[] categoriesIds, int position) {
+        itemDetailConfigurator.switchToItemView(fromActivity, categoriesIds, position);
+    }
 
+    @Override
+    public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
+        return itemDetailConfigurator.getItemDetailFragment(itemId);
+    }
 
-    ItemSetsCallbacks provideItemSetFragment(String searchQuery, boolean isCategoryIdQuery);
-
-
-    void switchToItemView(FragmentActivity fromActivity, String[] categoriesIds, int position);
-
-
-    ItemDetailFragmentBase getItemDetailFragment(String itemId);
 }
