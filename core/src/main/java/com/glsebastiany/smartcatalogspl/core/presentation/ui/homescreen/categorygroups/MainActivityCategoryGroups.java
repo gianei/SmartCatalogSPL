@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.main.basic;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.categorygroups;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,14 +27,14 @@ import android.view.View;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.MainActivityBase;
 
-@RequiresPresenter(MainPresenter.class)
-public class MainActivity extends MainActivityBase {
+@RequiresPresenter(MainActivityCategoryGroupsPresenter.class)
+public class MainActivityCategoryGroups extends MainActivityBase {
 
     public RecyclerView recyclerView;
 
-    protected MainAdapter mainAdapter;
+    protected MainActivityCategoryGroupsAdapter mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,8 @@ public class MainActivity extends MainActivityBase {
 
         recyclerView.setLayoutManager(
                 new GridLayoutManager(
-                        MainActivity.this,
-                        MainActivity.this.getResources().getInteger(com.glsebastiany.smartcatalogspl.core.R.integer.grid_span_start),
+                        MainActivityCategoryGroups.this,
+                        MainActivityCategoryGroups.this.getResources().getInteger(com.glsebastiany.smartcatalogspl.core.R.integer.grid_span_start),
                         LinearLayoutManager.VERTICAL, false
                 )
         );
@@ -74,8 +74,8 @@ public class MainActivity extends MainActivityBase {
     }
 
 
-    public MainAdapter getAdapter(){
-        return new MainAdapter(this, baseAppDisplayFactory);
+    public MainActivityCategoryGroupsAdapter getAdapter(){
+        return new MainActivityCategoryGroupsAdapter(this, baseAppDisplayFactory);
     }
 
 }

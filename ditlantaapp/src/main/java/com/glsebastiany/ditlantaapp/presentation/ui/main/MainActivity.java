@@ -21,11 +21,12 @@ package com.glsebastiany.ditlantaapp.presentation.ui.main;
 import android.os.Bundle;
 
 import com.glsebastiany.ditlantaapp.presentation.ui.login.FirebaseAuthentication;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.categorygroups.MainActivityCategoryGroups;
 
 import org.androidannotations.annotations.EActivity;
 
 @EActivity()
-public class MainActivity extends com.glsebastiany.smartcatalogspl.core.presentation.ui.main.basic.MainActivity {
+public class MainActivity extends MainActivityCategoryGroups {
 
     private FirebaseAuthentication firebaseAuthentication;
 

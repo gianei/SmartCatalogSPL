@@ -43,13 +43,10 @@ import rx.Subscriber;
 public class CategoryUseCases {
 
     @Inject
-    public CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
 
     @Inject
     ItemBasicRepository itemBasicRepository;
-
-    @Inject
-    ItemBasicUseCases itemBasicUseCases;
 
     @Inject
     public CategoryUseCases(){}
@@ -85,33 +82,30 @@ public class CategoryUseCases {
     }
 
     public Observable<ItemBasicModel> allItemsFromCategory(final String categoryId) {
+        return Observable.create(
+                subscriber -> {
+                    List<String> categoryModelsIds = getSubcategoriesIds(categoryId);
 
-        return Observable.create(new Observable.OnSubscribe<ItemBasicModel>() {
-            @Override
-            public void call(Subscriber<? super ItemBasicModel> subscriber) {
-
-                List<String> categoryModelsIds = getSubcategoriesIds(categoryId);
-
-                List<ItemBasicModel> items = new ArrayList<>();
-                for (ItemBasicModel item : itemBasicRepository.loadAll()){
-                    try {
-                        if (categoryModelsIds.contains(item.getCategory().getStringId()))
-                            items.add(item);
-                    } catch (NullPointerException e){
-                        continue;
+                    List<ItemBasicModel> items = new ArrayList<>();
+                    for (ItemBasicModel item : itemBasicRepository.loadAll()){
+                        try {
+                            if (categoryModelsIds.contains(item.getCategory().getStringId()))
+                                items.add(item);
+                        } catch (NullPointerException e){
+                            continue;
+                        }
                     }
+
+                    orderByCategoryBasePrice(items);
+
+                    for (ItemBasicModel item:
+                            items) {
+                        subscriber.onNext(item);
+                    }
+
+                    subscriber.onCompleted();
                 }
-
-                orderByCategoryBasePrice(items);
-
-                for (ItemBasicModel item:
-                        items) {
-                    subscriber.onNext(item);
-                }
-
-                subscriber.onCompleted();
-            }
-        });
+        );
     }
 
     @NonNull

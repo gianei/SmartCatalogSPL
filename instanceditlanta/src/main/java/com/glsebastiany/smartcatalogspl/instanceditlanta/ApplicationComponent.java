@@ -33,19 +33,13 @@ import dagger.Component;
 /**
  * A component whose lifetime is the life of the application.
  */
-@Singleton // Constraints this component to one-per-application or unscoped bindings.
+@Singleton
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-    //Exposed to sub-graphs.
+
     Context context();
-    ItemBasicUseCases useCases();
-    CategoryUseCases categoryUseCases();
-    CategoryGroupUseCases categoryGroupUseCases();
-
-
 
     void inject(SplashScreenExtended splashScreen);
-
 
     void inject(SplashScreenBase splashScreenBase);
 }

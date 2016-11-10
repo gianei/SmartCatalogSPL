@@ -18,7 +18,11 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#f58220</color>
+    <color name="colorPrimaryDark">#00652e</color>
+    <color name="colorAccent">#ffc6671c</color>
+
+    <color name="gray">#eeeeee</color>
+    
+    <color name="primary200">#FAC190</color>
 </resources>

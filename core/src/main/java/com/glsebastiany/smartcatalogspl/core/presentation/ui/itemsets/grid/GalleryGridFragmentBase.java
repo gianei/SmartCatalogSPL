@@ -65,7 +65,7 @@ public abstract class GalleryGridFragmentBase<P extends Presenter, I extends Ite
     public boolean isCategoryIdQuery;
 
     protected GalleryGridItemsAdapterBase<I> adapter;
-    protected GridLayoutManager gridLayoutManager;
+    protected RecyclerView.LayoutManager gridLayoutManager;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -77,12 +77,17 @@ public abstract class GalleryGridFragmentBase<P extends Presenter, I extends Ite
     protected void afterViews(){
         adapter = getGalleryGridItemsAdapter();
         recyclerView.setAdapter(adapter);
-        gridLayoutManager = new MyGridLayoutManager(getContext(), getStartingSpanSize());
+        gridLayoutManager = getMyGridLayoutManager();
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(
                 new SpacesItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
 
         presenterAfterViews();
+    }
+
+    @NonNull
+    protected RecyclerView.LayoutManager getMyGridLayoutManager() {
+        return new MyGridLayoutManager(getContext(), getStartingSpanSize());
     }
 
     @NonNull

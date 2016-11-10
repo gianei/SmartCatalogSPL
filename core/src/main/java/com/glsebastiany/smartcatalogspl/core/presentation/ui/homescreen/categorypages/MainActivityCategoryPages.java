@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.main.tabbed;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.categorypages;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -28,11 +28,11 @@ import android.widget.ProgressBar;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.MainActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
 
-@RequiresPresenter(MainActivityTabbedPresenter.class)
-public class MainActivityTabbed extends MainActivityBase<MainActivityTabbedPresenter> {
+@RequiresPresenter(MainActivityCategoryPagesPresenter.class)
+public class MainActivityCategoryPages extends MainActivityBase<MainActivityCategoryPagesPresenter> {
 
     public TabLayout tabLayout;
 

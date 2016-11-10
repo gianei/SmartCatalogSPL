@@ -36,17 +36,16 @@ public class ItemBasicUseCases {
     public ItemBasicUseCases(){}
 
     public Observable<ItemBasicModel> getAll() {
-        return Observable.create(new Observable.OnSubscribe<ItemBasicModel>() {
-            @Override
-            public void call(Subscriber<? super ItemBasicModel> subscriber) {
-                for (ItemBasicModel item :
-                        itemBasicRepository.loadAll()) {
-                    subscriber.onNext(item);
-                }
+        return Observable.create(
+                subscriber -> {
+                    for (ItemBasicModel item :
+                            itemBasicRepository.loadAll()) {
+                        subscriber.onNext(item);
+                    }
 
-                subscriber.onCompleted();
-            }
-        });
+                    subscriber.onCompleted();
+                }
+        );
     }
 
 

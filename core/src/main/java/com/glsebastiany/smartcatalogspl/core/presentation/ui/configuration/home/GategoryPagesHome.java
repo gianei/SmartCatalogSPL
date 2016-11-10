@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.main.tabbed.MainActivityTabbed;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.categorypages.MainActivityCategoryPages;
 
 import javax.inject.Inject;
 
@@ -35,7 +35,7 @@ public class GategoryPagesHome implements AppDisplayFactory.HomeScreenConfigurat
 
     @Override
     public void startHomeScreen(AppCompatActivity activityBase) {
-        Intent intent = new Intent(activityBase, MainActivityTabbed.class);
+        Intent intent = new Intent(activityBase, MainActivityCategoryPages.class);
         activityBase.startActivity(intent);
         activityBase.finish();
     }

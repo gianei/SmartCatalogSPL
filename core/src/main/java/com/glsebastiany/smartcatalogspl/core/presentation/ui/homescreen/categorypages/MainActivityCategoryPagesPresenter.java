@@ -16,29 +16,22 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.main.tabbed;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.categorypages;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragment;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryFragment_;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Observer;
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func0;
 
-public class MainActivityTabbedPresenter extends Presenter<MainActivityTabbed> {
+public class MainActivityCategoryPagesPresenter extends Presenter<MainActivityCategoryPages> {
 
     private static int OBSERVABLE_ID = 0;
 
@@ -46,7 +39,7 @@ public class MainActivityTabbedPresenter extends Presenter<MainActivityTabbed> {
 
     private Observable<CategoryModel> categoryModelObservable;
 
-    public MainActivityTabbedPresenter(){
+    public MainActivityCategoryPagesPresenter(){
         categoryUseCases = SplashScreenBase.getInstance().categoryUseCases;
     }
 

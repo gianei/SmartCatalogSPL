@@ -16,24 +16,34 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemdetail;
 
+import android.support.v4.app.FragmentActivity;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragment;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.list.GalleryListFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
 
 import javax.inject.Inject;
 
-public class VerticalItemExtendedSet implements AppDisplayFactory.ItemSetsConfigurator {
+public class SwipeListExtendedDetail implements AppDisplayFactory.ItemDetailConfigurator {
 
     @Inject
-    public VerticalItemExtendedSet() {
+    public SwipeListExtendedDetail() {
     }
 
     @Override
-    public ItemSetsCallbacks provideItemSetFragment(String searchQuery, boolean isCategoryIdQuery) {
-        return GalleryListFragment.newInstance(searchQuery, isCategoryIdQuery);
+    public void switchToItemView(FragmentActivity fromActivity, String[] categoriesIds, int position) {
+        ItemPagerActivity_
+                .intent(fromActivity)
+                .categoriesIds(categoriesIds)
+                .itemPosition(position)
+                .start();
+    }
+
+    @Override
+    public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
+        return ItemDetailFragment.newInstance(itemId);
     }
 }

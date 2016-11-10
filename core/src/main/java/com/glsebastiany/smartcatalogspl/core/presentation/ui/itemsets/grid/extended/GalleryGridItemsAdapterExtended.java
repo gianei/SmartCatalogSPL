@@ -19,6 +19,7 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.extended;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +30,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridItemsAdapterBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -60,7 +64,7 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int baseItemType) {
         setContextIfNull(parent.getContext());
 
-        View v = LayoutInflater.from(context).inflate(R.layout.view_gallery_card_item_extended, parent, false);
+        View v = LayoutInflater.from(context).inflate(getLayoutId(), parent, false);
 
         ViewStub viewStub;
         switch (baseItemType){
@@ -83,6 +87,10 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
         return new BaseItemViewHolder(v);
     }
 
+    public int getLayoutId() {
+        return R.layout.view_gallery_card_item_extended;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int baseItemPosition) {
         BaseItemViewHolder baseItemViewHolder = (BaseItemViewHolder) viewHolder;
@@ -96,8 +104,12 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
         baseItemViewHolder.price.setText(mCurrencyInstance.format(basicModel.getPrice()));
         baseItemViewHolder.buildIcon.setVisibility(promotedModel.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
-        //TODO
-        //ImagesHelper.loadCardImageWithGlide(context, basicModel, baseItemViewHolder.image);
+
+        Glide.with(context).load(Utils.getImageCompleteUrl() + basicModel.getImageUrl())
+                .asBitmap()
+                .signature(new StringSignature(basicModel.getStringId()))
+                .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
+                .into(baseItemViewHolder.image);
 
         if (promotedModel.mustShowPreviousPrice()) {
             baseItemViewHolder.fromPrice.setText(context.getString(
@@ -178,7 +190,7 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
         public ImageButton button;
         public TextView fromPrice;
         public ImageView buildIcon;
-        public GridLayout bottomSpecGridLayout;
+        public View bottomSpecGridLayout;
 
         public BaseItemViewHolder(View v){
             super(v);
@@ -189,7 +201,7 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
             button = (ImageButton) v.findViewById(R.id.item_view_detail_button);
             fromPrice = (TextView) v.findViewById(R.id.item_price_previous);
             buildIcon = (ImageView) v.findViewById(R.id.item_view_detail_build);
-            bottomSpecGridLayout = (GridLayout) v.findViewById(R.id.bottom_spec_layout);
+            bottomSpecGridLayout =  v.findViewById(R.id.bottom_spec_layout);
         }
     }
 

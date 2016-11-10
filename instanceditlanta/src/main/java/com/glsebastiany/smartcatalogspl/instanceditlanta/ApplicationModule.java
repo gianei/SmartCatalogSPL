@@ -33,6 +33,9 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDi
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.home.GategoryGroupsHome;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemdetail.ListDetail;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemdetail.ListExtendedDetail;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemdetail.SwipeListExtendedDetail;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets.VerticalItemExtendedSet;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets.VerticalItemSet;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginAuthStateListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,26 +59,59 @@ public class ApplicationModule {
         this.context = context;
     }
 
-    @Provides
-    @Singleton
+    //--------------------------
+    //mandatory provides
+
+    @Provides  @Singleton
     Context provideApplicationContext() {
         return this.context;
     }
 
-    //--------------------------
-
-    @Provides
-    @Singleton
+    //Persistence for Item model
+    @Provides @Singleton
     ItemBasicRepository provideItemBasicRepository(ItemBasicGreendaoRepository repository){
         return repository;
+    }
+
+    //Persistence for Category model
+    @Provides @Singleton
+    CategoryRepository provideCategoryRepository(CategoryGreendaoRepository repository){
+        return repository;
+    }
+
+    //Persistence for CategoryGroup model
+    @Provides @Singleton
+    CategoryGroupRepository provideCategoryGroupRepository(CategoryGroupGreendaoRepository repository){
+        return repository;
+    }
+
+    //Helper container with options about UI
+    @Provides @Singleton
+    BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
+        return appDisplayFactory;
+    }
+
+    //External sync
+    @Provides @Singleton
+    public DatabaseReference provideFirebase(){
+        FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
+        DatabaseReference firebase = FirebaseDatabase.getInstance().getReferenceFromUrl(BuildConfig.FIREBASE_URL);
+        return firebase;
+    }
+
+    //External sync authentication
+    @Provides @Singleton
+    public FirebaseAuth.AuthStateListener authStateListener(LoginAuthStateListener authStateListener){
+        return authStateListener;
     }
 
 
 
     //--------------------------
+    //Optional feature
 
-    @Provides
-    @Singleton
+    // Must be provided only if Extended feature is selected
+    @Provides @Singleton
     ItemExtendedRepository provideItemPromotedRepository(ItemExtendedGreendaoRepository repository){
         return repository;
     }
@@ -83,84 +119,30 @@ public class ApplicationModule {
 
 
     //--------------------------
+    // Choice features
 
-    @Provides
-    @Singleton
-    CategoryRepository provideCategoryRepository(CategoryGreendaoRepository repository){
-        return repository;
-    }
-
-
-
-
-    //--------------------------
-    @Provides
-    @Singleton
-    CategoryGroupRepository provideCategoryGroupRepository(CategoryGroupGreendaoRepository repository){
-        return repository;
-    }
-
-
-
-
-
-    //--------------------------
-    @Provides
-    @Singleton
-    BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
-        return appDisplayFactory;
-    }
-
-
-
-
-
-    @Provides
-    @Singleton
+    // CategoryGroups -> CategoryGroupsHome
+    // CategoryPages -> CategoryPagesHome
+    @Provides @Singleton
     AppDisplayFactory.HomeScreenConfigurator homeScreenConfigurator(GategoryGroupsHome homeScreenConfigurator){
         return homeScreenConfigurator;
     }
 
-    @Provides
-    @Singleton
-    AppDisplayFactory.ItemDetailConfigurator itemDetailConfigurator(ListDetail itemDetailConfigurator){
+    // Extended && SwipeToNextItem - > SwipeListExtendedDetail
+    // Extended && !SwipeToNexItem  - > ListExtendedDetail
+    // !Extended && SwipeToNexItem - > SwipeListDetail
+    // !Extended && !SwipeToNexItem - > ListDetail
+    @Provides @Singleton
+    AppDisplayFactory.ItemDetailConfigurator itemDetailConfigurator(SwipeListExtendedDetail itemDetailConfigurator){
         return itemDetailConfigurator;
     }
 
-    @Provides
-    @Singleton
-    AppDisplayFactory.ItemSetsConfigurator itemSetsConfigurator(VerticalItemSet itemSetsConfigurator){
+    // Extended && GridZoomable -> GridZoomItemExtendedSet
+    // Extended && Vertical -> VerticalItemExtendedSet
+    // !Extended && GridZoomable -> GridZoomItemSet
+    // !Extended && Vertical -> VerticalItemSet
+    @Provides @Singleton
+    AppDisplayFactory.ItemSetsConfigurator itemSetsConfigurator(VerticalItemExtendedSet itemSetsConfigurator) {
         return itemSetsConfigurator;
     }
-
-
-
-
-
-
-
-
-
-
-
-    @Provides @Singleton
-    public DatabaseReference provideFirebase(){
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
-
-        DatabaseReference firebase = FirebaseDatabase.getInstance().getReferenceFromUrl(BuildConfig.FIREBASE_URL);
-        //config.setPersistenceCacheSizeBytes(50 * 1000 * 1000);
-        // It is not FirebaseDatabase.getInstance().getReference();
-        // to allow url to be changed on compile time
-
-        // keep synced to persist always and not be purged when cache > 10mb
-        //firebase.child(FirebaseSuitCase.LOCATION).keepSynced(true);
-        return firebase;
-    }
-
-    @Provides @Singleton
-    public FirebaseAuth.AuthStateListener authStateListener(LoginAuthStateListener authStateListener){
-        return authStateListener;
-    }
-
 }
