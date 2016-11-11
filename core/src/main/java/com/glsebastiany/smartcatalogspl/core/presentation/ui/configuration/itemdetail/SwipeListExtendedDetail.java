@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragment;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.extended.ItemDetailFragmentExtended;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_;
 
 import javax.inject.Inject;
@@ -44,6 +45,6 @@ public class SwipeListExtendedDetail implements AppDisplayFactory.ItemDetailConf
 
     @Override
     public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
-        return ItemDetailFragment.newInstance(itemId);
+        return ItemDetailFragmentExtended.newInstance(itemId);
     }
 }

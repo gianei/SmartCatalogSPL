@@ -31,6 +31,7 @@ import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.TouchImageView;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
@@ -84,11 +85,7 @@ public class ItemDetailFragmentExtended extends ItemDetailFragmentBase<ItemDetai
 
         final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
 
-        Glide.with(context).load(Utils.getImageCompleteUrl() + itemBasicModel.getImageUrl())
-                .asBitmap()
-                .signature(new StringSignature(itemBasicModel.getStringId()))
-                .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
-                .into(image);
+        Singletons.getInstance().imagesHelperBase.loadDetailImageWithGlide(getContext(), itemBasicModel, image);
 
     }
 

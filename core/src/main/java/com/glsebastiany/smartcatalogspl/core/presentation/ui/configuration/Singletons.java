@@ -24,6 +24,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupR
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.images.ImagesHelperBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -58,6 +59,9 @@ public class Singletons {
 
     @Inject
     public FirebaseAuth.AuthStateListener authStateListener;
+
+    @Inject
+    public ImagesHelperBase imagesHelperBase;
 
     protected static Singletons instance = null;
 

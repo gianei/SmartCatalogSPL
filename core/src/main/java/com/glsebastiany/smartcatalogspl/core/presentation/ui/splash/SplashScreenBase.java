@@ -33,7 +33,7 @@ public abstract class SplashScreenBase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         singletonsStart();
-        
+
         if (sessionDepth++ == 0 && forceTaskMode())
             Utils.startLockTasMode(this);
 

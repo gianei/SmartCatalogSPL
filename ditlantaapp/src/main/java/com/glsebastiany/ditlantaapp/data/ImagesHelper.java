@@ -25,12 +25,13 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.MediaStoreSignature;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.images.ImagesHelperBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.glsebastiany.ditlantaapp.R;
 
 import java.io.File;
 
-public class ImagesHelper {
+public class ImagesHelper extends ImagesHelperBase {
 
     @NonNull
     private static String getImageCompleteUrl(Context context, ItemBasicModel myListItem) {
@@ -50,7 +51,8 @@ public class ImagesHelper {
         return new MediaStoreSignature("", modifiedSignature, 0);
     }
 
-    public static void loadDetailImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView){
+    @Override
+    public void loadDetailImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView){
         String imageCompleteUrl = ImagesHelper.getImageCompleteUrl(context, baseItem);
         Glide.with(context).load(imageCompleteUrl)
                 .asBitmap()
@@ -60,7 +62,8 @@ public class ImagesHelper {
                 .into(intoView);
     }
 
-    public static void loadCardImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView){
+    @Override
+    public void loadCardImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView){
         String imageCompleteUrl = ImagesHelper.getImageCompleteUrl(context, baseItem);
         Glide.with(context).load(imageCompleteUrl)
                 .asBitmap()

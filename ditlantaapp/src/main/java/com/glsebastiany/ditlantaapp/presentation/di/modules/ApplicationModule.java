@@ -22,10 +22,12 @@ package com.glsebastiany.ditlantaapp.presentation.di.modules;
 import android.content.Context;
 
 import com.glsebastiany.ditlantaapp.BuildConfig;
+import com.glsebastiany.ditlantaapp.data.ImagesHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.images.ImagesHelperBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.CategoryGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.categorygroup.CategoryGroupGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemBasicGreendaoRepository;
@@ -92,7 +94,7 @@ public class ApplicationModule {
 
     //External sync
     @Provides @Singleton
-    public DatabaseReference provideFirebase(){
+    DatabaseReference provideFirebase(){
         FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
         DatabaseReference firebase = FirebaseDatabase.getInstance().getReferenceFromUrl(BuildConfig.FIREBASE_URL);
         return firebase;
@@ -100,8 +102,13 @@ public class ApplicationModule {
 
     //External sync authentication
     @Provides @Singleton
-    public FirebaseAuth.AuthStateListener authStateListener(LoginAuthStateListener authStateListener){
+    FirebaseAuth.AuthStateListener authStateListener(LoginAuthStateListener authStateListener){
         return authStateListener;
+    }
+
+    @Provides @Singleton
+    ImagesHelperBase getImagesHelperBase(){
+        return new ImagesHelper();
     }
 
 
