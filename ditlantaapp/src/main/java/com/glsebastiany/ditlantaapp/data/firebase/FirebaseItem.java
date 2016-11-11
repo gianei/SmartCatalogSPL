@@ -21,8 +21,8 @@ package com.glsebastiany.ditlantaapp.data.firebase;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicEntity;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemExtendedEntity;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemBasicEntity;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemExtendedEntity;
 
 import java.util.Date;
 

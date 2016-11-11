@@ -49,22 +49,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.glsebastiany.ditlantaapp.presentation.ui.main.MainActivity_">
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.categorygroups.MainActivityCategoryGroups">
             <meta-data android:name="android.app.default_searchable"
                 android:value=".presentation.ui.search.SearchActivity_" />
         </activity>
 
-        <activity android:name="com.glsebastiany.ditlantaapp.presentation.ui.tabbedgallery.TabbedGalleryActivity_">
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase_">
             <meta-data android:name="android.app.default_searchable"
                 android:value=".presentation.ui.search.SearchActivity_" />
         </activity>
 
-        <activity android:name="com.glsebastiany.ditlantaapp.presentation.ui.login.LoginActivity_" />
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginActivity_" />
 
         <activity
             android:name="com.glsebastiany.ditlantaapp.data.preferences.ActivityPreferences_"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="com.glsebastiany.ditlantaapp.presentation.ui.main.MainActivity_" />
+            android:parentActivityName="com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.categorygroups.MainActivityCategoryGroups" />
 
         <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity_" />
 

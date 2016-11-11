@@ -22,7 +22,7 @@ import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupMod
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import javax.inject.Inject;
 
@@ -42,7 +42,7 @@ public class MainActivityCategoryGroupsPresenter extends Presenter<MainActivityC
 
     public MainActivityCategoryGroupsPresenter(){
 
-        categoryGroupUseCases = SplashScreenBase.getInstance().categoryGroupUseCases;
+        categoryGroupUseCases = Singletons.getInstance().categoryGroupUseCases;
 
         observable = ObservableHelper.setupThreads(getCategoryGroupObservable().cache());
 

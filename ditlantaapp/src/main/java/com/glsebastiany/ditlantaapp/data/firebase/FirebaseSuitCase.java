@@ -19,7 +19,7 @@
 package com.glsebastiany.ditlantaapp.data.firebase;
 
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.categorygroup.CategoryGroupEntity;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.categorygroup.CategoryGroupEntity;
 
 import java.util.Collections;
 import java.util.Comparator;

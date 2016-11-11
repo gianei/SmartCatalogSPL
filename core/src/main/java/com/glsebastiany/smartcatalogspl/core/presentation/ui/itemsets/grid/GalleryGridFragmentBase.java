@@ -20,7 +20,6 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -33,7 +32,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragment
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.MyGridLayoutManager;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.SpacesItemDecoration;
 
@@ -70,7 +69,7 @@ public abstract class GalleryGridFragmentBase<P extends Presenter, I extends Ite
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        appDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+        appDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
     }
 
     @AfterViews

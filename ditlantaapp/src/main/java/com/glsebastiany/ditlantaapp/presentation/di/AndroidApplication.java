@@ -19,27 +19,16 @@
 package com.glsebastiany.ditlantaapp.presentation.di;
 
 
+import android.app.Application;
+
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.glsebastiany.ditlantaapp.BuildConfig;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
-import com.glsebastiany.ditlantaapp.data.FileServices;
-import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.ditlantaapp.presentation.di.components.DaggerApplicationComponent;
-import com.glsebastiany.ditlantaapp.presentation.di.modules.ApplicationModule;
-import com.google.firebase.auth.FirebaseAuth;
-
-import javax.inject.Inject;
 
 import io.fabric.sdk.android.Fabric;
 
 
-public class AndroidApplication extends InjectableApplication {
-
-    @Inject
-    FirebaseAuth.AuthStateListener authStateListener;
-
-    ApplicationComponent applicationComponent;
+public class AndroidApplication extends Application {
 
     @Override
     public void onCreate() {
@@ -49,25 +38,5 @@ public class AndroidApplication extends InjectableApplication {
         Fabric.with(this, new Crashlytics.Builder().core(core).build());
     }
 
-    @Override
-    protected void setupApplicationComponent() {
-
-        applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
-    }
-
-    @Override
-    protected void injectComponent() {
-        applicationComponent.inject(this);
-
-
-
-        FirebaseAuth auth =  FirebaseAuth.getInstance();
-
-        auth.addAuthStateListener(authStateListener);
-
-        FileServices.checkAndSetDefaultFotosFolder(this);
-    }
 
 }

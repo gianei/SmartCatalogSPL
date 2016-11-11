@@ -26,7 +26,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import rx.Observable;
 
@@ -43,8 +43,8 @@ public class GalleryGridPresenter extends Presenter<GalleryGridFragmentBase> {
 
 
     protected void onCreatePresenter(Bundle savedState) {
-        ItemBasicUseCases itemBasicUseCases = SplashScreenBase.getInstance().itemBasicUseCases;
-        CategoryUseCases categoryUseCases = SplashScreenBase.getInstance().categoryUseCases;
+        ItemBasicUseCases itemBasicUseCases = Singletons.getInstance().itemBasicUseCases;
+        CategoryUseCases categoryUseCases = Singletons.getInstance().categoryUseCases;
 
 
         String query = getQueryFrom(savedState);

@@ -22,14 +22,10 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.ditlantaapp.data.imagefetching.servers.FetchFromCloudinary;
 import com.glsebastiany.ditlantaapp.data.imagefetching.servers.FetchFromLan;
-import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
-
-import javax.inject.Inject;
+import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 public class ImageFetcherIntentService extends IntentService {
 
@@ -58,7 +54,7 @@ public class ImageFetcherIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        itemBasicUseCases = SplashScreenBase.getInstance().itemBasicUseCases;
+        itemBasicUseCases = Singletons.getInstance().itemBasicUseCases;
     }
 
     @Override

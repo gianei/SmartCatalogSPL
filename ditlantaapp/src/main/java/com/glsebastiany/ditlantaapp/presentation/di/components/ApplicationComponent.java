@@ -20,24 +20,22 @@ package com.glsebastiany.ditlantaapp.presentation.di.components;
 
 import android.content.Context;
 
+import com.glsebastiany.ditlantaapp.data.imagefetching.ImageFetcherIntentService;
+import com.glsebastiany.ditlantaapp.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.ditlantaapp.presentation.ui.grid.ItemSetsFragment;
-import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.di.InjectableApplication;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itempager.ItemPagerActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.search.SearchActivity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
-import com.glsebastiany.ditlantaapp.data.imagefetching.ImageFetcherIntentService;
-import com.glsebastiany.ditlantaapp.presentation.di.AndroidApplication;
-import com.glsebastiany.ditlantaapp.presentation.di.modules.ApplicationModule;
-import com.glsebastiany.ditlantaapp.presentation.di.modules.FirebaseModule;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridPresenter;
-import com.glsebastiany.ditlantaapp.presentation.ui.login.LoginActivity;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.search.SearchActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPresenterBase;
 
 import javax.inject.Singleton;
@@ -48,7 +46,7 @@ import dagger.Component;
  * A component whose lifetime is the life of the application.
  */
 @Singleton // Constraints this component to one-per-application or unscoped bindings.
-@Component(modules = {ApplicationModule.class, FirebaseModule.class})
+@Component(modules = {ApplicationModule.class})
 public interface ApplicationComponent {
     //Exposed to sub-graphs.
     Context context();
@@ -58,10 +56,10 @@ public interface ApplicationComponent {
     BaseAppDisplayFactory baseAppDisplayFactory();
 
 
-    void inject(AndroidApplication androidApplication);
-    void inject(ImageFetcherIntentService imageFetcherIntentService);
+    void inject(Singletons androidApplication);
+    void inject(SingletonsExtended androidApplication);
 
-    void inject(MainPresenter mainPresenter);
+    void inject(ImageFetcherIntentService imageFetcherIntentService);
 
     void inject(TabbedGalleryPresenterBase tabbedGalleryPresenter);
 
@@ -79,9 +77,6 @@ public interface ApplicationComponent {
 
     void inject(SplashScreenExtended splashScreen);
 
-    void inject(LoginActivity loginActivity);
-
     void inject(SearchActivity searchActivity);
 
-    void inject(InjectableApplication injectableApplication);
 }

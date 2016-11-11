@@ -20,7 +20,7 @@ package com.glsebastiany.ditlantaapp.data.firebase;
 
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryEntity;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.CategoryEntity;
 
 import java.io.Serializable;
 

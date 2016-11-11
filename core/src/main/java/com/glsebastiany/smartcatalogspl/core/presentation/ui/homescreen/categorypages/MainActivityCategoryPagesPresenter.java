@@ -24,7 +24,7 @@ import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +40,7 @@ public class MainActivityCategoryPagesPresenter extends Presenter<MainActivityCa
     private Observable<CategoryModel> categoryModelObservable;
 
     public MainActivityCategoryPagesPresenter(){
-        categoryUseCases = SplashScreenBase.getInstance().categoryUseCases;
+        categoryUseCases = Singletons.getInstance().categoryUseCases;
     }
 
 

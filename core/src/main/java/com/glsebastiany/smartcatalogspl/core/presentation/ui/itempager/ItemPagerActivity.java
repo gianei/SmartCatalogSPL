@@ -28,7 +28,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -59,7 +59,7 @@ public class ItemPagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+        appDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
     }
 
     @AfterViews

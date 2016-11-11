@@ -19,31 +19,32 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.splash;
 
 
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
-
-import javax.inject.Inject;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 
 public abstract class SplashScreenExtended extends SplashScreenBase{
 
-    @Inject
-    public ItemExtendedRepository itemExtendedRepository;
+    @Override
+    protected void singletonsStart() {
+        SingletonsExtended.start(new SingletonsExtended.InjectorExtended() {
+            @Override
+            public void inject(Singletons singletons) {
+                injectMeInner(singletons);
+            }
 
-    @Inject
-    public ItemExtendedUseCases itemExtendedUseCases;
-
-    protected void injectMe(SplashScreenBase splashScreenBase){
-        injectMeInner(splashScreenBase);
-        injectMeInner(this);
+            @Override
+            public void inject(SingletonsExtended singletonsExtended) {
+                injectMeInner(singletonsExtended);
+            }
+        });
     }
 
-    protected abstract void injectMeInner(SplashScreenBase splashScreenBase);
-
-    protected abstract void injectMeInner(SplashScreenExtended splashScreen);
-
-    public static SplashScreenExtended getInstance() {
-
-        return (SplashScreenExtended) instance;
+    protected void inject(Singletons singletons){
+        injectMeInner(singletons);
     }
+
+    protected abstract void injectMeInner(Singletons singletons);
+
+    protected abstract void injectMeInner(SingletonsExtended singletonsExtended);
 
 }

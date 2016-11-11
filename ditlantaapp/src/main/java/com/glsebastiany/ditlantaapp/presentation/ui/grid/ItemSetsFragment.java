@@ -36,7 +36,7 @@ public abstract class ItemSetsFragment extends GalleryGridFragmentBase<GalleryGr
     }
 
     @Override
-    public void injectMe(GalleryGridFragmentBase<GalleryGridPresenterExtended> galleryGridFragmentBase) {
+    public void inject(GalleryGridFragmentBase<GalleryGridPresenterExtended> galleryGridFragmentBase) {
         //AndroidApplication.<ApplicationComponent>singleton().getApplicationComponent().inject(galleryGridFragmentBase);
     }
 

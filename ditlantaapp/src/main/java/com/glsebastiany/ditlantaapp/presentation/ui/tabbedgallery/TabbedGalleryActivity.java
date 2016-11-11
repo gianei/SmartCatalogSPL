@@ -28,12 +28,12 @@ import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.FirebaseAuthentication;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase;
 import com.glsebastiany.ditlantaapp.R;
 import com.glsebastiany.ditlantaapp.data.imagefetching.ImageFetcherIntentService;
 import com.glsebastiany.ditlantaapp.data.preferences.ActivityPreferences_;
-import com.glsebastiany.ditlantaapp.presentation.ui.login.FirebaseAuthentication;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;

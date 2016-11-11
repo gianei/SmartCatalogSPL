@@ -28,8 +28,8 @@ import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -60,7 +60,7 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+        appDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
     }
 
     @AfterViews

@@ -34,7 +34,7 @@ import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -95,7 +95,7 @@ public class TabbedGalleryFragment extends MvpRxFragmentBase<TabbedGalleryPresen
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        baseAppDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+        baseAppDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
     }
 
     @AfterViews

@@ -21,15 +21,26 @@ package com.glsebastiany.ditlantaapp.presentation.di.modules;
 
 import android.content.Context;
 
+import com.glsebastiany.ditlantaapp.BuildConfig;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.categorygroup.CategoryGroupGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemBasicGreendaoRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.item.ItemPromotedGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.CategoryGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.categorygroup.CategoryGroupGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemBasicGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemExtendedGreendaoRepository;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.home.GategoryGroupsHome;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemdetail.SwipeListExtendedDetail;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets.GridZoomItemExtendedSet;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets.VerticalItemExtendedSet;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginAuthStateListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
 
 import javax.inject.Singleton;
 
@@ -47,59 +58,91 @@ public class ApplicationModule {
         this.context = context;
     }
 
-    @Provides
-    @Singleton
+    //--------------------------
+    //mandatory provides
+
+    @Provides  @Singleton
     Context provideApplicationContext() {
         return this.context;
     }
 
-    //--------------------------
-
-    @Provides
-    @Singleton
+    //Persistence for Item model
+    @Provides @Singleton
     ItemBasicRepository provideItemBasicRepository(ItemBasicGreendaoRepository repository){
         return repository;
     }
 
-
-
-    //--------------------------
-
-    @Provides
-    @Singleton
-    ItemExtendedRepository provideItemPromotedRepository(ItemPromotedGreendaoRepository repository){
-        return repository;
-    }
-
-
-
-    //--------------------------
-
-    @Provides
-    @Singleton
+    //Persistence for Category model
+    @Provides @Singleton
     CategoryRepository provideCategoryRepository(CategoryGreendaoRepository repository){
         return repository;
     }
 
+    //Persistence for CategoryGroup model
+    @Provides @Singleton
+    CategoryGroupRepository provideCategoryGroupRepository(CategoryGroupGreendaoRepository repository){
+        return repository;
+    }
+
+    //Helper container with options about UI
+    @Provides @Singleton
+    BaseAppDisplayFactory provideAppDisplayFactory(AppDisplayFactory appDisplayFactory){
+        return appDisplayFactory;
+    }
+
+    //External sync
+    @Provides @Singleton
+    public DatabaseReference provideFirebase(){
+        FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
+        DatabaseReference firebase = FirebaseDatabase.getInstance().getReferenceFromUrl(BuildConfig.FIREBASE_URL);
+        return firebase;
+    }
+
+    //External sync authentication
+    @Provides @Singleton
+    public FirebaseAuth.AuthStateListener authStateListener(LoginAuthStateListener authStateListener){
+        return authStateListener;
+    }
 
 
 
     //--------------------------
-    @Provides
-    @Singleton
-    CategoryGroupRepository provideCategoryGroupRepository(CategoryGroupGreendaoRepository repository){
+    //Optional feature
+
+    // Must be provided only if Extended feature is selected
+    @Provides @Singleton
+    ItemExtendedRepository provideItemPromotedRepository(ItemExtendedGreendaoRepository repository){
         return repository;
     }
 
 
 
-
-
     //--------------------------
-    @Provides
-    @Singleton
-    BaseAppDisplayFactory provideAppDisplayFactory(com.glsebastiany.ditlantaapp.presentation.ui.AppDisplayFactory appDisplayFactory){
-        return appDisplayFactory;
+    // Choice features
+
+    // CategoryGroups -> CategoryGroupsHome
+    // CategoryPages -> CategoryPagesHome
+    @Provides @Singleton
+    AppDisplayFactory.HomeScreenConfigurator homeScreenConfigurator(GategoryGroupsHome homeScreenConfigurator){
+        return homeScreenConfigurator;
+    }
+
+    // Extended && SwipeToNextItem - > SwipeListExtendedDetail
+    // Extended && !SwipeToNexItem  - > ListExtendedDetail
+    // !Extended && SwipeToNexItem - > SwipeListDetail
+    // !Extended && !SwipeToNexItem - > ListDetail
+    @Provides @Singleton
+    AppDisplayFactory.ItemDetailConfigurator itemDetailConfigurator(SwipeListExtendedDetail itemDetailConfigurator){
+        return itemDetailConfigurator;
+    }
+
+    // Extended && GridZoomable -> GridZoomItemExtendedSet
+    // Extended && Vertical -> VerticalItemExtendedSet
+    // !Extended && GridZoomable -> GridZoomItemSet
+    // !Extended && Vertical -> VerticalItemSet
+    @Provides @Singleton
+    AppDisplayFactory.ItemSetsConfigurator itemSetsConfigurator(GridZoomItemExtendedSet itemSetsConfigurator) {
+        return itemSetsConfigurator;
     }
 
 }

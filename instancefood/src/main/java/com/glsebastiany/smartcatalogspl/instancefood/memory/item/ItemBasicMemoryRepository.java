@@ -54,7 +54,7 @@ public class ItemBasicMemoryRepository implements ItemBasicRepository {
     @Override
     public List<? extends ItemBasicModel> loadAll() {
         if (started ==false){
-            CategoryRepository categoryRepository = SplashScreenBase.getInstance().categoryRepository;
+            CategoryRepository categoryRepository = Singletons.getInstance().categoryRepository;
 
             items.add(new MemoryItemEntity("Tagliateri", categoryRepository.load("Pasta"), "Tagliateri", 8.88f));
             items.add(new MemoryItemEntity("Toasts", categoryRepository.load("Breakfest"), "Toasts", 8.88f));

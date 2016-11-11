@@ -36,7 +36,7 @@ import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivity
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.FirebaseAuthentication;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 
@@ -64,7 +64,7 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
         super.onCreate(savedInstanceState);
 
 
-        baseAppDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+        baseAppDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
 
         firebaseAuthentication = new FirebaseAuthentication(this, baseAppDisplayFactory);
 

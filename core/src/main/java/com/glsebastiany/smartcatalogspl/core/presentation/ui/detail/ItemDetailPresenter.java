@@ -25,7 +25,7 @@ import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import rx.Observable;
 
@@ -40,7 +40,7 @@ public class ItemDetailPresenter extends Presenter<ItemDetailFragment> {
     protected void onCreatePresenter(Bundle savedState) {
         String categoryId = getCategoryIdFrom(savedState);
 
-        ItemBasicUseCases itemBasicUseCases = SplashScreenBase.getInstance().itemBasicUseCases;
+        ItemBasicUseCases itemBasicUseCases = Singletons.getInstance().itemBasicUseCases;
 
 
         if (categoryId != null) {

@@ -27,7 +27,7 @@ import com.glsebastiany.ditlantaapp.data.firebase.FirebaseCategory;
 import com.glsebastiany.ditlantaapp.data.preferences.SharedPreferencesUpdate_;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.greendao.category.CategoryEntity;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.CategoryEntity;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;

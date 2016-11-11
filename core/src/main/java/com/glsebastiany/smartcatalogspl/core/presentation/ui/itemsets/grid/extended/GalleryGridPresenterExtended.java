@@ -28,7 +28,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 
 import rx.Observable;
 
@@ -45,9 +45,9 @@ public class GalleryGridPresenterExtended extends Presenter<GalleryGridFragmentE
 
 
     protected void onCreatePresenter(Bundle savedState) {
-        ItemBasicUseCases itemBasicUseCases = SplashScreenExtended.getInstance().itemBasicUseCases;
-        CategoryUseCases categoryUseCases = SplashScreenExtended.getInstance().categoryUseCases;
-        ItemExtendedUseCases itemExtendedUseCases = SplashScreenExtended.getInstance().itemExtendedUseCases;
+        ItemBasicUseCases itemBasicUseCases = SingletonsExtended.getInstance().itemBasicUseCases;
+        CategoryUseCases categoryUseCases = SingletonsExtended.getInstance().categoryUseCases;
+        ItemExtendedUseCases itemExtendedUseCases = SingletonsExtended.getInstance().itemExtendedUseCases;
 
 
         String query = getQueryFrom(savedState);

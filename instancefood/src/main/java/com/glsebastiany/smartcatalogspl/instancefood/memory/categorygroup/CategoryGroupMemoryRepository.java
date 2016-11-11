@@ -53,7 +53,7 @@ public class CategoryGroupMemoryRepository implements CategoryGroupRepository {
     @Override
     public List<? extends CategoryGroupModel> loadAll() {
         if (!started){
-            CategoryRepository categoryRepository = SplashScreenBase.getInstance().categoryRepository;
+            CategoryRepository categoryRepository = Singletons.getInstance().categoryRepository;
 
             List<? extends CategoryModel> foodCats = categoryRepository.load( new ArrayList<>(Arrays.asList("Pasta", "Breakfest")));
             categoryGroups.add(

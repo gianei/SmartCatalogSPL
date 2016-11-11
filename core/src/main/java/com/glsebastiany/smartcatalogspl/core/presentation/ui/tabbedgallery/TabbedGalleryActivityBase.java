@@ -32,7 +32,7 @@ import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -77,9 +77,9 @@ public class TabbedGalleryActivityBase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        itemBasicUseCases = SplashScreenBase.getInstance().itemBasicUseCases;
-        categoryUseCases = SplashScreenBase.getInstance().categoryUseCases;
-        appDisplayFactory = SplashScreenBase.getInstance().baseAppDisplayFactory;
+        itemBasicUseCases = Singletons.getInstance().itemBasicUseCases;
+        categoryUseCases = Singletons.getInstance().categoryUseCases;
+        appDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
     }
 
     @AfterViews

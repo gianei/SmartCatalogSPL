@@ -28,7 +28,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 
 import rx.Observable;
 
@@ -41,8 +41,8 @@ public class ItemDetailPresenterExtended extends Presenter<ItemDetailFragmentExt
     protected void onCreatePresenter(Bundle savedState) {
         String categoryId = getCategoryIdFrom(savedState);
 
-        ItemBasicUseCases itemBasicUseCases = SplashScreenExtended.getInstance().itemBasicUseCases;
-        ItemExtendedUseCases itemExtendedUseCases = SplashScreenExtended.getInstance().itemExtendedUseCases;
+        ItemBasicUseCases itemBasicUseCases = SingletonsExtended.getInstance().itemBasicUseCases;
+        ItemExtendedUseCases itemExtendedUseCases = SingletonsExtended.getInstance().itemExtendedUseCases;
 
         if (categoryId != null) {
             Observable<ItemBasicModel> basicObservable = itemBasicUseCases.find(categoryId);
