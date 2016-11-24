@@ -40,7 +40,7 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscriber;
 
-public class CategoryUseCases {
+public class CategoryUseCases extends BaseCategoryUseCases {
 
     @Inject
     CategoryRepository categoryRepository;
@@ -51,6 +51,7 @@ public class CategoryUseCases {
     @Inject
     public CategoryUseCases(){}
 
+    @Override
     public Observable<CategoryModel>  getAll() {
         return Observable.create(new Observable.OnSubscribe<CategoryModel>() {
             @Override
@@ -65,6 +66,7 @@ public class CategoryUseCases {
         });
     }
 
+    @Override
     public Observable<CategoryModel> getAllChildren(final CategoryModel category) {
         return Observable.create(new Observable.OnSubscribe<CategoryModel>() {
             @Override
@@ -81,6 +83,7 @@ public class CategoryUseCases {
         });
     }
 
+    @Override
     public Observable<ItemBasicModel> allItemsFromCategory(final String categoryId) {
         return Observable.create(
                 subscriber -> {
@@ -183,6 +186,7 @@ public class CategoryUseCases {
 
     }
 
+    @Override
     public Observable<CategoryModel> findCategory(final String categoryId) {
         return Observable.create(new Observable.OnSubscribe<CategoryModel>() {
             @Override
@@ -197,6 +201,7 @@ public class CategoryUseCases {
         });
     }
 
+    @Override
     public Observable<CategoryModel> findCategory(final List<String> categoriesId) {
         if(categoriesId.size() > 0) {
             Observable<CategoryModel> categories = findCategory(categoriesId.get(0));
@@ -213,18 +218,22 @@ public class CategoryUseCases {
 
     }
 
+    @Override
     public void insert(CategoryModel categoryModel){
         categoryRepository.insert(categoryModel);
     }
 
+    @Override
     public void insertAll(List<CategoryModel> categoryList){
         categoryRepository.insertAll(categoryList);
     }
 
+    @Override
     public void remove(String categoryId){
         categoryRepository.remove(categoryId);
     }
 
+    @Override
     public void removeAll(){
         categoryRepository.removeAll();
     }

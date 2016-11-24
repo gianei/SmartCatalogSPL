@@ -21,7 +21,7 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid;
 import android.support.annotation.NonNull;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 
 import org.androidannotations.annotations.EFragment;

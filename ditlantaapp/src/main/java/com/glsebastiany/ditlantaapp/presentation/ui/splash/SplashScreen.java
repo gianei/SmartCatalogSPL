@@ -19,11 +19,11 @@
 package com.glsebastiany.ditlantaapp.presentation.ui.splash;
 
 import com.glsebastiany.ditlantaapp.data.FileServices;
-import com.glsebastiany.ditlantaapp.presentation.di.components.DaggerApplicationComponent;
-import com.glsebastiany.ditlantaapp.presentation.di.modules.ApplicationModule;
+import com.glsebastiany.ditlantaapp.presentation.di.DaggerApplicationComponent;
+import com.glsebastiany.ditlantaapp.presentation.di.ApplicationModule;
+import com.glsebastiany.ditlantaapp.presentation.di.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
-import com.glsebastiany.ditlantaapp.presentation.di.components.ApplicationComponent;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenExtended;
 
 

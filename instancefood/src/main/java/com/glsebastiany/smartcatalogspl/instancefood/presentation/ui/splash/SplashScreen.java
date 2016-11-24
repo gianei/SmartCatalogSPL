@@ -18,23 +18,18 @@
 
 package com.glsebastiany.smartcatalogspl.instancefood.presentation.ui.splash;
 
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.AndroidApplication;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.ApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.components.DaggerApplicationComponent;
-import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.modules.ApplicationModule;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.ApplicationModule;
+import com.glsebastiany.smartcatalogspl.instancefood.presentation.di.DaggerApplicationComponent;
 
 
 public class SplashScreen extends SplashScreenBase {
 
-
     @Override
-    protected void injectMe(SplashScreenBase splashScreen) {
-        ApplicationComponent applicationComponent = DaggerApplicationComponent.builder()
+    protected void inject(Singletons singletons) {
+        DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(getApplicationContext()))
-                .build();
-
-        applicationComponent.inject(splashScreen);
+                .build().inject(singletons);
     }
-
 }

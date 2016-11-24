@@ -27,7 +27,7 @@ import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.MainActivityBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryPageAdapter;
 

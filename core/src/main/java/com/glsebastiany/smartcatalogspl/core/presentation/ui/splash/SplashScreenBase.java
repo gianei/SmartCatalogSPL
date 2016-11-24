@@ -38,9 +38,7 @@ public abstract class SplashScreenBase extends AppCompatActivity {
             Utils.startLockTasMode(this);
 
         Singletons.getInstance().baseAppDisplayFactory.startHomeScreen(this);
-        FirebaseAuth auth =  FirebaseAuth.getInstance();
 
-        auth.addAuthStateListener(Singletons.getInstance().authStateListener);
     }
 
     protected void singletonsStart() {

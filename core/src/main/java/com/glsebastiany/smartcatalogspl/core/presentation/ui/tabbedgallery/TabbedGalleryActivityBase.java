@@ -36,24 +36,24 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.category.BaseCategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.BaseActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 
 import java.util.List;
 
 import static com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils.depthFirstOnBackPressed;
 
-public class TabbedGalleryActivityBase extends AppCompatActivity {
+public class TabbedGalleryActivityBase extends BaseActivity {
 
     public final static String CATEGORIES_IDS_EXTRA = "categoriesIds";
     private final static String IS_SAVED_FROM_INSTANCE_BUNDLE = "isFromSavedInstance";
 
     protected ItemBasicUseCases itemBasicUseCases;
 
-    protected CategoryUseCases categoryUseCases;
+    protected BaseCategoryUseCases categoryUseCases;
 
     protected BaseAppDisplayFactory appDisplayFactory;
 
@@ -123,7 +123,7 @@ public class TabbedGalleryActivityBase extends AppCompatActivity {
         );
 
         itemBasicUseCases = Singletons.getInstance().itemBasicUseCases;
-        categoryUseCases = SingletonsExtended.getInstance().categoryUseCases;
+        categoryUseCases = Singletons.getInstance().categoryUseCases;
         appDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
 
         appDisplayFactory.configureToolbarLogo(this, toolbar);

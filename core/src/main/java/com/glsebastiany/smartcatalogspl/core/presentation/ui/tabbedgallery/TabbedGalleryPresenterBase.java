@@ -23,8 +23,8 @@ import android.support.annotation.Nullable;
 
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.domain.category.BaseCategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import java.util.Arrays;
@@ -39,7 +39,7 @@ public class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragment>
 
     private static int OBSERVABLE_ID = 0;
 
-    CategoryUseCases categoryUseCases;
+    BaseCategoryUseCases categoryUseCases;
 
     private Observable<CategoryModel> categoryModelObservable;
     private Subscription drawerSubscription;

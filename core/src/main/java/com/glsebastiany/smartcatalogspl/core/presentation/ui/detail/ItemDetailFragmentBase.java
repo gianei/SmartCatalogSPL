@@ -23,8 +23,8 @@ import android.view.ViewStub;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemId;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.MvpRxFragmentBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;

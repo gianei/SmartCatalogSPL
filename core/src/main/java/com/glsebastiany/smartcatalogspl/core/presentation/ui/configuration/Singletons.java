@@ -18,14 +18,15 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration;
 
+import com.glsebastiany.smartcatalogspl.core.domain.category.BaseCategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
+import com.glsebastiany.smartcatalogspl.core.presentation.authentication.Authenticator;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
-import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
@@ -51,13 +52,13 @@ public class Singletons {
     public ItemBasicUseCases itemBasicUseCases;
 
     @Inject
-    public CategoryUseCases categoryUseCases;
+    public BaseCategoryUseCases categoryUseCases;
 
     @Inject
     public CategoryGroupUseCases categoryGroupUseCases;
 
     @Inject
-    public FirebaseAuth.AuthStateListener authStateListener;
+    public Authenticator authenticator;
 
     protected static Singletons instance = null;
 

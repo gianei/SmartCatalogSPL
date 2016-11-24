@@ -32,10 +32,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.MvpRxActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.FirebaseAuthentication;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 
@@ -43,30 +42,13 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
     public ProgressBar progressBar;
     public Toolbar toolbar;
     public BaseAppDisplayFactory baseAppDisplayFactory;
-    private FirebaseAuthentication firebaseAuthentication;
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        firebaseAuthentication.setOnPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        firebaseAuthentication.setOnResume();
-    }
 
     @Override
     @CallSuper
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         baseAppDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
-
-        firebaseAuthentication = new FirebaseAuthentication(this, baseAppDisplayFactory);
-
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -25,8 +25,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxActivityBase;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.RequiresPresenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.MvpRxActivityBase;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.RequiresPresenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
@@ -51,7 +51,7 @@ public class LoginActivity extends MvpRxActivityBase<LoginPresenter> {
     //@Inject
     BaseAppDisplayFactory appDisplayFactory;
 
-    /* A dialog that is presented until the DatabaseReference authentication finished. */
+    /* A dialog that is presented until the DatabaseReference authenticator finished. */
     private ProgressDialog mAuthProgressDialog;
 
     @ViewById(resName = "login_with_google")

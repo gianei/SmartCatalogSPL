@@ -26,7 +26,6 @@ import android.os.Build;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.AlertDialog;
 
-
 import com.glsebastiany.ditlantaapp.R;
 
 import org.androidannotations.annotations.AfterViews;

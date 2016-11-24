@@ -21,13 +21,13 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.search;
 import android.app.SearchManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.glsebastiany.smartcatalogspl.core.R;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.BaseActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragmentBase;
@@ -39,7 +39,7 @@ import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(resName = "activity_search")
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseActivity {
 
     BaseAppDisplayFactory appDisplayFactory;
 

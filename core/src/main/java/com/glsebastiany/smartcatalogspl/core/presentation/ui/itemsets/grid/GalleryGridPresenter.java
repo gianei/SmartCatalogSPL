@@ -23,9 +23,9 @@ import android.support.annotation.Nullable;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.category.BaseCategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
 import rx.Observable;
@@ -44,7 +44,7 @@ public class GalleryGridPresenter extends Presenter<GalleryGridFragmentBase> {
 
     protected void onCreatePresenter(Bundle savedState) {
         ItemBasicUseCases itemBasicUseCases = Singletons.getInstance().itemBasicUseCases;
-        CategoryUseCases categoryUseCases = Singletons.getInstance().categoryUseCases;
+        BaseCategoryUseCases categoryUseCases = Singletons.getInstance().categoryUseCases;
 
 
         String query = getQueryFrom(savedState);

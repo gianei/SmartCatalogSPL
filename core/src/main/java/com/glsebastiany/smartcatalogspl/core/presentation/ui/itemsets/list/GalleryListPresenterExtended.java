@@ -24,10 +24,10 @@ import android.support.annotation.Nullable;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 import com.glsebastiany.smartcatalogspl.core.domain.ObservableHelper;
-import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.category.BaseCategoryUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 
 import rx.Observable;
@@ -46,7 +46,7 @@ public class GalleryListPresenterExtended extends Presenter<GalleryListFragment>
 
     protected void onCreatePresenter(Bundle savedState) {
         ItemBasicUseCases itemBasicUseCases = SingletonsExtended.getInstance().itemBasicUseCases;
-        CategoryUseCases categoryUseCases = SingletonsExtended.getInstance().categoryUseCases;
+        BaseCategoryUseCases categoryUseCases = SingletonsExtended.getInstance().categoryUseCases;
         ItemExtendedUseCases itemExtendedUseCases = SingletonsExtended.getInstance().itemExtendedUseCases;
 
 

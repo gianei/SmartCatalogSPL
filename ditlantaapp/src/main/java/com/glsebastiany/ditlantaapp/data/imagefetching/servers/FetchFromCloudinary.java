@@ -24,7 +24,7 @@ import android.util.Log;
 
 import com.glsebastiany.ditlantaapp.BuildConfig;
 import com.glsebastiany.ditlantaapp.data.FileServices;
-import com.glsebastiany.smartcatalogspl.core.presentation.persistence.firebase.FirebaseItemImage;
+import com.glsebastiany.ditlantaapp.data.firebase.FirebaseItemImage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

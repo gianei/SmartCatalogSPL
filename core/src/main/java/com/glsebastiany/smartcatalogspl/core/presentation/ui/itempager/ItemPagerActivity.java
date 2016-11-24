@@ -23,10 +23,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.glsebastiany.smartcatalogspl.core.R;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.BaseActivity;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
@@ -37,7 +37,7 @@ import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(resName="activity_gallery_visualization_pager")
-public class ItemPagerActivity extends AppCompatActivity {
+public class ItemPagerActivity extends BaseActivity {
 
     BaseAppDisplayFactory appDisplayFactory;
 

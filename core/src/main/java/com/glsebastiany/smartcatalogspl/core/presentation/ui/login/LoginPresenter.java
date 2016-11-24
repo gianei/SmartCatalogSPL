@@ -24,7 +24,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.glsebastiany.smartcatalogspl.core.R;
-import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -49,13 +49,13 @@ public class LoginPresenter
     private GoogleApiClient mGoogleApiClient = null;
     private boolean isMakingLogin = false;
 
-    public boolean isMakingLogin(){
+    public boolean isMakingLogin() {
         return isMakingLogin;
     }
 
 
     @Override
-    public void onAfterViews(){
+    public void onAfterViews() {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -91,7 +91,7 @@ public class LoginPresenter
             if (result.getStatus().getStatusCode() == GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
                 getView().loginErrorCallback(LoginActivity.LoginErrorType.googleSignInError);
             } else {
-                getView().loginErrorCallback(LoginActivity.LoginErrorType.googleUnknownSignInError,result.getStatus().getStatusMessage());
+                getView().loginErrorCallback(LoginActivity.LoginErrorType.googleUnknownSignInError, result.getStatus().getStatusMessage());
             }
 
             Log.d(LOG_TAG, "google login error: " + result.getStatus().getStatusMessage());
@@ -122,7 +122,6 @@ public class LoginPresenter
         isMakingLogin = false;
         getView().loginErrorCallback(LoginActivity.LoginErrorType.connectionError, connectionResult.toString());
     }
-
 
 
 }
