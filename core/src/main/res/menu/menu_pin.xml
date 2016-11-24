@@ -17,12 +17,12 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<resources>
-    <color name="colorPrimary">#f58220</color>
-    <color name="colorPrimaryDark">#00652e</color>
-    <color name="colorAccent">#ffc6671c</color>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <color name="gray">#eeeeee</color>
-    
-    <color name="primary200">#FAC190</color>
-</resources>
+    <item android:id="@+id/menu_switch_lock_task"
+        android:title="@string/menu_lock_task"
+        android:orderInCategory="99"
+        app:showAsAction="never" />
+
+</menu>

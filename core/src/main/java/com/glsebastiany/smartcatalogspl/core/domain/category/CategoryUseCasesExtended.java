@@ -29,6 +29,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 import rx.Subscriber;
 
@@ -40,8 +42,11 @@ public class CategoryUseCasesExtended extends CategoryUseCases{
     public static final String ID_PROMOTION_AND_SALE = "-4";
     public static final String ID_OTHER = "-99";
 
-
+    @Inject
     ItemExtendedUseCases itemExtendedUseCases;
+
+    @Inject
+    public CategoryUseCasesExtended(){};
 
     @Override
     public Observable<ItemBasicModel> allItemsFromCategory(final String categoryId) {

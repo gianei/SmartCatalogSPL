@@ -18,6 +18,7 @@
 
 package com.glsebastiany.ditlantaapp.presentation.ui.splash;
 
+import com.glsebastiany.ditlantaapp.data.FileServices;
 import com.glsebastiany.ditlantaapp.presentation.di.components.DaggerApplicationComponent;
 import com.glsebastiany.ditlantaapp.presentation.di.modules.ApplicationModule;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
@@ -43,6 +44,8 @@ public class SplashScreen extends SplashScreenExtended {
     @Override
     protected void injectMeInner(SingletonsExtended singletonsExtended) {
         applicationComponent.inject(singletonsExtended);
+
+        FileServices.checkAndSetDefaultFotosFolder(this);
 
     }
 

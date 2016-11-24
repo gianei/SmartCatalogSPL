@@ -19,6 +19,8 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration;
 
 
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCases;
+import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryUseCasesExtended;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.splash.SplashScreenBase;
@@ -37,6 +39,9 @@ public class SingletonsExtended extends Singletons {
 
     @Inject
     public ItemExtendedUseCases itemExtendedUseCases;
+
+    @Inject
+    public CategoryUseCasesExtended categoryUseCases;
 
 
     public static SingletonsExtended start(InjectorExtended injector) {

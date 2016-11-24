@@ -36,6 +36,7 @@ import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridItemsAdapterBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
@@ -105,11 +106,8 @@ public class GalleryGridItemsAdapterExtended extends GalleryGridItemsAdapterBase
         baseItemViewHolder.buildIcon.setVisibility(promotedModel.getIsAssembled() ? View.VISIBLE : View.INVISIBLE);
 
 
-        Glide.with(context).load(Utils.getImageCompleteUrl() + basicModel.getImageUrl())
-                .asBitmap()
-                .signature(new StringSignature(basicModel.getStringId()))
-                .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
-                .into(baseItemViewHolder.image);
+        SingletonsExtended.getInstance().baseAppDisplayFactory
+                .loadCardImageWithGlide(context, basicModel, baseItemViewHolder.image);
 
         if (promotedModel.mustShowPreviousPrice()) {
             baseItemViewHolder.fromPrice.setText(context.getString(

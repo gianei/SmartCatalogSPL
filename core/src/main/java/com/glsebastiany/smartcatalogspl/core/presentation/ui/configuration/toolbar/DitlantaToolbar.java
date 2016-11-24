@@ -16,20 +16,30 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.instanceditlanta;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.toolbar;
 
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+import com.glsebastiany.smartcatalogspl.core.R;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+
+import javax.inject.Inject;
+
+
+public class DitlantaToolbar implements BaseAppDisplayFactory.ToolbarConfigurator {
+
+    @Inject
+    public DitlantaToolbar(){}
+
+    @Override
+    public void configureToolbarLogo(final AppCompatActivity activity, final Toolbar toolbar) {
+        toolbar.setLogo(R.drawable.image_logo);
+        toolbar.setLogoDescription(activity.getString(R.string.menu_logo_description));
+        toolbar.setTitle("");
+
     }
+
 }

@@ -20,8 +20,12 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -30,6 +34,7 @@ import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemId;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.MvpRxFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
+import com.glsebastiany.smartcatalogspl.core.presentation.preferences.SharedPreferencesZoom_;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
@@ -49,10 +54,10 @@ public abstract class GalleryGridFragmentBase<P extends Presenter, I extends Ite
 
     protected BaseAppDisplayFactory appDisplayFactory;
 
-    @ViewById(resName="my_recycler_view")
+    @ViewById(resName = "my_recycler_view")
     public RecyclerView recyclerView;
 
-    @ViewById(resName="progressBar")
+    @ViewById(resName = "progressBar")
     public ProgressBar progressBar;
 
     @FragmentArg
@@ -64,19 +69,24 @@ public abstract class GalleryGridFragmentBase<P extends Presenter, I extends Ite
     public boolean isCategoryIdQuery;
 
     protected GalleryGridItemsAdapterBase<I> adapter;
-    protected RecyclerView.LayoutManager gridLayoutManager;
+    protected GridLayoutManager gridLayoutManager;
+
+    protected SharedPreferencesZoom_ preferencesZoom;
 
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         appDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
+        preferencesZoom = new SharedPreferencesZoom_(getContext());
     }
 
     @AfterViews
-    protected void afterViews(){
+    protected void afterViews() {
+        setHasOptionsMenu(true);
         adapter = getGalleryGridItemsAdapter();
         recyclerView.setAdapter(adapter);
-        gridLayoutManager = getMyGridLayoutManager();
+        gridLayoutManager = (GridLayoutManager) getMyGridLayoutManager();
+        gridLayoutManager.setSpanCount(preferencesZoom.gridZoom().get());
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(
                 new SpacesItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.grid_cards_spacing)));
@@ -92,38 +102,91 @@ public abstract class GalleryGridFragmentBase<P extends Presenter, I extends Ite
     @NonNull
     protected abstract GalleryGridItemsAdapterBase<I> getGalleryGridItemsAdapter();
 
-    public void addItem(I itemComposition){
+    public void addItem(I itemComposition) {
         adapter.addItem(itemComposition);
     }
 
-    public void stopLoading(){
-        if (progressBar!= null) {
+    public void stopLoading() {
+        if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
-    protected int getStartingSpanSize(){
+    protected int getStartingSpanSize() {
         return 2;
     }
 
     public void moveToSubCategorySection(CategoryModel categoryModel) {
-        int newPosition = ((GalleryGridItemsAdapterBase)recyclerView.getAdapter()).findCategoryPositionInItems(categoryModel);
+        int newPosition = ((GalleryGridItemsAdapterBase) recyclerView.getAdapter()).findCategoryPositionInItems(categoryModel);
         if (newPosition < 0)
             return;
 
-        int visiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        int visiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         int difference = visiblePosition - newPosition;
-        if (Math.abs(difference) > MAX_ITEMS_TO_SHOW_SCROLL){
+        if (Math.abs(difference) > MAX_ITEMS_TO_SHOW_SCROLL) {
             recyclerView.scrollToPosition(newPosition + (MAX_ITEMS_TO_SHOW_SCROLL * (int) Math.signum(difference)));
             recyclerView.smoothScrollToPosition(newPosition);
         } else
             recyclerView.smoothScrollToPosition(newPosition);
     }
 
-    public void switchToItemView( int position) {
+    public void switchToItemView(int position) {
         appDisplayFactory.switchToItemView(getActivity(), adapter.toStringArray(), position);
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId_ = item.getItemId();
+        if (itemId_ == R.id.menu_zoom_in) {
+            zoomIn();
+            return false;
+        }
+        if (itemId_ == R.id.menu_zoom_out) {
+            zoomOut();
+            return false;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    protected void zoomIn() {
+        int actualSpanSize = preferencesZoom.gridZoom().get();
+        if (((GridLayoutManager) recyclerView.getLayoutManager()).getSpanCount() == actualSpanSize) {
+            if (!isGridSpanAtMinimal()) {
+                actualSpanSize--;
+                preferencesZoom.gridZoom().put(actualSpanSize);
+                changeLayoutSpan(actualSpanSize);
+            }
+        } else {
+            changeLayoutSpan(actualSpanSize);
+        }
+    }
+
+    protected void zoomOut() {
+        int actualSpanSize = preferencesZoom.gridZoom().get();
+        if (((GridLayoutManager) recyclerView.getLayoutManager()).getSpanCount() == actualSpanSize) {
+            if (!isGridSpanAtMaximum()) {
+                actualSpanSize++;
+                preferencesZoom.gridZoom().put(actualSpanSize);
+                changeLayoutSpan(actualSpanSize);
+            }
+        } else {
+            changeLayoutSpan(actualSpanSize);
+        }
+    }
+
+    private void changeLayoutSpan(int actualSpanSize) {
+        gridLayoutManager.setSpanCount(actualSpanSize);
+        gridLayoutManager.requestLayout();
+    }
+
+    private boolean isGridSpanAtMinimal() {
+        return preferencesZoom.gridZoom().get() <= getActivity().getResources().getInteger(R.integer.grid_span_min);
+    }
+
+    private boolean isGridSpanAtMaximum() {
+        return preferencesZoom.gridZoom().get() >= getActivity().getResources().getInteger(R.integer.grid_span_max);
+    }
 }

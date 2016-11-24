@@ -21,35 +21,8 @@
 
     <!-- Menu strings -->
 
-
-
-    <string name="menu_clean">Limpar</string>
-    <string name="menu_update_database">Atualizar dados</string>
     <string name="menu_update_images">Atualizar imagens externo</string>
     <string name="menu_update_images_locally">Atualizar imagens na Ditlanta</string>
-    <string name="menu_reset_database">Reinicializar dados</string>
-
-    <string name="menu_button_categories">Categorias</string>
-    <string name="menu_set_remove_mode">Remover itens</string>
-    <string name="menu_unset_remove_mode">Parar de remover itens</string>
-
-
-
-    <!--activities titles-->
-    <string name="title_activity_activity_suit_case">Pastas</string>
-
-    <!--toasts-->
-    <string name="confirm_back_toast">Pressione novamente para voltar.</string>
-
-
-
-
-
-    <!-- other -->
-    <string name="ok">OK</string>
-    <string name="cancel">Cancelar</string>
-    <string name="fotos_folder">FotosDitlanta</string>
-    <string name="update">Atualizar</string>
 
 
 

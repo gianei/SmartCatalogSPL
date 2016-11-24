@@ -18,9 +18,12 @@
 
 package com.glsebastiany.ditlantaapp;
 
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+
+
+import org.junit.Test;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
@@ -28,6 +31,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        assertThat(4, is(equalTo(2 + 2)));
+
     }
 }

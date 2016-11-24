@@ -51,12 +51,12 @@
 
         <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.homescreen.categorygroups.MainActivityCategoryGroups">
             <meta-data android:name="android.app.default_searchable"
-                android:value=".presentation.ui.search.SearchActivity_" />
+                android:value="com.glsebastiany.smartcatalogspl.core.presentation.ui.search.SearchActivity_" />
         </activity>
 
-        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase_">
+        <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.tabbedgallery.TabbedGalleryActivityBase">
             <meta-data android:name="android.app.default_searchable"
-                android:value=".presentation.ui.search.SearchActivity_" />
+                android:value="com.glsebastiany.smartcatalogspl.core.presentation.ui.search.SearchActivity_" />
         </activity>
 
         <activity android:name="com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginActivity_" />

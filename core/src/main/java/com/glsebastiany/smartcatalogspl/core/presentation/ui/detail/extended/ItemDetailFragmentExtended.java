@@ -85,7 +85,8 @@ public class ItemDetailFragmentExtended extends ItemDetailFragmentBase<ItemDetai
 
         final TouchImageView image = (TouchImageView) newView.findViewById(R.id.imageViewDetalheItem);
 
-        Singletons.getInstance().imagesHelperBase.loadDetailImageWithGlide(getContext(), itemBasicModel, image);
+        Singletons.getInstance().baseAppDisplayFactory
+                .loadDetailImageWithGlide(getContext(), itemBasicModel, image);
 
     }
 

@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.images;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.images;
 
 
 import android.content.Context;
@@ -27,9 +27,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
-public class WebImagesHelper extends ImagesHelperBase {
+public class WebImagesHelper implements BaseAppDisplayFactory.ImagesHelper {
     @Override
     public void loadDetailImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView) {
         Glide.with(context).load(Utils.getImageCompleteUrl() + baseItem.getImageUrl())

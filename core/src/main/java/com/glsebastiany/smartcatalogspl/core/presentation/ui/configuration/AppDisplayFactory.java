@@ -19,9 +19,15 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration;
 
 
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.detail.ItemDetailFragmentBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 
@@ -37,6 +43,15 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
 
     @Inject
     ItemSetsConfigurator itemSetsConfigurator;
+
+    @Inject
+    ToolbarConfigurator toolbarConfigurator;
+
+    @Inject
+    MenuConfigurator menuConfigurator;
+
+    @Inject
+    ImagesHelper imagesHelper;
 
     @Inject
     public AppDisplayFactory() {
@@ -60,6 +75,31 @@ public class AppDisplayFactory implements BaseAppDisplayFactory {
     @Override
     public ItemDetailFragmentBase getItemDetailFragment(String itemId) {
         return itemDetailConfigurator.getItemDetailFragment(itemId);
+    }
+
+    @Override
+    public void configureToolbarLogo(AppCompatActivity activity, Toolbar toolbar) {
+        toolbarConfigurator.configureToolbarLogo(activity, toolbar);
+    }
+
+    @Override
+    public boolean inflateMenus(AppCompatActivity activity, Menu menu) {
+        return menuConfigurator.inflateMenus(activity, menu);
+    }
+
+    @Override
+    public boolean menuSelected(AppCompatActivity activity, MenuItem menuItem) {
+        return menuConfigurator.menuSelected(activity, menuItem);
+    }
+
+    @Override
+    public void loadDetailImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView) {
+        imagesHelper.loadDetailImageWithGlide(context, baseItem, intoView);
+    }
+
+    @Override
+    public void loadCardImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView) {
+        imagesHelper.loadCardImageWithGlide(context, baseItem, intoView);
     }
 
 }

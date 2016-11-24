@@ -22,12 +22,11 @@ package com.glsebastiany.ditlantaapp.presentation.di.modules;
 import android.content.Context;
 
 import com.glsebastiany.ditlantaapp.BuildConfig;
-import com.glsebastiany.ditlantaapp.data.ImagesHelper;
+import com.glsebastiany.ditlantaapp.presentation.ui.ImagesHelper;
 import com.glsebastiany.smartcatalogspl.core.domain.category.CategoryRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.categorygroup.CategoryGroupRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedRepository;
-import com.glsebastiany.smartcatalogspl.core.presentation.images.ImagesHelperBase;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.CategoryGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.categorygroup.CategoryGroupGreendaoRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemBasicGreendaoRepository;
@@ -37,7 +36,8 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseA
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.home.GategoryGroupsHome;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemdetail.SwipeListExtendedDetail;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets.GridZoomItemExtendedSet;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.itemsets.VerticalItemExtendedSet;
+import com.glsebastiany.ditlantaapp.presentation.ui.DitlantaMenu;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.toolbar.DitlantaToolbar;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.LoginAuthStateListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -106,10 +106,7 @@ public class ApplicationModule {
         return authStateListener;
     }
 
-    @Provides @Singleton
-    ImagesHelperBase getImagesHelperBase(){
-        return new ImagesHelper();
-    }
+
 
 
 
@@ -150,6 +147,21 @@ public class ApplicationModule {
     @Provides @Singleton
     AppDisplayFactory.ItemSetsConfigurator itemSetsConfigurator(GridZoomItemExtendedSet itemSetsConfigurator) {
         return itemSetsConfigurator;
+    }
+
+    @Provides @Singleton
+    BaseAppDisplayFactory.ToolbarConfigurator toolbarConfiguratior(DitlantaToolbar toolbarConfigurator){
+        return toolbarConfigurator;
+    }
+
+    @Provides @Singleton
+    BaseAppDisplayFactory.MenuConfigurator menuConfigurator(DitlantaMenu menuConfigurator){
+        return menuConfigurator;
+    }
+
+    @Provides @Singleton
+    BaseAppDisplayFactory.ImagesHelper imagesHelper(){
+        return new ImagesHelper();
     }
 
 }

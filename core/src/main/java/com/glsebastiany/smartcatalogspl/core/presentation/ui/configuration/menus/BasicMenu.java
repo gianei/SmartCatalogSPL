@@ -16,16 +16,9 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.smartcatalogspl.core.presentation.images;
+package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.menus;
 
-import android.content.Context;
-import android.widget.ImageView;
 
-import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 
-public abstract class ImagesHelperBase {
-
-    public abstract void loadDetailImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView);
-
-    public abstract void loadCardImageWithGlide(Context context, ItemBasicModel baseItem, ImageView intoView);
+public class BasicMenu {
 }

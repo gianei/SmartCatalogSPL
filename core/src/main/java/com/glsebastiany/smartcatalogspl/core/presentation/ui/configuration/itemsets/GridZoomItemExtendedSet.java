@@ -22,6 +22,7 @@ package com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.item
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.AppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragment;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.extended.GalleryGridFragmentExtended;
 
 import javax.inject.Inject;
 
@@ -33,6 +34,6 @@ public class GridZoomItemExtendedSet implements AppDisplayFactory.ItemSetsConfig
 
     @Override
     public ItemSetsCallbacks provideItemSetFragment(String searchQuery, boolean isCategoryIdQuery) {
-        return GalleryGridFragment.newInstance(searchQuery, isCategoryIdQuery);
+        return GalleryGridFragmentExtended.newInstance(searchQuery, isCategoryIdQuery);
     }
 }

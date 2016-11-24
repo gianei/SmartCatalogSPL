@@ -30,25 +30,37 @@
     <string name="menu_lock_task">Pin app</string>
 
     <!--toasts-->
-    <string name="confirm_back_toast">Press again to go back.</string>
+    <string name="confirm_back_toast">Press again to go back</string>
 
     <!--gallery-->
-    <string name="item_view_promoted_price">"De %1$s por "</string>
+    <string name="item_view_promoted_price">"Before %1$s Now "</string>
 
 
     <!-- content descriptions -->
-    <string name="content_description_image_details">Detalhes da imagem</string>
-    <string name="content_description_promoted">Em promoção</string>
-    <string name="content_description_new">Novidade</string>
-    <string name="content_description_sale">Liquidação</string>
-
+    <string name="content_description_image_details">Image details</string>
 
 
     <!-- Login Errors -->
-    <string name="google_sign_in_error">O login foi cancelado. Certifique-se que você está conectado à internet e tente novamente.</string>
-    <string name="google_unknown_sign_in_error">Houve um erro com o login: </string>
-    <string name="firebase_auth_error">A autenticação falhou.</string>
+    <string name="google_sign_in_error">The login has been cancelled. Verify if you are connected to the internet and try again.</string>
+    <string name="connection_error">Verify if you are connected to the internet and try again.</string>
 
-    <string name="connection_error">Certifique-se que você está conectado à internet e tente novamente.</string>
+    <!-- other -->
+    <string name="ok" translatable="false">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="fotos_folder" translatable="false">FotosDitlanta</string>
+    <string name="content_description_new">New</string>
+    <string name="content_description_promoted">Promotion</string>
+    <string name="content_description_sale">Sale</string>
+    <string name="firebase_auth_error">The authentication failed</string>
+    <string name="google_unknown_sign_in_error">"There was a login error: "</string>
+    <string name="pref_fotos_folder_title">Images folder</string>
+    <string name="pref_header_connection">Update</string>
+    <string name="pref_header_folder">Folders</string>
+    <string name="pref_item_latest_update_title">Last item update date</string>
+    <string name="pref_server_address_title">Ditlanta server address</string>
+    <string name="pref_suit_case_latest_update_title">Last suit case update date</string>
+    <string name="title_activity_settings">Opções</string>
+    <string name="update">Update</string>
+
 
 </resources>

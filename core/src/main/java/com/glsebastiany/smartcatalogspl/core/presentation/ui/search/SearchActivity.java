@@ -23,9 +23,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragmentBase;
 
 import org.androidannotations.annotations.AfterViews;
@@ -35,7 +39,6 @@ import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(resName = "activity_search")
-//@OptionsMenu(R.menu.menu_gallery)
 public class SearchActivity extends AppCompatActivity {
 
     BaseAppDisplayFactory appDisplayFactory;
@@ -49,24 +52,32 @@ public class SearchActivity extends AppCompatActivity {
     @ViewById(resName = "main_toolbar")
     Toolbar toolbar;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_gallery, menu);
+
+        appDisplayFactory.inflateMenus(this, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (appDisplayFactory.menuSelected(this, item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setupToolbar() {
-        setupToolbarLogo();
         setSupportActionBar(toolbar);
-        setupToolbarNavigation();
-    }
-
-    private void setupToolbarLogo() {
-        toolbar.setLogo(R.drawable.image_logo);
-        toolbar.setLogoDescription(getString(R.string.menu_logo_description));
-        toolbar.setTitle("");
-    }
-
-    private void setupToolbarNavigation() {
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        appDisplayFactory.configureToolbarLogo(this, toolbar);
     }
 
     @AfterViews
     public void afterViews(){
+        appDisplayFactory = Singletons.getInstance().baseAppDisplayFactory;
         setupToolbar();
 
         if (!isFromSavedInstance) {

@@ -37,7 +37,6 @@ import com.glsebastiany.smartcatalogspl.core.presentation.nucleous.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.BaseAppDisplayFactory;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.login.FirebaseAuthentication;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 
 public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivityBase<P> {
@@ -71,6 +70,10 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        baseAppDisplayFactory.configureToolbarLogo(this, toolbar);
+
 
     }
 
@@ -81,6 +84,9 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
 
         MenuItem searchMenuItem = menu.findItem(R.id.menu_search);
         setupSearchMenu(searchMenuItem);
+
+        if (baseAppDisplayFactory.inflateMenus(this, menu))
+            return true;
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -93,9 +99,7 @@ public abstract class MainActivityBase<P extends Presenter> extends MvpRxActivit
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId_ = item.getItemId();
-        if (itemId_ == R.id.menu_switch_lock_task) {
-            Utils.switchLockTasMode(this);
+        if (baseAppDisplayFactory.menuSelected(this, item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);

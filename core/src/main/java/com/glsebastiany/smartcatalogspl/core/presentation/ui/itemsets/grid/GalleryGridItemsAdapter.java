@@ -19,7 +19,6 @@
 package com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,13 +27,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
 import com.glsebastiany.smartcatalogspl.core.R;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.ItemSetsCallbacks;
-import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -76,11 +73,8 @@ public class GalleryGridItemsAdapter extends GalleryGridItemsAdapterBase<ItemBas
         baseItemViewHolder.itemPrice.setText(currencyInstance.format(item.getPrice()));
         baseItemViewHolder.description.setText(item.getName());
 
-        Glide.with(context).load(Utils.getImageCompleteUrl() + item.getImageUrl())
-                .asBitmap()
-                .signature(new StringSignature(item.getStringId()))
-                .placeholder(ContextCompat.getDrawable(context, R.drawable.image_placeholder))
-                .into(baseItemViewHolder.image);
+        Singletons.getInstance().baseAppDisplayFactory
+                .loadCardImageWithGlide(context, item, baseItemViewHolder.image);
     }
 
     @Override
