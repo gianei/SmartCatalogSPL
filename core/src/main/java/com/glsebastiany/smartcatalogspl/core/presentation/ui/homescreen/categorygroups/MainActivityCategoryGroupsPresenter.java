@@ -69,7 +69,8 @@ public class MainActivityCategoryGroupsPresenter extends Presenter<MainActivityC
 
             @Override
             public void onError(Throwable e) {
-                throw new RuntimeException(e);
+                //TODO dont do this
+                //throw new RuntimeException(e);
             }
 
             @Override

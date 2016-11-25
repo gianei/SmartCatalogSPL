@@ -40,6 +40,8 @@ public class FirebaseUpdater {
     public FirebaseUpdater( final FirebaseUpdatable firebaseUpdatable) {
         this.firebaseUpdatable = firebaseUpdatable;
 
+        resetLogicIfEmpty();
+
         if (firebaseUpdatable.getLatestUpdate() == 0) {
             addInitialListener();
         } else {
@@ -47,6 +49,17 @@ public class FirebaseUpdater {
         }
 
         checkForRemovedItems(firebaseUpdatable);
+    }
+
+    // this function may not be needed in future updates (after 3.0.0)
+    private void resetLogicIfEmpty() {
+        if (firebaseUpdatable.getLocalIds(0).size() == 0)
+            firebaseUpdatable.saveUpdatedDate(0);
+        else
+        //categories always have a few special categories
+        if(firebaseUpdatable instanceof CategoryUpdater)
+            if (firebaseUpdatable.getLocalIds(0).size() < 10)
+                firebaseUpdatable.saveUpdatedDate(0);
     }
 
     private void addInitialListener() {
