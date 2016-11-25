@@ -70,14 +70,6 @@ ext {
         versionName "1.0.0"
     }
 
-    appInstanceDitlantaConfig = {
-        applicationId "com.glsebastiany.smartcatalogspl.instanceditlanta"
-        minSdkVersion baseMinSdkVersion
-        targetSdkVersion baseTargetSdkVersion
-        versionCode 1
-        versionName "1.0.0"
-    }
-
     librariesDefaultConfig = {
         minSdkVersion baseMinSdkVersion
         targetSdkVersion baseTargetSdkVersion
