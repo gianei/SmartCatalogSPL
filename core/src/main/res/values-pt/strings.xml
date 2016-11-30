@@ -34,8 +34,8 @@
     <string name="content_description_sale">Liquidação</string>
     <string name="firebase_auth_error">A autenticação falhou</string>
     <string name="google_sign_in_error">O login foi cancelado. Certifique-se que você está conectado à internet e tente novamente.</string>
-    <string name="google_unknown_sign_in_error">\"Houve um erro com o login: \"</string>
-    <string name="item_view_promoted_price">\"De %1$s por \"</string>
+    <string name="google_unknown_sign_in_error">Houve um erro com o login: </string>
+    <string name="item_view_promoted_price">"De %1$s por "</string>
     <string name="pref_fotos_folder_title">Diretório de imagens</string>
     <string name="pref_header_connection">Atualização</string>
     <string name="pref_header_folder">Diretórios</string>
@@ -44,4 +44,5 @@
     <string name="pref_suit_case_latest_update_title">Data da última alteração de pasta</string>
     <string name="title_activity_settings">Settings</string>
     <string name="update">Atualizar</string>
+    <string name="pref_category_latest_update_title">Data da última alteração de categoria</string>
 </resources>

@@ -33,7 +33,7 @@
     <string name="confirm_back_toast">Press again to go back</string>
 
     <!--gallery-->
-    <string name="item_view_promoted_price">"Before %1$s Now "</string>
+    <string name="item_view_promoted_price">Before %1$s Now </string>
 
 
     <!-- content descriptions -->
@@ -52,7 +52,7 @@
     <string name="content_description_promoted">Promotion</string>
     <string name="content_description_sale">Sale</string>
     <string name="firebase_auth_error">The authentication failed</string>
-    <string name="google_unknown_sign_in_error">"There was a login error: "</string>
+    <string name="google_unknown_sign_in_error">There was a login error: </string>
     <string name="pref_fotos_folder_title">Images folder</string>
     <string name="pref_header_connection">Update</string>
     <string name="pref_header_folder">Folders</string>

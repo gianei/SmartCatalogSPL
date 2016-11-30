@@ -137,9 +137,8 @@ public class ItemExtendedEntity implements ItemExtendedModel {
     @Override
     @Keep
     public boolean mustShowPreviousPrice() {
-        //TODO
-        return true; //(isPromoted || isSale)
-                //&& ((ItemBasicModel) workAroundBasicEntity()).getPrice() < getPreviousPrice();
+        return (isPromoted || isSale)
+                && ((ItemBasicModel) workAroundBasicEntity()).getPrice() < getPreviousPrice();
     }
 
     public void setPreviousPrice(float previousPrice) {

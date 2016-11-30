@@ -70,9 +70,9 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void setupToolbar() {
+        appDisplayFactory.configureToolbarLogo(this, toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        appDisplayFactory.configureToolbarLogo(this, toolbar);
     }
 
     @AfterViews

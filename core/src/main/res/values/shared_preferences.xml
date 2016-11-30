@@ -28,7 +28,7 @@
     <string name="pref_item_latest_update_key" translatable="false">pref_item_latest_update_key</string>
 
     <string name="pref_category_latest_update_key" translatable="false">pref_category_latest_update_key</string>
-    <string name="pref_category_latest_update_title" translatable="false">Data da última alteração de categoria</string>
+    <string name="pref_category_latest_update_title">Laste category update date</string>
 
     <string name="pref_suit_case_latest_update_key" translatable="false">pref_suit_case_latest_update_key</string>
 
