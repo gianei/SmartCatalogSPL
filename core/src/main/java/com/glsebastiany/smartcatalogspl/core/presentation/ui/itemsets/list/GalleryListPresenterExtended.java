@@ -30,7 +30,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class GalleryListPresenterExtended extends Presenter<GalleryListFragment> {
 
@@ -76,7 +76,7 @@ public class GalleryListPresenterExtended extends Presenter<GalleryListFragment>
 
     private void makeSubcription() {
         restartable(OBSERVABLE_ID,
-                () -> itemsCompositionObservable
+                aVoid -> itemsCompositionObservable
                         .subscribe(
                                 itemExtendedModel -> {
                                     if (getView() != null) {
@@ -104,7 +104,7 @@ public class GalleryListPresenterExtended extends Presenter<GalleryListFragment>
         String query = null;
 
 
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(GalleryListFragment_.SEARCH_QUERY_ARG)) {
                 query = savedState.getString(GalleryListFragment_.SEARCH_QUERY_ARG);
             }
@@ -116,7 +116,7 @@ public class GalleryListPresenterExtended extends Presenter<GalleryListFragment>
         boolean isCategoryIdQuery = false;
 
 
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(GalleryListFragment_.IS_CATEGORY_ID_QUERY_ARG)) {
                 isCategoryIdQuery = savedState.getBoolean(GalleryListFragment_.IS_CATEGORY_ID_QUERY_ARG);
             }

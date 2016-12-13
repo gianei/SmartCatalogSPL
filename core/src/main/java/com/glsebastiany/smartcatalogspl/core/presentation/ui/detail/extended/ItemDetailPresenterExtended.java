@@ -30,7 +30,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class ItemDetailPresenterExtended extends Presenter<ItemDetailFragmentExtended> {
 
@@ -47,8 +47,8 @@ public class ItemDetailPresenterExtended extends Presenter<ItemDetailFragmentExt
         if (categoryId != null) {
             Observable<ItemBasicModel> basicObservable = itemBasicUseCases.find(categoryId);
 
-                itemsObservable = basicObservable
-                        .concatMap(itemBasicModel -> itemExtendedUseCases.load(itemBasicModel.getStringId()));
+            itemsObservable = basicObservable
+                    .concatMap(itemBasicModel -> itemExtendedUseCases.load(itemBasicModel.getStringId()));
 
             itemsObservable = ObservableHelper.setupThreads(itemsObservable.cache());
         } else
@@ -60,8 +60,7 @@ public class ItemDetailPresenterExtended extends Presenter<ItemDetailFragmentExt
         String categoryId = null;
 
 
-
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(ItemDetailFragmentExtended_.ITEM_ID_ARG)) {
                 categoryId = savedState.getString(ItemDetailFragmentExtended_.ITEM_ID_ARG);
             }
@@ -72,10 +71,10 @@ public class ItemDetailPresenterExtended extends Presenter<ItemDetailFragmentExt
     @Override
     public void onAfterViews() {
         restartable(OBSERVABLE_ID,
-                () -> itemsObservable.subscribe(
+                aVoid -> itemsObservable.subscribe(
                         itemExtendedModel -> {
-                            if (getView() != null)
-                                getView().addItem(itemExtendedModel);
+                            if (ItemDetailPresenterExtended.this.getView() != null)
+                                ItemDetailPresenterExtended.this.getView().addItem(itemExtendedModel);
                         },
                         error -> {
                             throw new RuntimeException(error);
@@ -86,5 +85,4 @@ public class ItemDetailPresenterExtended extends Presenter<ItemDetailFragmentExt
         if (isUnsubscribed(OBSERVABLE_ID))
             start(OBSERVABLE_ID);
     }
-
 }

@@ -85,7 +85,7 @@ public class ItemsBasicUpdater implements FirebaseUpdatable {
     @NonNull
     public Set<String> getLocalIds(int expectedSize) {
         Set<String> localItemsIds = new LinkedHashSet<>(expectedSize);
-        List<ItemBasicModel> allItems = itemUseCases.getAll().toList().toBlocking().single();
+        List<ItemBasicModel> allItems = itemUseCases.getAll().toList().blockingGet();
         for (ItemBasicModel item :
                 allItems) {
             localItemsIds.add(item.getStringId());

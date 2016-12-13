@@ -27,7 +27,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class ItemDetailPresenter extends Presenter<ItemDetailFragment> {
 
@@ -55,8 +55,7 @@ public class ItemDetailPresenter extends Presenter<ItemDetailFragment> {
         String categoryId = null;
 
 
-
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(ItemDetailFragment_.ITEM_ID_ARG)) {
                 categoryId = savedState.getString(ItemDetailFragment_.ITEM_ID_ARG);
             }
@@ -66,8 +65,9 @@ public class ItemDetailPresenter extends Presenter<ItemDetailFragment> {
 
     @Override
     public void onAfterViews() {
+
         restartable(OBSERVABLE_ID,
-                () -> itemsObservable.subscribe(
+                aVoid -> itemsObservable.subscribe(
                         itemBasicModel -> {
                             if (getView() != null)
                                 getView().addItem(itemBasicModel);

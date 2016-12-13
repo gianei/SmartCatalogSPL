@@ -28,8 +28,8 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singl
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Observer;
+import io.reactivex.Observable;
+import io.reactivex.observers.ResourceObserver;
 
 public class MainActivityCategoryPagesPresenter extends Presenter<MainActivityCategoryPages> {
 
@@ -39,7 +39,7 @@ public class MainActivityCategoryPagesPresenter extends Presenter<MainActivityCa
 
     private Observable<CategoryModel> categoryModelObservable;
 
-    public MainActivityCategoryPagesPresenter(){
+    public MainActivityCategoryPagesPresenter() {
         categoryUseCases = Singletons.getInstance().categoryUseCases;
     }
 
@@ -48,8 +48,8 @@ public class MainActivityCategoryPagesPresenter extends Presenter<MainActivityCa
     protected void onCreatePresenter(Bundle savedState) {
 
         //TODO
-            categoryModelObservable = ObservableHelper.setupThreads(
-                    categoryUseCases.getAll().delay(2, TimeUnit.SECONDS).skip(2).limit(5).cache());
+        categoryModelObservable = ObservableHelper.setupThreads(
+                categoryUseCases.getAll().delay(2, TimeUnit.SECONDS).skip(2).take(5).cache());
 
     }
 
@@ -60,9 +60,9 @@ public class MainActivityCategoryPagesPresenter extends Presenter<MainActivityCa
 
     private void makeSubcription() {
         restartable(OBSERVABLE_ID,
-                () -> categoryModelObservable.subscribe(new Observer<CategoryModel>() {
+                aVoid -> categoryModelObservable.subscribeWith(new ResourceObserver<CategoryModel>() {
                     @Override
-                    public void onCompleted() {
+                    public void onComplete() {
                         if (getView() != null)
                             getView().stopLoading();
                     }
@@ -84,6 +84,7 @@ public class MainActivityCategoryPagesPresenter extends Presenter<MainActivityCa
 
         if (isUnsubscribed(OBSERVABLE_ID))
             start(OBSERVABLE_ID);
+
     }
 
 }

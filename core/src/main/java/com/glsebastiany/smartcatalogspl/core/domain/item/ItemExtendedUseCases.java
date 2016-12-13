@@ -21,12 +21,15 @@ package com.glsebastiany.smartcatalogspl.core.domain.item;
 
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 
+import org.reactivestreams.Subscriber;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class ItemExtendedUseCases {
 
@@ -37,9 +40,9 @@ public class ItemExtendedUseCases {
     public ItemExtendedUseCases(){}
 
     public Observable<ItemExtendedModel> load(final String itemId){
-        return Observable.create(new Observable.OnSubscribe<ItemExtendedModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemExtendedModel>() {
             @Override
-            public void call(Subscriber<? super ItemExtendedModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemExtendedModel> subscriber) throws Exception {
                 ItemExtendedModel itemExtendedModel = itemExtendedRepository.load(itemId);
 
                 if (itemExtendedModel == null)
@@ -47,29 +50,29 @@ public class ItemExtendedUseCases {
                 else
                     subscriber.onNext(itemExtendedModel);
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
 
     public Observable<ItemExtendedModel> getAll(){
-        return Observable.create(new Observable.OnSubscribe<ItemExtendedModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemExtendedModel>() {
             @Override
-            public void call(Subscriber<? super ItemExtendedModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemExtendedModel> subscriber) throws Exception {
                 for (ItemExtendedModel item:
                         itemExtendedRepository.loadAll()) {
                     subscriber.onNext(item);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
 
     public Observable<ItemExtendedModel> getAllPromoted(){
-        return Observable.create(new Observable.OnSubscribe<ItemExtendedModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemExtendedModel>() {
             @Override
-            public void call(Subscriber<? super ItemExtendedModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemExtendedModel> subscriber) throws Exception {
 
                 for (ItemExtendedModel item:
                         itemExtendedRepository.loadAll()) {
@@ -77,15 +80,15 @@ public class ItemExtendedUseCases {
                         subscriber.onNext(item);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
 
     public Observable<ItemExtendedModel> getAllPromotedOrSale(){
-        return Observable.create(new Observable.OnSubscribe<ItemExtendedModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemExtendedModel>() {
             @Override
-            public void call(Subscriber<? super ItemExtendedModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemExtendedModel> subscriber) throws Exception {
 
                 for (ItemExtendedModel item:
                         itemExtendedRepository.loadAll()) {
@@ -93,15 +96,15 @@ public class ItemExtendedUseCases {
                         subscriber.onNext(item);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
 
     public Observable<ItemExtendedModel> getAllNew(){
-        return Observable.create(new Observable.OnSubscribe<ItemExtendedModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemExtendedModel>() {
             @Override
-            public void call(Subscriber<? super ItemExtendedModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemExtendedModel> subscriber) throws Exception {
                 for (ItemExtendedModel item:
                         itemExtendedRepository.loadAll()) {
 
@@ -109,15 +112,15 @@ public class ItemExtendedUseCases {
                         subscriber.onNext(item);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
 
     public Observable<ItemExtendedModel> getAllSale(){
-        return Observable.create(new Observable.OnSubscribe<ItemExtendedModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemExtendedModel>() {
             @Override
-            public void call(Subscriber<? super ItemExtendedModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemExtendedModel> subscriber) throws Exception {
                 for (ItemExtendedModel item:
                         itemExtendedRepository.loadAll()) {
 
@@ -125,7 +128,7 @@ public class ItemExtendedUseCases {
                         subscriber.onNext(item);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }

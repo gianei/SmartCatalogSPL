@@ -16,6 +16,7 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.glsebastiany.ditlantaapp">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -31,7 +32,9 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="3f87610c1311893e3e73a1ea84457a26181e8786" />
+            android:value="3f87610c1311893e3e73a1ea84457a26181e8786"
+            tools:replace="amdrpod:value"
+            />
 
         <service
             android:name="com.glsebastiany.ditlantaapp.data.imagefetching.ImageFetcherIntentService"

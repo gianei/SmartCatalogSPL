@@ -31,8 +31,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class CategoryUseCasesExtended extends CategoryUseCases{
 
@@ -51,24 +52,24 @@ public class CategoryUseCasesExtended extends CategoryUseCases{
     @Override
     public Observable<ItemBasicModel> allItemsFromCategory(final String categoryId) {
 
-        return Observable.create(new Observable.OnSubscribe<ItemBasicModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemBasicModel>() {
             @Override
-            public void call(Subscriber<? super ItemBasicModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemBasicModel> subscriber) throws Exception {
 
                 List<ItemExtendedModel> promotedItems = null;
 
                 switch (categoryId) {
                     case ID_PROMOTION:
-                        promotedItems = itemExtendedUseCases.getAllPromoted().toList().toBlocking().single();
+                        promotedItems = itemExtendedUseCases.getAllPromoted().toList().blockingGet();
                         break;
                     case ID_SALE:
-                        promotedItems = itemExtendedUseCases.getAllSale().toList().toBlocking().single();
+                        promotedItems = itemExtendedUseCases.getAllSale().toList().blockingGet();
                         break;
                     case ID_NEW:
-                        promotedItems = itemExtendedUseCases.getAllNew().toList().toBlocking().single();
+                        promotedItems = itemExtendedUseCases.getAllNew().toList().blockingGet();
                         break;
                     case ID_PROMOTION_AND_SALE:
-                        promotedItems = itemExtendedUseCases.getAllPromotedOrSale().toList().toBlocking().single();
+                        promotedItems = itemExtendedUseCases.getAllPromotedOrSale().toList().blockingGet();
                         break;
                 }
 
@@ -79,7 +80,7 @@ public class CategoryUseCasesExtended extends CategoryUseCases{
                         subscriber.onNext(item.getItemBasicModel());
                     }
 
-                    subscriber.onCompleted();
+                    subscriber.onComplete();
                     return;
                 }
 
@@ -104,7 +105,7 @@ public class CategoryUseCasesExtended extends CategoryUseCases{
                     subscriber.onNext(item);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }

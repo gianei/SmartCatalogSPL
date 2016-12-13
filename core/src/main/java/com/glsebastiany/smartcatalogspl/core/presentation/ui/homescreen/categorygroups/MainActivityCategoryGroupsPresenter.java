@@ -26,21 +26,19 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singl
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.functions.Func0;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.observers.ResourceObserver;
 
-public class MainActivityCategoryGroupsPresenter extends Presenter<MainActivityCategoryGroups> implements Func0<Subscription> {
+public class MainActivityCategoryGroupsPresenter extends Presenter<MainActivityCategoryGroups> implements Function<Void, Disposable> {
 
     private static int OBSERVABLE_ID = 0;
-
-    private Observable<CategoryGroupModel> observable;
-
     @Inject
     public CategoryGroupUseCases categoryGroupUseCases;
+    private Observable<CategoryGroupModel> observable;
 
-    public MainActivityCategoryGroupsPresenter(){
+    public MainActivityCategoryGroupsPresenter() {
 
         categoryGroupUseCases = Singletons.getInstance().categoryGroupUseCases;
 
@@ -59,10 +57,10 @@ public class MainActivityCategoryGroupsPresenter extends Presenter<MainActivityC
             start(OBSERVABLE_ID);
     }
 
-    public Subscription call() {
-        return observable.subscribe(new Observer<CategoryGroupModel>() {
+    public Disposable apply(Void aVoid) throws Exception {
+        return observable.subscribeWith(new ResourceObserver<CategoryGroupModel>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 if (getView() != null)
                     getView().stopLoading();
             }
@@ -84,4 +82,5 @@ public class MainActivityCategoryGroupsPresenter extends Presenter<MainActivityC
     private Observable<CategoryGroupModel> getCategoryGroupObservable() {
         return categoryGroupUseCases.mainViewCategoriesGroups();
     }
+
 }

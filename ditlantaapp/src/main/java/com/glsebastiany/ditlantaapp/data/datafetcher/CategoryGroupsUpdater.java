@@ -90,7 +90,7 @@ public class CategoryGroupsUpdater implements FirebaseUpdatable {
     @Override
     public Set<String> getLocalIds(int expectedSize) {
         Set<String> localSuitCaseIds = new LinkedHashSet<>(expectedSize);
-        List<CategoryGroupModel> categoryGroupModels = categoryGroupUseCases.loadAll().toList().toBlocking().single();
+        List<CategoryGroupModel> categoryGroupModels = categoryGroupUseCases.loadAll().toList().blockingGet();
 
         for (CategoryGroupModel model:
              categoryGroupModels) {

@@ -25,7 +25,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.google.gms:google-services:3.0.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
@@ -58,8 +58,8 @@ ext {
         applicationId "com.glsebastiany.ditlantaapp"
         minSdkVersion baseMinSdkVersion
         targetSdkVersion baseTargetSdkVersion
-        versionCode 26
-        versionName "3.0.0"
+        versionCode 27
+        versionName "3.1.0"
     }
 
     appInstanceFoodConfig = {
@@ -79,12 +79,12 @@ ext {
         compile 'com.github.bumptech.glide:glide:3.7.0'
     }
 
-    rxAndroidVersion = '1.2.1'
-    rxJavaVersion = '1.2.1'
+    rxAndroidVersion = '2.0.1'
+    rxJavaVersion = '2.0.2'
 
     rxAndroid = {
-        compile "io.reactivex:rxandroid:${rxAndroidVersion}"
-        compile "io.reactivex:rxjava:${rxJavaVersion}"
+        compile "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+        compile "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
     }
 
     javaxInjectVersion = '1'
@@ -92,20 +92,20 @@ ext {
         compile "javax.inject:javax.inject:${javaxInjectVersion}"
     }
 
-    daggerVersion = '2.7'
+    daggerVersion = '2.8'
     dagger = {
         apt "com.google.dagger:dagger-compiler:${daggerVersion}"
         compile "com.google.dagger:dagger:${daggerVersion}"
         provided "org.glassfish:javax.annotation:10.0-b28"
     }
 
-    androidAnnotationsVersion = '4.1.0'
+    androidAnnotationsVersion = '4.2.0'
     androidAnnotations = {
         apt "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
         compile "org.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
     }
 
-    androidSupportVersion = '25.0.0'
+    androidSupportVersion = '25.0.1'
     androidSupport = {
         compile "com.android.support:appcompat-v7:${androidSupportVersion}"
         compile "com.android.support:recyclerview-v7:${androidSupportVersion}"
@@ -123,8 +123,8 @@ ext {
         testCompile 'junit:junit:4.12'
     }
 
-    firebaseVersion = '9.8.0'
-    firebaseUiVersion = '0.6.2'
+    firebaseVersion = '10.0.1'
+    firebaseUiVersion = '1.0.1'
     firebase = {
         compile "com.google.android.gms:play-services-auth:${firebaseVersion}"
         compile "com.google.firebase:firebase-database:${firebaseVersion}"

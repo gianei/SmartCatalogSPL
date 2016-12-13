@@ -29,11 +29,11 @@ import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singl
 
 import java.util.Arrays;
 
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func0;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.observers.ResourceObserver;
 
 public class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragment> {
 
@@ -42,9 +42,9 @@ public class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragment>
     BaseCategoryUseCases categoryUseCases;
 
     private Observable<CategoryModel> categoryModelObservable;
-    private Subscription drawerSubscription;
+    private Disposable drawerDisposable;
 
-    public TabbedGalleryPresenterBase(){
+    public TabbedGalleryPresenterBase() {
         categoryUseCases = Singletons.getInstance().categoryUseCases;
     }
 
@@ -65,7 +65,7 @@ public class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragment>
     protected String[] getCategoriesIdFrom(Bundle savedState) {
         String[] categoriesIds = null;
 
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(TabbedGalleryFragment_.CATEGORIES_ID_EXTRA_ARG)) {
                 categoriesIds = savedState.getStringArray(TabbedGalleryFragment_.CATEGORIES_ID_EXTRA_ARG);
             }
@@ -81,12 +81,12 @@ public class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragment>
 
     private void makeSubcription() {
         restartable(OBSERVABLE_ID,
-                new Func0<Subscription>() {
+                new Function<Void, Disposable>() {
                     @Override
-                    public Subscription call() {
-                        return categoryModelObservable.subscribe(new Observer<CategoryModel>() {
+                    public Disposable apply(Void aVoid) throws Exception {
+                        return categoryModelObservable.subscribeWith(new ResourceObserver<CategoryModel>() {
                             @Override
-                            public void onCompleted() {
+                            public void onComplete() {
                                 if (getView() != null)
                                     getView().stopLoading();
                             }
@@ -95,6 +95,7 @@ public class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragment>
                             public void onError(Throwable e) {
                                 throw new RuntimeException(e);
                             }
+
 
                             @Override
                             public void onNext(CategoryModel categoryModel) {
@@ -110,24 +111,25 @@ public class TabbedGalleryPresenterBase extends Presenter<TabbedGalleryFragment>
 
         if (isUnsubscribed(OBSERVABLE_ID))
             start(OBSERVABLE_ID);
+
     }
 
     public void findDrawerCategories(CategoryModel categoryModel) {
 
-        Observable<CategoryModel> allChildren = ObservableHelper.setupThreads(categoryUseCases.getAllChildren(categoryModel).onBackpressureBuffer());
+        Observable<CategoryModel> allChildren = ObservableHelper.setupThreads(categoryUseCases.getAllChildren(categoryModel));
 
-        if (drawerSubscription!= null ){
-            remove(drawerSubscription);
+        if (drawerDisposable != null) {
+            remove(drawerDisposable);
         }
 
-        drawerSubscription = allChildren.subscribe(new Action1<CategoryModel>() {
+        drawerDisposable = allChildren.subscribe(new Consumer<CategoryModel>() {
             @Override
-            public void call(CategoryModel categoryModel) {
+            public void accept(CategoryModel categoryModel) throws Exception {
                 getView().addDrawerItem(categoryModel);
             }
         });
 
-        add(drawerSubscription);
+        add(drawerDisposable);
 
     }
 }

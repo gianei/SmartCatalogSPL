@@ -91,7 +91,7 @@ public class CategoryUpdater implements FirebaseUpdatable {
     @Override
     public Set<String> getLocalIds( int expectedSize) {
         Set<String> localCategoriesIds = new LinkedHashSet<>(expectedSize);
-        List<CategoryModel> allCategories = categoryUseCases.getAll().toList().toBlocking().single();
+        List<CategoryModel> allCategories = categoryUseCases.getAll().toList().blockingGet();
         for (CategoryModel baseCategory :
                 allCategories) {
             localCategoriesIds.add(baseCategory.getStringId());

@@ -21,12 +21,12 @@ package com.glsebastiany.smartcatalogspl.core.domain.categorygroup;
 import com.glsebastiany.smartcatalogspl.core.data.categorygroup.CategoryGroupModel;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class CategoryGroupUseCases {
 
@@ -37,9 +37,9 @@ public class CategoryGroupUseCases {
     public CategoryGroupUseCases(){}
 
     public Observable<CategoryGroupModel> loadAll(){
-        return Observable.create(new Observable.OnSubscribe<CategoryGroupModel>() {
+        return Observable.create(new ObservableOnSubscribe<CategoryGroupModel>() {
             @Override
-            public void call(Subscriber<? super CategoryGroupModel> subscriber) {
+            public void subscribe(ObservableEmitter<CategoryGroupModel> subscriber) throws Exception {
 
                 List<? extends CategoryGroupModel> categoryGroups = categoryGroupRepository.loadAll();
 
@@ -48,15 +48,15 @@ public class CategoryGroupUseCases {
                     subscriber.onNext(categoryGroupModel);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
 
     public Observable<CategoryGroupModel> mainViewCategoriesGroups(){
-        return Observable.create(new Observable.OnSubscribe<CategoryGroupModel>() {
+        return Observable.create(new ObservableOnSubscribe<CategoryGroupModel>() {
             @Override
-            public void call(Subscriber<? super CategoryGroupModel> subscriber) {
+            public void subscribe(ObservableEmitter<CategoryGroupModel> subscriber) throws Exception {
 
                 List<? extends CategoryGroupModel> categoryGroups = categoryGroupRepository.mainViewCategoriesGroups();
 
@@ -75,7 +75,7 @@ public class CategoryGroupUseCases {
                     subscriber.onNext(categoryGroupModel);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }

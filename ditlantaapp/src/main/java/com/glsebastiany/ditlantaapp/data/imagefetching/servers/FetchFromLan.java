@@ -58,7 +58,7 @@ public class FetchFromLan extends FetchFrom {
         ) {
             imageFetcherNotification.informStatus();
 
-            List<ItemBasicModel> fetchItems = itemBasicUseCases.getAll().toList().toBlocking().single();
+            List<ItemBasicModel> fetchItems = itemBasicUseCases.getAll().toList().blockingGet();
 
             informRequestedImagesQuantity(outputStream, fetchItems.size());
 

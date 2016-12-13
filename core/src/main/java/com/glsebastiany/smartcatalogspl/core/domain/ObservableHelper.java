@@ -18,9 +18,9 @@
 
 package com.glsebastiany.smartcatalogspl.core.domain;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ObservableHelper {
     public static <T> Observable<T> setupThreads(Observable<T> observable){

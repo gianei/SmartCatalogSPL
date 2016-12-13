@@ -25,22 +25,24 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import rx.Subscription;
-import rx.functions.Func0;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 
 public abstract class Presenter<V> {
 
     private static final String REQUESTED_KEY = Presenter.class.getName() + "#requested";
 
-    private final CompositeSubscription subscriptions = new CompositeSubscription();
-    private final HashMap<Integer, Func0<Subscription>> restartables = new HashMap<>();
-    private final HashMap<Integer, Subscription> restartableSubscriptions = new HashMap<>();
+    private final CompositeDisposable disposables = new CompositeDisposable();
+    private final HashMap<Integer, Function<Void, Disposable>> restartables = new HashMap<>();
+    private final HashMap<Integer, Disposable> restartableSubscriptions = new HashMap<>();
     private final ArrayList<Integer> requested = new ArrayList<>();
 
     @Nullable
@@ -48,39 +50,44 @@ public abstract class Presenter<V> {
     private CopyOnWriteArrayList<OnDestroyListener> onDestroyListeners = new CopyOnWriteArrayList<>();
 
     /**
-     * Registers a subscription to automatically unsubscribe it during onDestroy.
-     * See {@link CompositeSubscription#add(Subscription) for details.}
+     * Registers a disposable to automatically dispose it during onDestroy.
+     * See {@link CompositeDisposable#add(Disposable) for details.}
      *
-     * @param subscription a subscription to add.
+     * @param disposable a disposable to add.
      */
-    protected void add(Subscription subscription) {
-        subscriptions.add(subscription);
+    protected void add(Disposable disposable) {
+        disposables.add(disposable);
     }
 
     /**
-     * Removes and unsubscribes a subscription that has been registered with {@link #add} previously.
-     * See {@link CompositeSubscription#remove(Subscription)} for details.
+     * Removes and unsubscribes a disposable that has been registered with {@link #add} previously.
+     * See {@link CompositeDisposable#add(Disposable)} for details.
      *
-     * @param subscription a subscription to remove.
+     * @param disposable a disposable to remove.
      */
-    protected void remove(Subscription subscription) {
-        subscriptions.remove(subscription);
+    protected void remove(Disposable disposable) {
+        disposables.remove(disposable);
     }
 
     /**
      * A restartable is any RxJava observable that can be started (subscribed) and
      * should be automatically restarted (re-subscribed) after a process restart if
      * it was still subscribed at the moment of saving presenter's state.
-     *
+     * <p>
      * Registers a factory. Re-subscribes the restartable after the process restart.
      *
      * @param restartableId id of the restartable
      * @param factory       factory of the restartable
      */
-    protected void restartable(int restartableId, Func0<Subscription> factory) {
-        restartables.put(restartableId, factory);
-        if (requested.contains(restartableId))
-            start(restartableId);
+    protected void restartable(int restartableId, Function<Void, Disposable> factory) {
+        try {
+            restartables.put(restartableId, factory);
+            if (requested.contains(restartableId))
+                start(restartableId);
+        } catch (Exception e) {
+            //will never happen?
+            Crashlytics.logException(e);
+        }
     }
 
     /**
@@ -89,9 +96,14 @@ public abstract class Presenter<V> {
      * @param restartableId id of the restartable
      */
     protected void start(int restartableId) {
-        stop(restartableId);
-        requested.add(restartableId);
-        restartableSubscriptions.put(restartableId, restartables.get(restartableId).call());
+        try {
+            stop(restartableId);
+            requested.add(restartableId);
+            restartableSubscriptions.put(restartableId, restartables.get(restartableId).apply(null));
+        } catch (Exception e) {
+            //will never happen?
+            Crashlytics.logException(e);
+        }
     }
 
     /**
@@ -101,9 +113,9 @@ public abstract class Presenter<V> {
      */
     protected void stop(int restartableId) {
         requested.remove((Integer) restartableId);
-        Subscription subscription = restartableSubscriptions.get(restartableId);
-        if (subscription != null)
-            subscription.unsubscribe();
+        Disposable disposable = restartableSubscriptions.get(restartableId);
+        if (disposable != null)
+            disposable.dispose();
     }
 
     /**
@@ -113,18 +125,18 @@ public abstract class Presenter<V> {
      * @return true if the subscription is null or unsubscribed, false otherwise.
      */
     protected boolean isUnsubscribed(int restartableId) {
-        Subscription subscription = restartableSubscriptions.get(restartableId);
-        return subscription == null || subscription.isUnsubscribed();
+        Disposable disposable = restartableSubscriptions.get(restartableId);
+        return disposable == null || disposable.isDisposed();
     }
 
     /**
      * Returns a current view attached to the presenter or null.
-     *
+     * <p>
      * View is normally available between
      * {@link Activity#onResume()} and {@link Activity#onPause()},
      * {@link Fragment#onResume()} and {@link Fragment#onPause()},
      * {@link android.view.View#onAttachedToWindow()} and {@link android.view.View#onDetachedFromWindow()}.
-     *
+     * <p>
      * Calls outside of these ranges will return null.
      * Notice here that {@link Activity#onActivityResult(int, int, Intent)} is called *before* {@link Activity#onResume()}
      * so you can't use this method as a callback.
@@ -134,17 +146,6 @@ public abstract class Presenter<V> {
     @Nullable
     protected V getView() {
         return view;
-    }
-
-
-    /**
-     * A callback to be invoked when a presenter is about to be destroyed.
-     */
-    public interface OnDestroyListener {
-        /**
-         * Called before {@link Presenter#onDestroyView()}.
-         */
-        void onDestroy();
     }
 
     /**
@@ -165,21 +166,6 @@ public abstract class Presenter<V> {
         onDestroyListeners.remove(listener);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * This method is called after presenter construction.
      * <p>
@@ -188,22 +174,25 @@ public abstract class Presenter<V> {
      * @param savedState If the presenter is being re-instantiated after a process restart then this Bundle
      *                   contains the data it supplied in {@link #onSaveViewInstance(Bundle)}.
      */
-    protected void onCreatePresenter(Bundle savedState) {}
+    protected void onCreatePresenter(Bundle savedState) {
+    }
 
     /**
      * This method is called after a view is created. Take care since some fields such as those defined with findViewById
      * may be null at this point
+     *
      * @param view
      */
     @CallSuper
-    protected void onCreateView(V view){
+    protected void onCreateView(V view) {
         this.view = view;
     }
 
     /**
      * This method is called on creation when the view as filled its view fields with findViewById
      */
-    protected void onAfterViews() {}
+    protected void onAfterViews() {
+    }
 
     /**
      * This method is called after presenter construction and recreation.
@@ -219,7 +208,7 @@ public abstract class Presenter<V> {
      * This method is being called when a view gets detached from the presenter.
      * Normally this happens during {@link Activity#onPause()} ()}, {@link Fragment#onDestroyView()}
      * and {@link android.view.View#onDetachedFromWindow()}.
-     *
+     * <p>
      * This method is intended for overriding.
      */
     @CallSuper
@@ -229,7 +218,7 @@ public abstract class Presenter<V> {
 
     /**
      * This method is being called when a user leaves view.
-     *
+     * <p>
      * This method is intended for overriding.
      */
     @CallSuper
@@ -237,14 +226,14 @@ public abstract class Presenter<V> {
         for (OnDestroyListener listener : onDestroyListeners)
             listener.onDestroy();
 
-        subscriptions.unsubscribe();
-        for (Map.Entry<Integer, Subscription> entry : restartableSubscriptions.entrySet())
-            entry.getValue().unsubscribe();
+        disposables.dispose();
+        for (Map.Entry<Integer, Disposable> entry : restartableSubscriptions.entrySet())
+            entry.getValue().dispose();
     }
 
     /**
      * A returned state is the state that will be passed to {@link #onCreatePresenter} for a new presenter instance after a process restart.
-     *
+     * <p>
      * This method is intended for overriding.
      *
      * @param state a non-null bundle which should be used to put presenter's state into.
@@ -253,11 +242,21 @@ public abstract class Presenter<V> {
     protected void onSaveViewInstance(Bundle state) {
         for (int i = requested.size() - 1; i >= 0; i--) {
             int restartableId = requested.get(i);
-            Subscription subscription = restartableSubscriptions.get(restartableId);
-            if (subscription != null && subscription.isUnsubscribed())
+            Disposable disposable = restartableSubscriptions.get(restartableId);
+            if (disposable != null && disposable.isDisposed())
                 requested.remove(i);
         }
         state.putIntegerArrayList(REQUESTED_KEY, requested);
+    }
+
+    /**
+     * A callback to be invoked when a presenter is about to be destroyed.
+     */
+    public interface OnDestroyListener {
+        /**
+         * Called before {@link Presenter#onDestroyView()}.
+         */
+        void onDestroy();
     }
 
 }

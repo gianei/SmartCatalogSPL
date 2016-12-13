@@ -23,8 +23,7 @@ import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 
 import java.util.List;
 
-import rx.Observable;
-
+import io.reactivex.Observable;
 
 public abstract class BaseCategoryUseCases {
     public abstract Observable<CategoryModel> getAll();

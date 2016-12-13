@@ -28,7 +28,7 @@ import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.Singletons;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class GalleryGridPresenter extends Presenter<GalleryGridFragmentBase> {
 
@@ -69,7 +69,7 @@ public class GalleryGridPresenter extends Presenter<GalleryGridFragmentBase> {
 
     private void makeSubcription() {
         restartable(OBSERVABLE_ID,
-                () -> itemsCompositionObservable
+                aVoid -> itemsCompositionObservable
                         .subscribe(
                                 itemComposition -> {
                                     if (getView() != null) {
@@ -97,7 +97,7 @@ public class GalleryGridPresenter extends Presenter<GalleryGridFragmentBase> {
         String query = null;
 
 
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(GalleryGridFragment_.SEARCH_QUERY_ARG)) {
                 query = savedState.getString(GalleryGridFragment_.SEARCH_QUERY_ARG);
             }
@@ -108,7 +108,7 @@ public class GalleryGridPresenter extends Presenter<GalleryGridFragmentBase> {
     protected boolean getIsCategoryIdQueryFrom(Bundle savedState) {
         boolean isCategoryIdQuery = false;
 
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(GalleryGridFragment_.IS_CATEGORY_ID_QUERY_ARG)) {
                 isCategoryIdQuery = savedState.getBoolean(GalleryGridFragment_.IS_CATEGORY_ID_QUERY_ARG);
             }

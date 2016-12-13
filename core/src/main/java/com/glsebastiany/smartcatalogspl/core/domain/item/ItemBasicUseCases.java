@@ -24,8 +24,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class ItemBasicUseCases {
 
@@ -43,21 +44,21 @@ public class ItemBasicUseCases {
                         subscriber.onNext(item);
                     }
 
-                    subscriber.onCompleted();
+                    subscriber.onComplete();
                 }
         );
     }
 
 
     public Observable<ItemBasicModel> find(final String itemId) {
-        return Observable.create(new Observable.OnSubscribe<ItemBasicModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemBasicModel>() {
             @Override
-            public void call(Subscriber<? super ItemBasicModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemBasicModel> subscriber) throws Exception {
                 ItemBasicModel item = itemBasicRepository.load(itemId);
 
                 if (item != null) {
                     subscriber.onNext(item);
-                    subscriber.onCompleted();
+                    subscriber.onComplete();
                 } else
                     subscriber.onError(new RuntimeException("Item id " + itemId + " was not found!"));
             }
@@ -65,16 +66,16 @@ public class ItemBasicUseCases {
     }
 
     public Observable<ItemBasicModel> query(final String query) {
-        return Observable.create(new Observable.OnSubscribe<ItemBasicModel>() {
+        return Observable.create(new ObservableOnSubscribe<ItemBasicModel>() {
             @Override
-            public void call(Subscriber<? super ItemBasicModel> subscriber) {
+            public void subscribe(ObservableEmitter<ItemBasicModel> subscriber) throws Exception {
                 List<? extends ItemBasicModel> list = itemBasicRepository.query(query);
 
                 for (ItemBasicModel item : list) {
                     subscriber.onNext(item);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }

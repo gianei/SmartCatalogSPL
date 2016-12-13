@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import com.glsebastiany.smartcatalogspl.core.data.category.CategoryModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
-import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 
 import org.greenrobot.greendao.DaoException;
 
@@ -37,8 +36,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class CategoryUseCases extends BaseCategoryUseCases {
 
@@ -53,24 +53,24 @@ public class CategoryUseCases extends BaseCategoryUseCases {
 
     @Override
     public Observable<CategoryModel>  getAll() {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>() {
+        return Observable.create(new ObservableOnSubscribe<CategoryModel>() {
             @Override
-            public void call(Subscriber<? super CategoryModel> subscriber) {
+            public void subscribe(ObservableEmitter<CategoryModel> subscriber) throws Exception {
                 for (CategoryModel categoryModel :
                         categoryRepository.loadAll()) {
                     subscriber.onNext(categoryModel);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
 
     @Override
     public Observable<CategoryModel> getAllChildren(final CategoryModel category) {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>() {
+        return Observable.create(new ObservableOnSubscribe<CategoryModel>() {
             @Override
-            public void call(Subscriber<? super CategoryModel> subscriber) {
+            public void subscribe(ObservableEmitter<CategoryModel> subscriber) throws Exception {
                 LinkedList<CategoryModel> categories = new LinkedList<>();
                 fillSubCategoriesId(categories, category);
 
@@ -78,7 +78,7 @@ public class CategoryUseCases extends BaseCategoryUseCases {
                     subscriber.onNext(categoryModel);
                 }
 
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
@@ -106,15 +106,15 @@ public class CategoryUseCases extends BaseCategoryUseCases {
                         subscriber.onNext(item);
                     }
 
-                    subscriber.onCompleted();
+                    subscriber.onComplete();
                 }
         );
     }
 
     @NonNull
     protected List<String> getSubcategoriesIds(String categoryId) {
-        CategoryModel category = findCategory(categoryId).toBlocking().single();
-        List<CategoryModel> categoryModels = getAllChildren(category).toList().toBlocking().single();
+        CategoryModel category = findCategory(categoryId).blockingFirst();
+        List<CategoryModel> categoryModels = getAllChildren(category).toList().blockingGet();
 
         List<String> categoryModelsIds = new ArrayList<>(categoryModels.size());
         for (CategoryModel categoryModel :
@@ -188,15 +188,15 @@ public class CategoryUseCases extends BaseCategoryUseCases {
 
     @Override
     public Observable<CategoryModel> findCategory(final String categoryId) {
-        return Observable.create(new Observable.OnSubscribe<CategoryModel>() {
+        return Observable.create(new ObservableOnSubscribe<CategoryModel>() {
             @Override
-            public void call(Subscriber<? super CategoryModel> subscriber) {
+            public void subscribe(ObservableEmitter<CategoryModel> subscriber) throws Exception {
                 CategoryModel category = categoryRepository.load(categoryId);
                 if (category == null){
                     subscriber.onError(new Throwable("Category with id " + categoryId + " not found."));
                 }
                 subscriber.onNext(category);
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }

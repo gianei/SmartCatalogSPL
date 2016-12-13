@@ -29,8 +29,9 @@ import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicUseCases;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemExtendedUseCases;
 import com.glsebastiany.smartcatalogspl.core.presentation.mvpFramework.Presenter;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.configuration.SingletonsExtended;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.itemsets.grid.GalleryGridFragmentBase;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class GalleryGridPresenterExtended extends Presenter<GalleryGridFragmentExtended> {
 
@@ -76,7 +77,7 @@ public class GalleryGridPresenterExtended extends Presenter<GalleryGridFragmentE
 
     private void makeSubcription() {
         restartable(OBSERVABLE_ID,
-                () -> itemsCompositionObservable
+                aVoid -> itemsCompositionObservable
                         .subscribe(
                                 itemExtendedModel -> {
                                     if (getView() != null) {
@@ -104,7 +105,7 @@ public class GalleryGridPresenterExtended extends Presenter<GalleryGridFragmentE
         String query = null;
 
 
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(GalleryGridFragmentExtended_.SEARCH_QUERY_ARG)) {
                 query = savedState.getString(GalleryGridFragmentExtended_.SEARCH_QUERY_ARG);
             }
@@ -116,7 +117,7 @@ public class GalleryGridPresenterExtended extends Presenter<GalleryGridFragmentE
         boolean isCategoryIdQuery = false;
 
 
-        if (savedState!= null) {
+        if (savedState != null) {
             if (savedState.containsKey(GalleryGridFragmentExtended_.IS_CATEGORY_ID_QUERY_ARG)) {
                 isCategoryIdQuery = savedState.getBoolean(GalleryGridFragmentExtended_.IS_CATEGORY_ID_QUERY_ARG);
             }
