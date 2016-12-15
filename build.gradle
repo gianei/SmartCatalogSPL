@@ -105,7 +105,7 @@ ext {
         compile "org.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
     }
 
-    androidSupportVersion = '25.0.1'
+    androidSupportVersion = '25.1.0'
     androidSupport = {
         compile "com.android.support:appcompat-v7:${androidSupportVersion}"
         compile "com.android.support:recyclerview-v7:${androidSupportVersion}"
