@@ -18,13 +18,11 @@
 
 package com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.migration;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.DaoMaster;
 
 import org.greenrobot.greendao.database.Database;
 
-public class MigrateV0ToV1 extends MigrationImpl {
+public class MigrateV1ToV2 extends MigrationImpl {
 
     /**
      * {@inheritDoc}
@@ -34,6 +32,8 @@ public class MigrateV0ToV1 extends MigrationImpl {
                               int currentVersion) {
         prepareMigration(db, currentVersion);
 
+        //db.execSQL("ALTER TABLE ITEM_BASIC_ENTITY ADD ASCII_NAME TEXT;");
+        //instead of adding fields, clean the database to force repopulation of fields
         DaoMaster.dropAllTables(db, false);
         DaoMaster.createAllTables(db, false);
 
@@ -53,7 +53,7 @@ public class MigrateV0ToV1 extends MigrationImpl {
      */
     @Override
     public int getMigratedVersion() {
-        return 0;
+        return 2;
     }
 
     /**

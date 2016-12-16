@@ -23,6 +23,7 @@ import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemExtendedModel;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemBasicEntity;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.item.ItemExtendedEntity;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import java.util.Date;
 
@@ -103,6 +104,7 @@ public class FirebaseItem {
                 id,
                 category,
                 name,
+                Utils.removeAccents(name),
                 getPrice().floatValue(),
                 "descr",
                 getPhotoUrl());

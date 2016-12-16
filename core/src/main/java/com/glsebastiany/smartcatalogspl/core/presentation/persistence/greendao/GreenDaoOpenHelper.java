@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.DaoMaster;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.category.DaoSession;
-import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.migration.MigrateV0ToV1;
+import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.migration.MigrateV1ToV2;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -40,8 +40,8 @@ public class GreenDaoOpenHelper extends DaoMaster.OpenHelper {
     @Override
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
         switch (newVersion) {
-            case 1:
-                new MigrateV0ToV1().applyMigration(db, oldVersion);
+            case 2:
+                new MigrateV1ToV2().applyMigration(db, oldVersion);
                 break;
             default:
                 return;

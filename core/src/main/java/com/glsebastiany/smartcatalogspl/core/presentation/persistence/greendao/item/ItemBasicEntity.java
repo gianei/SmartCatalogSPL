@@ -42,6 +42,8 @@ public class ItemBasicEntity implements ItemBasicModel {
 
     private String name;
 
+    private String asciiName;
+
     private float price;
 
     private String description;
@@ -56,12 +58,13 @@ public class ItemBasicEntity implements ItemBasicModel {
     @Generated(hash = 217926426)
     private transient ItemBasicEntityDao myDao;
 
-    @Generated(hash = 1937004657)
-    public ItemBasicEntity(Long id, Long categoryId, String name, float price,
+    @Generated(hash = 2007369091)
+    public ItemBasicEntity(Long id, Long categoryId, String name, String asciiName, float price,
             String description, String imageUrl) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
+        this.asciiName = asciiName;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -202,6 +205,14 @@ public class ItemBasicEntity implements ItemBasicModel {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getItemBasicEntityDao() : null;
+    }
+
+    public String getAsciiName() {
+        return this.asciiName;
+    }
+
+    public void setAsciiName(String asciiName) {
+        this.asciiName = asciiName;
     }
 
 

@@ -23,10 +23,14 @@ import android.content.Context;
 import com.glsebastiany.smartcatalogspl.core.data.item.ItemBasicModel;
 import com.glsebastiany.smartcatalogspl.core.domain.item.ItemBasicRepository;
 import com.glsebastiany.smartcatalogspl.core.presentation.persistence.greendao.GreenDaoOpenHelper;
+import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Permutations;
 import com.glsebastiany.smartcatalogspl.core.presentation.ui.widget.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -51,16 +55,50 @@ public class ItemBasicGreendaoRepository implements ItemBasicRepository {
 
     @Override
     public List<? extends ItemBasicModel> query(String query) {
-        String myQuery = query.trim();
-        myQuery = myQuery.replaceAll("\\s+", " "); //only allow one whitespace between words
-        myQuery = myQuery.replaceAll(" ", "%"); //insert wild card between words
-        myQuery = myQuery.replaceAll("[^\\p{ASCII}]", "_"); //replace accents for any character
-        ItemBasicEntityDao itemDao = GreenDaoOpenHelper.daoSession(context).getItemBasicEntityDao();
+        query = Utils.removeAccents(query).trim();
+        query = query.replaceAll("\\s+", " "); //only allow one whitespace between words
+        String splitQuery[] = query.split(" "); //split to generate other or wheres
+        query = query.replaceAll(" ", "%"); //insert wild card between words
 
+        ItemBasicEntityDao itemDao = GreenDaoOpenHelper.daoSession(context).getItemBasicEntityDao();
+        Set<ItemBasicModel> returnList = new LinkedHashSet<>();
+
+        //first search id
+        returnList.addAll(
+                searchId(query, itemDao)
+        );
+
+        //second list strings
+        if (splitQuery.length == 1) { // only one word
+            returnList.addAll( searchString(query, itemDao));
+
+        } else if ( splitQuery.length <= 5) { // search for all permutations
+            Permutations<String> queryPermutations = new Permutations<>(splitQuery);
+            while (queryPermutations.hasNext()) {
+                String queryPermutation[] = queryPermutations.next();
+                returnList.addAll(
+                        searchString(Utils.stringJoin(Arrays.asList(queryPermutation), "%"), itemDao)
+                );
+            }
+
+        } else { // too much permutations, search only one order
+            returnList.addAll(searchString(query, itemDao));
+        }
+
+        return new ArrayList<>(returnList);
+
+    }
+
+    private List<ItemBasicEntity> searchId(String query, ItemBasicEntityDao itemDao) {
         return itemDao.queryBuilder()
-                .whereOr(
-                        ItemBasicEntityDao.Properties.Id.eq(myQuery),
-                        ItemBasicEntityDao.Properties.Name.like("%" + myQuery + "%"))
+            .where(ItemBasicEntityDao.Properties.Id.eq(query))
+            .list();
+    }
+
+    private List<ItemBasicEntity> searchString(String query, ItemBasicEntityDao itemDao) {
+        return itemDao.queryBuilder()
+                .where(
+                        ItemBasicEntityDao.Properties.AsciiName.like("%" + query + "%"))
                 .list();
     }
 

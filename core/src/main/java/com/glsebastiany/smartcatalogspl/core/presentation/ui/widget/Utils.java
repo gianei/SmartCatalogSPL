@@ -28,7 +28,10 @@ import android.os.Build.VERSION_CODES;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import java.text.Normalizer;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -150,4 +153,20 @@ public class Utils {
         return "http://res.cloudinary.com/smartcatalog/image/upload/v" + (new Date().getTime() / 1000) + "/ditlanta/items/";
     }
 
+    public static String removeAccents(String query) {
+        return Normalizer.normalize(query, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "");
+    }
+
+    public static String stringJoin(Collection<String> s, String delimiter) {
+        if (s == null || s.isEmpty()) return "";
+
+        Iterator<String> iter = s.iterator();
+        StringBuilder builder = new StringBuilder(iter.next());
+        while( iter.hasNext() )
+        {
+            builder.append(delimiter).append(iter.next());
+        }
+        return builder.toString();
+    }
 }
