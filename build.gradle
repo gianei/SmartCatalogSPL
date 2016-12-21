@@ -59,7 +59,7 @@ ext {
         minSdkVersion baseMinSdkVersion
         targetSdkVersion baseTargetSdkVersion
         versionCode 27
-        versionName "3.1.0"
+        versionName "3.0.1"
     }
 
     appInstanceFoodConfig = {
