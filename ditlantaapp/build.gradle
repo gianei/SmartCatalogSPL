@@ -49,6 +49,10 @@ android {
             buildConfigField 'String', 'FIREBASE_URL', '"https://smartcatalog.firebaseio.com"'
         }
     }
+
+    dexOptions {
+        jumboMode true
+    }
 }
 
 dependencies androidAnnotations
